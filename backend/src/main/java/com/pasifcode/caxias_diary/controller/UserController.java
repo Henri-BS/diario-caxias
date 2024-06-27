@@ -1,8 +1,10 @@
 package com.pasifcode.caxias_diary.controller;
 
+import com.pasifcode.caxias_diary.dto.UserDto;
 import com.pasifcode.caxias_diary.entity.User;
 import com.pasifcode.caxias_diary.service.interf.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,25 +19,26 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    @Lazy
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
-    public String register(@RequestBody User user) {
-        User existingUser = userService.findByEmail(user.getEmail());
+    public String register(@RequestBody UserDto dto) {
+        User existingUser = userService.findByEmail(dto.getEmail());
         if (existingUser != null) {
-            return "Email already exists";
+            return "Email já cadastrado";
         }
-        userService.saveUser(user);
-        return "User registered successfully";
+        userService.saveUser(dto);
+        return "Cadastrado";
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody User user) {
-        User existingUser = userService.findByEmail(user.getEmail());
-        if (existingUser != null && passwordEncoder.matches(user.getPassword(), existingUser.getPassword())) {
-            return "Login successful";
+    public String login(@RequestBody UserDto dto) {
+        User existingUser = userService.findByEmail(dto.getEmail());
+        if (existingUser != null && passwordEncoder.matches(dto.getPassword(), existingUser.getPassword())) {
+            return "Conectado";
         } else {
-            return "Invalid credentials";
+            return "Dados inválidos";
         }
     }
 }
