@@ -14,26 +14,26 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "tb_user")
-public class User {
+@Table(name = "tb_post")
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(nullable = false)
-    private String firstName;
+    private String title;
 
-    private String lastName;
+    @Column(columnDefinition = "TEXT")
+    private String body;
 
-    private String email;
+    private String image;
 
-    private String password;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    private String role;
-
-    @OneToMany(mappedBy = "user")
-    private Set<Post> posts = new HashSet<>();
-
+    @OneToMany(mappedBy = "post")
+    private Set<PostCategory> postCategory = new HashSet<>();
 }

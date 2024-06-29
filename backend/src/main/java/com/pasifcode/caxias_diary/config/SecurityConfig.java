@@ -58,6 +58,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests.requestMatchers("/api/register", "/api/login").permitAll()
+
                                 .requestMatchers(toH2Console()).permitAll()
                                 .anyRequest().authenticated()
                 )

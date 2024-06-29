@@ -14,26 +14,23 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "tb_user")
-public class User {
+@Table(name = "tb_category")
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "category_id")
     private Long id;
 
-    @Column(nullable = false)
-    private String firstName;
+    @Column(nullable = false, unique = true)
+    private String name;
 
-    private String lastName;
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
-    private String email;
+    private String image;
 
-    private String password;
-
-    private String role;
-
-    @OneToMany(mappedBy = "user")
-    private Set<Post> posts = new HashSet<>();
+    @OneToMany(mappedBy = "category")
+    private Set<PostCategory> postCategory = new HashSet<>();
 
 }
