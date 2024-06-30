@@ -1,13 +1,14 @@
-export type User = {
+export type Post = {
   id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
+  title: string;
+  body: string;
+  image: string;
+  userId: number;
+  userName: string;
 };
 
-export type UserPage = {
-  content?: User[];
+export type PostPage = {
+  content?: Post[];
   size?: number;
   pageNumber?: number;
   numberOfElements?: number;
@@ -19,6 +20,6 @@ export type UserPage = {
   last?: boolean;
 };
 
-export type UserProps = {
-  user: User;
+export type PostProps = {
+  post: Post;
 };
