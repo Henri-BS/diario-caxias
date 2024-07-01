@@ -1,8 +1,9 @@
+import { Category } from "./category";
 import { Post } from "./post";
 import { User } from "./user";
 
 export type Page = {
-    content?: Post[] | User[] ;
+    content?: Post[] | User[] | Category[];
     last?: boolean;
     totalElements?: number;
     totalPages?: number;

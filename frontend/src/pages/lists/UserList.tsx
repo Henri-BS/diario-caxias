@@ -1,26 +1,26 @@
 import axios from "axios";
-import { PostMdCard } from "components/cards/PostCard";
-import { PostAddForm } from "components/forms/PostForm";
+import { UserMdCard } from "components/cards/UserCard";
+import { UserRegisterForm } from "components/forms/UserForm";
 import Pagination from "components/shared/Pagination";
-import { useState, useEffect } from "react";
-import { PostPage } from "types/post";
+import { useEffect, useState } from "react";
+import { UserPage } from "types/user";
 import { BASE_URL } from "utils/requests";
 
-export function PostList() {
+export function UserList() {
     const [value, setValue] = useState("");
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
     }
 
-    const [postPage, setPostPage] = useState<PostPage>({
+    const [userPage, setUserPage] = useState<UserPage>({
         content: [],
         number: 0
     });
     useEffect(() => {
-        axios.get(`${BASE_URL}/post/list?page=${pageNumber}&name=${value}&size=20`)
+        axios.get(`${BASE_URL}/user/list?page=${pageNumber}&name=${value}&size=20`)
             .then((response) => {
-                setPostPage(response.data);
+                setUserPage(response.data);
             });
     }, [pageNumber, value]);
 
@@ -29,10 +29,10 @@ export function PostList() {
             <div className="container">
                 <nav className="navbar row m-0">
                     <div className="col-12 col-md-4 col-xl-4 mb-2" >
-                        <button data-bs-target="#addPostModal" data-bs-toggle="modal" className="btn btn-success">Adicionar Publicação</button>
+                        <button data-bs-target="#addUserModal" data-bs-toggle="modal" className="btn btn-success">Adicionar Categoria</button>
                     </div>
                     <div className="col-12 col-md-4 col-xl-3 mt-2" >
-                        <Pagination page={postPage} onPageChange={handlePageChange} />
+                        <Pagination page={userPage} onPageChange={handlePageChange} />
                     </div>
                     <div className="col-12 col-md-4 col-xl-3 mb-2" >
                         <div className="form-group">
@@ -49,26 +49,26 @@ export function PostList() {
                 </nav >
 
                 <div className="row">
-                    {postPage.content?.filter((x) =>
-                        x.title.toUpperCase().includes(value.toLocaleUpperCase()))
+                    {userPage.content?.filter((x) =>
+                        x.firstName.toUpperCase().includes(value.toLocaleUpperCase()))
                         .map(x => (
                             <div key={x.id} className="col-12 col-md-6 col-xl-3 mb-3">
-                                <PostMdCard post={x} />
+                                <UserMdCard user={x} />
                             </div>
                         ))}
                 </div>
             </div>
 
-            <div className="modal fade" id="addPostModal" role={"dialog"}>
+            <div className="modal fade" id="addUserModal" role={"dialog"}>
                 <div className="modal-dialog" role={"document"}>
                     <div className="modal-content">
                         <div className="modal-header">
-                            <label className="modal-title">Adicionar uma nova publicação</label>
+                            <label className="modal-title">Cadastrar</label>
                             <button className="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true"><i className="fa fa-times" /></span>
                             </button>
                         </div>
-                        <div className="modal-body"><PostAddForm /></div>
+                        <div className="modal-body"><UserRegisterForm /></div>
                     </div>
                 </div>
             </div>

@@ -3,6 +3,10 @@ import Home from "pages/main/Home";
 import { UserLoginForm, UserRegisterForm } from "components/forms/UserForm";
 import { PostList } from "pages/lists/PostList";
 import { PostProfile } from "pages/profiles/PostProfile";
+import { CategoryList } from "pages/lists/CategoryList";
+import { CategoryProfile } from "pages/profiles/CategoryProfile";
+import { UserList } from "pages/lists/UserList";
+import { UserProfile } from "pages/profiles/UserProfile";
 
 function PageRoutes() {
     return (
@@ -14,6 +18,14 @@ function PageRoutes() {
                 <Route path="/postagens" element={<PostList />} />
                 <Route path="/postagem" >
                     <Route path=":postId" element={<PostProfile />} />
+                </Route>
+                <Route path="/categorias" element={<CategoryList />} />
+                <Route path="/categoria" >
+                    <Route path=":categoryId" element={<CategoryProfile />} />
+                </Route>
+                <Route path="/usuarios" element={<UserList />} />
+                <Route path="/usuario" >
+                    <Route path=":usuarioId" element={<UserProfile />} />
                 </Route>
             </Routes>
         </BrowserRouter>

@@ -1,14 +1,13 @@
-export type User = {
+export type Category = {
   id: number;
-  firstName: string;
-  lastName: string;
+  name: string;
+  description: string;
   image: string;
-  email: string;
-  password: string;
+  postId: number;
 };
 
-export type UserPage = {
-  content?: User[];
+export type CategoryPage = {
+  content?: Category[];
   size?: number;
   pageNumber?: number;
   numberOfElements?: number;
@@ -20,6 +19,6 @@ export type UserPage = {
   last?: boolean;
 };
 
-export type UserProps = {
-  user: User;
+export type CategoryProps = {
+  category: Category;
 };
