@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
@@ -17,9 +19,9 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("/list")
-    ResponseEntity<Page<CategoryDto>> findAllCategories(@RequestParam(defaultValue = "") String name, Pageable pageable) {
-        Page<CategoryDto> find = categoryService.findAllCategories(name, pageable);
-        return ResponseEntity.ok(find);
+    ResponseEntity<List<CategoryDto>> findAllCategories(@RequestParam(defaultValue = "") String name) {
+        List<CategoryDto> list = categoryService.findAllCategories(name);
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/{id}")

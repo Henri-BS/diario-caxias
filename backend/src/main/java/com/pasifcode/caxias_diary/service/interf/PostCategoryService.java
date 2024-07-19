@@ -1,6 +1,5 @@
 package com.pasifcode.caxias_diary.service.interf;
 
-import com.pasifcode.caxias_diary.dto.CategoryDto;
 import com.pasifcode.caxias_diary.dto.PostCategoryDto;
 import com.pasifcode.caxias_diary.entity.Post;
 import org.springframework.data.domain.Page;
@@ -10,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface PostCategoryService {
 
     @Transactional(readOnly = true)
-    Page<PostCategoryDto> findAllPostCategories(Post post, Pageable pageable);
+    Page<PostCategoryDto> findByPost(Post post, Pageable pageable);
 
     @Transactional(readOnly = true)
     PostCategoryDto findPostCategoryById(Long id);

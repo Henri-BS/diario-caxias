@@ -6,13 +6,13 @@ import { Category, CategoryProps } from "types/category";
 import { Props } from "types/main";
 import { BASE_URL } from "utils/requests";
 
-export function CategoryMdCard({category }: CategoryProps) {
+export function CategoryMdCard({ category }: CategoryProps) {
 
     return (
         <>
             <Link to={`/categoria/${category.id}`} className="text-decoration-none">
-                <div className="card">
-                    <img src={category.image} className="card-img-top" alt="..." />
+                <div className="card border-0">
+                    <img src={category.image} className="card-img-top " alt="..." />
                     <div className="card-body">
                         <h5 className="card-title">{category.name}</h5>
                         <p className="card-text">{category.description}</p>
@@ -23,6 +23,20 @@ export function CategoryMdCard({category }: CategoryProps) {
     );
 }
 
+export function CategoryCard({ category }: CategoryProps) {
+    return (
+        <Link to={`/categoria/${category.id}`} className="text-decoration-none">
+        <div className="card card-profile border-0 disable-text-selection">
+            <div className="card-avatar">
+                <img className="img" src={category.image} />
+            </div>
+            <div className="card-body">
+                <h6 className="card-title">{category.name}</h6>
+            </div>
+        </div>
+        </Link>
+    );
+}
 
 export function CategoryLgCard({ id: categoryId }: Props) {
 

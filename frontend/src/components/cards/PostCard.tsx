@@ -11,13 +11,19 @@ export function PostMdCard({ post }: PostProps) {
     return (
         <>
             <Link to={`/postagem/${post.id}`} className="text-decoration-none">
-                <div className="card">
-                    <img src={post.image} className="card-img-top" alt="..." />
-                    <div className="card-body">
-                        <h5 className="card-title">{post.title}</h5>
-                        <p className="card-text">{post.userId}</p>
+            <div className="card card-lg-container" >
+                <div className="row g-0">
+                    <div className="col-5 card-lg-img">
+                        <img src={post?.image} className=" img-fluid rounded-start" width={"200"} height={"200"} alt="..." />
+                    </div>
+                    <div className="col-7">
+                        <div className="card-body">
+                            <h5 className="card-title">{post?.title}</h5>
+                            <p className="card-text">{post.userFirstName} {post.userLastName}</p>
+                        </div>
                     </div>
                 </div>
+            </div>
             </Link>
         </>
     );
@@ -47,29 +53,30 @@ export function PostLgCard({ id: postId }: Props) {
         <>
             <div className="card mb-3" >
                 <div className="row g-0">
-                    <div className="col-md-4">
-                        <img src={post?.image} className="img-fluid rounded-start" alt="..." />
+                    <div className="col-md-6">
+                        <img src={post?.image} className="img-fluid " alt="..." />
                     </div>
-                    <div className="col-md-8">
+                    <div className="col-md-6">
                         <div className="card-body">
                             <h5 className="card-title">{post?.title}</h5>
-                            <p className="card-text">{post?.userId}</p>
                             <p className="card-text">
-                                <Link to={`/dept/${post?.userId}`} className="text-decoration-none">{post?.userName}</Link>
+                                <Link to={`/usuario/${post?.userId}`} className="text-decoration-none">{post?.userFirstName} {post?.userLastName}</Link>
                             </p>
                         </div>
                     </div>
-                    <p>{post?.body}</p>
+                    
                 </div>
             </div>
-            <nav className="d-flex justify-content-start">
+            <nav className="d-flex justify-content-start mb-5">
                 <button className="btn btn-primary" data-bs-target="#postEditModal" data-bs-toggle="modal">
                     Editar
                 </button>
                 <button className="btn btn-danger" data-bs-target="#postDeleteModal" data-bs-toggle="modal">
                     Deletar
                 </button>
-            </nav>
+            </nav>                
+            <p>{post?.body}</p>
+
             <div className="modal fade" id="postEditModal" role={"dialog"}>
                 <div className="modal-dialog" role={"document"}>
                     <div className="modal-content">

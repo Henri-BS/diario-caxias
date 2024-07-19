@@ -20,6 +20,8 @@ public class PostDto implements Serializable {
     private String body;
     private String image;
     private Long userId;
+    private String userFirstName;
+    private String userLastName;
 
     public PostDto(Post entity) {
         id = entity.getId();
@@ -27,5 +29,7 @@ public class PostDto implements Serializable {
         body = entity.getBody();
         image = entity.getImage();
         userId = entity.getUser().getId();
+        userFirstName = entity.getUser().getFirstName();
+    userLastName =entity.getUser().getLastName();
     }
 }

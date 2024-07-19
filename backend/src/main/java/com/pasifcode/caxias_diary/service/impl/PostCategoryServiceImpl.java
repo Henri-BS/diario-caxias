@@ -30,8 +30,8 @@ public class PostCategoryServiceImpl implements PostCategoryService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<PostCategoryDto> findAllPostCategories(Post post, Pageable pageable) {
-        Page<PostCategory> find = postCategoryRepository.findAllPostCategories(post, pageable);
+    public Page<PostCategoryDto> findByPost(Post post, Pageable pageable) {
+        Page<PostCategory> find = postCategoryRepository.findByPost(post, pageable);
         return find.map(PostCategoryDto::new);
     }
 

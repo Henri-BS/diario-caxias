@@ -6,13 +6,38 @@ import { User, UserProps } from "types/user";
 import { Props } from "types/main";
 import { BASE_URL } from "utils/requests";
 
+
+export function UserCard({user}: UserProps) {
+    return (
+        <Link to={`/usuario/${user.id}`} className="text-decoration-none">
+        <div className="card user-md-card user-card">
+            <div className="card-block">
+                <div className="user-image">
+                    <img src={user.image} className="img-radius" alt="User-Profile-Image" />
+                </div>
+                <h6 className="f-w-600 m-t-25 m-b-10">{user.firstName} {user.lastName}</h6>
+                <p className="text-muted">Active | Male | Born 23.05.1992</p>
+                <hr/>
+                <p className="m-t-15 text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <hr/>
+                <div className="row justify-content-center user-social-link">
+                    <div className="col-auto"><a href="#!"><i className="fa fa-facebook text-facebook"></i></a></div>
+                    <div className="col-auto"><a href="#!"><i className="fa fa-twitter text-twitter"></i></a></div>
+                    <div className="col-auto"><a href="#!"><i className="fa fa-dribbble text-dribbble"></i></a></div>
+                </div>
+            </div>
+        </div>
+    </Link>
+    );
+}
+
 export function UserMdCard({user }: UserProps) {
 
     return (
         <>
             <Link to={`/usuario/${user.id}`} className="text-decoration-none">
                 <div className="card">
-                    <img src={user.image} className="card-img-top" alt="..." />
+                    <img src={user.image} className="" alt="..." />
                     <div className="card-body">
                         <h5 className="card-title">{user.firstName} {user.lastName}</h5>
                     </div>
@@ -23,13 +48,14 @@ export function UserMdCard({user }: UserProps) {
 }
 
 
+
 export function UserLgCard({ id: userId }: Props) {
 
     const navigate = useNavigate();
     const params = useParams();
     const [user, setUser] = useState<User>();
     useEffect(() => {
-        axios.get(`${BASE_URL}/user/${userId}`)
+        axios.get(`${BASE_URL}/api/user/${userId}`)
             .then((response) => {
                 setUser(response.data);
             });
@@ -70,7 +96,7 @@ export function UserLgCard({ id: userId }: Props) {
                         <div className="modal-header">
                             <label className="modal-title">Editar</label>
                         </div>
-                        <div className="modal-body"><UserEditForm id={`${params.userId}`} /></div>
+                        {/*<div className="modal-body"><UserEditForm id={`${params.userId}`} /></div>*/}
                     </div>
                 </div>
             </div>

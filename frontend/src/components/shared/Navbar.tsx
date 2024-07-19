@@ -1,26 +1,29 @@
 import { Link } from "react-router-dom";
+import Logo from "assets/img/logo_cx.png";
+
 function Navbar() {
 
 
   return (
     <nav className="navbar navbar-expand-lg  navbar-dark bg-dark">
-      <Link to={"/"} className="navbar-brand">
-        <h1>Diário Caxias</h1>
+      <Link to={"/"} className="navbar-brand nav p-2">
+      <img src={Logo} alt="logo" width={36} height={36}/>
+        <h4>Diário Caxias</h4>
       </Link>
       <div className="collapse navbar-collapse" id="navbar">
         <ul className="navbar-nav">
           <li className="nav-item">
             <Link className="nav-link" to={"/"}>Início </Link>
           </li>
+     
+          <li className="nav-item">
+            <Link className="nav-link" to={"/postagens"}>Postagens</Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to={"/categorias"}>Categorias</Link>
+          </li>     
           <li className="nav-item">
             <Link className="nav-link" to={"/usuarios"}>Usuários</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to={"/categorias"}>Categorias</Link>
-          </li>
-          
-          <li className="nav-item">
-            <Link className="nav-link" to={"/categorias"}>Categorias</Link>
           </li>
         </ul>
       </div>

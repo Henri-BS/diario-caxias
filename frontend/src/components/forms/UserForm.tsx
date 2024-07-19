@@ -187,7 +187,6 @@ export function UserEditForm({ id: userId }: Props) {
         } catch (error) {
             setMessage('Dados inválidos');
         }
-
     };
 
     return (

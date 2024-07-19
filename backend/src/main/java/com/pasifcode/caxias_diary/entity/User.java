@@ -27,6 +27,8 @@ public class User {
 
     private String lastName;
 
+    private String image;
+
     private String email;
 
     private String password;

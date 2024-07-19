@@ -18,8 +18,8 @@ public class PostCategoryController {
     private PostCategoryService postCategoryService;
 
     @GetMapping("/list")
-    ResponseEntity<Page<PostCategoryDto>> findAllPostCategories(Post post, Pageable pageable) {
-        Page<PostCategoryDto> find = postCategoryService.findAllPostCategories(post, pageable);
+    ResponseEntity<Page<PostCategoryDto>> findByPost(Post post, Pageable pageable) {
+        Page<PostCategoryDto> find = postCategoryService.findByPost(post, pageable);
         return ResponseEntity.ok(find);
     }
 

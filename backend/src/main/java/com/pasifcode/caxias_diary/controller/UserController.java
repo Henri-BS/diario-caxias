@@ -5,11 +5,11 @@ import com.pasifcode.caxias_diary.entity.User;
 import com.pasifcode.caxias_diary.service.interf.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -21,6 +21,22 @@ public class UserController {
     @Autowired
     @Lazy
     private PasswordEncoder passwordEncoder;
+
+    @GetMapping("/user/list")
+    public ResponseEntity<Page<UserDto>> findAll(
+            @RequestParam(defaultValue = "") String firstName,
+            @RequestParam(defaultValue = "") String lastName,
+            Pageable pageable
+            ){
+        Page<UserDto> page = userService.findAll(firstName, lastName, pageable);
+        return ResponseEntity.ok(page);
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<UserDto> findUserById(@PathVariable Long id) {
+        UserDto find = userService.findUserById(id);
+        return ResponseEntity.ok(find);
+    }
 
     @PostMapping("/register")
     public String register(@RequestBody UserDto dto) {

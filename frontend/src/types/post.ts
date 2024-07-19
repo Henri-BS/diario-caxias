@@ -4,7 +4,8 @@ export type Post = {
   body: string;
   image: string;
   userId: number;
-  userName: string;
+  userFirstName: string;
+  userLastName: string;
 };
 
 export type PostPage = {

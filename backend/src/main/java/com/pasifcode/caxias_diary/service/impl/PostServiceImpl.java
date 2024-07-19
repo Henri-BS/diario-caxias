@@ -12,12 +12,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class PostServiceImpl implements PostService {
 
     @Autowired
-    private PostRepository PostRepository;
+    private PostRepository postRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -25,17 +27,25 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional(readOnly = true)
     public Page<PostDto> findAllPosts(String title, Pageable pageable) {
-        Page<Post> find = PostRepository.findAllPosts(title, pageable);
+        Page<Post> find = postRepository.findAllPosts(title, pageable);
         return find.map(PostDto::new);
     }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PostDto> findByUser(User user) {
+        List<Post> list = postRepository.findByUser(user);
+        return list.stream().map(PostDto::new).toList();
+    }
+
 
     @Override
     @Transactional(readOnly = true)
     public PostDto findPostById(Long id) {
-        Post find = PostRepository.findById(id).orElseThrow();
+        Post find = postRepository.findById(id).orElseThrow();
         return new PostDto(find);
     }
-
 
     @Override
     public PostDto savePost(PostDto dto) {
@@ -46,22 +56,22 @@ public class PostServiceImpl implements PostService {
         add.setBody(dto.getBody());
         add.setImage(dto.getImage());
         add.setUser(user);
-        return new PostDto(PostRepository.saveAndFlush(add));
+        return new PostDto(postRepository.saveAndFlush(add));
     }
 
     @Override
     public PostDto updatePost(PostDto dto) {
-        Post edit = PostRepository.findById(dto.getId()).orElseThrow();
+        Post edit = postRepository.findById(dto.getId()).orElseThrow();
 
         edit.setId(edit.getId());
         edit.setTitle(dto.getTitle());
         edit.setImage(dto.getImage());
         edit.setBody(dto.getBody());
-        return new PostDto(PostRepository.save(edit));
+        return new PostDto(postRepository.save(edit));
     }
 
     @Override
     public void deletePost(Long id) {
-        this.PostRepository.deleteById(id);
+        this.postRepository.deleteById(id);
     }
 }

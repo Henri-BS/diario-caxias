@@ -13,12 +13,9 @@ export function PostList() {
         setPageNumber(newPageNumber);
     }
 
-    const [postPage, setPostPage] = useState<PostPage>({
-        content: [],
-        number: 0
-    });
+    const [postPage, setPostPage] = useState<PostPage>({ content: [], number: 0});
     useEffect(() => {
-        axios.get(`${BASE_URL}/post/list?page=${pageNumber}&name=${value}&size=20`)
+        axios.get(`${BASE_URL}/post/list?page=${pageNumber}&name=${value}&size=10`)
             .then((response) => {
                 setPostPage(response.data);
             });
@@ -52,7 +49,7 @@ export function PostList() {
                     {postPage.content?.filter((x) =>
                         x.title.toUpperCase().includes(value.toLocaleUpperCase()))
                         .map(x => (
-                            <div key={x.id} className="col-12 col-md-6 col-xl-3 mb-3">
+                            <div key={x.id} className="col-12 col-md-6 mb-3">
                                 <PostMdCard post={x} />
                             </div>
                         ))}

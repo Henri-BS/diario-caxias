@@ -1,15 +1,63 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  font-family: "Noto Sans", sans-serif;
+  background: #e2e2e2;
 }
-
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
-a {
-    color: black;
-    transition: all 0.2s ease-in-out;
+::-webkit-scrollbar {
+  border-radius: 0px 8px 8px 0px;
+  background-color: transparent;
+  height: 6px;
+  margin: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #5e5e5e;
+  border: 1px solid #949494;
+  border-radius: 8px;
+}
+
+.disable-text-selection{
+  -webkit-user-select: none; 
+  -moz-user-select: none;    
+  -ms-user-select: none;     
+  user-select: none;         
+}
+
+@keyframes colorChange {
+  0% { background-color: #ff0000; } 
+  25% { background-color: #00ff00; }
+  50% { background-color: #0000ff; }
+  100% { background-color: #ff0000; }
+}
+
+.color-animation {
+  width: 100%;
+  height: 4px;
+  animation: colorChange 5s forwards infinite;
+}
+
+
+.list-horizontal-container {
+  max-height: 300px;
+  display: flex;
+  width: 100%;
+  overflow-x: scroll;
+  border-bottom: 1px solid #ccc;
+}
+
+.list-horizontal-item {
+  padding: 8px;
+  margin: 4px;
 }

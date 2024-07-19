@@ -3,13 +3,12 @@ package com.pasifcode.caxias_diary.service.impl;
 import com.pasifcode.caxias_diary.dto.CategoryDto;
 import com.pasifcode.caxias_diary.entity.Category;
 import com.pasifcode.caxias_diary.repository.CategoryRepository;
-import com.pasifcode.caxias_diary.repository.UserRepository;
 import com.pasifcode.caxias_diary.service.interf.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -18,14 +17,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @Autowired
-    private UserRepository userRepository;
 
     @Override
     @Transactional(readOnly = true)
-    public Page<CategoryDto> findAllCategories(String name, Pageable pageable) {
-        Page<Category> find = categoryRepository.findAllPostCategories(name, pageable);
-        return find.map(CategoryDto::new);
+    public List<CategoryDto> findAllCategories(String name) {
+        List<Category> list = categoryRepository.findAllPostCategories(name);
+        return list.stream().map(CategoryDto::new).toList();
     }
 
     @Override

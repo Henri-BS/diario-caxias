@@ -7,8 +7,9 @@ export function PostProfile() {
 
     return (
         <>
-            <div className="container">
-                <PostLgCard id={`${params.postId}`} />               
+                <PostLgCard id={`${params.postId}`} />                
+                <div className="container">
+           
             </div>
         </>
     );

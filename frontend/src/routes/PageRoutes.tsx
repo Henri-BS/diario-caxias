@@ -7,10 +7,12 @@ import { CategoryList } from "pages/lists/CategoryList";
 import { CategoryProfile } from "pages/profiles/CategoryProfile";
 import { UserList } from "pages/lists/UserList";
 import { UserProfile } from "pages/profiles/UserProfile";
+import Navbar from "components/shared/Navbar";
 
 function PageRoutes() {
     return (
         <BrowserRouter>
+        <Navbar/>
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/register" element={<UserRegisterForm />} />
@@ -25,7 +27,7 @@ function PageRoutes() {
                 </Route>
                 <Route path="/usuarios" element={<UserList />} />
                 <Route path="/usuario" >
-                    <Route path=":usuarioId" element={<UserProfile />} />
+                    <Route path=":userId" element={<UserProfile />} />
                 </Route>
             </Routes>
         </BrowserRouter>

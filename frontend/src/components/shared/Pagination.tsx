@@ -11,7 +11,7 @@ function Pagination({ page, onPageChange }: PageProps) {
             <ul className="pagination">
                 <li className={`page-item ${page.first ? `disable` : ''}`}>
                     <button className="page-link" onClick={() => onPageChange(page.number - 1)} aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
+                        <span aria-hidden="true">Anterior</span>
                     </button>
                 </li>
 
@@ -21,7 +21,7 @@ function Pagination({ page, onPageChange }: PageProps) {
 
                 <li className={`page-item ${page.last ? `disabled` : ''}`}>
                     <button className="page-link" onClick={() => onPageChange(page.number + 1)} aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
+                        <span aria-hidden="true">Próximo</span>
                     </button>
                 </li>
             </ul>
