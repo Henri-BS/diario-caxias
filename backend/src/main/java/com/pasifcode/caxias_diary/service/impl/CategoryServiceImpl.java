@@ -1,7 +1,7 @@
 package com.pasifcode.caxias_diary.service.impl;
 
 import com.pasifcode.caxias_diary.dto.CategoryDto;
-import com.pasifcode.caxias_diary.entity.Category;
+import com.pasifcode.caxias_diary.domain.entity.Category;
 import com.pasifcode.caxias_diary.repository.CategoryRepository;
 import com.pasifcode.caxias_diary.service.interf.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;

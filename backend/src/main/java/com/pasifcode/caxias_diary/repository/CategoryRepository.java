@@ -1,6 +1,6 @@
 package com.pasifcode.caxias_diary.repository;
 
-import com.pasifcode.caxias_diary.entity.Category;
+import com.pasifcode.caxias_diary.domain.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

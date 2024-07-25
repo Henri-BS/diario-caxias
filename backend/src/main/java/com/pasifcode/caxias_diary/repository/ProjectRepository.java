@@ -1,7 +1,7 @@
 package com.pasifcode.caxias_diary.repository;
 
-import com.pasifcode.caxias_diary.entity.Post;
-import com.pasifcode.caxias_diary.entity.User;
+import com.pasifcode.caxias_diary.domain.entity.Project;
+import com.pasifcode.caxias_diary.domain.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,11 +11,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PostRepository extends JpaRepository<Post, Long>{
+public interface ProjectRepository extends JpaRepository<Project, Long>{
 
-    @Query("SELECT obj FROM Post obj WHERE UPPER(obj.title)" +
+    @Query("SELECT obj FROM Project obj WHERE UPPER(obj.title)" +
             " LIKE UPPER(CONCAT('%', ?1, '%')) ORDER BY obj.title")
-    Page<Post> findAllPosts(String title, Pageable pageable);
+    Page<Project> findAllPosts(String title, Pageable pageable);
 
-    List<Post> findByUser(User user);
+    List<Project> findByUser(User user);
 }

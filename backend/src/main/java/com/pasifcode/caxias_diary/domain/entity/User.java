@@ -1,4 +1,4 @@
-package com.pasifcode.caxias_diary.entity;
+package com.pasifcode.caxias_diary.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -36,6 +36,6 @@ public class User {
     private String role;
 
     @OneToMany(mappedBy = "user")
-    private Set<Post> posts = new HashSet<>();
+    private Set<Project> projects = new HashSet<>();
 
 }

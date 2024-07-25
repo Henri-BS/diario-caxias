@@ -1,7 +1,7 @@
 package com.pasifcode.caxias_diary.controller;
 
 import com.pasifcode.caxias_diary.dto.PostCategoryDto;
-import com.pasifcode.caxias_diary.entity.Post;
+import com.pasifcode.caxias_diary.domain.entity.Project;
 import com.pasifcode.caxias_diary.service.interf.PostCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,8 +18,8 @@ public class PostCategoryController {
     private PostCategoryService postCategoryService;
 
     @GetMapping("/list")
-    ResponseEntity<Page<PostCategoryDto>> findByPost(Post post, Pageable pageable) {
-        Page<PostCategoryDto> find = postCategoryService.findByPost(post, pageable);
+    ResponseEntity<Page<PostCategoryDto>> findByPost(Project project, Pageable pageable) {
+        Page<PostCategoryDto> find = postCategoryService.findByPost(project, pageable);
         return ResponseEntity.ok(find);
     }
 

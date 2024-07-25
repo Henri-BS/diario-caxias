@@ -1,6 +1,6 @@
 package com.pasifcode.caxias_diary.repository;
 
-import com.pasifcode.caxias_diary.entity.User;
+import com.pasifcode.caxias_diary.domain.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

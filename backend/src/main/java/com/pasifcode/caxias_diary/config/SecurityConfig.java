@@ -1,6 +1,6 @@
 package com.pasifcode.caxias_diary.config;
 
-import com.pasifcode.caxias_diary.entity.User;
+import com.pasifcode.caxias_diary.domain.entity.User;
 import com.pasifcode.caxias_diary.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -60,7 +60,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                 )
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests.requestMatchers(
-                                "/api/**", "/post/**", "/category/**").permitAll()
+                                "/**").permitAll()
                                 .requestMatchers(toH2Console()).permitAll()
                                 .anyRequest().authenticated()
                 )

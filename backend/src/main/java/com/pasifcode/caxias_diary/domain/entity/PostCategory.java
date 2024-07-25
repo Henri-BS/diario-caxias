@@ -1,4 +1,4 @@
-package com.pasifcode.caxias_diary.entity;
+package com.pasifcode.caxias_diary.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,6 +26,6 @@ public class PostCategory {
 
     @ManyToOne
     @JoinColumn(name = "post_id")
-    private Post post;
+    private Project project;
 
 }

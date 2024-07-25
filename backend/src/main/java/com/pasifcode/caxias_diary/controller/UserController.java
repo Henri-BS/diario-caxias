@@ -1,7 +1,7 @@
 package com.pasifcode.caxias_diary.controller;
 
 import com.pasifcode.caxias_diary.dto.UserDto;
-import com.pasifcode.caxias_diary.entity.User;
+import com.pasifcode.caxias_diary.domain.entity.User;
 import com.pasifcode.caxias_diary.service.interf.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;

@@ -1,7 +1,7 @@
 package com.pasifcode.caxias_diary.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.pasifcode.caxias_diary.entity.User;
+import com.pasifcode.caxias_diary.domain.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

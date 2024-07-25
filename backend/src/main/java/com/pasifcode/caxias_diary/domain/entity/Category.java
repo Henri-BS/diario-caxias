@@ -1,4 +1,4 @@
-package com.pasifcode.caxias_diary.entity;
+package com.pasifcode.caxias_diary.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,26 +14,23 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "tb_post")
-public class Post {
+@Table(name = "tb_category")
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "category_id")
     private Long id;
 
-    @Column(nullable = false)
-    private String title;
+    @Column(nullable = false, unique = true)
+    private String name;
 
     @Column(columnDefinition = "TEXT")
-    private String body;
+    private String description;
 
     private String image;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "category")
     private Set<PostCategory> postCategory = new HashSet<>();
+
 }

@@ -1,8 +1,7 @@
 package com.pasifcode.caxias_diary.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.pasifcode.caxias_diary.entity.Category;
-import com.pasifcode.caxias_diary.entity.PostCategory;
+import com.pasifcode.caxias_diary.domain.entity.PostCategory;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,8 +23,8 @@ public class PostCategoryDto implements Serializable {
 
     public PostCategoryDto(PostCategory entity) {
         id = entity.getId();
-        postId = entity.getPost().getId();
-        postTitle = entity.getPost().getTitle();
+        postId = entity.getProject().getId();
+        postTitle = entity.getProject().getTitle();
         categoryId = entity.getCategory().getId();
         categoryName = entity.getCategory().getName();
     }
