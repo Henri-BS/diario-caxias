@@ -35,8 +35,5 @@ public class Project {
     private User user;
 
     @OneToMany(mappedBy = "project")
-    private Set<PostCategory> postCategory = new HashSet<>();
-
-    @OneToMany(mappedBy = "project")
     private Set<Event> events = new HashSet<>();
 }

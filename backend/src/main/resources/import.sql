@@ -44,12 +44,11 @@ INSERT INTO tb_project (title, body, image, user_id) VALUES ('Reflorestamento', 
 INSERT INTO tb_project (title, body, image, user_id) VALUES ('Segurança Escolar',                   'Nesta publicação, veja mais sobre quais conteúdos didáticos, eventos e atividades que estão relacionadas a Segurança Escolar em Caxias', 'https://www.orcali.com.br/wp-content/uploads/2021/07/blog.png', 3);
 INSERT INTO tb_project (title, body, image, user_id) VALUES ('Epreendedorismo e Microempresas',     'Nesta publicação, veja mais sobre quais conteúdos didáticos, eventos e atividades que estão relacionadas a Empreendedorismos e Microempresas em Caxias', 'https://www.dashboarddesign.com.br/wp-content/uploads/2020/01/shutterstock_780647377.jpg', 9);
 
-INSERT INTO tb_status (description, icon) VALUES ('Programado', 'https://cdn3.iconfinder.com/data/icons/flat-icons-web/40/Tree_Alt-1024.png');
-INSERT INTO tb_status (description, icon) VALUES ('Finalizado', 'https://cdn3.iconfinder.com/data/icons/flat-icons-web/40/Tree_Alt-1024.png');
-INSERT INTO tb_status (description, icon) VALUES ('Indefinido', 'https://cdn3.iconfinder.com/data/icons/flat-icons-web/40/Tree_Alt-1024.png');
+INSERT INTO tb_event (title, description, image, date, season, status, project_id) VALUES ('Evento 1', 'Descrição do evento 1', 'https://www.dashboarddesign.com.br/wp-content/uploads/2020/01/shutterstock_780647377.jpg', '2024-04-01', 'VERAO', 'Finalizado', 1);
+INSERT INTO tb_event (title, description, image, date, season, status, project_id) VALUES ('Evento 2', 'Descrição do evento 2', 'https://www.dashboarddesign.com.br/wp-content/uploads/2020/01/shutterstock_780647377.jpg', '2024-09-07', 'VERAO', 'Programado', 1);
+INSERT INTO tb_event (title, description, image, date, season, status, project_id) VALUES ('Evento 3', 'Descrição do evento 3', 'https://www.dashboarddesign.com.br/wp-content/uploads/2020/01/shutterstock_780647377.jpg', '2024-10-15', 'VERAO', 'Adiado', 1);
 
-INSERT INTO tb_event (title, description, image, date, season, status_id, project_id) VALUES ('Evento 2', 'Descrição do evento 2', 'https://www.dashboarddesign.com.br/wp-content/uploads/2020/01/shutterstock_780647377.jpg', '2024-05-01', 'VERAO', 1, 1);
-INSERT INTO tb_event (title, description, image, date, season, status_id, project_id) VALUES ('Evento 3', 'Descrição do evento 3', 'https://www.dashboarddesign.com.br/wp-content/uploads/2020/01/shutterstock_780647377.jpg', '2024-06-15', 'VERAO', 1, 1);
+INSERT INTO tb_event_user (user_id, event_id) VALUES (1,1);
 
 INSERT INTO tb_category (name, description, image) VALUES ('Meio Ambiente', 'A categoria de Meio Ambiente está relacionada a gestão ambiental municipal, assegurando a preservação do meio ambiente e do desenvolvimento sustentável', 'https://cdn3.iconfinder.com/data/icons/flat-icons-web/40/Tree_Alt-1024.png');
 INSERT INTO tb_category (name, description, image) VALUES ('Arquitetura e Moradia', 'A categoria de Arquitetura está relacionada a arquitetura, a gestão do urbanismo e a acessibilidade na moradia', 'https://cdn2.iconfinder.com/data/icons/buildings-2-7/135/135-1024.png');

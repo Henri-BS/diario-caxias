@@ -2,6 +2,7 @@ package com.pasifcode.caxias_diary.dto;
 
 import com.pasifcode.caxias_diary.domain.entity.Event;
 import com.pasifcode.caxias_diary.domain.enums.Season;
+import com.pasifcode.caxias_diary.domain.enums.Status;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,7 +23,7 @@ public class EventDto implements Serializable {
     private LocalDate date;
     private String image;
     private Season season;
-    private String status;
+    private Status status;
     private Long projectId;
     private String projectTitle;
 
@@ -33,7 +34,7 @@ public class EventDto implements Serializable {
         date = entity.getDate();
         image = entity.getImage();
         season = entity.getSeason();
-        status = entity.getStatus().getDescription();
+        status = entity.getStatus();
         projectId = entity.getProject().getId();
         projectTitle = entity.getProject().getTitle();
     }

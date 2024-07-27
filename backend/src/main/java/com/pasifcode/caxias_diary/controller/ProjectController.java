@@ -52,7 +52,7 @@ public class ProjectController {
 
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deletePost(Long id) {
+    void deletePost(@PathVariable Long id) {
         this.projectService.deletePost(id);
     }
 }

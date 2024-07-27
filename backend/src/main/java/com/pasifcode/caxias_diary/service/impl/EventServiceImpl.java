@@ -1,13 +1,12 @@
 package com.pasifcode.caxias_diary.service.impl;
 
-import com.pasifcode.caxias_diary.domain.entity.Status;
 import com.pasifcode.caxias_diary.domain.enums.Season;
+import com.pasifcode.caxias_diary.domain.enums.Status;
 import com.pasifcode.caxias_diary.dto.EventDto;
 import com.pasifcode.caxias_diary.domain.entity.Event;
 import com.pasifcode.caxias_diary.domain.entity.Project;
 import com.pasifcode.caxias_diary.repository.EventRepository;
 import com.pasifcode.caxias_diary.repository.ProjectRepository;
-import com.pasifcode.caxias_diary.repository.StatusRepository;
 import com.pasifcode.caxias_diary.service.interf.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,8 +25,6 @@ public class EventServiceImpl implements EventService {
     @Autowired
     private ProjectRepository projectRepository;
 
-    @Autowired
-    private StatusRepository statusRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -46,7 +43,6 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventDto saveEvent(EventDto dto) {
         Project project = projectRepository.findById(dto.getProjectId()).orElseThrow();
-        Status status = statusRepository.findByDescription(dto.getStatus());
 
         Event add = new Event();
         add.setTitle(dto.getTitle());
@@ -54,16 +50,18 @@ public class EventServiceImpl implements EventService {
         add.setImage(dto.getImage());
         add.setDate(dto.getDate());
         add.setSeason(dto.getSeason());
-        add.setStatus(status);
+        add.setStatus(dto.getStatus());
         add.setProject(project);
 
         if (add.getTitle() == null ||
                 add.getImage() == null ||
-                add.getStatus() == null
+                add.getStatus() == null ||
+                add.getSeason() == null
         ) {
             add.setTitle("Evento " + (eventRepository.findByProject(project).size() + 1) + " do projeto " + add.getProject().getTitle());
             add.setImage("https://cdn0.iconfinder.com/data/icons/communcations-ono-system-core/30/event_available-1024.png");
-            add.setStatus(statusRepository.findByDescription("Indefinido"));
+            add.setStatus(Status.value("Indefinido"));
+            add.setSeason(Season.value("Indefinido"));
         }
 
         return new EventDto(eventRepository.saveAndFlush(add));
@@ -72,7 +70,6 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventDto updateEvent(EventDto dto) {
         Event edit = eventRepository.findById(dto.getId()).orElseThrow();
-        Status status = statusRepository.findByDescription(dto.getStatus());
 
         edit.setId(edit.getId());
         edit.setTitle(dto.getTitle());
@@ -80,7 +77,7 @@ public class EventServiceImpl implements EventService {
         edit.setImage(dto.getImage());
         edit.setDate(dto.getDate());
         edit.setSeason(dto.getSeason());
-        edit.setStatus(status);
+        edit.setStatus(dto.getStatus());
 
         return new EventDto(eventRepository.save(edit));
     }

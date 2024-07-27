@@ -30,7 +30,5 @@ public class Category {
 
     private String image;
 
-    @OneToMany(mappedBy = "category")
-    private Set<PostCategory> postCategory = new HashSet<>();
 
 }

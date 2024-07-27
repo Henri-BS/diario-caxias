@@ -1,13 +1,13 @@
 package com.pasifcode.caxias_diary.domain.entity;
 
 import com.pasifcode.caxias_diary.domain.enums.Season;
+import com.pasifcode.caxias_diary.domain.enums.Status;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,11 +34,13 @@ public class Event {
     @Enumerated(EnumType.STRING)
     private Season season;
 
-    @ManyToOne
-    @JoinColumn(name = "status_id")
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
+
+    @OneToMany(mappedBy = "event")
+    private Set<EventUser> eventUsers = new HashSet<>();
 }

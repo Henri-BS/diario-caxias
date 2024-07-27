@@ -1,16 +1,12 @@
 package com.pasifcode.caxias_diary.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -38,4 +34,21 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Project> projects = new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    private Set<EventUser> eventUsers = new HashSet<>();
+
+    public User(Long id, String firstName, String lastName, String image, String email, String password, String role, Set<Project> projects, Set<EventUser> eventUsers) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.image = image;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.projects = projects;
+        this.eventUsers = eventUsers;
+    }
+
+    public User() {
+    }
 }
