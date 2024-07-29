@@ -2,8 +2,8 @@ package com.pasifcode.caxias_diary.controller;
 
 import com.pasifcode.caxias_diary.dto.CategoryDto;
 import com.pasifcode.caxias_diary.service.interf.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +19,8 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("/list")
-    ResponseEntity<List<CategoryDto>> findAllCategories(@RequestParam(defaultValue = "") String name) {
-        List<CategoryDto> list = categoryService.findAllCategories(name);
+    ResponseEntity<Page<CategoryDto>> findAllCategories(@RequestParam(defaultValue = "") String name, Pageable pageable) {
+        Page<CategoryDto> list = categoryService.findAllCategories(name, pageable);
         return ResponseEntity.ok(list);
     }
 

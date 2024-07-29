@@ -28,7 +28,6 @@ public class Category {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    private String image;
-
-
+    @OneToMany(mappedBy = "category")
+    private Set<EventCategory> eventCategories = new HashSet<>();
 }

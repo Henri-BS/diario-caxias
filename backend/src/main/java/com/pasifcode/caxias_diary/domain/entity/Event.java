@@ -43,4 +43,7 @@ public class Event {
 
     @OneToMany(mappedBy = "event")
     private Set<EventUser> eventUsers = new HashSet<>();
+
+    @OneToMany(mappedBy = "event")
+    private Set<EventCategory> eventCategories = new HashSet<>();
 }
