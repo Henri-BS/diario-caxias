@@ -20,39 +20,38 @@ public class ProjectController {
     private ProjectService projectService;
 
     @GetMapping("/list")
-    ResponseEntity<Page<ProjectDto>> findAllPosts(@RequestParam(defaultValue = "") String title, Pageable pageable) {
-        Page<ProjectDto> page = projectService.findAllPosts(title, pageable);
+    ResponseEntity<Page<ProjectDto>> findAllProjects(@RequestParam(defaultValue = "") String title, Pageable pageable) {
+        Page<ProjectDto> page = projectService.findAllProjects(pageable);
         return ResponseEntity.ok(page);
     }
 
     @GetMapping("/list-by-user/{user}")
-    ResponseEntity<List<ProjectDto>> findAllPosts(@PathVariable User user) {
+    ResponseEntity<List<ProjectDto>> findAllProjects(@PathVariable User user) {
         List<ProjectDto> list = projectService.findByUser(user);
         return ResponseEntity.ok(list);
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<ProjectDto> findPostById(@PathVariable Long id) {
-        ProjectDto find = projectService.findPostById(id);
+    ResponseEntity<ProjectDto> findProjectById(@PathVariable Long id) {
+        ProjectDto find = projectService.findProjectById(id);
         return ResponseEntity.ok(find);
     }
 
-
     @PostMapping("/save")
-    ResponseEntity<ProjectDto> savePost(@RequestBody ProjectDto dto) {
-        ProjectDto add = projectService.savePost(dto);
+    ResponseEntity<ProjectDto> saveProject(@RequestBody ProjectDto dto) {
+        ProjectDto add = projectService.saveProject(dto);
         return new ResponseEntity<>(add, HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    ResponseEntity<ProjectDto> updatePost(@RequestBody ProjectDto dto) {
-        ProjectDto edit = projectService.updatePost(dto);
+    ResponseEntity<ProjectDto> updateProject(@RequestBody ProjectDto dto) {
+        ProjectDto edit = projectService.updateProject(dto);
         return new ResponseEntity<>(edit, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deletePost(@PathVariable Long id) {
-        this.projectService.deletePost(id);
+    void deleteProject(@PathVariable Long id) {
+        this.projectService.deleteProject(id);
     }
 }

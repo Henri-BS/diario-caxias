@@ -1,9 +1,10 @@
 import { Category } from "./category";
-import { Post } from "./post";
+import { Project } from "./project";
 import { User } from "./user";
+import { Event } from "./event";
 
 export type Page = {
-    content?: Post[] | User[] | Category[];
+    content?: Project[] | User[] | Category[] | Event[];
     last?: boolean;
     totalElements?: number;
     totalPages?: number;

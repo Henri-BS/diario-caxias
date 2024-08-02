@@ -1,5 +1,6 @@
 package com.pasifcode.caxias_diary.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,7 @@ public class User {
 
     private String email;
 
+    @JsonIgnore
     private String password;
 
     private String role;

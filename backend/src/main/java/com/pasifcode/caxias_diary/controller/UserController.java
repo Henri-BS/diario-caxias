@@ -23,12 +23,12 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/user/list")
-    public ResponseEntity<Page<UserDto>> findAll(
+    public ResponseEntity<Page<UserDto>> findAllUsers(
             @RequestParam(defaultValue = "") String firstName,
             @RequestParam(defaultValue = "") String lastName,
             Pageable pageable
             ){
-        Page<UserDto> page = userService.findAll(firstName, lastName, pageable);
+        Page<UserDto> page = userService.findAllUsers(pageable);
         return ResponseEntity.ok(page);
     }
 

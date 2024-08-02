@@ -1,26 +1,36 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Category } from "types/category";
 import { Props } from "types/main";
+import { Event } from "types/event";
 import { BASE_URL } from "utils/requests";
+import { Project } from "types/project";
 
-export function CategoryAddForm() {
+export function EventAddForm({id: projectId}: Props) {
     const navigate = useNavigate();
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        const name = (event.target as any).name.value;
-        const image = (event.target as any).image.value;
-        const description = (event.target as any).description.value;
+    const [project, setProject] = useState<Project>();
+    useEffect(() => {
+        axios.get(`${BASE_URL}/project/${projectId}`)
+            .then((response) => {
+                setProject(response.data);
+            })
+    }, [projectId]);
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        const title = (e.target as any).title.value;
+        const image = (e.target as any).image.value;
+        const description = (e.target as any).description.value;
 
         const config: AxiosRequestConfig = {
             baseURL: BASE_URL,
             method: "POST",
-            url: "/category/save",
+            url: "/event/save",
             data: {
-                name: name,
+                title: title,
                 image: image,
-                description: description
+                description: description,
+                projectId: projectId
             }
         };
         axios(config).then(response => {
@@ -52,29 +62,29 @@ export function CategoryAddForm() {
     );
 }
 
-export function CategoryEditForm({ id: categoryId }: Props) {
+export function EventEditForm({ id: eventId }: Props) {
 
-    const [category, setCategory] = useState<Category>();
+    const [event, setEvent] = useState<Event>();
     useEffect(() => {
-        axios.get(`${BASE_URL}/category/${categoryId}`)
+        axios.get(`${BASE_URL}/event/${eventId}`)
             .then((response) => {
-                setCategory(response.data);
+                setEvent(response.data);
             })
-    }, [categoryId])
+    }, [eventId])
 
     const navigate = useNavigate();
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        const name = (event.target as any).name.value;
-        const image = (event.target as any).image.value;
-        const description = (event.target as any).description.value;
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        const title = (e.target as any).title.value;
+        const image = (e.target as any).image.value;
+        const description = (e.target as any).description.value;
 
         const config: AxiosRequestConfig = {
             baseURL: BASE_URL,
             method: "PUT",
-            url: "/category/update",
+            url: "/event/update",
             data: {
-                id: categoryId,
-                name: name,
+                id: eventId,
+                title: title,
                 image: image,
                 description: description
             }
@@ -87,13 +97,18 @@ export function CategoryEditForm({ id: categoryId }: Props) {
     return (
         <form className=" form-container" onSubmit={handleSubmit}>
             <div className="form-group">
-                <label htmlFor="name">Título: </label>
-                <input type="text" className="form-control" id="name" defaultValue={category?.name}/>
+                <label htmlFor="title">Título: </label>
+                <input type="text" className="form-control" id="title" defaultValue={event?.title}/>
+            </div>
+
+            <div className="form-group">
+                <label htmlFor="image">Imagem: </label>
+                <input type="text" className="form-control" id="image" defaultValue={event?.image}/>
             </div>
 
             <div className="form-group">
                 <label htmlFor="description">Descrição: </label>
-                <input className="form-control" id="description" defaultValue={category?.description}/>
+                <input className="form-control" id="description" defaultValue={event?.description}/>
             </div>
             <div className="modal-footer">
                 <button type="button" className="text-close" data-bs-dismiss="modal">cancelar</button>

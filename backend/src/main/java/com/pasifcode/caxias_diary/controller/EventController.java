@@ -19,7 +19,10 @@ public class EventController {
     private EventService eventService;
 
     @GetMapping("/list-by-project/{project}")
-    ResponseEntity<Page<EventDto>> findAllEvents(@PathVariable Project project, Pageable pageable) {
+    ResponseEntity<Page<EventDto>> findAllEvents(
+            @PathVariable Project project,
+            @RequestParam(defaultValue = "") String title,
+            Pageable pageable) {
         Page<EventDto> page = eventService.findByProject(project, pageable);
         return ResponseEntity.ok(page);
     }

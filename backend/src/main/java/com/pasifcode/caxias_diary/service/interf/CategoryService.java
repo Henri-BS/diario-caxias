@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface CategoryService {
-    Page<CategoryDto> findAllCategories(String title, Pageable pageable);
+    Page<CategoryDto> findAllCategories(Pageable pageable);
 
     CategoryDto findCategoryById(Long id);
 

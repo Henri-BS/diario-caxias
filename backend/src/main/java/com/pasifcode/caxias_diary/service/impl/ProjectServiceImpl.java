@@ -26,8 +26,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<ProjectDto> findAllPosts(String title, Pageable pageable) {
-        Page<Project> find = projectRepository.findAllPosts(title, pageable);
+    public Page<ProjectDto> findAllProjects(Pageable pageable) {
+        Page<Project> find = projectRepository.findAll( pageable);
         return find.map(ProjectDto::new);
     }
 
@@ -42,13 +42,13 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     @Transactional(readOnly = true)
-    public ProjectDto findPostById(Long id) {
+    public ProjectDto findProjectById(Long id) {
         Project find = projectRepository.findById(id).orElseThrow();
         return new ProjectDto(find);
     }
 
     @Override
-    public ProjectDto savePost(ProjectDto dto) {
+    public ProjectDto saveProject(ProjectDto dto) {
         User user = userRepository.findById(dto.getUserId()).orElseThrow();
 
         Project add = new Project();
@@ -60,7 +60,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ProjectDto updatePost(ProjectDto dto) {
+    public ProjectDto updateProject(ProjectDto dto) {
         Project edit = projectRepository.findById(dto.getId()).orElseThrow();
 
         edit.setId(edit.getId());
@@ -71,7 +71,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void deletePost(Long id) {
+    public void deleteProject(Long id) {
         this.projectRepository.deleteById(id);
     }
 }

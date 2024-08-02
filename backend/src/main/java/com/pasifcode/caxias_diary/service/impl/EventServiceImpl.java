@@ -25,7 +25,6 @@ public class EventServiceImpl implements EventService {
     @Autowired
     private ProjectRepository projectRepository;
 
-
     @Override
     @Transactional(readOnly = true)
     public Page<EventDto> findByProject(Project project, Pageable pageable) {
@@ -59,7 +58,7 @@ public class EventServiceImpl implements EventService {
                 add.getSeason() == null
         ) {
             add.setTitle("Evento " + (eventRepository.findByProject(project).size() + 1) + " do projeto " + add.getProject().getTitle());
-            add.setImage("https://cdn0.iconfinder.com/data/icons/communcations-ono-system-core/30/event_available-1024.png");
+            add.setImage("https://cdn0.iconfinder.com/data/icons/support-70/512/26-Calendar-1024.png");
             add.setStatus(Status.value("Indefinido"));
             add.setSeason(Season.value("Indefinido"));
         }

@@ -1,10 +1,10 @@
 import axios from "axios";
-import { PostMdCard } from "components/cards/PostCard";
+import { ProjectMdCard } from "components/cards/ProjectCard";
 import { UserLgCard } from "components/cards/UserCard";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Props } from "types/main";
-import { Post, PostPage } from "types/post";
+import { Project, ProjectPage } from "types/project";
 import { BASE_URL } from "utils/requests";
 
 export function UserProfile() {
@@ -23,7 +23,7 @@ export function UserProfile() {
 }
 
 function PostListByUser({ id: userId }: Props) {
-    const [postList, setPostList] = useState<Post[]>();
+    const [postList, setPostList] = useState<Project[]>();
     useEffect(() => {
         axios.get(`${BASE_URL}/post/list-by-user/${userId}`)
             .then((response) => {
@@ -40,7 +40,7 @@ function PostListByUser({ id: userId }: Props) {
                     <div className="row">
                         {postList?.map(x => (
                             <div key={x.id} className="col-6">
-                                <PostMdCard post={x} />
+                                <ProjectMdCard project={x} />
                             </div>
                         ))}
                     </div>

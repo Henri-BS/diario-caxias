@@ -9,15 +9,15 @@ import java.util.List;
 
 
 public interface ProjectService {
-    Page<ProjectDto> findAllPosts(String title, Pageable pageable);
+    Page<ProjectDto> findAllProjects(Pageable pageable);
 
     List<ProjectDto> findByUser(User user);
 
-    ProjectDto findPostById(Long id);
+    ProjectDto findProjectById(Long id);
 
-    ProjectDto savePost(ProjectDto dto);
+    ProjectDto saveProject(ProjectDto dto);
 
-    ProjectDto updatePost(ProjectDto dto);
+    ProjectDto updateProject(ProjectDto dto);
 
-    void deletePost(Long id);
+    void deleteProject(Long id);
 }

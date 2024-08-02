@@ -1,0 +1,37 @@
+
+
+.nav-link {
+  text-align: center;    
+  color: white;
+  text-shadow: 0 1px 0 #ffffff;
+  
+}
+
+.nav-item {
+    font-size: large;
+  background: #0b003142;
+  border-radius: 4px 4px 0px 0px;
+  margin-right: 4px;
+  border-bottom: 5px solid;
+  border-width: 4px;
+  cursor: pointer;
+  border-image-source: transparent;
+}
+
+.nav-item:hover {
+  --angle: 0deg;
+  border-image: conic-gradient(from var(--angle),  #1b28d4 , #da2222 , #22da31 ) 1;
+  animation: 1s rotate linear normal;
+}
+
+@keyframes rotate {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}

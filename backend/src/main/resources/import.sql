@@ -44,18 +44,50 @@ INSERT INTO tb_project (title, body, image, user_id) VALUES ('Reflorestamento', 
 INSERT INTO tb_project (title, body, image, user_id) VALUES ('Segurança Escolar',                   'Nesta publicação, veja mais sobre quais conteúdos didáticos, eventos e atividades que estão relacionadas a Segurança Escolar em Caxias', 'https://www.orcali.com.br/wp-content/uploads/2021/07/blog.png', 3);
 INSERT INTO tb_project (title, body, image, user_id) VALUES ('Epreendedorismo e Microempresas',     'Nesta publicação, veja mais sobre quais conteúdos didáticos, eventos e atividades que estão relacionadas a Empreendedorismos e Microempresas em Caxias', 'https://www.dashboarddesign.com.br/wp-content/uploads/2020/01/shutterstock_780647377.jpg', 9);
 
-INSERT INTO tb_event (title, description, image, date, season, status, project_id) VALUES ('Evento 1', 'Descrição do evento 1', 'https://www.dashboarddesign.com.br/wp-content/uploads/2020/01/shutterstock_780647377.jpg', '2024-04-01', 'VERAO', 'Finalizado', 1);
-INSERT INTO tb_event (title, description, image, date, season, status, project_id) VALUES ('Evento 2', 'Descrição do evento 2', 'https://www.dashboarddesign.com.br/wp-content/uploads/2020/01/shutterstock_780647377.jpg', '2024-09-07', 'VERAO', 'Programado', 1);
-INSERT INTO tb_event (title, description, image, date, season, status, project_id) VALUES ('Evento 3', 'Descrição do evento 3', 'https://www.dashboarddesign.com.br/wp-content/uploads/2020/01/shutterstock_780647377.jpg', '2024-10-15', 'VERAO', 'Adiado', 1);
+INSERT INTO tb_event (title, description, image, date, season, status, project_id) VALUES ('Evento 1', 'Descrição do evento 1', 'https://cdn2.iconfinder.com/data/icons/career-advancement-4/512/Practice-1024.png', '2024-01-07', 'VERAO', 'Finalizado', 1);
+INSERT INTO tb_event (title, description, image, date, season, status, project_id) VALUES ('Evento 2', 'Descrição do evento 2', 'https://cdn1.iconfinder.com/data/icons/business-vivid-vol-2/256/Seminar-1024.png', '2024-01-30', 'VERAO', 'Finalizado', 1);
+INSERT INTO tb_event (title, description, image, date, season, status, project_id) VALUES ('Evento 3', 'Descrição do evento 3', 'https://cdn0.iconfinder.com/data/icons/science-83/512/research-512.png', '2024-02-15', 'VERAO', 'Finalizado', 1);
+INSERT INTO tb_event (title, description, image, date, season, status, project_id) VALUES ('Evento 4', 'Descrição do evento 4', 'https://cdn2.iconfinder.com/data/icons/career-advancement-4/512/Practice-1024.png', '2024-03-11', 'VERAO', 'Finalizado', 1);
+INSERT INTO tb_event (title, description, image, date, season, status, project_id) VALUES ('Evento 5', 'Descrição do evento 5', 'https://cdn1.iconfinder.com/data/icons/business-vivid-vol-2/256/Seminar-1024.png', '2024-04-18', 'OUTONO', 'Programado', 1);
+INSERT INTO tb_event (title, description, image, date, season, status, project_id) VALUES ('Evento 6', 'Descrição do evento 6', 'https://cdn0.iconfinder.com/data/icons/science-83/512/research-512.png', '2024-05-12', 'OUTONO', 'Programado', 1);
+INSERT INTO tb_event (title, description, image, date, season, status, project_id) VALUES ('Evento 7', 'Descrição do evento 7', 'https://cdn2.iconfinder.com/data/icons/career-advancement-4/512/Practice-1024.png', '2024-06-20', 'OUTONO', 'Programado', 1);
+INSERT INTO tb_event (title, description, image, date, season, status, project_id) VALUES ('Evento 8', 'Descrição do evento 8', 'https://cdn1.iconfinder.com/data/icons/business-vivid-vol-2/256/Seminar-1024.png', '2024-06-09', 'OUTONO', 'Programado', 1);
+INSERT INTO tb_event (title, description, image, date, season, status, project_id) VALUES ('Evento 9', 'Descrição do evento 9', 'https://cdn0.iconfinder.com/data/icons/science-83/512/research-512.png', '2024-07-12', 'INVERNO', 'Adiado', 1);
+INSERT INTO tb_event (title, description, image, date, season, status, project_id) VALUES ('Evento 10', 'Descrição do evento 10', 'https://cdn0.iconfinder.com/data/icons/science-83/512/research-512.png', '2024-08-12', 'INVERNO', 'Adiado', 1);
+INSERT INTO tb_event (title, description, image, date, season, status, project_id) VALUES ('Evento 11', 'Descrição do evento 11', 'https://cdn2.iconfinder.com/data/icons/career-advancement-4/512/Practice-1024.png', '2024-10-20', 'PRIMAVERA', 'Adiado', 1);
+INSERT INTO tb_event (title, description, image, date, season, status, project_id) VALUES ('Evento 12', 'Descrição do evento 12', 'https://cdn1.iconfinder.com/data/icons/business-vivid-vol-2/256/Seminar-1024.png', '2024-11-07', 'PRIMAVERA', 'Adiado', 1);
+INSERT INTO tb_event (title, description, season, status, project_id) VALUES ('Evento 13', 'Descrição do evento 13', 'Indefinido', 'Indefinido', 1);
+INSERT INTO tb_event (title, description, season, status, project_id) VALUES ('Evento 14', 'Descrição do evento 14', 'Indefinido', 'Indefinido', 1);
+INSERT INTO tb_event (title, description, season, status, project_id) VALUES ('Evento 15', 'Descrição do evento 15', 'Indefinido', 'Indefinido', 1);
+INSERT INTO tb_event (title, description, season, status, project_id) VALUES ('Evento 16', 'Descrição do evento 16', 'Indefinido', 'Indefinido', 1);
+INSERT INTO tb_event (title, description, season, status, project_id) VALUES ('Evento 17', 'Descrição do evento 17', 'Indefinido', 'Indefinido', 1);
+INSERT INTO tb_event (title, description, season, status, project_id) VALUES ('Evento 18', 'Descrição do evento 18', 'Indefinido', 'Indefinido', 1);
+INSERT INTO tb_event (title, description, season, status, project_id) VALUES ('Evento 19', 'Descrição do evento 19', 'Indefinido', 'Indefinido', 1);
+INSERT INTO tb_event (title, description, season, status, project_id) VALUES ('Evento 20', 'Descrição do evento 20', 'Indefinido', 'Indefinido', 1);
+INSERT INTO tb_event (title, description, season, status, project_id) VALUES ('Evento 21', 'Descrição do evento 21', 'Indefinido', 'Indefinido', 1);
+INSERT INTO tb_event (title, description, season, status, project_id) VALUES ('Evento 22', 'Descrição do evento 22', 'Indefinido', 'Indefinido', 1);
+INSERT INTO tb_event (title, description, season, status, project_id) VALUES ('Evento 23', 'Descrição do evento 23', 'Indefinido', 'Indefinido', 1);
+INSERT INTO tb_event (title, description, season, status, project_id) VALUES ('Evento 24', 'Descrição do evento 24', 'Indefinido', 'Indefinido', 1);
+INSERT INTO tb_event (title, description, season, status, project_id) VALUES ('Evento 25', 'Descrição do evento 25', 'Indefinido', 'Indefinido', 1);
+INSERT INTO tb_event (title, description, season, status, project_id) VALUES ('Evento 26', 'Descrição do evento 26', 'Indefinido', 'Indefinido', 1);
+INSERT INTO tb_event (title, description, season, status, project_id) VALUES ('Evento 27', 'Descrição do evento 27', 'Indefinido', 'Indefinido', 1);
+INSERT INTO tb_event (title, description, season, status, project_id) VALUES ('Evento 28', 'Descrição do evento 28', 'Indefinido', 'Indefinido', 1);
+INSERT INTO tb_event (title, description, season, status, project_id) VALUES ('Evento 29', 'Descrição do evento 29', 'Indefinido', 'Indefinido', 1);
+
 
 INSERT INTO tb_event_user (user_id, event_id) VALUES (1,1);
+INSERT INTO tb_event_user (user_id, event_id) VALUES (2,1);
+INSERT INTO tb_event_user (user_id, event_id) VALUES (3,1);
+INSERT INTO tb_event_user (user_id, event_id) VALUES (4,1);
+INSERT INTO tb_event_user (user_id, event_id) VALUES (5,1);
+INSERT INTO tb_event_user (user_id, event_id) VALUES (6,1);
 
-INSERT INTO tb_category (name, description, image) VALUES ('Meio Ambiente', 'A categoria de Meio Ambiente está relacionada a gestão ambiental municipal, assegurando a preservação do meio ambiente e do desenvolvimento sustentável', 'https://cdn3.iconfinder.com/data/icons/flat-icons-web/40/Tree_Alt-1024.png');
-INSERT INTO tb_category (name, description, image) VALUES ('Arquitetura e Moradia', 'A categoria de Arquitetura está relacionada a arquitetura, a gestão do urbanismo e a acessibilidade na moradia', 'https://cdn2.iconfinder.com/data/icons/buildings-2-7/135/135-1024.png');
-INSERT INTO tb_category (name, description, image) VALUES ('Educação', 'A categoria de Educação está relacionada ao âmbito educacional formal e informal', 'https://cdn0.iconfinder.com/data/icons/bookcon-2/32/Books-4096.png');
-INSERT INTO tb_category (name, description, image) VALUES ('Ciência e Tecnologia', 'A categoria de Ciência e Tecnologia está relacionada as unidades de pesquisa, entidades vinculadas e organizações sociais com a missão de garantir e promover o avanço da ciência, tecnologia, inovação e comunicações visando o desenvolvimento sustentável e a melhoria da qualidade de vida da sociedade', 'https://cdn1.iconfinder.com/data/icons/online-education-indigo-vol-3/256/Science_Research-512.png');
-INSERT INTO tb_category (name, description, image) VALUES ('Segurança', 'A categoria de Segurança está relacionada a garantia na defesa da integridade social', 'https://cdn0.iconfinder.com/data/icons/copyright-law-aqua-vol-1/500/Defense-1024.png');
-INSERT INTO tb_category (name, description, image) VALUES ('Agricultura', 'A categoria de Agricultura está relacionada a gestão das políticas públicas de estímulo à agropecuária, pelo fomento do agronegócio e pela regulação e normatização de serviços vinculados ao setor.', 'https://cdn2.iconfinder.com/data/icons/future-of-technology-2/340/farm_technology_agriculture_smart_plant_farming_data-512.png');
-INSERT INTO tb_category (name, description, image) VALUES ('Economia', 'A categoria de Economia está relacionada aos processos de produção, distribuição e consumo de bens e serviços. Ela analisa como as sociedades utilizam os recursos para produzir bens de valor e como esses bens são distribuídos entre os indivíduos.', 'https://cdn3.iconfinder.com/data/icons/economy-9/64/Free-trade-international-economic-business-1024.png');
-INSERT INTO tb_category (name, description, image) VALUES ('Transporte', 'A categoria de Transporte está relacionada as formas de deslocamento de pessoas e materiais pelo espaço.', 'https://cdn3.iconfinder.com/data/icons/hotel-137/64/Van-Travel-512.png');
+INSERT INTO tb_category (name, description) VALUES ('Meio Ambiente', 'A categoria de Meio Ambiente está relacionada a gestão ambiental municipal, assegurando a preservação do meio ambiente e do desenvolvimento sustentável');
+INSERT INTO tb_category (name, description) VALUES ('Arquitetura e Moradia', 'A categoria de Arquitetura está relacionada a arquitetura, a gestão do urbanismo e a acessibilidade na moradia');
+INSERT INTO tb_category (name, description) VALUES ('Educação', 'A categoria de Educação está relacionada ao âmbito educacional formal e informal');
+INSERT INTO tb_category (name, description) VALUES ('Ciência e Tecnologia', 'A categoria de Ciência e Tecnologia está relacionada as unidades de pesquisa, entidades vinculadas e organizações sociais com a missão de garantir e promover o avanço da ciência, tecnologia, inovação e comunicações visando o desenvolvimento sustentável e a melhoria da qualidade de vida da sociedade');
+INSERT INTO tb_category (name, description) VALUES ('Segurança', 'A categoria de Segurança está relacionada a garantia na defesa da integridade social');
+INSERT INTO tb_category (name, description) VALUES ('Agricultura', 'A categoria de Agricultura está relacionada a gestão das políticas públicas de estímulo à agropecuária, pelo fomento do agronegócio e pela regulação e normatização de serviços vinculados ao setor.');
+INSERT INTO tb_category (name, description) VALUES ('Economia', 'A categoria de Economia está relacionada aos processos de produção, distribuição e consumo de bens e serviços. Ela analisa como as sociedades utilizam os recursos para produzir bens de valor e como esses bens são distribuídos entre os indivíduos.');
+INSERT INTO tb_category (name, description) VALUES ('Transporte', 'A categoria de Transporte está relacionada as formas de deslocamento de pessoas e materiais pelo espaço.');
 

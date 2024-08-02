@@ -1,15 +1,13 @@
-export type Post = {
+export type Event = {
   id: number;
   title: string;
-  body: string;
+  description: string;
   image: string;
-  userId: number;
-  userFirstName: string;
-  userLastName: string;
+  projectId: number;
 };
 
-export type PostPage = {
-  content?: Post[];
+export type EventPage = {
+  content?: Event[];
   size?: number;
   pageNumber?: number;
   numberOfElements?: number;
@@ -21,6 +19,6 @@ export type PostPage = {
   last?: boolean;
 };
 
-export type PostProps = {
-  post: Post;
+export type EventProps = {
+  event: Event;
 };

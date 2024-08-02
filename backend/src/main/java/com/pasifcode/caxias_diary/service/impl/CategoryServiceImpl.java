@@ -10,8 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @Transactional
 public class CategoryServiceImpl implements CategoryService {
@@ -21,8 +19,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<CategoryDto> findAllCategories(String name, Pageable pageable) {
-        Page<Category> list = categoryRepository.findAllCategories(name, pageable);
+    public Page<CategoryDto> findAllCategories(Pageable pageable) {
+        Page<Category> list = categoryRepository.findAll(pageable);
         return list.map(CategoryDto::new);
     }
 

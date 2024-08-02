@@ -1,15 +1,13 @@
 import axios from "axios";
 import { CategoryCard } from "components/cards/CategoryCard";
 import { CategoryAddForm } from "components/forms/CategoryForm";
-import Pagination from "components/shared/Pagination";
 import { useState, useEffect } from "react";
-import { Category, CategoryPage } from "types/category";
+import { CategoryPage } from "types/category";
 import { BASE_URL } from "utils/requests";
 
 export function CategoryList() {
     const [value, setValue] = useState("");
-
-    const [categoryList, setCategoryList] = useState<Category[]>();
+    const [categoryList, setCategoryList] = useState<CategoryPage>({content:[], number:0});
     useEffect(() => {
         axios.get(`${BASE_URL}/category/list?name=${value}&size=20`)
             .then((response) => {
@@ -39,7 +37,7 @@ export function CategoryList() {
                 </nav >
 
                 <div className="row">
-                    {categoryList?.filter((x) =>
+                    {categoryList.content?.filter((x) =>
                         x.name.toUpperCase().includes(value.toLocaleUpperCase()))
                         .map(x => (
                             <div key={x.id} className="col-12 col-md-6 col-xl-3 mb-3">

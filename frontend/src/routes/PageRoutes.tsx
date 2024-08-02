@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "pages/main/Home";
 import { UserLoginForm, UserRegisterForm } from "components/forms/UserForm";
-import { PostList } from "pages/lists/PostList";
-import { PostProfile } from "pages/profiles/PostProfile";
+import { PostList } from "pages/lists/ProjectList";
+import { ProjectProfile } from "pages/profiles/ProjectProfile";
 import { CategoryList } from "pages/lists/CategoryList";
 import { CategoryProfile } from "pages/profiles/CategoryProfile";
 import { UserList } from "pages/lists/UserList";
@@ -17,9 +17,9 @@ function PageRoutes() {
                 <Route path="/" element={<Home />} />
                 <Route path="/register" element={<UserRegisterForm />} />
                 <Route path="/login" element={<UserLoginForm />} />
-                <Route path="/postagens" element={<PostList />} />
-                <Route path="/postagem" >
-                    <Route path=":postId" element={<PostProfile />} />
+                <Route path="/projetos" element={<PostList />} />
+                <Route path="/projeto" >
+                    <Route path=":projectId" element={<ProjectProfile />} />
                 </Route>
                 <Route path="/categorias" element={<CategoryList />} />
                 <Route path="/categoria" >

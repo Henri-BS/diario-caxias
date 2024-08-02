@@ -20,7 +20,7 @@ public class CategoryController {
 
     @GetMapping("/list")
     ResponseEntity<Page<CategoryDto>> findAllCategories(@RequestParam(defaultValue = "") String name, Pageable pageable) {
-        Page<CategoryDto> list = categoryService.findAllCategories(name, pageable);
+        Page<CategoryDto> list = categoryService.findAllCategories( pageable);
         return ResponseEntity.ok(list);
     }
 
