@@ -1,10 +1,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
+
 body {
   margin: 0;
   font-family: "Noto Sans", sans-serif;
-  background: #e2e2e2;
 }
 body::-webkit-scrollbar {
   width: 0;
@@ -34,6 +34,7 @@ code {
   -ms-user-select: none;     
   user-select: none;         
 }
+
 
 @keyframes colorChange {
   0% { background-color: #ff0000; } 

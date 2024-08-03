@@ -39,14 +39,14 @@ export function ProjectProfile() {
         return (
             <>
                 <div className="card-sm-box mt-5">
-                    <div className="py-3 d-flex justify-content-between">                            
-                        <h4 className="card-title">Eventos <i className="bi bi-calendar2-check" /></h4>
-                        <div>
+                    <div className="row py-3 d-flex justify-content-between">
+                        <h4 className="col-12 col-md-4 col-xl-3 mb-2 card-title">Eventos <i className="bi bi-calendar2-check" /></h4>
+                        <div className="col-12 col-md-4 col-xl-3 mb-2" >
                             <Pagination page={eventPage} onPageChange={handlePageChange} />
                         </div>
                         <div className="col-12 col-md-4 col-xl-3 mb-2" >
                             <div className="form-group d-flex justify-content-between">
-                                <i className="bi bi-search m-1"/>
+                                <i className="bi bi-search m-1" />
                                 <input
                                     type="text"
                                     id="value"

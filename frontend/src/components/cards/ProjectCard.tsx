@@ -62,16 +62,16 @@ export function ProjectLgCard({ id: projectId }: Props) {
 
                             <div className="d-flex justify-content-between">
                                 <h1 className="card-title">{project?.title}</h1>
-                                <h1 className="link-primary m-1" data-bs-target="#menuProjectModal" data-bs-toggle="modal">
-                                    <i className="bi bi-plus" />
-                                </h1>
+                                <button className="btn link-primary" data-bs-target="#menuProjectModal" data-bs-toggle="modal">
+                                    <h2><i className="close bi bi-list" /></h2> 
+                                </button>
                             </div>
-                            <h3 className="card-text">
+                            <h4 className="card-text">
                                 Criador:
                                 <Link to={`/usuario/${project?.userId}`} >
                                     {project?.userFirstName} {project?.userLastName}
                                 </Link>
-                            </h3>
+                            </h4>
                         </div>
 
 
@@ -83,30 +83,34 @@ export function ProjectLgCard({ id: projectId }: Props) {
             <div className="modal fade" id="menuProjectModal" role={"dialog"}>
                 <div className="modal-dialog" role={"document"}>
                     <div className="modal-content">
-                        <div className="modal-header">
+                        <div className="modal-header d-flex justify-content-between">
                             <label className="modal-title">Menu</label>
+                            <div>
+                            <button className="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#projectEditModal" data-bs-dismiss="modal">
+                            <i className=" bi bi-pencil"/> Editar
+                                </button>
+                            <button className="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#projectDeleteModal" data-bs-dismiss="modal">
+                                <i className="bi bi-trash"/> Deletar
+                            </button>
+                            </div>
                         </div>
                         <div className="modal-body">
-                            <div>
-                            <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#projectEditModal" data-bs-dismiss="modal">Editar</button>
-                            <button className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#projectDeleteModal" data-bs-dismiss="modal">Deletar</button>
-                            </div>
                             <div className="list-group">
-                                <a className="list-group-item" data-bs-toggle="modal" data-bs-target="#eventAddModal">Adicionar Evento</a>
+                                <button className="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#eventAddModal">
+                                    Adicionar Evento <i className="bi bi-calendar2-check"/>
+                                    </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="modal fade" id="addCategoryModal" role={"dialog"}>
+            <div className="modal fade" id="eventAddModal" role={"dialog"}>
                 <div className="modal-dialog" role={"document"}>
                     <div className="modal-content">
                         <div className="modal-header">
-                            <label className="modal-title">Adicionar uma nova categoria</label>
-                            <button className="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true"><i className="fa fa-times" /></span>
-                            </button>
+                            <label className="modal-title">Adicionar um novo evento</label>
+                            <button className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body"><EventAddForm id={projectId} /></div>
                     </div>
@@ -118,6 +122,7 @@ export function ProjectLgCard({ id: projectId }: Props) {
                     <div className="modal-content">
                         <div className="modal-header">
                             <label className="modal-title">Editar</label>
+                            <button className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body"><ProjectEditForm id={`${params.projectId}`} /></div>
                     </div>
@@ -129,9 +134,10 @@ export function ProjectLgCard({ id: projectId }: Props) {
                     <div className="modal-content">
                         <div className="modal-header">
                             <label className="modal-title">Deseja deletar este projeto ?</label>
+                            <button className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="text-close" data-bs-dismiss="modal">cancelar</button>
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
                             <button onClick={() => deleteProject()} data-bs-dismiss="modal" className="btn btn-danger" >Deletar</button>
                         </div>
                     </div>

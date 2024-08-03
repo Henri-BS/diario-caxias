@@ -8,10 +8,10 @@ import { BASE_URL } from "utils/requests";
 export function ProjectAddForm() {
     const navigate = useNavigate();
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        const title = (event.target as any).title.value;
-        const image = (event.target as any).image.value;
-        const body = (event.target as any).body.value;
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        const title = (e.target as any).title.value;
+        const image = (e.target as any).image.value;
+        const body = (e.target as any).body.value;
 
         const config: AxiosRequestConfig = {
             baseURL: BASE_URL,
@@ -45,7 +45,7 @@ export function ProjectAddForm() {
                 <textarea className="form-control" id="body"></textarea> 
             </div>
             <div className="modal-footer">
-                <button type="button" className="text-close" data-bs-dismiss="modal">cancelar</button>
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
                 <button type="submit" className="btn btn-success">Adicionar</button>
             </div>
         </form>
@@ -63,10 +63,10 @@ export function ProjectEditForm({ id: projectId }: Props) {
     }, [projectId])
 
     const navigate = useNavigate();
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        const title = (event.target as any).title.value;
-        const image = (event.target as any).image.value;
-        const body = (event.target as any).body.value;
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        const title = (e.target as any).title.value;
+        const image = (e.target as any).image.value;
+        const body = (e.target as any).body.value;
 
         const config: AxiosRequestConfig = {
             baseURL: BASE_URL,
@@ -85,7 +85,7 @@ export function ProjectEditForm({ id: projectId }: Props) {
     }
 
     return (
-        <form className=" form-container" onSubmit={handleSubmit}>
+        <form className="form-container" onSubmit={handleSubmit}>
             <div className="form-group">
                 <label htmlFor="title">Título: </label>
                 <input type="text" className="form-control" id="title" defaultValue={project?.title}/>
@@ -98,10 +98,10 @@ export function ProjectEditForm({ id: projectId }: Props) {
 
             <div className="form-group">
                 <label htmlFor="body">Descrição: </label>
-                <input className="form-control" id="body" defaultValue={project?.body}/>
+                <textarea className="form-control" id="body" defaultValue={project?.body}></textarea> 
             </div>
             <div className="modal-footer">
-                <button type="button" className="text-close" data-bs-dismiss="modal">cancelar</button>
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
                 <button type="submit" className="btn btn-success">Editar</button>
             </div>
         </form>

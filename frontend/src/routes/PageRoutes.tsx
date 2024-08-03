@@ -8,6 +8,7 @@ import { CategoryProfile } from "pages/profiles/CategoryProfile";
 import { UserList } from "pages/lists/UserList";
 import { UserProfile } from "pages/profiles/UserProfile";
 import Navbar from "components/shared/Navbar";
+import { EventProfile } from "pages/profiles/EventProfile";
 
 function PageRoutes() {
     return (
@@ -20,6 +21,9 @@ function PageRoutes() {
                 <Route path="/projetos" element={<PostList />} />
                 <Route path="/projeto" >
                     <Route path=":projectId" element={<ProjectProfile />} />
+                </Route>
+                <Route path="/evento" >
+                    <Route path=":eventId" element={<EventProfile />} />
                 </Route>
                 <Route path="/categorias" element={<CategoryList />} />
                 <Route path="/categoria" >

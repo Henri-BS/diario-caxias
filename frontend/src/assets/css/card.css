@@ -1,4 +1,3 @@
-
 .card-header {
   white-space: nowrap;
   overflow: hidden;
@@ -12,9 +11,9 @@
 }
 
 .card-lg-container {
-    margin: 4px;
+  margin: 4px;
   transition: all 0.2s ease-out;
-  }
+}
 
 .card-lg-container:hover {
   box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56),
@@ -76,8 +75,8 @@
 }
 
 .img-radius {
-  border-radius: 50%;  border: 3px double #4099ff;
-
+  border-radius: 50%;
+  border: 3px double #4099ff;
 }
 
 .card .card-block p {
@@ -108,7 +107,6 @@
   background: linear-gradient(45deg, #4099ff, #73b4ff);
 }
 
-
 .m-t-10 {
   margin-top: 10px;
 }
@@ -120,8 +118,6 @@
 .user-card .card-block .user-social-link i {
   font-size: 30px;
 }
-
-
 
 /*category card*/
 

@@ -61,6 +61,7 @@ public class EventServiceImpl implements EventService {
             add.setImage("https://cdn0.iconfinder.com/data/icons/support-70/512/26-Calendar-1024.png");
             add.setStatus(Status.value("Indefinido"));
             add.setSeason(Season.value("Indefinido"));
+            eventRepository.saveAndFlush(add);
         }
 
         return new EventDto(eventRepository.saveAndFlush(add));

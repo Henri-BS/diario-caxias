@@ -43,7 +43,7 @@ public class EventCategoryServiceImpl implements EventCategoryService {
 
     @Override
     public EventCategoryDto saveEventCategory(EventCategoryDto dto) {
-        Category Category = CategoryRepository.findById(dto.getCategoryId()).orElseThrow();
+        Category Category = CategoryRepository.findByName(dto.getCategoryName());
         Event event = eventRepository.findById(dto.getEventId()).orElseThrow();
 
         EventCategory add = new EventCategory();
