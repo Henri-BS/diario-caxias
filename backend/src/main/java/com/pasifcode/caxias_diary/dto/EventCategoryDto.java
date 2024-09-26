@@ -2,15 +2,10 @@ package com.pasifcode.caxias_diary.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.pasifcode.caxias_diary.domain.entity.EventCategory;
-import com.pasifcode.caxias_diary.domain.entity.EventUser;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
 
-@NoArgsConstructor
-@Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EventCategoryDto implements Serializable {
     @Serial
@@ -22,12 +17,35 @@ public class EventCategoryDto implements Serializable {
     private Long eventId;
     private String eventTitile;
 
+    public EventCategoryDto() {
+    }
+
     public EventCategoryDto(EventCategory entity) {
         id = entity.getId();
         categoryId = entity.getCategory().getId();
         categoryName = entity.getCategory().getName();
         eventId = entity.getEvent().getId();
         eventTitile = entity.getEvent().getTitle();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public Long getEventId() {
+        return eventId;
+    }
+
+    public String getEventTitile() {
+        return eventTitile;
     }
 }
 

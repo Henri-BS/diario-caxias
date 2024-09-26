@@ -1,8 +1,12 @@
 package com.pasifcode.caxias_diary.service.impl;
 
+import com.pasifcode.caxias_diary.domain.entity.Event;
+import com.pasifcode.caxias_diary.domain.entity.EventCategory;
 import com.pasifcode.caxias_diary.dto.ProjectDto;
 import com.pasifcode.caxias_diary.domain.entity.Project;
 import com.pasifcode.caxias_diary.domain.entity.User;
+import com.pasifcode.caxias_diary.repository.EventCategoryRepository;
+import com.pasifcode.caxias_diary.repository.EventRepository;
 import com.pasifcode.caxias_diary.repository.ProjectRepository;
 import com.pasifcode.caxias_diary.repository.UserRepository;
 import com.pasifcode.caxias_diary.service.interf.ProjectService;
@@ -24,13 +28,33 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private EventRepository eventRepository;
+
+    @Autowired
+    private EventCategoryRepository eventCategoryRepository;
+
+    public void projectValues(Project project) {
+        Project add = projectRepository.findById(project.getId()).orElseThrow();
+        List<Event> event = eventRepository.findByProject(add);
+
+
+        for (Event e : event) {
+
+            add.setCountEvents(add.getEvents().size());
+            projectRepository.save(add);
+        }
+    }
+
     @Override
     @Transactional(readOnly = true)
     public Page<ProjectDto> findAllProjects(Pageable pageable) {
-        Page<Project> find = projectRepository.findAll( pageable);
-        return find.map(ProjectDto::new);
+        Page<Project> list = projectRepository.findAll(pageable);
+        for (Project project : list) {
+            projectValues(project);
+        }
+        return list.map(ProjectDto::new);
     }
-
 
     @Override
     @Transactional(readOnly = true)
@@ -56,7 +80,9 @@ public class ProjectServiceImpl implements ProjectService {
         add.setBody(dto.getBody());
         add.setImage(dto.getImage());
         add.setUser(user);
-        return new ProjectDto(projectRepository.saveAndFlush(add));
+        projectRepository.saveAndFlush(add);
+        projectValues(add);
+        return new ProjectDto(add);
     }
 
     @Override

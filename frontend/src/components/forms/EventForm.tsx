@@ -139,7 +139,7 @@ export function EventCategoryAddForm({ id: eventId }: Props) {
             url: "/event-category/save",
             data: {
                 eventId: eventId,
-                categoryId: categoryName
+                categoryName: categoryName
             }
         };
         axios(config).then(response => {

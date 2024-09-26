@@ -1,18 +1,11 @@
 package com.pasifcode.caxias_diary.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
+
 @Entity
 @Table(name = "tb_category")
 public class Category {
@@ -30,4 +23,48 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     private Set<EventCategory> eventCategories = new HashSet<>();
+
+    @OneToMany(mappedBy = "category")
+    private Set<UserCategory> userCategories = new HashSet<>();
+
+    public Category() {
+    }
+
+    public Category(Long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Set<EventCategory> getEventCategories() {
+        return eventCategories;
+    }
+
+    public Set<UserCategory> getUserCategories() {
+        return userCategories;
+    }
 }

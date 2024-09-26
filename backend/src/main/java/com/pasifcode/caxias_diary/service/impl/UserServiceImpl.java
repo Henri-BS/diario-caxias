@@ -1,5 +1,6 @@
 package com.pasifcode.caxias_diary.service.impl;
 
+import com.pasifcode.caxias_diary.domain.exception.DuplicateTuplesException;
 import com.pasifcode.caxias_diary.dto.UserDto;
 import com.pasifcode.caxias_diary.domain.entity.User;
 import com.pasifcode.caxias_diary.repository.UserRepository;
@@ -44,12 +45,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto saveUser(UserDto dto) {
+
         User user = new User();
         user.setEmail(dto.getEmail());
-        user.setFirstName(dto.getFirstName());
-        user.setLastName(dto.getLastName());
+        user.setUsername(dto.getUsername());
         user.setImage(dto.getImage());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        var getEmail = findByEmail(user.getEmail());
+        if (getEmail != null) {
+            throw new DuplicateTuplesException("Usuário já existe!");
+        }
         return new UserDto(userRepository.save(user));
     }
 }

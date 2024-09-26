@@ -2,14 +2,11 @@ package com.pasifcode.caxias_diary.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.pasifcode.caxias_diary.domain.entity.Project;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
 
-@NoArgsConstructor
-@Getter
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProjectDto implements Serializable {
     @Serial
@@ -19,17 +16,60 @@ public class ProjectDto implements Serializable {
     private String title;
     private String body;
     private String image;
+    private Integer countEvents;
+    private Long countCategories;
+    private Integer countUsers;
     private Long userId;
-    private String userFirstName;
-    private String userLastName;
+    private String username;
+
+    public ProjectDto() {
+    }
 
     public ProjectDto(Project entity) {
         id = entity.getId();
         title = entity.getTitle();
         body = entity.getBody();
         image = entity.getImage();
+        countEvents = entity.getCountEvents();
+        countCategories = entity.getCountCategories();
+        countUsers = entity.getCountUsers();
         userId = entity.getUser().getId();
-        userFirstName = entity.getUser().getFirstName();
-    userLastName =entity.getUser().getLastName();
+        username = entity.getUser().getUsername();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public Integer getCountEvents() {
+        return countEvents;
+    }
+
+    public Long getCountCategories() {
+        return countCategories;
+    }
+
+    public Integer getCountUsers() {
+        return countUsers;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

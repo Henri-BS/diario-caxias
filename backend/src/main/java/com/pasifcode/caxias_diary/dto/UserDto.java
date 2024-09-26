@@ -2,14 +2,10 @@ package com.pasifcode.caxias_diary.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.pasifcode.caxias_diary.domain.entity.User;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
 
-@Getter
-@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto implements Serializable {
 
@@ -17,18 +13,39 @@ public class UserDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    private String firstName;
-    private String lastName;
+    private String username;
     private String image;
     private String email;
     private String password;
 
+    public UserDto() {
+    }
+
     public UserDto(User entity) {
         id = entity.getId();
-        firstName = entity.getFirstName();
-        lastName = entity.getLastName();
+        username = entity.getUsername();
         image = entity.getImage();
         email = entity.getEmail();
         password = entity.getPassword();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

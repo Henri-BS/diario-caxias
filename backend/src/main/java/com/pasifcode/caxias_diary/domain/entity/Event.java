@@ -3,16 +3,12 @@ package com.pasifcode.caxias_diary.domain.entity;
 import com.pasifcode.caxias_diary.domain.enums.Season;
 import com.pasifcode.caxias_diary.domain.enums.Status;
 import jakarta.persistence.*;
-import lombok.*;
 
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
+
 @Entity
 @Table(name = "tb_event")
 public class Event {
@@ -42,8 +38,94 @@ public class Event {
     private Project project;
 
     @OneToMany(mappedBy = "event")
-    private Set<EventUser> eventUsers = new HashSet<>();
+    private final Set<EventUser> eventUsers = new HashSet<>();
 
     @OneToMany(mappedBy = "event")
-    private Set<EventCategory> eventCategories = new HashSet<>();
+    private final Set<EventCategory> eventCategories = new HashSet<>();
+
+    public Event() {
+    }
+
+    public Event(Long id, String title, String description, LocalDate date, String image, Season season, Status status, Project project) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.date = date;
+        this.image = image;
+        this.season = season;
+        this.status = status;
+        this.project = project;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Season getSeason() {
+        return season;
+    }
+
+    public void setSeason(Season season) {
+        this.season = season;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public Set<EventUser> getEventUsers() {
+        return eventUsers;
+    }
+
+    public Set<EventCategory> getEventCategories() {
+        return eventCategories;
+    }
 }

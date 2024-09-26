@@ -2,30 +2,28 @@ package com.pasifcode.caxias_diary.domain.entity;
 
 import jakarta.persistence.*;
 
-
 @Entity
-@Table(name = "tb_event_category")
-public class EventCategory {
-
+@Table(name = "user_category")
+public class UserCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "event_category_id", nullable = false)
+    @Column(name = "user_category_id", nullable = false)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "event_id")
-    private Event event;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
-    public EventCategory() {
+    public UserCategory() {
     }
 
-    public EventCategory(Long id, Event event, Category category) {
+    public UserCategory(Long id, User user, Category category) {
         this.id = id;
-        this.event = event;
+        this.user = user;
         this.category = category;
     }
 
@@ -37,12 +35,12 @@ public class EventCategory {
         this.id = id;
     }
 
-    public Event getEvent() {
-        return event;
+    public User getUser() {
+        return user;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Category getCategory() {

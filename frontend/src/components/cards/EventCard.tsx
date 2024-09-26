@@ -52,26 +52,24 @@ export function EventLgCard({ id: eventId }: Props) {
         <>
             <div className="card border-0 mb-3" >
                 <div className="row g-0">
-                    <div className="col-md-5">
+                    <div className="col-md-4">
                         <img src={event?.image} className="img-fluid rounded-bottom " alt="..." />
                     </div>
-                    <div className="col-md-7">
+                    <div className="col-md-8">
                         <div className="card-body">
 
                             <div className="d-flex justify-content-between">
                                 <h1 className="card-title">{event?.title}</h1>
                                 <button className="btn link-primary" data-bs-target="#menuEventModal" data-bs-toggle="modal">
-                                    <h2><i className="close bi bi-list" /></h2> 
+                                    <h2><i className="close bi bi-list" /></h2>
                                 </button>
                             </div>
                             <div className="card-body col-8 col-md-10">
-                            <h4><i className="bi bi-calendar" /> Data: {moment(event?.date).format("DD/MM/yyyy")}</h4>
-                            <h4><i className="bi bi-image-alt" /> Temporada: {event?.season}</h4>
-                            <h4><i className="bi bi-check2-circle" /> Situação: {event?.status}</h4>
+                                <h4><i className="bi bi-calendar" /> Data: {moment(event?.date).format("DD/MM/yyyy")}</h4>
+                                <h4><i className="bi bi-image-alt" /> Temporada: {event?.season}</h4>
+                                <h4><i className="bi bi-check2-circle" /> Situação: {event?.status}</h4>
+                            </div>
                         </div>
-                        </div>
-
-
                     </div>
                 </div>
             </div>
@@ -83,19 +81,19 @@ export function EventLgCard({ id: eventId }: Props) {
                         <div className="modal-header d-flex justify-content-between">
                             <label className="modal-title">Menu</label>
                             <div>
-                            <button className="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#eventEditModal" data-bs-dismiss="modal">
-                            <i className=" bi bi-pencil"/> Editar
+                                <button className="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#eventEditModal" data-bs-dismiss="modal">
+                                    <i className=" bi bi-pencil" /> Editar
                                 </button>
-                            <button className="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#eventDeleteModal" data-bs-dismiss="modal">
-                                <i className="bi bi-trash"/> Deletar
-                            </button>
+                                <button className="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#eventDeleteModal" data-bs-dismiss="modal">
+                                    <i className="bi bi-trash" /> Deletar
+                                </button>
                             </div>
                         </div>
                         <div className="modal-body">
                             <div className="list-group">
                                 <button className="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#eventCategoryAddModal">
-                                    Adicionar Categoria <i className="bi bi-tag"/>
-                                    </button>
+                                    Adicionar Categoria <i className="bi bi-tag" />
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -121,7 +119,7 @@ export function EventLgCard({ id: eventId }: Props) {
                             <label className="modal-title">Editar</label>
                             <button className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div className="modal-body"><EventEditForm id={`${params.EventId}`} /></div>
+                        <div className="modal-body"><EventEditForm id={`${params.eventId}`} /></div>
                     </div>
                 </div>
             </div>
@@ -150,11 +148,11 @@ export function EventCategoryCard({ eventCategory }: EventCategoryProps) {
     return (
         <>
             <Link to={`/event/${eventCategory.id}`} className="text-decoration-none">
-            <abbr title={eventCategory.categoryName}>
-                <div className="category-card-container disable-text-selection">
-                    {eventCategory.categoryName}
-                </div>
-            </abbr>
+                <abbr title={eventCategory.categoryName}>
+                    <div className="category-card-container disable-text-selection">
+                        {eventCategory.categoryName}
+                    </div>
+                </abbr>
             </Link>
         </>
     );

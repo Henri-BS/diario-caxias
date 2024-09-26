@@ -3,15 +3,12 @@ package com.pasifcode.caxias_diary.dto;
 import com.pasifcode.caxias_diary.domain.entity.Event;
 import com.pasifcode.caxias_diary.domain.enums.Season;
 import com.pasifcode.caxias_diary.domain.enums.Status;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-@NoArgsConstructor
-@Getter
+
 public class EventDto implements Serializable {
 
     @Serial
@@ -27,6 +24,9 @@ public class EventDto implements Serializable {
     private Long projectId;
     private String projectTitle;
 
+    public EventDto() {
+    }
+
     public EventDto(Event entity) {
         id = entity.getId();
         title = entity.getTitle();
@@ -37,5 +37,41 @@ public class EventDto implements Serializable {
         status = entity.getStatus();
         projectId = entity.getProject().getId();
         projectTitle = entity.getProject().getTitle();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public Season getSeason() {
+        return season;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public String getProjectTitle() {
+        return projectTitle;
     }
 }

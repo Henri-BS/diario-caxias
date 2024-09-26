@@ -29,7 +29,6 @@ public class EventCategoryController {
         return ResponseEntity.ok(find);
     }
 
-
     @PostMapping("/save")
     ResponseEntity<EventCategoryDto> saveEventCategory(@RequestBody EventCategoryDto dto) {
         EventCategoryDto add = eventCategoryService.saveEventCategory(dto);
