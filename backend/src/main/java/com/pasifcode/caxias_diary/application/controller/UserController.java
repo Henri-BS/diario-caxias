@@ -3,7 +3,6 @@ package com.pasifcode.caxias_diary.application.controller;
 import com.pasifcode.caxias_diary.application.exception.DuplicateTuplesException;
 import com.pasifcode.caxias_diary.domain.dto.CredentialsDto;
 import com.pasifcode.caxias_diary.domain.dto.UserDto;
-import com.pasifcode.caxias_diary.domain.entity.User;
 import com.pasifcode.caxias_diary.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -55,7 +54,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody CredentialsDto credentialsDto) {
-        var token = userService.authetication(credentialsDto.getEmail(), credentialsDto.getPassword());
+        var token = userService.authenticate(credentialsDto.getEmail(), credentialsDto.getPassword());
 
         if (token == null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

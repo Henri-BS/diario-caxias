@@ -15,5 +15,5 @@ public interface UserService {
 
     UserDto saveUser(UserDto dto);
 
-    AccessToken authetication(String email, String password);
+    AccessToken authenticate(String email, String password);
 }
