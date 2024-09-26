@@ -47,9 +47,7 @@ export function UserList() {
 
                 <div className="row">
                     {userPage.content?.filter((x) =>
-                    x.firstName.toUpperCase().includes(value.toLocaleUpperCase()) ||
-                    x.lastName.toUpperCase().includes(value.toLocaleUpperCase()) 
-                    ) 
+                    x.username.toUpperCase().includes(value.toLocaleUpperCase())) 
                         .map(x => (
                             <div key={x.id} className="col-12 col-md-6 col-xl-3 mb-3">
                                 <UserCard user={x} />

@@ -15,7 +15,7 @@ export function UserCard({user}: UserProps) {
                 <div className="user-image">
                     <img src={user.image} className="img-radius" alt="User-Profile-Image" />
                 </div>
-                <h6 className="f-w-600 m-t-25 m-b-10">{user.firstName} {user.lastName}</h6>
+                <h6 className="f-w-600 m-t-25 m-b-10">{user.username}</h6>
                 <p className="text-muted">Active | Male | Born 23.05.1992</p>
                 <hr/>
                 <p className="m-t-15 text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
@@ -39,7 +39,7 @@ export function UserMdCard({user }: UserProps) {
                 <div className="card">
                     <img src={user.image} className="" alt="..." />
                     <div className="card-body">
-                        <h5 className="card-title">{user.firstName} {user.lastName}</h5>
+                        <h5 className="card-title">{user.username}</h5>
                     </div>
                 </div>
             </Link>
@@ -77,7 +77,7 @@ export function UserLgCard({ id: userId }: Props) {
                     </div>
                     <div className="col-md-8">
                         <div className="card-body">
-                            <h5 className="card-title">{user?.firstName} {user?.lastName}</h5>
+                            <h5 className="card-title">{user?.username}</h5>
                         </div>
                     </div>
                 </div>

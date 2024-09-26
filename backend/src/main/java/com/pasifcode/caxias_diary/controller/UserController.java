@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -22,17 +22,16 @@ public class UserController {
     @Lazy
     private PasswordEncoder passwordEncoder;
 
-    @GetMapping("/user/list")
+    @GetMapping("/list")
     public ResponseEntity<Page<UserDto>> findAllUsers(
-            @RequestParam(defaultValue = "") String firstName,
-            @RequestParam(defaultValue = "") String lastName,
+            @RequestParam(defaultValue = "") String username,
             Pageable pageable
             ){
         Page<UserDto> page = userService.findAllUsers(pageable);
         return ResponseEntity.ok(page);
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<UserDto> findUserById(@PathVariable Long id) {
         UserDto find = userService.findUserById(id);
         return ResponseEntity.ok(find);
