@@ -1,15 +1,14 @@
 package com.pasifcode.caxias_diary.service.impl;
 
 import com.pasifcode.caxias_diary.domain.entity.Event;
-import com.pasifcode.caxias_diary.domain.entity.EventCategory;
-import com.pasifcode.caxias_diary.dto.ProjectDto;
+import com.pasifcode.caxias_diary.domain.dto.ProjectDto;
 import com.pasifcode.caxias_diary.domain.entity.Project;
 import com.pasifcode.caxias_diary.domain.entity.User;
-import com.pasifcode.caxias_diary.repository.EventCategoryRepository;
-import com.pasifcode.caxias_diary.repository.EventRepository;
-import com.pasifcode.caxias_diary.repository.ProjectRepository;
-import com.pasifcode.caxias_diary.repository.UserRepository;
-import com.pasifcode.caxias_diary.service.interf.ProjectService;
+import com.pasifcode.caxias_diary.domain.repository.EventCategoryRepository;
+import com.pasifcode.caxias_diary.domain.repository.EventRepository;
+import com.pasifcode.caxias_diary.domain.repository.ProjectRepository;
+import com.pasifcode.caxias_diary.domain.repository.UserRepository;
+import com.pasifcode.caxias_diary.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

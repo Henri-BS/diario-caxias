@@ -2,12 +2,12 @@ package com.pasifcode.caxias_diary.service.impl;
 
 import com.pasifcode.caxias_diary.domain.enums.Season;
 import com.pasifcode.caxias_diary.domain.enums.Status;
-import com.pasifcode.caxias_diary.dto.EventDto;
+import com.pasifcode.caxias_diary.domain.dto.EventDto;
 import com.pasifcode.caxias_diary.domain.entity.Event;
 import com.pasifcode.caxias_diary.domain.entity.Project;
-import com.pasifcode.caxias_diary.repository.EventRepository;
-import com.pasifcode.caxias_diary.repository.ProjectRepository;
-import com.pasifcode.caxias_diary.service.interf.EventService;
+import com.pasifcode.caxias_diary.domain.repository.EventRepository;
+import com.pasifcode.caxias_diary.domain.repository.ProjectRepository;
+import com.pasifcode.caxias_diary.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

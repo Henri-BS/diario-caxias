@@ -1,6 +1,9 @@
 package com.pasifcode.caxias_diary.config;
 
+import com.pasifcode.caxias_diary.application.security.JwtFilter;
+import com.pasifcode.caxias_diary.application.security.JwtHelper;
 import com.pasifcode.caxias_diary.domain.entity.User;
+import com.pasifcode.caxias_diary.service.UserService;
 import com.pasifcode.caxias_diary.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,12 +12,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -22,7 +27,7 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig implements WebMvcConfigurer {
+public class SecurityConfig {
 
     @Autowired
     private UserServiceImpl userService;
@@ -48,33 +53,36 @@ public class SecurityConfig implements WebMvcConfigurer {
     }
 
     @Bean
+    public JwtFilter jwtFilter(JwtHelper jwtHelper, UserService userService){
+        return new JwtFilter(jwtHelper, userService);
+    }
+
+    @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtFilter jwtFilter) throws Exception {
         http.csrf(csrf -> csrf
                         .ignoringRequestMatchers(toH2Console())
                         .disable()
+
                 )
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors((cors -> cors.configure(http)))
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests.requestMatchers(
                                 "/**").permitAll()
                                 .requestMatchers(toH2Console()).permitAll()
                                 .anyRequest().authenticated()
                 )
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
         return http.build();
     }
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("*")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH")
-                .allowedHeaders("*");
-    }
+
 }
 
 

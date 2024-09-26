@@ -1,9 +1,9 @@
 package com.pasifcode.caxias_diary.service.impl;
 
-import com.pasifcode.caxias_diary.dto.CategoryDto;
+import com.pasifcode.caxias_diary.domain.dto.CategoryDto;
 import com.pasifcode.caxias_diary.domain.entity.Category;
-import com.pasifcode.caxias_diary.repository.CategoryRepository;
-import com.pasifcode.caxias_diary.service.interf.CategoryService;
+import com.pasifcode.caxias_diary.domain.repository.CategoryRepository;
+import com.pasifcode.caxias_diary.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

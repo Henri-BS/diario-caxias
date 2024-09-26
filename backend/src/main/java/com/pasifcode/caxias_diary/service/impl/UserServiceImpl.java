@@ -1,10 +1,12 @@
 package com.pasifcode.caxias_diary.service.impl;
 
-import com.pasifcode.caxias_diary.domain.exception.DuplicateTuplesException;
-import com.pasifcode.caxias_diary.dto.UserDto;
+import com.pasifcode.caxias_diary.application.exception.DuplicateTuplesException;
+import com.pasifcode.caxias_diary.application.security.AccessToken;
+import com.pasifcode.caxias_diary.application.security.JwtHelper;
+import com.pasifcode.caxias_diary.domain.dto.UserDto;
 import com.pasifcode.caxias_diary.domain.entity.User;
-import com.pasifcode.caxias_diary.repository.UserRepository;
-import com.pasifcode.caxias_diary.service.interf.UserService;
+import com.pasifcode.caxias_diary.domain.repository.UserRepository;
+import com.pasifcode.caxias_diary.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private JwtHelper jwtHelper;
 
     @Lazy
     @Autowired
@@ -46,15 +51,29 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto saveUser(UserDto dto) {
 
-        User user = new User();
-        user.setEmail(dto.getEmail());
-        user.setUsername(dto.getUsername());
-        user.setImage(dto.getImage());
-        user.setPassword(passwordEncoder.encode(dto.getPassword()));
-        var getEmail = findByEmail(user.getEmail());
+        User add = new User();
+        add.setEmail(dto.getEmail());
+        add.setUsername(dto.getUsername());
+        add.setImage(dto.getImage());
+        add.setPassword(passwordEncoder.encode(dto.getPassword()));
+        var getEmail = findByEmail(add.getEmail());
         if (getEmail != null) {
             throw new DuplicateTuplesException("Usuário já existe!");
         }
-        return new UserDto(userRepository.save(user));
+        return new UserDto(userRepository.save(add));
+    }
+
+    @Override
+    public AccessToken authetication(String email, String password) {
+        var user = findByEmail(email);
+        if (user == null) {
+            return null;
+        }
+
+        boolean matches = passwordEncoder.matches(password, user.getPassword());
+        if(matches){
+            return jwtHelper.generateToken(user);
+        }
+        return null;
     }
 }
