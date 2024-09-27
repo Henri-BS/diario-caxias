@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -30,12 +31,17 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public ImageDto saveImage(MultipartFile file, String title) throws IOException {
+    public Image saveImage(MultipartFile file, String title) throws IOException {
         Image add = new Image();
         add.setTitle(title);
         add.setFile(file.getBytes());
         add.setExtension(ImageExtension.valueOf(MediaType.valueOf(file.getContentType())));
         add.setSize(file.getSize());
-        return new ImageDto(imageRepository.save(add));
+        return imageRepository.save(add);
+    }
+
+    @Override
+    public Optional<Image> getImage(Long id) {
+        return imageRepository.findById(id);
     }
 }

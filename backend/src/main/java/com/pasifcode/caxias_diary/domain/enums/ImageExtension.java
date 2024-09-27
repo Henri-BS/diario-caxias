@@ -28,4 +28,8 @@ public enum ImageExtension {
                 .findFirst()
                 .orElse(null);
     }
+
+    public MediaType getMediaType() {
+        return mediaType;
+    }
 }
