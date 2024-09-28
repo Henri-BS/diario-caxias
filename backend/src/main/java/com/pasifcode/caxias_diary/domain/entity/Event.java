@@ -1,5 +1,6 @@
 package com.pasifcode.caxias_diary.domain.entity;
 
+import com.pasifcode.caxias_diary.domain.enums.ImageExtension;
 import com.pasifcode.caxias_diary.domain.enums.Season;
 import com.pasifcode.caxias_diary.domain.enums.Status;
 import jakarta.persistence.*;
@@ -25,13 +26,19 @@ public class Event {
 
     private LocalDate date;
 
-    private String image;
+    @Lob
+    private byte[] image;
+
+    @Enumerated(EnumType.STRING)
+    private ImageExtension extension;
 
     @Enumerated(EnumType.STRING)
     private Season season;
 
     @Enumerated(EnumType.STRING)
     private Status status;
+
+
 
     @ManyToOne
     @JoinColumn(name = "project_id")
@@ -46,7 +53,7 @@ public class Event {
     public Event() {
     }
 
-    public Event(Long id, String title, String description, LocalDate date, String image, Season season, Status status, Project project) {
+    public Event(Long id, String title, String description, LocalDate date, byte[] image, Season season, Status status, Project project) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -89,12 +96,20 @@ public class Event {
         this.date = date;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public ImageExtension getExtension() {
+        return extension;
+    }
+
+    public void setExtension(ImageExtension extension) {
+        this.extension = extension;
     }
 
     public Season getSeason() {
@@ -127,5 +142,9 @@ public class Event {
 
     public Set<EventCategory> getEventCategories() {
         return eventCategories;
+    }
+
+    public String getFileName() {
+        return getTitle().concat(".").concat(getExtension().name());
     }
 }

@@ -4,10 +4,7 @@ import com.pasifcode.caxias_diary.domain.entity.Event;
 import com.pasifcode.caxias_diary.domain.dto.ProjectDto;
 import com.pasifcode.caxias_diary.domain.entity.Project;
 import com.pasifcode.caxias_diary.domain.entity.User;
-import com.pasifcode.caxias_diary.domain.repository.EventCategoryRepository;
-import com.pasifcode.caxias_diary.domain.repository.EventRepository;
-import com.pasifcode.caxias_diary.domain.repository.ProjectRepository;
-import com.pasifcode.caxias_diary.domain.repository.UserRepository;
+import com.pasifcode.caxias_diary.domain.repository.*;
 import com.pasifcode.caxias_diary.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,16 +27,10 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private EventRepository eventRepository;
 
-    @Autowired
-    private EventCategoryRepository eventCategoryRepository;
-
-    public void projectValues(Project project) {
+    private void projectValues(Project project) {
         Project add = projectRepository.findById(project.getId()).orElseThrow();
         List<Event> event = eventRepository.findByProject(add);
-
-
         for (Event e : event) {
-
             add.setCountEvents(add.getEvents().size());
             projectRepository.save(add);
         }
@@ -81,6 +72,7 @@ public class ProjectServiceImpl implements ProjectService {
         add.setUser(user);
         projectRepository.saveAndFlush(add);
         projectValues(add);
+
         return new ProjectDto(add);
     }
 

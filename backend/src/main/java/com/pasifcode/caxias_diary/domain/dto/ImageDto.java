@@ -1,12 +1,14 @@
 package com.pasifcode.caxias_diary.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.pasifcode.caxias_diary.domain.entity.Image;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ImageDto implements Serializable {
 
     @Serial
@@ -18,6 +20,7 @@ public class ImageDto implements Serializable {
     private String extension;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime uploadDate;
+    private Long projectId;
 
     public ImageDto() {
     }
@@ -28,6 +31,7 @@ public class ImageDto implements Serializable {
         size = entity.getSize();
         extension = entity.getExtension().name();
         uploadDate = entity.getUploadDate();
+        projectId = entity.getProject().getId();
     }
 
     public Long getId() {
@@ -48,5 +52,9 @@ public class ImageDto implements Serializable {
 
     public LocalDateTime getUploadDate() {
         return uploadDate;
+    }
+
+    public Long getProjectId() {
+        return projectId;
     }
 }

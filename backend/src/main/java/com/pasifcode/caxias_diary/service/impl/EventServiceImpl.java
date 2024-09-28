@@ -1,5 +1,6 @@
 package com.pasifcode.caxias_diary.service.impl;
 
+import com.pasifcode.caxias_diary.domain.enums.ImageExtension;
 import com.pasifcode.caxias_diary.domain.enums.Season;
 import com.pasifcode.caxias_diary.domain.enums.Status;
 import com.pasifcode.caxias_diary.domain.dto.EventDto;
@@ -11,8 +12,13 @@ import com.pasifcode.caxias_diary.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.Optional;
 
 
 @Service
@@ -46,7 +52,6 @@ public class EventServiceImpl implements EventService {
         Event add = new Event();
         add.setTitle(dto.getTitle());
         add.setDescription(dto.getDescription());
-        add.setImage(dto.getImage());
         add.setDate(dto.getDate());
         add.setSeason(dto.getSeason());
         add.setStatus(dto.getStatus());
@@ -58,7 +63,6 @@ public class EventServiceImpl implements EventService {
                 add.getSeason() == null
         ) {
             add.setTitle("Evento " + (eventRepository.findByProject(project).size() + 1) + " do projeto " + add.getProject().getTitle());
-            add.setImage("https://cdn0.iconfinder.com/data/icons/support-70/512/26-Calendar-1024.png");
             add.setStatus(Status.value("Indefinido"));
             add.setSeason(Season.value("Indefinido"));
             eventRepository.saveAndFlush(add);
@@ -68,13 +72,23 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public Event saveEventImage(MultipartFile image, Long id) throws IOException {
+
+        Event add = eventRepository.findById(id).orElseThrow();
+        add.setImage(image.getBytes());
+        add.setExtension(ImageExtension.valueOf(MediaType.valueOf(image.getContentType())));
+        add.setId(id);
+        return eventRepository.save(add);
+    }
+
+
+    @Override
     public EventDto updateEvent(EventDto dto) {
         Event edit = eventRepository.findById(dto.getId()).orElseThrow();
 
         edit.setId(edit.getId());
         edit.setTitle(dto.getTitle());
         edit.setDescription(dto.getDescription());
-        edit.setImage(dto.getImage());
         edit.setDate(dto.getDate());
         edit.setSeason(dto.getSeason());
         edit.setStatus(dto.getStatus());
@@ -85,5 +99,10 @@ public class EventServiceImpl implements EventService {
     @Override
     public void deleteEvent(Long id) {
         this.eventRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Event> getImage(Long id) {
+        return eventRepository.findById(id);
     }
 }

@@ -36,7 +36,7 @@ public class User {
     private String role;
 
     @CreatedDate
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @OneToMany(mappedBy = "user")
     private final Set<Project> projects = new HashSet<>();

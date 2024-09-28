@@ -18,7 +18,6 @@ public class EventDto implements Serializable {
     private String title;
     private String description;
     private LocalDate date;
-    private String image;
     private Season season;
     private Status status;
     private Long projectId;
@@ -32,7 +31,6 @@ public class EventDto implements Serializable {
         title = entity.getTitle();
         description = entity.getDescription();
         date = entity.getDate();
-        image = entity.getImage();
         season = entity.getSeason();
         status = entity.getStatus();
         projectId = entity.getProject().getId();
@@ -53,10 +51,6 @@ public class EventDto implements Serializable {
 
     public LocalDate getDate() {
         return date;
-    }
-
-    public String getImage() {
-        return image;
     }
 
     public Season getSeason() {

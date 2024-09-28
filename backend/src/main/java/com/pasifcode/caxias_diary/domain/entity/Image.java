@@ -17,17 +17,21 @@ public class Image {
     private Long id;
 
     private String title;
+
     private Long size;
+
     @CreatedDate
-    private LocalDateTime uploadDate;
+    private LocalDateTime uploadDate = LocalDateTime.now();
+
     @Enumerated(EnumType.STRING)
     private ImageExtension extension;
+
     @Lob
     private byte[] file;
 
-    public String getFileName(){
-        return getTitle().concat(".").concat(getExtension().name());
-    }
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
 
     public Image() {
     }
@@ -89,5 +93,15 @@ public class Image {
         this.file = file;
     }
 
+    public Project getProject() {
+        return project;
+    }
 
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public String getFileName(){
+        return getTitle().concat(".").concat(getExtension().name());
+    }
 }

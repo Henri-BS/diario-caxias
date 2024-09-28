@@ -1,7 +1,9 @@
 package com.pasifcode.caxias_diary.service.impl;
 
 import com.pasifcode.caxias_diary.domain.dto.ImageDto;
+import com.pasifcode.caxias_diary.domain.entity.Event;
 import com.pasifcode.caxias_diary.domain.entity.Image;
+import com.pasifcode.caxias_diary.domain.entity.Project;
 import com.pasifcode.caxias_diary.domain.enums.ImageExtension;
 import com.pasifcode.caxias_diary.domain.repository.ImageRepository;
 import com.pasifcode.caxias_diary.service.ImageService;
@@ -31,6 +33,12 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    public Optional<Image> getImage(Long id) {
+        return imageRepository.findById(id);
+    }
+
+
+    @Override
     public Image saveImage(MultipartFile file, String title) throws IOException {
         Image add = new Image();
         add.setTitle(title);
@@ -40,8 +48,15 @@ public class ImageServiceImpl implements ImageService {
         return imageRepository.save(add);
     }
 
+
     @Override
-    public Optional<Image> getImage(Long id) {
-        return imageRepository.findById(id);
+    public Image saveByProject(MultipartFile file, String title, Project project) throws IOException {
+        Image add = new Image();
+        add.setTitle(title);
+        add.setFile(file.getBytes());
+        add.setExtension(ImageExtension.valueOf(MediaType.valueOf(file.getContentType())));
+        add.setSize(file.getSize());
+        add.setProject(project);
+        return imageRepository.save(add);
     }
 }
