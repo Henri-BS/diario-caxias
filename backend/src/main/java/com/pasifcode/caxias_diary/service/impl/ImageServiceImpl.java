@@ -1,14 +1,11 @@
 package com.pasifcode.caxias_diary.service.impl;
 
-import com.pasifcode.caxias_diary.domain.dto.ImageDto;
-import com.pasifcode.caxias_diary.domain.entity.Event;
 import com.pasifcode.caxias_diary.domain.entity.Image;
 import com.pasifcode.caxias_diary.domain.entity.Project;
 import com.pasifcode.caxias_diary.domain.enums.ImageExtension;
 import com.pasifcode.caxias_diary.domain.repository.ImageRepository;
 import com.pasifcode.caxias_diary.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -16,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,9 +25,8 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @Transactional(readOnly=true)
-    public Page<ImageDto> searchImages(Pageable pageable){
-         Page<Image> list = imageRepository.findAll(pageable);
-         return list.map(ImageDto::new);
+    public List<Image> searchImages(){
+         return imageRepository.findAll();
     }
 
     @Override

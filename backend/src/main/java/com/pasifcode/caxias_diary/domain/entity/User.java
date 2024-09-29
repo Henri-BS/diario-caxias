@@ -1,6 +1,7 @@
 package com.pasifcode.caxias_diary.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pasifcode.caxias_diary.domain.enums.ImageExtension;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -25,18 +26,24 @@ public class User {
     @Column(nullable = false)
     private String email;
 
-    private String image;
-
-    @Column(columnDefinition = "TEXT")
-    private String bio;
-
     @JsonIgnore
     private String password;
 
     private String role;
 
+    @Column(columnDefinition = "TEXT")
+    private String bio;
+
+    private String location;
+
     @CreatedDate
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Lob
+    private byte[] image;
+
+    @Enumerated
+    private ImageExtension extension;
 
     @OneToMany(mappedBy = "user")
     private final Set<Project> projects = new HashSet<>();
@@ -48,17 +55,6 @@ public class User {
     private final Set<UserCategory> userCategory = new HashSet<>();
 
     public User() {
-    }
-
-    public User(Long id, String username, String email, String image, String bio, String password, String role, LocalDateTime createdAt) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.image = image;
-        this.bio = bio;
-        this.password = password;
-        this.role = role;
-        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -85,22 +81,6 @@ public class User {
         this.email = email;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -117,12 +97,44 @@ public class User {
         this.role = role;
     }
 
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public ImageExtension getExtension() {
+        return extension;
+    }
+
+    public void setExtension(ImageExtension extension) {
+        this.extension = extension;
     }
 
     public Set<Project> getProjects() {
@@ -135,5 +147,9 @@ public class User {
 
     public Set<UserCategory> getUserCategory() {
         return userCategory;
+    }
+
+    public String getFileName() {
+        return getUsername().concat(".").concat(getExtension().name());
     }
 }

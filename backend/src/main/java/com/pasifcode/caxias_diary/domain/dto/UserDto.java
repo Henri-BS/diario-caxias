@@ -14,9 +14,10 @@ public class UserDto implements Serializable {
 
     private Long id;
     private String username;
-    private String image;
     private String email;
     private String password;
+    private String bio;
+    private String location;
 
     public UserDto() {
     }
@@ -24,9 +25,10 @@ public class UserDto implements Serializable {
     public UserDto(User entity) {
         id = entity.getId();
         username = entity.getUsername();
-        image = entity.getImage();
         email = entity.getEmail();
         password = entity.getPassword();
+        bio = entity.getBio();
+        location = entity.getLocation();
     }
 
     public Long getId() {
@@ -37,15 +39,19 @@ public class UserDto implements Serializable {
         return username;
     }
 
-    public String getImage() {
-        return image;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public String getPassword() {
         return password;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public String getLocation() {
+        return location;
     }
 }

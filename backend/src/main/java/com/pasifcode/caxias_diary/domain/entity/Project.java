@@ -1,5 +1,6 @@
 package com.pasifcode.caxias_diary.domain.entity;
 
+import com.pasifcode.caxias_diary.domain.enums.ImageExtension;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -21,7 +22,11 @@ public class Project {
     @Column(columnDefinition = "TEXT")
     private String body;
 
-    private String image;
+    @Lob
+    private byte[] image;
+
+    @Enumerated(EnumType.STRING)
+    private ImageExtension extension;
 
     private Integer countEvents = 0;
 
@@ -44,7 +49,7 @@ public class Project {
     public Project() {
     }
 
-    public Project(Long id, String title, String body, String image, Integer countEvents, Long countCategories, Integer countUsers, User user) {
+    public Project(Long id, String title, String body, byte[] image, Integer countEvents, Long countCategories, Integer countUsers, User user) {
         this.id = id;
         this.title = title;
         this.body = body;
@@ -79,12 +84,20 @@ public class Project {
         this.body = body;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public ImageExtension getExtension() {
+        return extension;
+    }
+
+    public void setExtension(ImageExtension extension) {
+        this.extension = extension;
     }
 
     public Integer getCountEvents() {
@@ -121,5 +134,13 @@ public class Project {
 
     public Set<Event> getEvents() {
         return events;
+    }
+
+    public Set<Image> getImages() {
+        return images;
+    }
+
+    public String getFileName(){
+        return getTitle() + "." + getExtension();
     }
 }

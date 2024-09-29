@@ -2,7 +2,6 @@ package com.pasifcode.caxias_diary.application.controller;
 
 import com.pasifcode.caxias_diary.domain.dto.ImageDto;
 import com.pasifcode.caxias_diary.domain.entity.Event;
-import com.pasifcode.caxias_diary.domain.entity.Image;
 import com.pasifcode.caxias_diary.domain.entity.Project;
 import com.pasifcode.caxias_diary.domain.dto.EventDto;
 import com.pasifcode.caxias_diary.service.EventService;
@@ -50,11 +49,11 @@ public class EventController {
         if (possibleImage.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        Event image = possibleImage.get();
+        Event eventImage = possibleImage.get();
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(image.getExtension().getMediaType());
-        headers.setContentDispositionFormData("inline: filename=\"" + image.getFileName() + "\"", image.getFileName());
-        return new ResponseEntity<>(image.getImage(), headers, HttpStatus.OK);
+        headers.setContentType(eventImage.getExtension().getMediaType());
+        headers.setContentDispositionFormData("inline: filename=\"" + eventImage.getFileName() + "\"", eventImage.getFileName());
+        return new ResponseEntity<>(eventImage.getImage(), headers, HttpStatus.OK);
     }
 
     @PostMapping("/save")
@@ -68,8 +67,8 @@ public class EventController {
             @RequestParam MultipartFile file,
             @PathVariable Long id
     ) throws IOException {
-        Event save = eventService.saveEventImage(file, id);
-        URI imageUri = buildURL(save);
+        Event eventImage = eventService.saveEventImage(file, id);
+        URI imageUri = buildURL(eventImage);
         return ResponseEntity.created(imageUri).build();
     }
 
@@ -87,11 +86,11 @@ public class EventController {
     }
 
     private URI buildURL(Event event) {
-        String imagePath = "/" + event.getId()
+        String path = "/" + event.getId()
                 + "/" + UUID.randomUUID();
         return ServletUriComponentsBuilder
                 .fromCurrentRequestUri()
-                .path(imagePath)
+                .path(path)
                 .build().toUri();
     }
 }

@@ -21,11 +21,22 @@ public class ImageDto implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime uploadDate;
     private Long projectId;
+    private String url;
 
     public ImageDto() {
     }
 
     public ImageDto(Image entity) {
+        id = entity.getId();
+        title = entity.getTitle();
+        size = entity.getSize();
+        extension = entity.getExtension().name();
+        uploadDate = entity.getUploadDate();
+        projectId = entity.getProject().getId();
+    }
+
+    public ImageDto(Image entity, String url) {
+        this.url = url;
         id = entity.getId();
         title = entity.getTitle();
         size = entity.getSize();
@@ -56,5 +67,9 @@ public class ImageDto implements Serializable {
 
     public Long getProjectId() {
         return projectId;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }

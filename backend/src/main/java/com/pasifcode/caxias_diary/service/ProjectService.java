@@ -1,11 +1,15 @@
 package com.pasifcode.caxias_diary.service;
 
 import com.pasifcode.caxias_diary.domain.dto.ProjectDto;
+import com.pasifcode.caxias_diary.domain.entity.Project;
 import com.pasifcode.caxias_diary.domain.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 
 public interface ProjectService {
@@ -15,9 +19,14 @@ public interface ProjectService {
 
     ProjectDto findProjectById(Long id);
 
+    Optional<Project> getProjectImage(Long id);
+
     ProjectDto saveProject(ProjectDto dto);
 
     ProjectDto updateProject(ProjectDto dto);
 
+    Project saveProjectImage(MultipartFile file, Long id) throws IOException;
+
     void deleteProject(Long id);
+
 }

@@ -9,11 +9,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 public interface ImageService {
 
-    Page<ImageDto> searchImages(Pageable pageable);
+    List<Image> searchImages();
 
     Image saveImage(MultipartFile file, String title) throws IOException;
 

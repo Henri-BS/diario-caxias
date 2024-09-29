@@ -15,7 +15,6 @@ public class ProjectDto implements Serializable {
     private Long id;
     private String title;
     private String body;
-    private String image;
     private Integer countEvents;
     private Long countCategories;
     private Integer countUsers;
@@ -29,7 +28,6 @@ public class ProjectDto implements Serializable {
         id = entity.getId();
         title = entity.getTitle();
         body = entity.getBody();
-        image = entity.getImage();
         countEvents = entity.getCountEvents();
         countCategories = entity.getCountCategories();
         countUsers = entity.getCountUsers();
@@ -49,9 +47,6 @@ public class ProjectDto implements Serializable {
         return body;
     }
 
-    public String getImage() {
-        return image;
-    }
 
     public Integer getCountEvents() {
         return countEvents;

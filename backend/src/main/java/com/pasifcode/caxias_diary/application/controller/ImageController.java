@@ -1,7 +1,6 @@
 package com.pasifcode.caxias_diary.application.controller;
 
 import com.pasifcode.caxias_diary.domain.dto.ImageDto;
-import com.pasifcode.caxias_diary.domain.entity.Event;
 import com.pasifcode.caxias_diary.domain.entity.Image;
 import com.pasifcode.caxias_diary.domain.entity.Project;
 import com.pasifcode.caxias_diary.service.ImageService;
@@ -17,7 +16,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/images")
@@ -27,13 +28,15 @@ public class ImageController {
     private ImageService imageService;
 
     @GetMapping
-    public ResponseEntity<Page<ImageDto>> searchImages(
-            @RequestParam(defaultValue = "") String title,
-            Pageable pageable) {
-        Page<ImageDto> list = imageService.searchImages(pageable);
-        return ResponseEntity.ok(list);
+    public ResponseEntity<List<ImageDto>> searchImages(
+            @RequestParam(defaultValue = "") String title) {
+        List<Image> list = imageService.searchImages();
+        List<ImageDto> images = list.stream().map(x -> {
+            URI url = buildURL(x);
+            return new ImageDto(x, url.toString());
+        }).toList();
+        return ResponseEntity.ok(images);
     }
-
 
     @GetMapping("{id}")
     public ResponseEntity<byte[]> getImage(@PathVariable Long id) {
@@ -74,7 +77,8 @@ public class ImageController {
 
 
     private URI buildURL(Image image) {
-        String imagePath = "/" + image.getId() + image.getTitle();
+        String imagePath = "/" + image.getId() +
+                "/" + UUID.randomUUID();
         return ServletUriComponentsBuilder
                 .fromCurrentRequestUri()
                 .path(imagePath)
