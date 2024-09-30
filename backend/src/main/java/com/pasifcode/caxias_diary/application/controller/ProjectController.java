@@ -28,9 +28,15 @@ public class ProjectController {
     private ProjectService projectService;
 
     @GetMapping("/list")
-    public ResponseEntity<Page<ProjectDto>> findAllProjects(@RequestParam(defaultValue = "") String title, Pageable pageable) {
-        Page<ProjectDto> page = projectService.findAllProjects(pageable);
-        return ResponseEntity.ok(page);
+    public ResponseEntity<Page<ProjectDto>> findAllProjects(
+            @RequestParam(defaultValue = "") String title,
+            Pageable pageable) {
+        Page<Project> page = projectService.findAllProjects(pageable);
+        Page<ProjectDto> images = page.map(image -> {
+            URI url = buildUrl(image);
+            return new ProjectDto(image, url.toString());
+        });
+        return ResponseEntity.ok(images);
     }
 
     @GetMapping("/list-by-user/{user}")

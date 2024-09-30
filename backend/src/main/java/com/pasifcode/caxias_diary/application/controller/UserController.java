@@ -98,7 +98,7 @@ public class UserController {
     }
 
     private URI buildUrl(User user) {
-        String path = user.getId() +
+        String path = "/" + user.getId() +
               "/" + UUID.randomUUID();
         return ServletUriComponentsBuilder
                 .fromCurrentRequestUri()

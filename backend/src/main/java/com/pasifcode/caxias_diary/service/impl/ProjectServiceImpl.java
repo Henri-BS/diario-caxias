@@ -43,12 +43,12 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<ProjectDto> findAllProjects(Pageable pageable) {
+    public Page<Project> findAllProjects(Pageable pageable) {
         Page<Project> list = projectRepository.findAll(pageable);
         for (Project project : list) {
             projectValues(project);
         }
-        return list.map(ProjectDto::new);
+        return list;
     }
 
     @Override

@@ -13,7 +13,7 @@ import java.util.Optional;
 
 
 public interface ProjectService {
-    Page<ProjectDto> findAllProjects(Pageable pageable);
+    Page<Project> findAllProjects(Pageable pageable);
 
     List<ProjectDto> findByUser(User user);
 

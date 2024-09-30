@@ -20,6 +20,7 @@ public class ProjectDto implements Serializable {
     private Integer countUsers;
     private Long userId;
     private String username;
+    private String url;
 
     public ProjectDto() {
     }
@@ -33,6 +34,13 @@ public class ProjectDto implements Serializable {
         countUsers = entity.getCountUsers();
         userId = entity.getUser().getId();
         username = entity.getUser().getUsername();
+    }
+
+    public ProjectDto(Project entity, String url) {
+        id = entity.getId();
+        title = entity.getTitle();
+        body = entity.getBody();
+        this.url = url;
     }
 
     public Long getId() {
@@ -66,5 +74,9 @@ public class ProjectDto implements Serializable {
 
     public String getUsername() {
         return username;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }
