@@ -2,6 +2,7 @@
 
 import { ProjectCard } from "@/components/cards/ProjectCard";
 import { Button } from "@/components/shared/Button";
+import { InputText } from "@/components/shared/Input";
 import { Template } from "@/components/Template";
 import { BASE_URL } from "@/resources";
 import { Project, ProjectPage } from "@/resources/project.resource";
@@ -32,16 +33,15 @@ export default function Projects() {
                         <Button type="button" style={"btn bg-sky-500 hover:border-sky-600"} label={"Adicionar Projeto"}/>
                         <Button type="button" style={"btn bg-emerald-500 hover:border-emerald-600"} label={"Paginação"}/>
 
-                        <div className="form-group">
-                            <input
+                            <InputText
                                 type="text"
                                 id="value"
                                 value={query}
                                 onChange={(e) => setQuery(e.target.value)}
-                                className="form-control"
-                                placeholder="buscar pessoas..."
+                                style="form-control"
+                                placeholder="buscar projetos..."
                             />
-                        </div>
+                        
                     </div>
                 </div >
 

@@ -1,6 +1,5 @@
 package com.pasifcode.caxias_diary.domain.entity;
 
-import com.pasifcode.caxias_diary.domain.enums.ImageExtension;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
