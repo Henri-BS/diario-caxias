@@ -1,6 +1,7 @@
 'use client'
 
 import { ProjectCard } from "@/components/cards/ProjectCard";
+import { Button } from "@/components/shared/Button";
 import { Template } from "@/components/Template";
 import { BASE_URL } from "@/resources";
 import { Project, ProjectPage } from "@/resources/project.resource";
@@ -28,8 +29,9 @@ export default function Projects() {
         <Template>
                 <div className="flex items-center justify-between my-5">
                     <div className="flex space-x-4">
-                        <button className="btn bg-blue-600 text-white">Adicionar Projeto</button>
-                    <button className="btn bg-blue-600 text-white">Pagination</button>
+                        <Button type="button" style={"btn bg-sky-500 hover:border-sky-600"} label={"Adicionar Projeto"}/>
+                        <Button type="button" style={"btn bg-emerald-500 hover:border-emerald-600"} label={"Paginação"}/>
+
                         <div className="form-group">
                             <input
                                 type="text"
