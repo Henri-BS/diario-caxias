@@ -1,5 +1,6 @@
 package com.pasifcode.caxias_diary.service.impl;
 
+import com.pasifcode.caxias_diary.domain.dto.EventDto;
 import com.pasifcode.caxias_diary.domain.entity.Event;
 import com.pasifcode.caxias_diary.domain.dto.ProjectDto;
 import com.pasifcode.caxias_diary.domain.entity.Project;
@@ -43,19 +44,18 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Project> findAllProjects(Pageable pageable) {
+    public Page<ProjectDto> findAllProjects(Pageable pageable) {
         Page<Project> list = projectRepository.findAll(pageable);
         for (Project project : list) {
             projectValues(project);
         }
-        return list;
+        return list.map(ProjectDto::new);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<ProjectDto> findByUser(User user) {
-        List<Project> list = projectRepository.findByUser(user);
-        return list.stream().map(ProjectDto::new).toList();
+        List<Project> find = projectRepository.findByUser(user);
+        return find.stream().map(ProjectDto::new).toList();
     }
 
 
@@ -64,11 +64,6 @@ public class ProjectServiceImpl implements ProjectService {
     public ProjectDto findProjectById(Long id) {
         Project find = projectRepository.findById(id).orElseThrow();
         return new ProjectDto(find);
-    }
-
-    @Override
-    public Optional<Project> getProjectImage(Long id) {
-        return projectRepository.findById(id);
     }
 
     @Override
@@ -95,14 +90,6 @@ public class ProjectServiceImpl implements ProjectService {
         return new ProjectDto(projectRepository.save(edit));
     }
 
-    @Override
-    public Project saveProjectImage(MultipartFile file, Long id) throws IOException {
-        Project project = projectRepository.findById(id).orElseThrow();
-
-        project.setImage(file.getBytes());
-        project.setExtension(ImageExtension.valueOf(MediaType.valueOf(file.getContentType())));
-        return projectRepository.save(project);
-    }
 
     @Override
     public void deleteProject(Long id) {

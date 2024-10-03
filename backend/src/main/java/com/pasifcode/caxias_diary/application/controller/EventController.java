@@ -52,7 +52,7 @@ public class EventController {
         Event eventImage = possibleImage.get();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(eventImage.getExtension().getMediaType());
-        headers.setContentDispositionFormData("inline: filename=\"" + eventImage.getFileName() + "\"", eventImage.getFileName());
+        headers.setContentDispositionFormData("inline; filename=\"" + eventImage.getFileName() + "\"", eventImage.getFileName());
         return new ResponseEntity<>(eventImage.getImage(), headers, HttpStatus.OK);
     }
 

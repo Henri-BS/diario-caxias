@@ -13,19 +13,15 @@ import java.util.Optional;
 
 
 public interface ProjectService {
-    Page<Project> findAllProjects(Pageable pageable);
+    Page<ProjectDto> findAllProjects(Pageable pageable);
 
     List<ProjectDto> findByUser(User user);
 
     ProjectDto findProjectById(Long id);
 
-    Optional<Project> getProjectImage(Long id);
-
     ProjectDto saveProject(ProjectDto dto);
 
     ProjectDto updateProject(ProjectDto dto);
-
-    Project saveProjectImage(MultipartFile file, Long id) throws IOException;
 
     void deleteProject(Long id);
 

@@ -23,10 +23,8 @@ public class Project {
     private String body;
 
     @Lob
-    private byte[] image;
+    private String image;
 
-    @Enumerated(EnumType.STRING)
-    private ImageExtension extension;
 
     private Integer countEvents = 0;
 
@@ -49,7 +47,7 @@ public class Project {
     public Project() {
     }
 
-    public Project(Long id, String title, String body, byte[] image, Integer countEvents, Long countCategories, Integer countUsers, User user) {
+    public Project(Long id, String title, String body, String image, Integer countEvents, Long countCategories, Integer countUsers, User user) {
         this.id = id;
         this.title = title;
         this.body = body;
@@ -84,20 +82,12 @@ public class Project {
         this.body = body;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
-    }
-
-    public ImageExtension getExtension() {
-        return extension;
-    }
-
-    public void setExtension(ImageExtension extension) {
-        this.extension = extension;
     }
 
     public Integer getCountEvents() {
@@ -140,7 +130,4 @@ public class Project {
         return images;
     }
 
-    public String getFileName(){
-        return getTitle() + "." + getExtension();
-    }
 }
