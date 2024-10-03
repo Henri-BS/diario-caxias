@@ -33,7 +33,7 @@ public class ProjectController {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/profile/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ProjectDto> findProjectById(@PathVariable Long id) {
         ProjectDto find = projectService.findProjectById(id);
         return ResponseEntity.ok(find);
