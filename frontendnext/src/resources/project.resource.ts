@@ -9,14 +9,9 @@ export type Project = {
 export type ProjectPage = {
     content?: Project[];
     size?: number;
-    pageNumber?: number;
-    numberOfElements?: number;
-    totalElements?: number;
+    totalElements: number;
     totalPages?: number;
     number: number;
-    empty?: boolean;
-    first?: boolean;
-    last?: boolean;
   };
   
   export type ProjectProps = {

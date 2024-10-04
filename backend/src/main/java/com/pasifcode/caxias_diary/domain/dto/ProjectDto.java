@@ -7,7 +7,6 @@ import java.io.Serial;
 import java.io.Serializable;
 
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProjectDto implements Serializable {
     @Serial
     private final static long serialVersionUID = 1L;
@@ -24,7 +23,6 @@ public class ProjectDto implements Serializable {
 
     public ProjectDto() {
     }
-
 
     public ProjectDto(Project entity) {
         id = entity.getId();

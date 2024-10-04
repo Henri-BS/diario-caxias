@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public interface ProjectService {
-    Page<ProjectDto> findAllProjects(Pageable pageable);
+    Page<ProjectDto> findAll(Pageable pageable);
 
     List<ProjectDto> findByUser(User user);
 

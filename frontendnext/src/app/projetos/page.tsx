@@ -1,8 +1,8 @@
 'use client'
 
 import { ProjectCard } from "@/components/cards/ProjectCard";
-import { Button } from "@/components/shared/Button";
 import { InputText } from "@/components/shared/Input";
+import { Pagination } from "@/components/shared/Pagination";
 import { Template } from "@/components/Template";
 import { BASE_URL } from "@/resources";
 import { Project, ProjectPage } from "@/resources/project.resource";
@@ -15,38 +15,35 @@ export default function Projects() {
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
     }
-    const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], number: 0});
-    
+    const [projectPage, setProjectPage] = useState<Project[]>();
+
     useEffect(() => {
-        axios.get(`${BASE_URL}/project/list?page=${pageNumber}&query=${query}`)
+        axios.get(`${BASE_URL}/project/list?number=${pageNumber}&query=${query}&size=3`)
             .then((response) => {
                 setProjectPage(response.data);
-                console.log(response.data);
             });
     }, [pageNumber, query]);
 
     return (
         <>
-        <Template>
+            <Template>
                 <div className="flex items-center justify-between my-5">
-                    <div className="flex space-x-4">
-                        <Button type="button" style={"btn bg-sky-500 hover:border-sky-600"} label={"Adicionar Projeto"}/>
-                        <Button type="button" style={"btn bg-emerald-500 hover:border-emerald-600"} label={"Paginação"}/>
-
-                            <InputText
-                                type="text"
-                                id="value"
-                                value={query}
-                                onChange={(e) => setQuery(e.target.value)}
-                                style="form-control"
-                                placeholder="buscar projetos..."
-                            />
-                        
+                    <div className="flex space-x-4 px-4">
+                        <InputText
+                            type="text"
+                            id="value"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            style="form-control"
+                            placeholder="buscar projetos..."
+                        />
                     </div>
-                </div >
-
+                </div>
+                <div className="flex items-center w-full justify-center">
+                    <Pagination total={projectPage?.length} current={pageNumber} onPageChange={handlePageChange}/>
+                </div>
                 <div className="  grid grid-cols-1 xl:grid-cols-2 gap-y-10 gap-x-6 items-start p-8">
-                    {projectPage.content?.filter((x) =>
+                    {projectPage?.filter((x) =>
                         x.title?.toUpperCase().includes(query.toLocaleUpperCase()))
                         .map(x => (
                             <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">

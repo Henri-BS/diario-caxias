@@ -20,15 +20,13 @@ public class ProjectController {
     private ProjectService projectService;
 
     @GetMapping("/list")
-    public ResponseEntity<Page<ProjectDto>> findAllProjects(
-            @RequestParam(defaultValue = "") String title,
-            Pageable pageable) {
-        Page<ProjectDto> page = projectService.findAllProjects(pageable);
+    public ResponseEntity<Page<ProjectDto>> findProjects(@RequestParam(defaultValue = "") String title, Pageable pageable) {
+        Page<ProjectDto> page = projectService.findAll(pageable);
         return ResponseEntity.ok(page);
     }
 
     @GetMapping("/list-by-user/{user}")
-    public ResponseEntity<List<ProjectDto>> findAllProjects(@PathVariable User user) {
+    public ResponseEntity<List<ProjectDto>> findByUser(@PathVariable User user) {
         List<ProjectDto> list = projectService.findByUser(user);
         return ResponseEntity.ok(list);
     }

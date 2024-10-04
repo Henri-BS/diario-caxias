@@ -8,6 +8,7 @@ import com.pasifcode.caxias_diary.domain.repository.*;
 import com.pasifcode.caxias_diary.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,23 +28,15 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private EventRepository eventRepository;
 
-    private void projectValues(Project project) {
-        Project add = projectRepository.findById(project.getId()).orElseThrow();
-        List<Event> event = eventRepository.findByProject(add);
-        for (Event e : event) {
-            add.setCountEvents(add.getEvents().size());
-            projectRepository.save(add);
-        }
-    }
-
     @Override
     @Transactional(readOnly = true)
-    public Page<ProjectDto> findAllProjects(Pageable pageable) {
-        Page<Project> list = projectRepository.findAll(pageable);
-        for (Project project : list) {
+    public Page<ProjectDto> findAll(Pageable pageable) {
+        Page<Project> page = projectRepository.findAll(pageable);
+
+        for (Project project : page) {
             projectValues(project);
         }
-        return list.map(ProjectDto::new);
+        return page.map(ProjectDto::new);
     }
 
     @Override
@@ -84,9 +77,17 @@ public class ProjectServiceImpl implements ProjectService {
         return new ProjectDto(projectRepository.save(edit));
     }
 
-
     @Override
     public void deleteProject(Long id) {
         this.projectRepository.deleteById(id);
+    }
+
+    private void projectValues(Project project) {
+        Project add = projectRepository.findById(project.getId()).orElseThrow();
+        List<Event> event = eventRepository.findByProject(add);
+        for (Event e : event) {
+            add.setCountEvents(add.getEvents().size());
+            projectRepository.save(add);
+        }
     }
 }
