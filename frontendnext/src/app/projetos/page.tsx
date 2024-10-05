@@ -18,7 +18,7 @@ export default function Projects() {
     const [projectPage, setProjectPage] = useState<ProjectPage>({content:[], page:{number: 0, size: 0, totalPages: 0, totalElements: 0}});
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/project/list?page=${pageNumber}&query=${query}&size=3`)
+        axios.get(`${BASE_URL}/project/list?page=${pageNumber}&query=${query}&size=5`)
             .then((response) => {
                 setProjectPage(response.data);
             });
