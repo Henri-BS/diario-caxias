@@ -15,10 +15,10 @@ export default function Projects() {
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
     }
-    const [projectPage, setProjectPage] = useState<Project[]>();
+    const [projectPage, setProjectPage] = useState<ProjectPage>({content:[], page:{number: 0, size: 0, totalPages: 0, totalElements: 0}});
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/project/list?number=${pageNumber}&query=${query}&size=3`)
+        axios.get(`${BASE_URL}/project/list?page=${pageNumber}&query=${query}&size=3`)
             .then((response) => {
                 setProjectPage(response.data);
             });
@@ -40,10 +40,10 @@ export default function Projects() {
                     </div>
                 </div>
                 <div className="flex items-center w-full justify-center">
-                    <Pagination total={projectPage?.length} current={pageNumber} onPageChange={handlePageChange}/>
+                    <Pagination  pagination={projectPage} onPageChange={handlePageChange}/>
                 </div>
                 <div className="  grid grid-cols-1 xl:grid-cols-2 gap-y-10 gap-x-6 items-start p-8">
-                    {projectPage?.filter((x) =>
+                    {projectPage.content?.filter((x) =>
                         x.title?.toUpperCase().includes(query.toLocaleUpperCase()))
                         .map(x => (
                             <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">

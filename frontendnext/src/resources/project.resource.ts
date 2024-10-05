@@ -1,19 +1,20 @@
 export type Project = {
-    id?: number;
-    title?: string;
-    body?: string;
-    image?: string;
-}
-
+  id?: number;
+  title?: string;
+  body?: string;
+  image?: string;
+};
 
 export type ProjectPage = {
-    content?: Project[];
-    size?: number;
+  content: Project[];
+  page: {
+    size: number;
     totalElements: number;
-    totalPages?: number;
+    totalPages: number;
     number: number;
   };
-  
-  export type ProjectProps = {
-    project: Project;
-  };
+};
+
+export type ProjectProps = {
+  project: Project;
+};
