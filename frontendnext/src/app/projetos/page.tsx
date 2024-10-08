@@ -9,6 +9,7 @@ import { Project, ProjectPage } from "@/resources/project.resource";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+
 export default function Projects() {
     const [query, setQuery] = useState("");
     const [pageNumber, setPageNumber] = useState(0);
