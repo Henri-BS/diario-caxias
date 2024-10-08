@@ -6,19 +6,22 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name="tb_image")
+@Table(name="tb_post")
 @EntityListeners(AuditingEntityListener.class)
-public class Image {
+public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "image_id")
+    @Column(name = "post_id")
     private Long id;
 
     private String title;
 
-    private Long size;
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
     @CreatedDate
     private LocalDateTime uploadDate = LocalDateTime.now();
@@ -29,17 +32,24 @@ public class Image {
     @Lob
     private byte[] file;
 
-    @ManyToOne
-    @JoinColumn(name = "project_id")
-    private Project project;
+    @OneToMany(mappedBy = "post")
+    private Set<ProjectPost> projectPost = new HashSet<>();
 
-    public Image() {
+    public Set<ProjectPost> getProjectPost() {
+        return projectPost;
     }
 
-    public Image(Long id, String title, Long size, LocalDateTime uploadDate, ImageExtension extension, byte[] file) {
+    public void setProjectPost(Set<ProjectPost> projectPost) {
+        this.projectPost = projectPost;
+    }
+
+    public Post() {
+    }
+
+    public Post(Long id, String title, String description, LocalDateTime uploadDate, ImageExtension extension, byte[] file) {
         this.id = id;
         this.title = title;
-        this.size = size;
+        this.description = description;
         this.uploadDate = uploadDate;
         this.extension = extension;
         this.file = file;
@@ -61,12 +71,12 @@ public class Image {
         this.title = title;
     }
 
-    public Long getSize() {
-        return size;
+    public String getDescription() {
+        return description;
     }
 
-    public void setSize(Long size) {
-        this.size = size;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDateTime getUploadDate() {
@@ -93,13 +103,6 @@ public class Image {
         this.file = file;
     }
 
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
 
     public String getFileName(){
         return getTitle().concat(".").concat(getExtension().name());

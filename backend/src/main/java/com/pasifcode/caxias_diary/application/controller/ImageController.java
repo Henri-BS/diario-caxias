@@ -1,9 +1,8 @@
 package com.pasifcode.caxias_diary.application.controller;
 
-import com.pasifcode.caxias_diary.domain.dto.ImageDto;
-import com.pasifcode.caxias_diary.domain.entity.Image;
-import com.pasifcode.caxias_diary.domain.entity.Project;
-import com.pasifcode.caxias_diary.service.ImageService;
+import com.pasifcode.caxias_diary.domain.dto.PostDto;
+import com.pasifcode.caxias_diary.domain.entity.Post;
+import com.pasifcode.caxias_diary.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,67 +15,52 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
-@RequestMapping("/images")
+@RequestMapping("/posts")
 public class ImageController {
 
     @Autowired
-    private ImageService imageService;
+    private PostService postService;
 
     @GetMapping
-    public ResponseEntity<List<ImageDto>> searchImages(
+    public ResponseEntity<List<PostDto>> searchImages(
             @RequestParam(defaultValue = "") String title) {
-        List<Image> list = imageService.searchImages();
-        List<ImageDto> images = list.stream().map(x -> {
-            URI url = buildURL(x);
-            return new ImageDto(x, url.toString());
+        List<Post> list = postService.findAll();
+        List<PostDto> posts = list.stream().map(post -> {
+            URI url = buildImageURL(post);
+            return new PostDto(post, url.toString());
         }).toList();
-        return ResponseEntity.ok(images);
+        return ResponseEntity.ok(posts);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/image/{id}")
     public ResponseEntity<byte[]> getImage(@PathVariable Long id) {
-        Optional<Image> possibleImage = imageService.getImage(id);
+        Optional<Post> possibleImage = postService.getImage(id);
         if (possibleImage.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        Image image = possibleImage.get();
+        Post post = possibleImage.get();
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(image.getExtension().getMediaType());
-        headers.setContentLength(image.getSize());
-        headers.setContentDispositionFormData("inline: filename=\"" + image.getFileName() + "\"", image.getFileName());
-        return new ResponseEntity<>(image.getFile(), headers, HttpStatus.OK);
+        headers.setContentType(post.getExtension().getMediaType());
+        headers.setContentDispositionFormData("inline; filename=\"" + post.getFileName() + "\"", post.getFileName());
+        return new ResponseEntity<>(post.getFile(), headers, HttpStatus.OK);
     }
 
     @PostMapping("/save")
-    public ResponseEntity<ImageDto> saveImage(
+    public ResponseEntity<PostDto> saveImage(
             @RequestParam MultipartFile file,
-            @RequestParam String title
+            @RequestParam String title,
+            @RequestParam String description
 
     ) throws IOException {
-        Image save = imageService.saveImage(file, title);
-        URI imageUri = buildURL(save);
+        Post save = postService.savePost(file, title, description);
+        URI imageUri = buildImageURL(save);
         return ResponseEntity.created(imageUri).build();
     }
 
-
-    @PostMapping("/save-by-project")
-    public ResponseEntity<ImageDto> saveByProject(
-            @RequestParam MultipartFile file,
-            @RequestParam(required = false) String title,
-            @RequestParam(required = false) Project project
-    ) throws IOException {
-        Image save = imageService.saveByProject(file, title, project);
-        URI imageUri = buildURL(save);
-        return ResponseEntity.created(imageUri).build();
-    }
-
-
-    private URI buildURL(Image image) {
-        String imagePath = "/" + image.getId() +
-                "/" + UUID.randomUUID();
+    private URI buildImageURL(Post post) {
+        String imagePath = "/image/" + post.getId();
         return ServletUriComponentsBuilder
                 .fromCurrentRequestUri()
                 .path(imagePath)

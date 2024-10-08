@@ -2,47 +2,36 @@ package com.pasifcode.caxias_diary.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.pasifcode.caxias_diary.domain.entity.Image;
+import com.pasifcode.caxias_diary.domain.entity.Post;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ImageDto implements Serializable {
+public class PostDto implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     private Long id;
     private String title;
-    private Long size;
+    private String description;
     private String extension;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime uploadDate;
-    private Long projectId;
-    private String url;
+    private String imageUrl;
 
-    public ImageDto() {
+    public PostDto() {
     }
 
-    public ImageDto(Image entity) {
+    public PostDto(Post entity, String imageUrl) {
+        this.imageUrl = imageUrl;
         id = entity.getId();
         title = entity.getTitle();
-        size = entity.getSize();
+        description = entity.getDescription();
         extension = entity.getExtension().name();
         uploadDate = entity.getUploadDate();
-        projectId = entity.getProject().getId();
-    }
-
-    public ImageDto(Image entity, String url) {
-        this.url = url;
-        id = entity.getId();
-        title = entity.getTitle();
-        size = entity.getSize();
-        extension = entity.getExtension().name();
-        uploadDate = entity.getUploadDate();
-        projectId = entity.getProject().getId();
     }
 
     public Long getId() {
@@ -53,8 +42,8 @@ public class ImageDto implements Serializable {
         return title;
     }
 
-    public Long getSize() {
-        return size;
+    public String getDescription() {
+        return description;
     }
 
     public String getExtension() {
@@ -65,11 +54,8 @@ public class ImageDto implements Serializable {
         return uploadDate;
     }
 
-    public Long getProjectId() {
-        return projectId;
-    }
 
-    public String getUrl() {
-        return url;
+    public String getImageUrl() {
+        return imageUrl;
     }
 }

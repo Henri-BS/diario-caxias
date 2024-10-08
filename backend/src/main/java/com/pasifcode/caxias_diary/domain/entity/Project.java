@@ -24,20 +24,18 @@ public class Project {
     @Lob
     private String image;
 
-
     private Integer countEvents = 0;
 
     private Long countCategories;
 
     private Integer countUsers = 0;
 
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "project")
-    private final Set<Image> images = new HashSet<>();
+    private final Set<ProjectPost> posts = new HashSet<>();
 
     @OneToMany(mappedBy = "project")
     private final Set<Event> events = new HashSet<>();
@@ -125,8 +123,5 @@ public class Project {
         return events;
     }
 
-    public Set<Image> getImages() {
-        return images;
-    }
 
 }

@@ -34,7 +34,7 @@ export function CategoryList() {
                             />
                         </div>
                     </div>
-                </nav >
+                </nav>
 
                 <div className="row">
                     {categoryList.content?.filter((x) =>

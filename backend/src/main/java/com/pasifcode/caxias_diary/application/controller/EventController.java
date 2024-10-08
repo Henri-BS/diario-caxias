@@ -1,6 +1,6 @@
 package com.pasifcode.caxias_diary.application.controller;
 
-import com.pasifcode.caxias_diary.domain.dto.ImageDto;
+import com.pasifcode.caxias_diary.domain.dto.PostDto;
 import com.pasifcode.caxias_diary.domain.entity.Event;
 import com.pasifcode.caxias_diary.domain.entity.Project;
 import com.pasifcode.caxias_diary.domain.dto.EventDto;
@@ -63,7 +63,7 @@ public class EventController {
     }
 
     @PutMapping("/image/{id}")
-    public ResponseEntity<ImageDto> saveImage(
+    public ResponseEntity<PostDto> saveImage(
             @RequestParam MultipartFile file,
             @PathVariable Long id
     ) throws IOException {
