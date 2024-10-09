@@ -17,6 +17,7 @@ public class EventDto implements Serializable {
     private Long id;
     private String title;
     private String description;
+    private String imageUrl;
     private LocalDate date;
     private Season season;
     private Status status;
@@ -47,6 +48,10 @@ public class EventDto implements Serializable {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     public LocalDate getDate() {

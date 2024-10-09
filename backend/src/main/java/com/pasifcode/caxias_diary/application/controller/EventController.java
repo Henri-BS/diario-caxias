@@ -18,17 +18,16 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Optional;
-import java.util.UUID;
 
 
 @RestController
-@RequestMapping("/event")
+@RequestMapping("/events")
 public class EventController {
 
     @Autowired
     private EventService eventService;
 
-    @GetMapping("/list-by-project/{project}")
+    @GetMapping("/by-project/{project}")
     ResponseEntity<Page<EventDto>> findAllEvents(
             @PathVariable Project project,
             @RequestParam(defaultValue = "") String title,
@@ -86,8 +85,7 @@ public class EventController {
     }
 
     private URI buildURL(Event event) {
-        String path = "/" + event.getId()
-                + "/" + UUID.randomUUID();
+        String path = "/image/" + event.getId();
         return ServletUriComponentsBuilder
                 .fromCurrentRequestUri()
                 .path(path)

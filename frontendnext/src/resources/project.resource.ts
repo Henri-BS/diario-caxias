@@ -16,5 +16,5 @@ export type ProjectPage = {
 };
 
 export type ProjectProps = {
-  project: Project;
+  event: Project;
 };
