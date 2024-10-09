@@ -48,7 +48,7 @@ export default function Projects() {
                         x.title?.toUpperCase().includes(query.toLocaleUpperCase()))
                         .map(x => (
                             <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
-                                <ProjectCard event={x} />
+                                <ProjectCard project={x} />
                             </div>
                         ))}
                 </div>

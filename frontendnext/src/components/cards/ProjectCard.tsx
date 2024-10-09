@@ -3,7 +3,7 @@
 import { ProjectProps } from "@/resources/project.resource";
 import Link from "next/link";
 
-export const ProjectCard = ({ event: project }: ProjectProps) => {
+export const ProjectCard = ({ project }: ProjectProps) => {
     return (
         <Link href={`/projetos/${project.id}`} key={project.id} className="flex flex-col max-h-70 items-center bg-zinc-100 border border-zinc-300 rounded-xl shadow md:flex-row md:max-w-full hover:bg-zinc-300">
             <img className="object-cover w-full rounded-t-xl h-70 md:h-100 md:w-80 md:rounded-none md:rounded-s-xl" src={project.image} alt={project.title} />
