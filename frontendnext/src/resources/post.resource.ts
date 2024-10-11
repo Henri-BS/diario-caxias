@@ -18,5 +18,5 @@ export type PostPage = {
 };
 
 export type PostProps = {
-  category: Post;
+  post: Post;
 };

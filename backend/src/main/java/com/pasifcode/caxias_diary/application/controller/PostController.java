@@ -4,6 +4,8 @@ import com.pasifcode.caxias_diary.domain.dto.PostDto;
 import com.pasifcode.caxias_diary.domain.entity.Post;
 import com.pasifcode.caxias_diary.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,24 +15,24 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/posts")
-public class ImageController {
+public class PostController {
 
     @Autowired
     private PostService postService;
 
     @GetMapping
-    public ResponseEntity<List<PostDto>> searchImages(
-            @RequestParam(defaultValue = "") String title) {
-        List<Post> list = postService.findAll();
-        List<PostDto> posts = list.stream().map(post -> {
+    public ResponseEntity<Page<PostDto>> findPosts(
+            @RequestParam(defaultValue = "") String title,
+            Pageable pageable) {
+        Page<Post> list = postService.findAll(pageable);
+        Page<PostDto> posts = list.map(post -> {
             URI url = buildImageURL(post);
             return new PostDto(post, url.toString());
-        }).toList();
+        });
         return ResponseEntity.ok(posts);
     }
 
@@ -48,7 +50,7 @@ public class ImageController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<PostDto> saveImage(
+    public ResponseEntity<PostDto> savePost(
             @RequestParam MultipartFile file,
             @RequestParam String title,
             @RequestParam String description

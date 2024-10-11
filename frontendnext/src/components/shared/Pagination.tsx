@@ -1,8 +1,10 @@
+import { Category } from "@/resources/category.resource";
+import { Event } from "@/resources/event.resource";
 import { Post } from "@/resources/post.resource";
 import { Project } from "@/resources/project.resource";
 
 type Page = {
-    content: Project[] | Post[];
+    content: Project[] | Post[] | Event[] | Category[];
     page: {
         size: number;
         number: number;
@@ -16,6 +18,8 @@ type PageProps = {
     onPageChange: Function;
 }
 
+
+
 export const Pagination = ({ pagination, onPageChange }: PageProps) => {
 
     const next = (pageNumber: number) => {
@@ -23,7 +27,7 @@ export const Pagination = ({ pagination, onPageChange }: PageProps) => {
             onPageChange(pagination.page?.number + 1)
         }
     }
-    
+
 
     return (
         <nav>
@@ -41,7 +45,7 @@ export const Pagination = ({ pagination, onPageChange }: PageProps) => {
                     <p className="cursor-pointer flex items-center justify-center px-6 h-10 leading-tight text-gray-500 bg-white border border-gray-600 hover:bg-gray-100 hover:text-gray-700 ">{pagination.page?.number + 1} de {pagination.page?.totalPages} </p>
                 </li>
 
-                <li className={pagination.page?.number != pagination.page?.totalPages - 1 ? `disable` : ''}>
+                <li>
                     <button onClick={() => next(pagination.page.number + 1)} className="cursor-pointer flex items-center justify-center px-3 h-10 leading-tight text-gray-500 bg-white border border-gray-600 rounded-e-lg hover:bg-gray-100 hover:text-gray-700">
                         <span className="sr-only">Next</span>
                         <svg className="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
