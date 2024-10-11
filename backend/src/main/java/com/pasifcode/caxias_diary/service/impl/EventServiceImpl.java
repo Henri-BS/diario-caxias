@@ -32,9 +32,20 @@ public class EventServiceImpl implements EventService {
     private ProjectRepository projectRepository;
 
     @Override
+    public Page<Event> findAll(Pageable pageable) {
+        return eventRepository.findAll(pageable);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Page<EventDto> findByProject(Project project, Pageable pageable) {
         Page<Event> find = eventRepository.findByProject(project, pageable);
+        for(Event e: find){
+            if(e.getExtension() == null){
+                e.setExtension(ImageExtension.PNG);
+                eventRepository.save(e);
+            }
+        }
         return find.map(EventDto::new);
     }
 
