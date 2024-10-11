@@ -6,13 +6,11 @@ import com.pasifcode.caxias_diary.domain.dto.UserDto;
 import com.pasifcode.caxias_diary.domain.entity.User;
 import com.pasifcode.caxias_diary.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -30,11 +28,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    @Lazy
-    private PasswordEncoder passwordEncoder;
-
-    @GetMapping("/list")
+    @GetMapping
     public ResponseEntity<Page<UserDto>> findAllUsers(
             @RequestParam(defaultValue = "") String username,
             Pageable pageable
@@ -98,8 +92,7 @@ public class UserController {
     }
 
     private URI buildUrl(User user) {
-        String path = "/" + user.getId() +
-              "/" + UUID.randomUUID();
+        String path = "/image/" + user.getId();
         return ServletUriComponentsBuilder
                 .fromCurrentRequestUri()
                 .path(path)

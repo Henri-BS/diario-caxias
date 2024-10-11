@@ -13,19 +13,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/project")
+@RequestMapping("/projects")
 public class ProjectController {
 
     @Autowired
     private ProjectService projectService;
 
-    @GetMapping("/list")
+    @GetMapping
     public ResponseEntity<Page<ProjectDto>> findProjects(@RequestParam(defaultValue = "") String title, Pageable pageable) {
         Page<ProjectDto> page = projectService.findAll(pageable);
         return ResponseEntity.ok(page);
     }
 
-    @GetMapping("/list-by-user/{user}")
+    @GetMapping("/by-user/{user}")
     public ResponseEntity<List<ProjectDto>> findByUser(@PathVariable User user) {
         List<ProjectDto> list = projectService.findByUser(user);
         return ResponseEntity.ok(list);

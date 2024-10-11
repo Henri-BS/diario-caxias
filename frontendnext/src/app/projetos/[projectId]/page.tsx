@@ -24,8 +24,6 @@ function ProjectDetails({ params }: any) {
 
 function Events({params}: any){
     
-    
-    const [query, setQuery] = useState("");
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber)
@@ -46,9 +44,7 @@ function Events({params}: any){
                     <Pagination pagination={eventPage} onPageChange={handlePageChange} />
                 </div>
                 <div className=" grid grid-cols-1 xl:grid-cols-2 gap-y-10 gap-x-6 items-start p-8">
-                    {eventPage.content?.filter((x) =>
-                        x.title?.toUpperCase().includes(query.toLocaleUpperCase()))
-                        .map(x => (
+                    {eventPage.content?.map(x => (
                             <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start">
                                 <EventCard event={x} />
                             </div>

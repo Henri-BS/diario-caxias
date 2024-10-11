@@ -33,7 +33,6 @@ public class PostServiceImpl implements PostService {
         return postRepository.findById(id);
     }
 
-
     @Override
     public Post savePost(MultipartFile file, String title, String description) throws IOException {
         Post add = new Post();
@@ -43,7 +42,4 @@ public class PostServiceImpl implements PostService {
         add.setExtension(ImageExtension.valueOf(MediaType.valueOf(file.getContentType())));
         return postRepository.save(add);
     }
-
-
-
 }
