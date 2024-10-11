@@ -1,6 +1,5 @@
 package com.pasifcode.caxias_diary.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.pasifcode.caxias_diary.domain.entity.Project;
 
 import java.io.Serial;
