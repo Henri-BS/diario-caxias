@@ -18,8 +18,6 @@ type PageProps = {
     onPageChange: Function;
 }
 
-
-
 export const Pagination = ({ pagination, onPageChange }: PageProps) => {
 
     const next = (pageNumber: number) => {
@@ -27,7 +25,6 @@ export const Pagination = ({ pagination, onPageChange }: PageProps) => {
             onPageChange(pagination.page?.number + 1)
         }
     }
-
 
     return (
         <nav>
@@ -42,7 +39,7 @@ export const Pagination = ({ pagination, onPageChange }: PageProps) => {
                 </li>
 
                 <li>
-                    <p className="cursor-pointer flex items-center justify-center px-6 h-10 leading-tight text-gray-500 bg-white border border-gray-600 hover:bg-gray-100 hover:text-gray-700 ">{pagination.page?.number + 1} de {pagination.page?.totalPages} </p>
+                    <p className="flex items-center justify-center px-6 h-10 leading-tight text-gray-500 bg-white border border-gray-600">{pagination.page?.number + 1} de {pagination.page?.totalPages} </p>
                 </li>
 
                 <li>

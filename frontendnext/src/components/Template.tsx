@@ -62,7 +62,7 @@ const Header: React.FC = () => {
 
         <header className="border-b border-gray-500 backdrop-blur-4x1 bg-zinc-800 text-white py-6">
             <div className="mx-auto flex justify-between items-center px-2">
-                <Link href={"/projetos"}>
+                <Link href={"/inicio"}>
                     <h1 className="self-center text-3x1 font-semibold whitespace-nowrap dark:text-white">
                         Diário Caxias
                     </h1>
@@ -79,7 +79,7 @@ const Footer: React.FC = () => {
                 <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
                     <div className="sm:flex sm:items-center sm:justify-between">
 
-                        <a href="#" className="flex items-center sm:justify-between">
+                        <a href="/inicio" className="flex items-center sm:justify-between">
                             <span className="self-center text-3x1 font-semibold whitespace-nowrap text-white">Diário Caxias</span>
                         </a>
 

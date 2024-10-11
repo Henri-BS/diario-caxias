@@ -27,6 +27,18 @@ public class EventDto implements Serializable {
     public EventDto() {
     }
 
+    public EventDto(Event entity, String imageUrl) {
+        id = entity.getId();
+        title = entity.getTitle();
+        description = entity.getDescription();
+        date = entity.getDate();
+        this.imageUrl = imageUrl;
+        season = entity.getSeason();
+        status = entity.getStatus();
+        projectId = entity.getProject().getId();
+        projectTitle = entity.getProject().getTitle();
+    }
+
     public EventDto(Event entity) {
         id = entity.getId();
         title = entity.getTitle();

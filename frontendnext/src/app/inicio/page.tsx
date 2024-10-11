@@ -1,6 +1,7 @@
 'use client'
 
 import { CategoryCard } from "@/components/cards/CategoryCard";
+import { EventCard } from "@/components/cards/EventCard";
 import { PostCard } from "@/components/cards/PostCard";
 import { ProjectCard } from "@/components/cards/ProjectCard";
 import { Template } from "@/components/Template";
@@ -21,6 +22,7 @@ export default function Home() {
                 <PostHomeList />
                 <ProjectHomeList />
                 <CategoryHomeList />
+                <EventHomeList />
             </Template>
         </>
     );
@@ -107,4 +109,32 @@ function CategoryHomeList() {
     );
 }
 
+function EventHomeList() {
+    const [events, setEvents] = useState<ProjectPage>({ content: [], page: { number: 0, size: 0, totalElements: 0, totalPages: 0 } })
+    useEffect(() => {
+        axios.get(`${BASE_URL}/events?size=10`)
+            .then((response) => {
+                setEvents(response.data);
+            })
+    }, [])
+
+    return (
+        <>
+            <div className="flex justify-between p-4 " >
+                <h1 className="text-3xl">Eventos recentes</h1>
+                <Link href={"/eventos"} className="text-2xl text-blue-600 hover:text-blue-400 hover:underline">
+                    Ver Lista
+                </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-6 items-start p-8">
+                {events.content?.map(x => (
+                    <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                        <EventCard event={x} />
+                    </div>
+                ))}
+            </div>
+        </>
+    );
+}
 

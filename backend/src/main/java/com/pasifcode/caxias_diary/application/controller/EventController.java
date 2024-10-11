@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Optional;
 
-
 @RestController
 @RequestMapping("/events")
 public class EventController {
@@ -27,17 +26,33 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
+    @GetMapping
+    public ResponseEntity<Page<EventDto>> FindEvents(
+            @RequestParam(defaultValue = "") String title,
+            Pageable pageable) {
+        Page<Event> page = eventService.findAll(pageable);
+        Page<EventDto> events = page.map(event -> {
+            URI url = buildURL(event);
+            return new EventDto(event, url.toString());
+        });
+        return ResponseEntity.ok(events);
+    }
+
     @GetMapping("/by-project/{project}")
-    ResponseEntity<Page<EventDto>> findAllEvents(
+    public ResponseEntity<Page<EventDto>> findByProject(
             @PathVariable Project project,
             @RequestParam(defaultValue = "") String title,
             Pageable pageable) {
-        Page<EventDto> page = eventService.findByProject(project, pageable);
-        return ResponseEntity.ok(page);
+        Page<Event> page = eventService.findAll(pageable);
+        Page<EventDto> events = page.map(event -> {
+            URI url = buildURL(event);
+            return new EventDto(event, url.toString());
+        });
+        return ResponseEntity.ok(events);
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<EventDto> findEventById(@PathVariable Long id) {
+    public ResponseEntity<EventDto> findEventById(@PathVariable Long id) {
         EventDto find = eventService.findEventById(id);
         return ResponseEntity.ok(find);
     }
@@ -56,7 +71,7 @@ public class EventController {
     }
 
     @PostMapping("/save")
-    ResponseEntity<EventDto> saveEvent(@RequestBody EventDto dto) {
+    public ResponseEntity<EventDto> saveEvent(@RequestBody EventDto dto) {
         EventDto add = eventService.saveEvent(dto);
         return new ResponseEntity<>(add, HttpStatus.CREATED);
     }
@@ -73,14 +88,14 @@ public class EventController {
 
 
     @PutMapping("/update")
-    ResponseEntity<EventDto> updateEvent(@RequestBody EventDto dto) {
+    public ResponseEntity<EventDto> updateEvent(@RequestBody EventDto dto) {
         EventDto edit = eventService.updateEvent(dto);
         return new ResponseEntity<>(edit, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteEvent(@PathVariable Long id) {
+    public void deleteEvent(@PathVariable Long id) {
         this.eventService.deleteEvent(id);
     }
 
