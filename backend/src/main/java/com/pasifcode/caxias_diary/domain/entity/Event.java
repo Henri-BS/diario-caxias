@@ -4,14 +4,18 @@ import com.pasifcode.caxias_diary.domain.enums.ImageExtension;
 import com.pasifcode.caxias_diary.domain.enums.Season;
 import com.pasifcode.caxias_diary.domain.enums.Status;
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
 
 @Entity
 @Table(name = "tb_event")
+@EntityListeners(AuditingEntityListener.class)
 public class Event {
 
     @Id
@@ -38,6 +42,9 @@ public class Event {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @CreatedDate
+    private LocalDateTime createdDate = LocalDateTime.now();
+
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
@@ -51,14 +58,16 @@ public class Event {
     public Event() {
     }
 
-    public Event(Long id, String title, String description, LocalDate date, byte[] image, Season season, Status status, Project project) {
+    public Event(Long id, String title, String description, LocalDate date, byte[] image, ImageExtension extension, Season season, Status status, LocalDateTime createdDate, Project project) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.date = date;
         this.image = image;
+        this.extension = extension;
         this.season = season;
         this.status = status;
+        this.createdDate = createdDate;
         this.project = project;
     }
 
@@ -124,6 +133,14 @@ public class Event {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
 
     public Project getProject() {

@@ -1,13 +1,17 @@
 package com.pasifcode.caxias_diary.domain.entity;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
 
 @Entity
 @Table(name = "tb_project")
+@EntityListeners(AuditingEntityListener.class)
 public class Project {
 
     @Id
@@ -30,6 +34,9 @@ public class Project {
 
     private Integer countUsers = 0;
 
+    @CreatedDate
+    private LocalDateTime createdDate = LocalDateTime.now();
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -44,7 +51,7 @@ public class Project {
     public Project() {
     }
 
-    public Project(Long id, String title, String body, String image, Integer countEvents, Long countCategories, Integer countUsers, User user) {
+    public Project(Long id, String title, String body, String image, Integer countEvents, Long countCategories, Integer countUsers, LocalDateTime createdDate, User user) {
         this.id = id;
         this.title = title;
         this.body = body;
@@ -52,6 +59,7 @@ public class Project {
         this.countEvents = countEvents;
         this.countCategories = countCategories;
         this.countUsers = countUsers;
+        this.createdDate = createdDate;
         this.user = user;
     }
 
@@ -109,6 +117,14 @@ public class Project {
 
     public void setCountUsers(Integer countUsers) {
         this.countUsers = countUsers;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
 
     public User getUser() {

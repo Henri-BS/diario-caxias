@@ -33,9 +33,14 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<EventDto> findByProject(Project project, Pageable pageable) {
-        Page<Event> find = eventRepository.findByProject(project, pageable);
-        return find.map(EventDto::new);
+    public Page<Event> findAll(Pageable pageable) {
+        return eventRepository.findAll(pageable);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Event> findByProject(Project project, Pageable pageable) {
+        return eventRepository.findByProject(project, pageable);
     }
 
     @Override

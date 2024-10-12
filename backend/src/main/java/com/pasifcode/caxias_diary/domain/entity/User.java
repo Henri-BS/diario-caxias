@@ -37,7 +37,7 @@ public class User {
     private String location;
 
     @CreatedDate
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdDate = LocalDateTime.now();
 
     @Lob
     private byte[] image;
@@ -113,12 +113,12 @@ public class User {
         this.location = location;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
 
     public byte[] getImage() {

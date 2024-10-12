@@ -13,7 +13,9 @@ import java.util.Optional;
 
 public interface EventService {
 
-    Page<EventDto> findByProject(Project project, Pageable pageable);
+    Page<Event> findAll(Pageable pageable);
+
+    Page<Event> findByProject(Project project, Pageable pageable);
 
     EventDto findEventById(Long id);
 
@@ -26,4 +28,6 @@ public interface EventService {
     void deleteEvent(Long id);
 
     Optional<Event> getImage(Long id);
+
+
 }

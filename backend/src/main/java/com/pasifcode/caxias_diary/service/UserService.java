@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 public interface UserService {
-    Page<UserDto> findAllUsers(Pageable pageable);
+    Page<User> findAll(Pageable pageable);
 
     UserDto findUserById(Long id);
 

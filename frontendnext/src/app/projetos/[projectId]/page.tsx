@@ -1,6 +1,5 @@
 'use client'
 
-import Events from "@/app/eventos/[projectId]/page";
 import { EventCard } from "@/components/cards/EventCard";
 import { InputText } from "@/components/shared/Input";
 import { Pagination } from "@/components/shared/Pagination";

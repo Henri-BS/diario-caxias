@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
@@ -32,8 +32,12 @@ public class UserController {
             @RequestParam(defaultValue = "") String username,
             Pageable pageable
     ) {
-        Page<UserDto> page = userService.findAllUsers(pageable);
-        return ResponseEntity.ok(page);
+        Page<User> list = userService.findAll(pageable);
+        Page<UserDto> users = list.map(user -> {
+            URI url = buildImageURL(user);
+            return new UserDto(user, url.toString());
+        });
+        return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{id}")
@@ -72,7 +76,7 @@ public class UserController {
             @RequestParam String location,
             @PathVariable Long id) throws IOException {
         User userInfo = userService.saveUserInfo(file, bio, location, id);
-        URI userInfoUrl = buildUrl(userInfo);
+        URI userInfoUrl = buildImageURL(userInfo);
         return ResponseEntity.created(userInfoUrl).build();
     }
 
@@ -86,11 +90,11 @@ public class UserController {
         User userImage = possibleImage.get();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(userImage.getExtension().getMediaType());
-        headers.setContentDispositionFormData("inline: filename=\"" + userImage.getFileName() + "\"", userImage.getFileName());
+        headers.setContentDispositionFormData("inline; filename=\"" + userImage.getFileName() + "\"", userImage.getFileName());
         return new ResponseEntity<>(userImage.getImage(), headers, HttpStatus.OK);
     }
 
-    private URI buildUrl(User user) {
+    private URI buildImageURL(User user) {
         String path = "/image/" + user.getId();
         return ServletUriComponentsBuilder
                 .fromCurrentRequestUri()

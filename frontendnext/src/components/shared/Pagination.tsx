@@ -3,9 +3,10 @@ import { Event } from "@/resources/event.resource";
 import { Post } from "@/resources/post.resource";
 import { Project } from "@/resources/project.resource";
 import { RenderIf } from "../Template";
+import { User } from "@/resources/user.resource";
 
 type Page = {
-    content: Project[] | Post[] | Event[] | Category[];
+    content: Project[] | Post[] | Event[] | Category[] | User[];
     page: {
         size: number;
         number: number;

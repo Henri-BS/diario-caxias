@@ -7,7 +7,7 @@ export type Event = {
   status?: string;
   imageUrl?: string;
   projectId?: number;
-  projectName?: string;
+  projectTitle?: string;
 };
 
 export type EventPage = {

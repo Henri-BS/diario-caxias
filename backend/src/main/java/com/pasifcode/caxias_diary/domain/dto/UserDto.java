@@ -1,10 +1,12 @@
 package com.pasifcode.caxias_diary.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.pasifcode.caxias_diary.domain.entity.User;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto implements Serializable {
@@ -16,11 +18,26 @@ public class UserDto implements Serializable {
     private String username;
     private String email;
     private String password;
+    private String imageUrl;
     private String bio;
     private String location;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime createdDate;
 
     public UserDto() {
     }
+
+    public UserDto(User entity, String imageUrl) {
+        id = entity.getId();
+        username = entity.getUsername();
+        email = entity.getEmail();
+        password = entity.getPassword();
+        this.imageUrl = imageUrl;
+        bio = entity.getBio();
+        location = entity.getLocation();
+        createdDate = entity.getCreatedDate();
+    }
+
 
     public UserDto(User entity) {
         id = entity.getId();
@@ -29,6 +46,7 @@ public class UserDto implements Serializable {
         password = entity.getPassword();
         bio = entity.getBio();
         location = entity.getLocation();
+        createdDate = entity.getCreatedDate();
     }
 
     public Long getId() {
@@ -47,11 +65,19 @@ public class UserDto implements Serializable {
         return password;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
     public String getBio() {
         return bio;
     }
 
     public String getLocation() {
         return location;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
     }
 }

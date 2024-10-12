@@ -27,13 +27,29 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
+    @GetMapping
+    ResponseEntity<Page<EventDto>> findEvents(
+            @RequestParam(defaultValue = "") String title,
+            Pageable pageable) {
+        Page<Event> list = eventService.findAll(pageable);
+        Page<EventDto> events = list.map(event -> {
+            URI url = buildImageURL(event);
+            return new EventDto(event, url.toString());
+        });
+        return ResponseEntity.ok(events);
+    }
+
     @GetMapping("/by-project/{project}")
-    ResponseEntity<Page<EventDto>> findAllEvents(
+    ResponseEntity<Page<EventDto>> findByProject(
             @PathVariable Project project,
             @RequestParam(defaultValue = "") String title,
             Pageable pageable) {
-        Page<EventDto> page = eventService.findByProject(project, pageable);
-        return ResponseEntity.ok(page);
+        Page<Event> list = eventService.findAll(pageable);
+        Page<EventDto> events = list.map(event -> {
+            URI url = buildImageURL(event);
+            return new EventDto(event, url.toString());
+        });
+        return ResponseEntity.ok(events);
     }
 
     @GetMapping("/{id}")
@@ -67,7 +83,7 @@ public class EventController {
             @PathVariable Long id
     ) throws IOException {
         Event eventImage = eventService.saveEventImage(file, id);
-        URI imageUri = buildURL(eventImage);
+        URI imageUri = buildImageURL(eventImage);
         return ResponseEntity.created(imageUri).build();
     }
 
@@ -84,7 +100,7 @@ public class EventController {
         this.eventService.deleteEvent(id);
     }
 
-    private URI buildURL(Event event) {
+    private URI buildImageURL(Event event) {
         String path = "/image/" + event.getId();
         return ServletUriComponentsBuilder
                 .fromCurrentRequestUri()

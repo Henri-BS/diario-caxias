@@ -37,9 +37,8 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
-    public Page<UserDto> findAllUsers(Pageable pageable) {
-        Page<User> page = userRepository.findAll(pageable);
-        return page.map(UserDto::new);
+    public Page<User> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
     @Override

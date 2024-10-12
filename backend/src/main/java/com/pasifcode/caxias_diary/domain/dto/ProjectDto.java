@@ -1,9 +1,11 @@
 package com.pasifcode.caxias_diary.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pasifcode.caxias_diary.domain.entity.Project;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 
 public class ProjectDto implements Serializable {
@@ -16,6 +18,8 @@ public class ProjectDto implements Serializable {
     private Integer countEvents;
     private Long countCategories;
     private Integer countUsers;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime createdDate;
     private Long userId;
     private String username;
     private String image;
@@ -30,6 +34,7 @@ public class ProjectDto implements Serializable {
         countEvents = entity.getCountEvents();
         countCategories = entity.getCountCategories();
         countUsers = entity.getCountUsers();
+        createdDate = entity.getCreatedDate();
         userId = entity.getUser().getId();
         username = entity.getUser().getUsername();
         image = entity.getImage();
@@ -58,6 +63,10 @@ public class ProjectDto implements Serializable {
 
     public Integer getCountUsers() {
         return countUsers;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
     }
 
     public Long getUserId() {
