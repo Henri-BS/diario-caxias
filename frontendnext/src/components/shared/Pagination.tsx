@@ -2,6 +2,7 @@ import { Category } from "@/resources/category.resource";
 import { Event } from "@/resources/event.resource";
 import { Post } from "@/resources/post.resource";
 import { Project } from "@/resources/project.resource";
+import { RenderIf } from "../Template";
 
 type Page = {
     content: Project[] | Post[] | Event[] | Category[];
@@ -27,7 +28,7 @@ export const Pagination = ({ pagination, onPageChange }: PageProps) => {
     }
 
     return (
-        <nav>
+        <RenderIf condition={pagination.page.totalElements >= 1}>
             <ul className="flex items-center -space-x-px h-10 text-base">
                 <li>
                     <button onClick={() => onPageChange(pagination.page?.number - 1)} className="cursor-pointer flex items-center justify-center px-3 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-600 rounded-s-lg hover:bg-gray-100 hover:text-gray-700">
@@ -52,6 +53,6 @@ export const Pagination = ({ pagination, onPageChange }: PageProps) => {
                 </li>
 
             </ul>
-        </nav>
+        </RenderIf>
     );
 }

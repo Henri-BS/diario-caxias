@@ -38,7 +38,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<EventDto> findByProject(Project project, Pageable pageable) {
+    public Page<Event> findByProject(Project project, Pageable pageable) {
         Page<Event> find = eventRepository.findByProject(project, pageable);
         for(Event e: find){
             if(e.getExtension() == null){
@@ -46,7 +46,7 @@ public class EventServiceImpl implements EventService {
                 eventRepository.save(e);
             }
         }
-        return find.map(EventDto::new);
+        return find;
     }
 
     @Override

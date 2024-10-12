@@ -15,7 +15,7 @@ public interface EventService {
 
     Page<Event> findAll(Pageable pageable);
 
-    Page<EventDto> findByProject(Project project, Pageable pageable);
+    Page<Event> findByProject(Project project, Pageable pageable);
 
     EventDto findEventById(Long id);
 

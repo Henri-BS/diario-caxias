@@ -43,7 +43,7 @@ public class EventController {
             @PathVariable Project project,
             @RequestParam(defaultValue = "") String title,
             Pageable pageable) {
-        Page<Event> page = eventService.findAll(pageable);
+        Page<Event> page = eventService.findByProject(project, pageable);
         Page<EventDto> events = page.map(event -> {
             URI url = buildURL(event);
             return new EventDto(event, url.toString());

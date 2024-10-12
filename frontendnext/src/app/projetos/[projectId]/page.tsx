@@ -23,32 +23,7 @@ export default function ProjectDetails({ params }: any) {
                 setProject(response.data);
             });
     }, [projectId]);
-    
-
-    return (
-        <>
-            <Template>
-                <div className="relative flex flex-col sm:flex-row xl:flex-col items-start">
-                    <div className="order-1 sm:ml-6 xl:ml-0">
-                        <h3 className="mb-1 text-slate-900 font-semibold">
-                            <span className="mb-1 block text-lg leading-6 text-indigo-500">{project?.title}</span>
-                        </h3>
-                        <div className="prose prose-slate prose-sm text-slate-600">
-                            <p>{project?.body} </p>
-                        </div>
-                    </div>
-                    <img src={project?.image} alt={project?.title} className="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full" width="1216" height="640" />
-                </div>
-                <Events/>
-            </Template>
-        </>
-    );
-}
-
-
-function Events() {
-    const params = useParams();
-    const projectId = params.projectId;
+    function Events({params}: any) {
 
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
@@ -79,3 +54,26 @@ function Events() {
         </>
     );
 }
+
+    return (
+        <>
+            <Template>
+                <div className="relative flex flex-col sm:flex-row xl:flex-col items-start">
+                    <div className="order-1 sm:ml-6 xl:ml-0">
+                        <h3 className="mb-1 text-slate-900 font-semibold">
+                            <span className="mb-1 block text-lg leading-6 text-indigo-500">{project?.title}</span>
+                        </h3>
+                        <div className="prose prose-slate prose-sm text-slate-600">
+                            <p>{project?.body} </p>
+                        </div>
+                    </div>
+                    <img src={project?.image} alt={project?.title} className="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full" width="1216" height="640" />
+                </div>
+                <Events params={projectId}/>
+            </Template>
+        </>
+    );
+}
+
+
+

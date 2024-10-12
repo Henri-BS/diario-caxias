@@ -38,8 +38,6 @@ public class Event {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-
-
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
