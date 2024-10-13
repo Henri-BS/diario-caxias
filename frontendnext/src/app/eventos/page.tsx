@@ -1,12 +1,11 @@
 'use client'
 
 import { EventCard } from "@/components/cards/EventCard";
-import { ProjectCard } from "@/components/cards/ProjectCard";
 import { InputText } from "@/components/shared/Input";
 import { Pagination } from "@/components/shared/Pagination";
 import { Template } from "@/components/Template";
 import { BASE_URL } from "@/resources";
-import { Project, ProjectPage } from "@/resources/project.resource";
+import { ProjectPage } from "@/resources/project.resource";
 import axios from "axios";
 import { useEffect, useState } from "react";
 

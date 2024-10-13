@@ -40,7 +40,7 @@ function PostHomeList() {
     return (
         <>
             <div className="flex justify-between p-4 " >
-                <h1 className="text-3xl">Publicações recentes</h1>
+                <h1 className="text-3xl">Últimas notícias</h1>
                 <Link href={"/postagens"} className="text-2xl text-blue-600 hover:text-blue-400 hover:underline">Ver Lista</Link>
             </div>
             <div className="flex flex-row gap-4 overflow-y-auto ">

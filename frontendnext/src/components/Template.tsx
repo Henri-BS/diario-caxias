@@ -1,19 +1,22 @@
 'use client'
 
 import Link from "next/link";
-import React from "react"
+import React, { FC, ReactNode, useState } from "react"
 import { ToastContainer } from "react-toastify";
+import * as FaIcons from "react-icons/fa6";
+
 
 interface TemplateProps {
     children: React.ReactNode
     loading?: boolean;
 }
 
-export const Template: React.FC<TemplateProps> = ({ children, loading = false }: TemplateProps) => {
+export const Template: FC<TemplateProps> = ({ children, loading = false }: TemplateProps) => {
     return (
         <>
             <Header />
-            <div className={`${loading ? 'animate-pulse' : ''} container mx-auto mt-8 px-4`}>
+
+            <div className={`${loading ? 'animate-pulse' : ''} container mx-auto mt-8 px-4 `}>
                 <RenderIf condition={loading}>
                     <div className="text-center">
                         <Loading />
@@ -38,14 +41,14 @@ interface RenderIfProps {
     children: React.ReactNode;
 }
 
-export const RenderIf: React.FC<RenderIfProps> = ({ condition = true, children }) => {
+export const RenderIf: FC<RenderIfProps> = ({ condition = true, children }) => {
     if (condition) {
         return children
     }
     return false;
 }
 
-const Loading: React.FC = () => {
+const Loading: FC = () => {
     return (
         <div role="status">
             <svg aria-hidden="true" className="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-green-500" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,22 +60,78 @@ const Loading: React.FC = () => {
     );
 }
 
-const Header: React.FC = () => {
-    return (
 
-        <header className="border-b border-gray-500 backdrop-blur-4x1 bg-zinc-800 text-white py-6">
-            <div className="mx-auto flex justify-between items-center px-2">
-                <Link href={"/inicio"}>
-                    <h1 className="self-center text-3x1 font-semibold whitespace-nowrap dark:text-white">
-                        Diário Caxias
-                    </h1>
-                </Link>
-            </div>
-        </header>
+
+const Header: FC = () => {
+
+    const SidebarItems = [
+        {
+            title: "Início",
+            path: "/inicio",
+            icon: <FaIcons.FaHouse />
+        },
+        {
+            title: "Notícias",
+            path: "/postagens",
+            icon: <FaIcons.FaNewspaper />
+        },
+        {
+            title: "Projetos",
+            path: "/projetos",
+            icon: <FaIcons.FaFolderClosed />
+        },
+        {
+            title: "Categrias",
+            path: "/categorias",
+            icon: <FaIcons.FaTag />
+        },
+        {
+            title: "Usuários",
+            path: "/usuarios",
+            icon: <FaIcons.FaUser />
+        }
+    ]
+
+    const [sidebar, setSidebar] = useState(false);
+    const showSidebar = () => setSidebar(!sidebar);
+
+    return (
+        <>
+            <header className="border-b border-gray-500 backdrop-blur-4x1 bg-zinc-800 text-white py-6">
+                <div className="mx-auto flex justify-between items-center px-2 gap-4">
+                    <div className="gap-2 flex items-center">
+                        <Link href="#" className="text-2xl">
+                            <FaIcons.FaBars onClick={showSidebar} />
+                        </Link>
+                        <Link href={"/inicio"}>
+                            <h1 className="self-center text-2xl font-semibold whitespace-nowrap ">
+                                Diário Caxias
+                            </h1>
+                        </Link>
+                    </div>
+                </div>
+            </header> 
+            <nav className={sidebar ? "fixed top-0 left-full transition duration-600" : "flex flex-col justify-top absolute z-40 bg-zinc-800 w-96 h-screen left-0 transition duration-600"}>
+                    <ul className="w-full" onClick={showSidebar}>
+                        {SidebarItems.map((item, index) => {
+                            return (
+                                <li key={index} className="flex justify-start items-center p-4 h-20">
+                                    <Link href={item.path} className="flex items-center px-4 borber rounded-xl w-full h-16 p-4 text-2xl text-gray-400 hover:text-gray-100 hover:bg-gray-600 transition duration-600">
+                                        {item.icon}
+                                        <span className="ml-4">{item.title}</span>
+                                    </Link>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                </nav>
+        </>
     );
 }
 
-const Footer: React.FC = () => {
+
+
+const Footer: FC = () => {
     return (
         <>
             <footer className="mt-2 bg-white shadow bg-zinc-800">
@@ -80,7 +139,7 @@ const Footer: React.FC = () => {
                     <div className="sm:flex sm:items-center sm:justify-between">
 
                         <a href="/inicio" className="flex items-center sm:justify-between">
-                            <span className="self-center text-3x1 font-semibold whitespace-nowrap text-white">Diário Caxias</span>
+                            <span className="self-center text-3xl font-semibold whitespace-nowrap text-white">Diário Caxias</span>
                         </a>
 
                         <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-300">
