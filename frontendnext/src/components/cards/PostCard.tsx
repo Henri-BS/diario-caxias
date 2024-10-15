@@ -1,6 +1,6 @@
 'use client'
 
-import { PostProps } from "@/resources/post.resource";
+import { PostProps } from "@/resources/post";
 import Link from "next/link";
 
 export const PostCard = ({ post }: PostProps) => {

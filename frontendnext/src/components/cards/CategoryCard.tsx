@@ -1,6 +1,6 @@
 'use client'
 
-import { CategoryProps } from "@/resources/category.resource";
+import { CategoryProps } from "@/resources/category";
 import Link from "next/link";
 
 export const CategoryCard = ({ category }: CategoryProps) => {

@@ -1,12 +1,12 @@
 'use client'
 
 import { ProjectCard } from "@/components/cards/ProjectCard";
-import { InputText } from "@/components/shared/Input";
 import { Pagination } from "@/components/shared/Pagination";
 import { Template } from "@/components/Template";
 import { BASE_URL } from "@/resources";
-import { Project, ProjectPage } from "@/resources/project.resource";
+import { ProjectPage } from "@/resources/project";
 import axios from "axios";
+import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 
 
@@ -30,12 +30,12 @@ export default function Projects() {
             <Template>
                 <div className="flex items-center justify-between my-5">
                     <div className="flex space-x-4 px-4">
-                        <InputText
+                         <TextInput className="w-full"
+                                    color="bg-zinc-400"
                             type="text"
                             id="value"
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
-                            style="form-control"
                             placeholder="buscar projetos..."
                         />
                     </div>

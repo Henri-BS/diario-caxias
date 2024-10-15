@@ -1,4 +1,4 @@
-import { UserProps } from "@/resources/user.resource";
+import { UserProps } from "@/resources/user";
 
 
 export default function UserCard({user}: UserProps){

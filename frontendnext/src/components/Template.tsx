@@ -1,9 +1,11 @@
 'use client'
 
 import Link from "next/link";
-import React, { FC, ReactNode, useState } from "react"
+import React, { FC, useState } from "react"
 import { ToastContainer } from "react-toastify";
 import * as FaIcons from "react-icons/fa6";
+import { useAuth } from "@/resources/auth";
+import { useRouter } from "next/navigation";
 
 
 interface TemplateProps {
@@ -60,8 +62,6 @@ const Loading: FC = () => {
     );
 }
 
-
-
 const Header: FC = () => {
 
     const SidebarItems = [
@@ -100,6 +100,15 @@ const Header: FC = () => {
     const [sidebar, setSidebar] = useState(true);
     const showSidebar = () => setSidebar(!sidebar);
 
+    const auth = useAuth();
+    const user = auth.getUserSession();
+    const router = useRouter();
+
+    function logout() {
+        auth.invalidateSession();
+        router.push("/login");
+    }
+
     return (
         <>
             <header className="border-b border-gray-500 w-full backdrop-blur-4xl bg-[#171717ec] text-white py-6 z-40 top-0">
@@ -114,22 +123,34 @@ const Header: FC = () => {
                             </h1>
                         </Link>
                     </div>
+                    <div className="flex items-center text-gray-300">
+                        <RenderIf condition={!!user}>
+                            <div className="relative">
+                                <span className="w-64 py-3 px-6 text-md">
+                                    {user?.name}
+                                </span>
+                                <a className="w-64 py-3 px-6 text-sm cursor-pointer font-medium text-blue-500 hover:underline" href={"/login"} onClick={logout}>
+                                Sair
+                                </a>
+                            </div>
+                        </RenderIf>
+                    </div>
                 </div>
-            </header> 
+            </header>
             <nav className={sidebar ? "fixed z-40 top-0 left-full transition duration-600" : "flex flex-col justify-top fixed z-40 bg-zinc-800 w-96 h-screen top-20 left-0 transition duration-600"}>
-                    <ul className="w-full" >
-                        {SidebarItems.map((item, index) => {
-                            return (
-                                <li key={index} className="flex justify-start items-center p-4 h-20">
-                                    <Link href={item.path} className="flex items-center px-4 borber rounded-xl w-full h-16 p-4 text-2xl text-gray-400 hover:text-gray-100 hover:bg-gray-600 transition duration-600">
-                                        {item.icon}
-                                        <span className="ml-4">{item.title}</span>
-                                    </Link>
-                                </li>
-                            )
-                        })}
-                    </ul>
-                </nav>
+                <ul className="w-full" >
+                    {SidebarItems.map((item, index) => {
+                        return (
+                            <li key={index} className="flex justify-start items-center p-4 h-20">
+                                <Link href={item.path} className="flex items-center px-4 borber rounded-xl w-full h-16 p-4 text-2xl text-gray-400 hover:text-gray-100 hover:bg-gray-600 transition duration-600">
+                                    {item.icon}
+                                    <span className="ml-4">{item.title}</span>
+                                </Link>
+                            </li>
+                        )
+                    })}
+                </ul>
+            </nav>
         </>
     );
 }

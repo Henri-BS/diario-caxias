@@ -1,6 +1,6 @@
 'use client'
 
-import { EventProps } from "@/resources/event.resource";
+import { EventProps } from "@/resources/event";
 import Link from "next/link";
 
 export const EventCard = ({ event }: EventProps) => {

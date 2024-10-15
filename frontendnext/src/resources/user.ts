@@ -22,3 +22,20 @@ export type UserPage = {
 export type UserProps = {
   user: User;
 };
+
+export class Credentials {
+    email?: string;
+    password?: string;
+}
+
+export class AccessToken {
+    accessToken?: string;
+}
+
+export class UserSessionToken {
+    name?: string;
+    email?: string;
+    accessToken?: string;
+    expiration?: number;
+}
+

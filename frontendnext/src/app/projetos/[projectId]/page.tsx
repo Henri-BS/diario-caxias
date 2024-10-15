@@ -5,8 +5,8 @@ import { InputText } from "@/components/shared/Input";
 import { Pagination } from "@/components/shared/Pagination";
 import { Template } from "@/components/Template";
 import { BASE_URL } from "@/resources";
-import { EventPage } from "@/resources/event.resource";
-import { Project } from "@/resources/project.resource";
+import { EventPage } from "@/resources/event";
+import { Project } from "@/resources/project";
 import axios from "axios";
 
 import { useEffect, useState } from "react";

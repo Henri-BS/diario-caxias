@@ -1,6 +1,6 @@
 'use client'
 
-import { ProjectProps } from "@/resources/project.resource";
+import { ProjectProps } from "@/resources/project";
 import Link from "next/link";
 
 export const ProjectCard = ({ project }: ProjectProps) => {

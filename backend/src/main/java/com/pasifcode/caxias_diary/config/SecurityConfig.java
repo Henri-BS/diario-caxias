@@ -27,23 +27,6 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private UserServiceImpl userService;
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return email -> {
-            User user = userService.findByEmail(email);
-            if (user == null) {
-                throw new UsernameNotFoundException("Usuário não encontrado");
-            }
-            return org.springframework.security.core.userdetails.User
-                    .withUsername(user.getEmail())
-                    .password(user.getPassword())
-                    .roles(user.getRole())
-                    .build();
-        };
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -65,13 +48,11 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf
                         .ignoringRequestMatchers(toH2Console())
                         .disable()
-
                 )
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors((cors -> cors.configure(http)))
                 .authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests.requestMatchers(
-                                "/**").permitAll()
+                        authorizeRequests.requestMatchers("/**").permitAll()
                                 .requestMatchers(toH2Console()).permitAll()
                                 .anyRequest().authenticated()
                 )
