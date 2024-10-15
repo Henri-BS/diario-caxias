@@ -1,7 +1,6 @@
 'use client'
 
 import { EventCard } from "@/components/cards/EventCard";
-import { InputText } from "@/components/shared/Input";
 import { Pagination } from "@/components/shared/Pagination";
 import { Template } from "@/components/Template";
 import { BASE_URL } from "@/resources";

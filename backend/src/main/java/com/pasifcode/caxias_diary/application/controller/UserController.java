@@ -37,7 +37,7 @@ public class UserController {
 
 
 
-    @PostMapping("/register")
+    @PostMapping("/save")
     public ResponseEntity register(@RequestBody UserDto dto) {
         try {
             userService.saveUser(dto);

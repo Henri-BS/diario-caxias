@@ -17,7 +17,6 @@ export const Template: FC<TemplateProps> = ({ children, loading = false }: Templ
     return (
         <>
             <Header />
-
             <div className={`${loading ? 'animate-pulse' : ''} container mx-auto mt-8 px-4 `}>
                 <RenderIf condition={loading}>
                     <div className="text-center">
@@ -27,7 +26,7 @@ export const Template: FC<TemplateProps> = ({ children, loading = false }: Templ
                 {children}
             </div>
             <Footer />
-            <ToastContainer position="bottom-right"
+            <ToastContainer position="top-right"
                 autoClose={8000}
                 hideProgressBar={false}
                 draggable={false}
@@ -127,7 +126,7 @@ const Header: FC = () => {
                         <RenderIf condition={!!user}>
                             <div className="relative">
                                 <span className="w-64 py-3 px-6 text-md">
-                                    {user?.name}
+                                    {user?.username}
                                 </span>
                                 <a className="w-64 py-3 px-6 text-sm cursor-pointer font-medium text-blue-500 hover:underline" href={"/login"} onClick={logout}>
                                 Sair

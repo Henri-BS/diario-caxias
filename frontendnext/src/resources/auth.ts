@@ -7,7 +7,7 @@ class AuthService {
     static AUTH_PARAM: string = "_auth";
 
 async authenticate(credentials: Credentials): Promise<AccessToken> {
-const response = await fetch(BASE_URL + "/users/auth", {
+const response = await fetch(BASE_URL + "/users/login", {
 method: "POST",
 body: JSON.stringify(credentials),
 headers: {
@@ -41,7 +41,7 @@ const decodedToken: any = jwtDecode(token.accessToken);
             const userSessionToken: UserSessionToken = {
                 accessToken: token.accessToken,
                 email: decodedToken.sub,
-                name: decodedToken.name,
+                username: decodedToken.name,
                 expiration: decodedToken.exp
             };
             this.setUserSession(userSessionToken);

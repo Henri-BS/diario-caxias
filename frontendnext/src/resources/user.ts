@@ -33,7 +33,7 @@ export class AccessToken {
 }
 
 export class UserSessionToken {
-    name?: string;
+    username?: string;
     email?: string;
     accessToken?: string;
     expiration?: number;
