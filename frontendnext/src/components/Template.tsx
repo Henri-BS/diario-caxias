@@ -81,6 +81,11 @@ const Header: FC = () => {
             icon: <FaIcons.FaFolderClosed />
         },
         {
+            title: "Eventos",
+            path: "/eventos",
+            icon: <FaIcons.FaCalendarCheck />
+        },
+        {
             title: "Categrias",
             path: "/categorias",
             icon: <FaIcons.FaTag />
@@ -92,27 +97,27 @@ const Header: FC = () => {
         }
     ]
 
-    const [sidebar, setSidebar] = useState(false);
+    const [sidebar, setSidebar] = useState(true);
     const showSidebar = () => setSidebar(!sidebar);
 
     return (
         <>
-            <header className="border-b border-gray-500 backdrop-blur-4x1 bg-zinc-800 text-white py-6">
+            <header className="border-b border-gray-500 w-full backdrop-blur-4xl bg-[#171717ec] text-white py-6 z-40 top-0">
                 <div className="mx-auto flex justify-between items-center px-2 gap-4">
                     <div className="gap-2 flex items-center">
-                        <Link href="#" className="text-2xl">
+                        <div className=" text-2xl">
                             <FaIcons.FaBars onClick={showSidebar} />
-                        </Link>
+                        </div>
                         <Link href={"/inicio"}>
-                            <h1 className="self-center text-2xl font-semibold whitespace-nowrap ">
+                            <h1 className="self-center text-2xl font-semibold whitespace-nowrap">
                                 Diário Caxias
                             </h1>
                         </Link>
                     </div>
                 </div>
             </header> 
-            <nav className={sidebar ? "fixed top-0 left-full transition duration-600" : "flex flex-col justify-top absolute z-40 bg-zinc-800 w-96 h-screen left-0 transition duration-600"}>
-                    <ul className="w-full" onClick={showSidebar}>
+            <nav className={sidebar ? "fixed z-40 top-0 left-full transition duration-600" : "flex flex-col justify-top fixed z-40 bg-zinc-800 w-96 h-screen top-20 left-0 transition duration-600"}>
+                    <ul className="w-full" >
                         {SidebarItems.map((item, index) => {
                             return (
                                 <li key={index} className="flex justify-start items-center p-4 h-20">
@@ -142,7 +147,7 @@ const Footer: FC = () => {
                             <span className="self-center text-3xl font-semibold whitespace-nowrap text-white">Diário Caxias</span>
                         </a>
 
-                        <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-300">
+                        <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-100 sm:mb-0 ">
                             <li>
                                 <a href="#" className="hover:underline me-4 md:me-6">Sobre o Diário Caxias</a>
                             </li>
@@ -159,7 +164,7 @@ const Footer: FC = () => {
                     </div>
                     <hr className="my-6 border-gray-500 sm:mx-auto lg:my-8" />
                     <div className="sm:flex sm:items-center sm:justify-between">
-                        <span className="text-sm text-gray-200 sm:text-center">© 2023 Pasifcode.</span>
+                        <span className="text-sm text-gray-200 sm:text-center">© 2025 Pasifcode.</span>
                         <div className="flex mt-4 lg:justify-center lg:mt-0 text-2x1">
                             <a href="mailto:hbsantos@gmail.com" className="me-4 text-gray-200 hover:text-white">
                                 Email

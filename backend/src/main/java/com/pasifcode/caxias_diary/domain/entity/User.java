@@ -1,7 +1,6 @@
 package com.pasifcode.caxias_diary.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.pasifcode.caxias_diary.domain.enums.ImageExtension;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -39,11 +38,7 @@ public class User {
     @CreatedDate
     private LocalDateTime createdDate = LocalDateTime.now();
 
-    @Lob
-    private byte[] image;
-
-    @Enumerated
-    private ImageExtension extension;
+    private String image;
 
     @OneToMany(mappedBy = "user")
     private final Set<Project> projects = new HashSet<>();
@@ -121,20 +116,12 @@ public class User {
         this.createdDate = createdDate;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
-    }
-
-    public ImageExtension getExtension() {
-        return extension;
-    }
-
-    public void setExtension(ImageExtension extension) {
-        this.extension = extension;
     }
 
     public Set<Project> getProjects() {
@@ -149,7 +136,4 @@ public class User {
         return userCategory;
     }
 
-    public String getFileName() {
-        return getUsername().concat(".").concat(getExtension().name());
-    }
 }

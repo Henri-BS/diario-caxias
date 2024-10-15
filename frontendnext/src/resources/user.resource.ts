@@ -4,7 +4,7 @@ export type User = {
   email?: string;
   password?: string;
   bio?: string;
-  imageUrl?: string;
+  image?: string;
   location?: string;
   createdDate?: string;
 };
