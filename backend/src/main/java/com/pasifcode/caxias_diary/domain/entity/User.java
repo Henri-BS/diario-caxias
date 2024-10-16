@@ -28,7 +28,6 @@ public class User {
     @JsonIgnore
     private String password;
 
-    private String role;
 
     @Column(columnDefinition = "TEXT")
     private String bio;
@@ -84,13 +83,6 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     public String getBio() {
         return bio;

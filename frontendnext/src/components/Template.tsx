@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import * as FaIcons from "react-icons/fa6";
 import { useAuth } from "@/resources/auth";
 import { useRouter } from "next/navigation";
+import { Popover } from "flowbite-react";
 
 
 interface TemplateProps {
@@ -112,6 +113,7 @@ const Header: FC = () => {
         <>
             <header className="border-b border-gray-500 w-full backdrop-blur-4xl bg-[#171717ec] text-white py-6 z-40 top-0">
                 <div className="mx-auto flex justify-between items-center px-2 gap-4">
+
                     <div className="gap-2 flex items-center">
                         <div className=" text-2xl">
                             <FaIcons.FaBars onClick={showSidebar} />
@@ -122,18 +124,21 @@ const Header: FC = () => {
                             </h1>
                         </Link>
                     </div>
+
                     <div className="flex items-center text-gray-300">
                         <RenderIf condition={!!user}>
-                            <div className="relative">
-                                <span className="w-64 py-3 px-6 text-md">
-                                    {user?.username}
-                                </span>
-                                <a className="w-64 py-3 px-6 text-sm cursor-pointer font-medium text-blue-500 hover:underline" href={"/login"} onClick={logout}>
-                                Sair
+                            <div className="flex flex-row items-center">
+                                <Popover title={user?.username} content={user?.username} className="bg-zinc-700 text-gray-100 p-1 rounded-lg" trigger="hover" arrow={false}>
+                                <img src={user?.image} className="h-12 w-12 rounded-full border border-gray-100 transition duration-600 hover:border-blue-500" />
+                                </Popover>
+                              
+                                <a className="flex flex-row items-center gap-2 py-3 px-6 text-md cursor-pointer font-medium text-blue-500 hover:underline" href={"/login"} onClick={logout}>
+                                    Sair <FaIcons.FaRightFromBracket />
                                 </a>
                             </div>
                         </RenderIf>
                     </div>
+
                 </div>
             </header>
             <nav className={sidebar ? "fixed z-40 top-0 left-full transition duration-600" : "flex flex-col justify-top fixed z-40 bg-zinc-800 w-96 h-screen top-20 left-0 transition duration-600"}>

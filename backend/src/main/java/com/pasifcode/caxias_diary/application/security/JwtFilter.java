@@ -18,7 +18,6 @@ import java.io.IOException;
 
 public class JwtFilter extends OncePerRequestFilter {
 
-
     private final JwtHelper jwtHelper;
     private final UserService userService;
 
@@ -50,7 +49,7 @@ public class JwtFilter extends OncePerRequestFilter {
         UserDetails userDetails = org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())
                 .password(user.getPassword())
-                .roles(user.getRole())
+                .roles("USER")
                 .build();
 
         UsernamePasswordAuthenticationToken authenticationToken =
@@ -70,7 +69,7 @@ public class JwtFilter extends OncePerRequestFilter {
     }
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return request.getRequestURI().contains("/user");
+        return request.getRequestURI().contains("/users");
     }
 }
 

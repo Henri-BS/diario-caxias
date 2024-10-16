@@ -42,7 +42,9 @@ public class JwtHelper {
 
     private Map<String, Object> generateTokenClaims(User user) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("name", user.getUsername());
+        claims.put("id", user.getId());
+        claims.put("username", user.getUsername());
+        claims.put("image", user.getImage());
         return claims;
     }
 

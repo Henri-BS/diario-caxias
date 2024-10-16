@@ -1,6 +1,5 @@
 package com.pasifcode.caxias_diary.service.impl;
 
-import com.pasifcode.caxias_diary.domain.entity.Event;
 import com.pasifcode.caxias_diary.domain.dto.ProjectDto;
 import com.pasifcode.caxias_diary.domain.entity.Project;
 import com.pasifcode.caxias_diary.domain.entity.User;
@@ -32,9 +31,6 @@ public class ProjectServiceImpl implements ProjectService {
     public Page<ProjectDto> findAll(Pageable pageable) {
         Page<Project> page = projectRepository.findAll(pageable);
 
-        for (Project project : page) {
-            projectValues(project);
-        }
         return page.map(ProjectDto::new);
     }
 
@@ -61,10 +57,8 @@ public class ProjectServiceImpl implements ProjectService {
         add.setBody(dto.getBody());
         add.setImage(dto.getImage());
         add.setUser(user);
-        projectRepository.saveAndFlush(add);
-        projectValues(add);
 
-        return new ProjectDto(add);
+        return new ProjectDto(projectRepository.saveAndFlush(add));
     }
 
     @Override
@@ -82,12 +76,5 @@ public class ProjectServiceImpl implements ProjectService {
         this.projectRepository.deleteById(id);
     }
 
-    private void projectValues(Project project) {
-        Project add = projectRepository.findById(project.getId()).orElseThrow();
-        List<Event> event = eventRepository.findByProject(add);
-        for (Event e : event) {
-            add.setCountEvents(add.getEvents().size());
-            projectRepository.save(add);
-        }
-    }
+
 }

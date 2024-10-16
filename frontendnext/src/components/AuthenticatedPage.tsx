@@ -1,3 +1,4 @@
+import Login from "@/app/login/page";
 import { useAuth } from "@/resources/auth";
 import { FC, ReactNode } from "react";
 
@@ -11,12 +12,12 @@ export const AuthenticatedPage: FC<AuthenticatedPageProps> = ({
 }) => {
     const auth = useAuth();
 
-    if(!auth.isSessionValid()){
-        return 
+    if (!auth.isSessionValid()) {
+        return <Login/>
     }
-    return(
+    return (
         <>
-        {children}
+            {children}
         </>
     )
 }
