@@ -17,7 +17,7 @@ public class UserCategoryController {
     @Autowired
     private UserCategoryService userCategoryService;
 
-    @GetMapping
+    @GetMapping("/{category}")
     ResponseEntity<Page<UserCategoryDto>> findUserByCategory(@PathVariable Category category, Pageable pageable) {
         Page<UserCategoryDto> list = userCategoryService.findByCategory(category, pageable);
         return ResponseEntity.ok(list);

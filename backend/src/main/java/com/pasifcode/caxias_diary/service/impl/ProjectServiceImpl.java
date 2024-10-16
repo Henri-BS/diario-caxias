@@ -59,6 +59,7 @@ public class ProjectServiceImpl implements ProjectService {
         Project add = new Project();
         add.setTitle(dto.getTitle());
         add.setBody(dto.getBody());
+        add.setImage(dto.getImage());
         add.setUser(user);
         projectRepository.saveAndFlush(add);
         projectValues(add);

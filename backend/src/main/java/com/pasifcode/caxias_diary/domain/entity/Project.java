@@ -25,7 +25,6 @@ public class Project {
     @Column(columnDefinition = "TEXT")
     private String body;
 
-    @Lob
     private String image;
 
     private Integer countEvents = 0;

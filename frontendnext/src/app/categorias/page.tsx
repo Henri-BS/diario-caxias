@@ -10,7 +10,7 @@ import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 
 
-export default function Projects() {
+export default function Categories() {
     const [query, setQuery] = useState("");
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {

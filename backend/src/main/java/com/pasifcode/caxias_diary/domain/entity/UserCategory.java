@@ -3,7 +3,7 @@ package com.pasifcode.caxias_diary.domain.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "user_category")
+@Table(name = "tb_user_category")
 public class UserCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

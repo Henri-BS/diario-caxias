@@ -21,37 +21,37 @@ export default function ProjectDetails({ params }: any) {
             });
     }, [projectId]);
 
-function Events({params}: any){
-    
-    const [pageNumber, setPageNumber] = useState(0);
-    const handlePageChange = (newPageNumber: number) => {
-        setPageNumber(newPageNumber)
-    }
+    function Events({ params }: any) {
 
-    const [eventPage, setEventPage] = useState<EventPage>({ content: [], page: { number: 0, size: 0, totalElements: 0, totalPages: 0 } });
+        const [pageNumber, setPageNumber] = useState(0);
+        const handlePageChange = (newPageNumber: number) => {
+            setPageNumber(newPageNumber)
+        }
 
-    useEffect(() => {
-        axios.get(`${BASE_URL}/events/by-project/${projectId}?page=${pageNumber}&size=10`)
-            .then((response) => {
-                setEventPage(response.data);
-            });
-    }, [projectId, pageNumber]);
+        const [eventPage, setEventPage] = useState<EventPage>({ content: [], page: { number: 0, size: 0, totalElements: 0, totalPages: 0 } });
 
-    return (
-        <>
+        useEffect(() => {
+            axios.get(`${BASE_URL}/events/by-project/${projectId}?page=${pageNumber}&size=10`)
+                .then((response) => {
+                    setEventPage(response.data);
+                });
+        }, [projectId, pageNumber]);
+
+        return (
+            <>
                 <div className="flex items-center w-full justify-center mt-12">
                     <Pagination pagination={eventPage} onPageChange={handlePageChange} />
                 </div>
                 <div className=" grid grid-cols-1 xl:grid-cols-2 gap-y-10 gap-x-6 items-start p-8">
                     {eventPage.content?.map(x => (
-                            <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start">
-                                <EventCard event={x} />
-                            </div>
-                        ))}
+                        <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start">
+                            <EventCard event={x} />
+                        </div>
+                    ))}
                 </div>
-        </>
-    );
-}
+            </>
+        );
+    }
 
     return (
         <Template>
@@ -66,7 +66,7 @@ function Events({params}: any){
                 </div>
                 <img src={project?.image} alt={project?.title} className="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full" width="1216" height="640" />
             </div>
-            <Events params={projectId}/>
+            <Events params={projectId} />
         </Template>
     );
 }

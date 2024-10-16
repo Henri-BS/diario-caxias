@@ -90,7 +90,6 @@ INSERT INTO tb_event (title, description, date, created_date, season, status, ex
 INSERT INTO tb_event (title, description, date, created_date, season, status, extension, project_id) VALUES ('Evento 4 do projeto Coleta e Filtragem de Água', 'Descrição do evento 4',  '2024-08-12', now(), 'INVERNO',   'Adiado',       'PNG', 2);
 INSERT INTO tb_event (title, description, date, created_date, season, status, extension, project_id) VALUES ('Evento 5 do projeto Coleta e Filtragem de Água', 'Descrição do evento 5',  '2024-10-20', now(), 'PRIMAVERA', 'Adiado',       'PNG', 2);
 
-
 INSERT INTO tb_event_user (event_id, user_id) VALUES (1, 1);
 INSERT INTO tb_event_user (event_id, user_id) VALUES (1, 2);
 INSERT INTO tb_event_user (event_id, user_id) VALUES (1, 3);
@@ -103,3 +102,7 @@ INSERT INTO tb_event_category (event_id, category_id) VALUES (1, 2);
 INSERT INTO tb_event_category (event_id, category_id) VALUES (1, 3);
 INSERT INTO tb_event_category (event_id, category_id) VALUES (1, 4);
 
+INSERT INTO tb_user_category (user_id, category_id) VALUES (1, 1);
+INSERT INTO tb_user_category (user_id, category_id) VALUES (2, 1);
+INSERT INTO tb_user_category (user_id, category_id) VALUES (3, 2);
+INSERT INTO tb_user_category (user_id, category_id) VALUES (4, 2);
