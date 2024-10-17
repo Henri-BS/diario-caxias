@@ -2,7 +2,6 @@ package com.pasifcode.caxias_diary.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pasifcode.caxias_diary.domain.entity.Event;
-import com.pasifcode.caxias_diary.domain.enums.Season;
 import com.pasifcode.caxias_diary.domain.enums.Status;
 
 import java.io.Serial;
@@ -19,41 +18,29 @@ public class EventDto implements Serializable {
     private Long id;
     private String title;
     private String description;
-    private String imageUrl;
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    private String image;
     private LocalDate date;
-    private Season season;
     private Status status;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime createdDate;
-    private Long projectId;
     private String projectTitle;
+    private Long userId;
+    private String username;
 
     public EventDto() {
-    }
-
-    public EventDto(Event entity, String imageUrl) {
-        id = entity.getId();
-        title = entity.getTitle();
-        description = entity.getDescription();
-        date = entity.getDate();
-        this.imageUrl = imageUrl;
-        season = entity.getSeason();
-        status = entity.getStatus();
-        createdDate = entity.getCreatedDate();
-        projectId = entity.getProject().getId();
-        projectTitle = entity.getProject().getTitle();
     }
 
     public EventDto(Event entity) {
         id = entity.getId();
         title = entity.getTitle();
         description = entity.getDescription();
+        image = entity.getImage();
         date = entity.getDate();
-        season = entity.getSeason();
         status = entity.getStatus();
-        projectId = entity.getProject().getId();
+        createdDate = entity.getCreatedDate();
         projectTitle = entity.getProject().getTitle();
+        userId = entity.getUser().getId();
+        username = entity.getUser().getUsername();
     }
 
     public Long getId() {
@@ -68,17 +55,14 @@ public class EventDto implements Serializable {
         return description;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImage() {
+        return image;
     }
 
     public LocalDate getDate() {
         return date;
     }
 
-    public Season getSeason() {
-        return season;
-    }
 
     public Status getStatus() {
         return status;
@@ -88,11 +72,16 @@ public class EventDto implements Serializable {
         return createdDate;
     }
 
-    public Long getProjectId() {
-        return projectId;
-    }
 
     public String getProjectTitle() {
         return projectTitle;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

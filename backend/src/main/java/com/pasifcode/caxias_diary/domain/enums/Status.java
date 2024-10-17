@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Status {
     FINALIZADO("Finalizado"),
+    PLANEJANDO("Planejando"),
     PROGRAMADO("Programado"),
     CANCELADO("Cancelado"),
     ADIADO("Adiado"),
@@ -26,10 +27,11 @@ public enum Status {
     public static Status value(String description) {
         return switch (description) {
             case "Finalizado" -> FINALIZADO;
+            case "Planejando" -> PLANEJANDO;
             case "Programado" -> PROGRAMADO;
             case "Cancelado" -> CANCELADO;
             case "Adiado" -> ADIADO;
-            case "Indefinido" -> INDEFINIDO;
+            case "Indefinido", "" -> INDEFINIDO;
             default -> null;
         };
     }

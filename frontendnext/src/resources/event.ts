@@ -1,3 +1,5 @@
+import { BASE_URL } from ".";
+
 export type Event = {
   id?: number;
   title?: string;
@@ -5,9 +7,10 @@ export type Event = {
   date?: string;
   season?: string;
   status?: string;
-  imageUrl?: string;
-  projectId?: number;
+  image?: string;
   projectTitle?: string;
+  userId?: number;
+  username?: number;
 };
 
 export type EventPage = {
@@ -23,3 +26,21 @@ export type EventPage = {
 export type EventProps = {
   event: Event;
 };
+
+class EventService {
+
+  async saveEvent(event: Event): Promise<void> {
+    const response = await fetch(BASE_URL + "/events/save", {
+      method: "POST",
+      body: JSON.stringify(event),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status == 409) {
+      const responseError = await response.json();
+      throw new Error(responseError.error);
+    }
+  }
+}
+export const useEventService = () => new EventService();

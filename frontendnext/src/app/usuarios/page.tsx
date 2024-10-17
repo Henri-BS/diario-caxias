@@ -43,7 +43,7 @@ export default function Usuarios() {
                 <div className="flex items-center w-full justify-center">
                     <Pagination pagination={userPage} onPageChange={handlePageChange} />
                 </div>
-                <div className="  grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
                     {userPage.content?.filter((x) =>
                         x.username?.toUpperCase().includes(query.toLocaleUpperCase()))
                         .map(x => (

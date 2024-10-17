@@ -43,6 +43,9 @@ public class User {
     private final Set<Project> projects = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
+    private final Set<Event> events = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
     private final Set<EventUser> eventUsers = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
@@ -118,6 +121,10 @@ public class User {
 
     public Set<Project> getProjects() {
         return projects;
+    }
+
+    public Set<Event> getEvents() {
+        return events;
     }
 
     public Set<EventUser> getEventUsers() {

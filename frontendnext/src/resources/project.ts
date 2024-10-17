@@ -12,9 +12,9 @@ export type Project = {
 export type ProjectPage = {
   content: Project[];
   page: {
-    size: number;
+    size?: number;
     totalElements: number;
-    totalPages: number;
+    totalPages?: number;
     number: number;
   };
 };

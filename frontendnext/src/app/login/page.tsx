@@ -60,8 +60,8 @@ export default function Login() {
                         </h2>
                     </div>
 
-                    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                        <form onSubmit={handleSubmit} className="space-y-2">
+                    <div className="flex flex-col items-center my-6">
+                        <form onSubmit={handleSubmit} className="space-y-2 w-1/2" >
                             <RenderIf condition={newUserState}>
                                 <div>
                                     <label className="block text-sm font-medium leading-6 text-gray-900">Nome: </label>

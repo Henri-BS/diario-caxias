@@ -1,5 +1,6 @@
 'use client'
 
+import AddFormEvent from "@/app/eventos/adicionar/page";
 import { EventCard } from "@/components/cards/EventCard";
 import { Pagination } from "@/components/shared/Pagination";
 import { Template } from "@/components/Template";
@@ -7,8 +8,10 @@ import { BASE_URL } from "@/resources";
 import { EventPage } from "@/resources/event";
 import { Project } from "@/resources/project";
 import axios from "axios";
+import { Button } from "flowbite-react";
 
 import { useEffect, useState } from "react";
+import { FaCalendarCheck } from "react-icons/fa6";
 
 export default function ProjectDetails({ params }: any) {
     const projectId = params.projectId;
@@ -39,6 +42,13 @@ export default function ProjectDetails({ params }: any) {
 
         return (
             <>
+                <div className="flex flex-wrap w-full justify-between mt-12">
+
+                    <Button
+                        gradientDuoTone="greenToBlue">
+                        <FaCalendarCheck className="mr-2 h-4 w-4" /> Adicionar Evento
+                    </Button>
+                </div>
                 <div className="flex items-center w-full justify-center mt-12">
                     <Pagination pagination={eventPage} onPageChange={handlePageChange} />
                 </div>
@@ -55,16 +65,18 @@ export default function ProjectDetails({ params }: any) {
 
     return (
         <Template>
-            <div className="relative flex flex-col sm:flex-row xl:flex-col items-start">
-                <div className="order-1 sm:ml-6 xl:ml-0">
-                    <h3 className="mb-1 text-slate-900 font-semibold">
-                        <span className="mb-1 block text-lg leading-6 text-indigo-500">{project?.title}</span>
-                    </h3>
-                    <div className="prose prose-slate prose-sm text-slate-600">
-                        <p>{project?.body} </p>
+            <div >
+                <div className="relative flex flex-col sm:flex-row xl:flex-col items-start">
+                    <div className="order-1 sm:ml-6 xl:ml-0">
+                        <h3 className="mb-1 text-slate-900 font-semibold">
+                            <span className="mb-1 block text-lg leading-6 text-indigo-500">{project?.title}</span>
+                        </h3>
+                        <div className="prose prose-slate prose-sm text-slate-600">
+                            <p>{project?.body} </p>
+                        </div>
                     </div>
+                    <img src={project?.image} alt={project?.title} className="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full" width="1216" height="640" />
                 </div>
-                <img src={project?.image} alt={project?.title} className="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full" width="1216" height="640" />
             </div>
             <Events params={projectId} />
         </Template>

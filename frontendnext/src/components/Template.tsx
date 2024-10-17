@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 import * as FaIcons from "react-icons/fa6";
 import { useAuth } from "@/resources/auth";
 import { useRouter } from "next/navigation";
-import { Popover } from "flowbite-react";
+import { Dropdown, DropdownDivider, Popover } from "flowbite-react";
 
 
 interface TemplateProps {
@@ -18,7 +18,7 @@ export const Template: FC<TemplateProps> = ({ children, loading = false }: Templ
     return (
         <>
             <Header />
-            <div className={`${loading ? 'animate-pulse' : ''} container mx-auto mt-8 px-4 `}>
+            <div className={`${loading ? 'animate-pulse' : ''} container mx-auto mt-28 px-4 `}>
                 <RenderIf condition={loading}>
                     <div className="text-center">
                         <Loading />
@@ -111,10 +111,10 @@ const Header: FC = () => {
 
     return (
         <>
-            <header className="border-b border-gray-500 w-full backdrop-blur-4xl bg-[#171717ec] text-white py-6 z-40 top-0">
+            <header className="border-b border-gray-500 fixed w-full backdrop-blur-sm bg-[#171717ec] text-white py-6 z-40 top-0">
                 <div className="mx-auto flex justify-between items-center px-2 gap-4">
 
-                    <div className="gap-2 flex items-center">
+                    <div className="gap-2 flex items-center ">
                         <div className=" text-2xl">
                             <FaIcons.FaBars onClick={showSidebar} />
                         </div>
@@ -125,13 +125,23 @@ const Header: FC = () => {
                         </Link>
                     </div>
 
-                    <div className="flex items-center text-gray-300">
+                    <div className="flex  gap-2 items-center text-gray-300">
+                        <Dropdown label={<FaIcons.FaPlus />}>
+                            <div >
+                                <Dropdown.Header className="font-semibold text-md">Adicionar</Dropdown.Header>
+                                <Link href={"/projetos/adicionar"}>
+                                    <Dropdown.Item className="gap-2">Projeto <FaIcons.FaFolderClosed /></Dropdown.Item>
+                                </Link>
+                                <Link href={"/eventos/adicionar"}>
+                                    <Dropdown.Item className="gap-2">Evento <FaIcons.FaCalendarCheck /></Dropdown.Item>
+                                </Link>
+                            </div>
+                        </Dropdown>
                         <RenderIf condition={!!user}>
                             <div className="flex flex-row items-center">
                                 <Popover title={user?.username} content={user?.username} className="bg-zinc-700 text-gray-100 p-1 rounded-lg" trigger="hover" arrow={false}>
-                                <img src={user?.image} className="h-12 w-12 rounded-full border border-gray-100 transition duration-600 hover:border-blue-500" />
+                                    <img src={user?.image ? user?.image : "https://cdn1.iconfinder.com/data/icons/basic-ui-element-2-2-line/512/Basic_UI_Elements_-_2.1_-_line-11-256.png"} className="h-12 w-12 rounded-full bg-[#ffffffbe] cursor-point border border-gray-100 transition duration-600 hover:border-blue-500" />
                                 </Popover>
-                              
                                 <a className="flex flex-row items-center gap-2 py-3 px-6 text-md cursor-pointer font-medium text-blue-500 hover:underline" href={"/login"} onClick={logout}>
                                     Sair <FaIcons.FaRightFromBracket />
                                 </a>
@@ -141,7 +151,7 @@ const Header: FC = () => {
 
                 </div>
             </header>
-            <nav className={sidebar ? "fixed z-40 top-0 left-full transition duration-600" : "flex flex-col justify-top fixed z-40 bg-zinc-800 w-96 h-screen top-20 left-0 transition duration-600"}>
+            <nav className={sidebar ? "fixed z-40 top-0 left-full transition duration-600" : "flex flex-col justify-top fixed z-40  bg-zinc-800 w-96 h-screen top-20 left-0 transition duration-600"}>
                 <ul className="w-full" >
                     {SidebarItems.map((item, index) => {
                         return (

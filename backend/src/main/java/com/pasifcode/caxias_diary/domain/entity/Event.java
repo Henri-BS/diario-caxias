@@ -1,7 +1,6 @@
 package com.pasifcode.caxias_diary.domain.entity;
 
 import com.pasifcode.caxias_diary.domain.enums.ImageExtension;
-import com.pasifcode.caxias_diary.domain.enums.Season;
 import com.pasifcode.caxias_diary.domain.enums.Status;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -30,14 +29,12 @@ public class Event {
 
     private LocalDate date;
 
-    @Lob
-    private byte[] image;
+    private String image;
 
     @Enumerated(EnumType.STRING)
     private ImageExtension extension;
 
-    @Enumerated(EnumType.STRING)
-    private Season season;
+
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -49,6 +46,10 @@ public class Event {
     @JoinColumn(name = "project_id")
     private Project project;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @OneToMany(mappedBy = "event")
     private final Set<EventUser> eventUsers = new HashSet<>();
 
@@ -58,14 +59,13 @@ public class Event {
     public Event() {
     }
 
-    public Event(Long id, String title, String description, LocalDate date, byte[] image, ImageExtension extension, Season season, Status status, LocalDateTime createdDate, Project project) {
+    public Event(Long id, String title, String description, LocalDate date, String image, ImageExtension extension, Status status, LocalDateTime createdDate, Project project) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.date = date;
         this.image = image;
         this.extension = extension;
-        this.season = season;
         this.status = status;
         this.createdDate = createdDate;
         this.project = project;
@@ -95,6 +95,14 @@ public class Event {
         this.description = description;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public LocalDate getDate() {
         return date;
     }
@@ -103,28 +111,12 @@ public class Event {
         this.date = date;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
     public ImageExtension getExtension() {
         return extension;
     }
 
     public void setExtension(ImageExtension extension) {
         this.extension = extension;
-    }
-
-    public Season getSeason() {
-        return season;
-    }
-
-    public void setSeason(Season season) {
-        this.season = season;
     }
 
     public Status getStatus() {
@@ -149,6 +141,14 @@ public class Event {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Set<EventUser> getEventUsers() {
