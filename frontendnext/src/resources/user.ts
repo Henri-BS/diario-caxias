@@ -12,9 +12,9 @@ export type User = {
 export type UserPage = {
   content: User[];
   page: {
-    size: number;
+    size?: number;
     totalElements: number;
-    totalPages: number;
+    totalPages?: number;
     number: number;
   };
 };

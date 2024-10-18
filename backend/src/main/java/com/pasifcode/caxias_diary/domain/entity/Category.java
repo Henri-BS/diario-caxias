@@ -21,6 +21,8 @@ public class Category {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    private Long countEvents;
+
     @OneToMany(mappedBy = "category")
     private Set<EventCategory> eventCategories = new HashSet<>();
 
@@ -30,10 +32,11 @@ public class Category {
     public Category() {
     }
 
-    public Category(Long id, String name, String description) {
+    public Category(Long id, String name, String description, Long countEvents) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.countEvents = countEvents;
     }
 
     public Long getId() {
@@ -66,5 +69,12 @@ public class Category {
 
     public Set<UserCategory> getUserCategories() {
         return userCategories;
+    }
+
+    public Long getCountEvents() {
+        return countEvents;
+    }
+
+    public void setCountEvents(Long countEvents) {
     }
 }

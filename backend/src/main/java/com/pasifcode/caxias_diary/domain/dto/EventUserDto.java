@@ -5,6 +5,7 @@ import com.pasifcode.caxias_diary.domain.entity.EventUser;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EventUserDto implements Serializable {
@@ -14,15 +15,25 @@ public class EventUserDto implements Serializable {
     private Long id;
     private Long userId;
     private String userName;
+    private String userImage;
     private Long eventId;
-    private String eventTitile;
+    private String eventTitle;
+    private LocalDate eventDate;
+    private String eventStatus;
+    private String eventImage;
+    private String eventProjectTitle;
 
     public EventUserDto(EventUser entity) {
         id = entity.getId();
         userId = entity.getUser().getId();
         userName = entity.getUser().getUsername();
+        userImage = entity.getUser().getImage();
         eventId = entity.getEvent().getId();
-        eventTitile = entity.getEvent().getTitle();
+        eventTitle = entity.getEvent().getTitle();
+        eventDate = entity.getEvent().getDate();
+        eventStatus = entity.getEvent().getStatus().getDescription();
+        eventImage = entity.getEvent().getImage();
+        eventProjectTitle = entity.getEvent().getProject().getTitle();
     }
 
     public EventUserDto() {
@@ -40,13 +51,32 @@ public class EventUserDto implements Serializable {
         return userName;
     }
 
+    public String getUserImage() {
+        return userImage;
+    }
 
     public Long getEventId() {
         return eventId;
     }
 
-    public String getEventTitile() {
-        return eventTitile;
+    public String getEventTitle() {
+        return eventTitle;
+    }
+
+    public LocalDate getEventDate() {
+        return eventDate;
+    }
+
+    public String getEventStatus() {
+        return eventStatus;
+    }
+
+    public String getEventImage() {
+        return eventImage;
+    }
+
+    public String getEventProjectTitle() {
+        return eventProjectTitle;
     }
 }
 

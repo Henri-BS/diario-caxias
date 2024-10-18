@@ -2,7 +2,6 @@
 
 import { PostProps } from "@/resources/post";
 import Link from "next/link";
-import BgImage from "@/assets/img/backgroung_image.png"
 export const PostCard = ({ post }: PostProps) => {
     return (
         <Link

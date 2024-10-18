@@ -1,5 +1,6 @@
 package com.pasifcode.caxias_diary.domain.repository;
 
+import com.pasifcode.caxias_diary.domain.entity.Category;
 import com.pasifcode.caxias_diary.domain.entity.Event;
 import com.pasifcode.caxias_diary.domain.entity.EventCategory;
 import org.springframework.data.domain.Page;
@@ -9,6 +10,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EventCategoryRepository extends JpaRepository<EventCategory, Long> {
+
+
     Page<EventCategory> findByEvent(Event event, Pageable pageable);
-    Long countByEvent(Event event);
+
+    Page<EventCategory> findByCategory(Category category, Pageable pageable);
+
+    long countByCategory(Category category);
+
+
 }

@@ -15,7 +15,6 @@ import axios from "axios";
 import { Carousel } from "flowbite-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import * as FaIcons from "react-icons/fa6";
 
 
 export default function Home() {
@@ -137,7 +136,7 @@ export default function Home() {
     }
     
     function EventHomeList() {
-        const [events, setEvents] = useState<EventPage>({ content: [], page: { number: 0, size: 0, totalElements: 0, totalPages: 0 } })
+        const [events, setEvents] = useState<EventPage>({ content: [], page: { number: 0,  totalElements: 0 } })
         useEffect(() => {
             axios.get(`${BASE_URL}/events?size=10`)
                 .then((response) => {

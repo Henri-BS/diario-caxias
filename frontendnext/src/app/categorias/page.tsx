@@ -5,6 +5,7 @@ import { Pagination } from "@/components/shared/Pagination";
 import { Template } from "@/components/Template";
 import { BASE_URL } from "@/resources";
 import { CategoryPage } from "@/resources/category";
+import { UserPage } from "@/resources/user";
 import axios from "axios";
 import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
@@ -16,10 +17,10 @@ export default function Categories() {
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
     }
-    const [categoryPage, setCategoryPage] = useState<CategoryPage>({ content: [], page: { number: 0, size: 0, totalPages: 0, totalElements: 0 } });
+    const [categoryPage, setCategoryPage] = useState<CategoryPage>({ content: [], page: { number: 0, size: 0, totalPages: 0, totalElements: 0 } })
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/categories?page=${pageNumber}&query=${query}&size=5`)
+        axios.get(`${BASE_URL}/categories?page=${pageNumber}&query=${query}&size=12`)
             .then((response) => {
                 setCategoryPage(response.data);
             });

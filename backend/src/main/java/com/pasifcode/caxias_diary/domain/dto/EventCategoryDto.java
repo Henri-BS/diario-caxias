@@ -5,6 +5,7 @@ import com.pasifcode.caxias_diary.domain.entity.EventCategory;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EventCategoryDto implements Serializable {
@@ -12,28 +13,30 @@ public class EventCategoryDto implements Serializable {
     private final static long serialVersionUID = 1L;
 
     private Long id;
-    private Long categoryId;
     private String categoryName;
     private Long eventId;
-    private String eventTitile;
+    private String eventTitle;
+    private LocalDate eventDate;
+    private String eventStatus;
+    private String eventImage;
+    private String eventProjectTitle;
 
     public EventCategoryDto() {
     }
 
     public EventCategoryDto(EventCategory entity) {
         id = entity.getId();
-        categoryId = entity.getCategory().getId();
         categoryName = entity.getCategory().getName();
         eventId = entity.getEvent().getId();
-        eventTitile = entity.getEvent().getTitle();
+        eventTitle = entity.getEvent().getTitle();
+        eventDate = entity.getEvent().getDate();
+        eventStatus = entity.getEvent().getStatus().getDescription();
+        eventImage = entity.getEvent().getImage();
+        eventProjectTitle = entity.getEvent().getProject().getTitle();
     }
 
     public Long getId() {
         return id;
-    }
-
-    public Long getCategoryId() {
-        return categoryId;
     }
 
     public String getCategoryName() {
@@ -44,8 +47,24 @@ public class EventCategoryDto implements Serializable {
         return eventId;
     }
 
-    public String getEventTitile() {
-        return eventTitile;
+    public String getEventTitle() {
+        return eventTitle;
+    }
+
+    public LocalDate getEventDate() {
+        return eventDate;
+    }
+
+    public String getEventStatus() {
+        return eventStatus;
+    }
+
+    public String getEventImage() {
+        return eventImage;
+    }
+
+    public String getEventProjectTitle() {
+        return eventProjectTitle;
     }
 }
 

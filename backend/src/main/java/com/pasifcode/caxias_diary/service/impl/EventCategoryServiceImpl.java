@@ -35,6 +35,12 @@ public class EventCategoryServiceImpl implements EventCategoryService {
     }
 
     @Override
+    public Page<EventCategoryDto> findByCategory(Category category, Pageable pageable) {
+        Page<EventCategory> find = eventCategoryRepository.findByCategory(category, pageable);
+        return find.map(EventCategoryDto::new);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public EventCategoryDto findById(Long id) {
         EventCategory find = eventCategoryRepository.findById(id).orElseThrow();
@@ -47,8 +53,8 @@ public class EventCategoryServiceImpl implements EventCategoryService {
         Event event = eventRepository.findById(dto.getEventId()).orElseThrow();
 
         EventCategory add = new EventCategory();
-                add.setCategory(Category);
-                add.setEvent(event);
+        add.setCategory(Category);
+        add.setEvent(event);
         return new EventCategoryDto(eventCategoryRepository.saveAndFlush(add));
     }
 

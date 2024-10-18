@@ -1,11 +1,11 @@
 import { BASE_URL } from ".";
 
+
 export type Event = {
   id?: number;
   title?: string;
   description?: string;
   date?: string;
-  season?: string;
   status?: string;
   image?: string;
   projectTitle?: string;
@@ -13,12 +13,11 @@ export type Event = {
   username?: number;
 };
 
+
 export type EventPage = {
   content: Event[];
   page: {
-    size: number;
     totalElements: number;
-    totalPages: number;
     number: number;
   };
 };
@@ -26,6 +25,22 @@ export type EventPage = {
 export type EventProps = {
   event: Event;
 };
+
+export type EventCategory = {
+  id?: number;
+  categoryName?: string;
+  eventId?: number;
+  eventTitle?: string;
+  eventDate?: string;
+  eventStatus?: string;
+  eventImage?: string;
+  eventProjectTitle?: string;
+};
+
+export type EventCategoryProps = {
+  eventCategory: EventCategory;
+};
+
 
 class EventService {
 

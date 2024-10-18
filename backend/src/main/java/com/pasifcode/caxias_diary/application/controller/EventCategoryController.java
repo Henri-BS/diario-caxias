@@ -1,5 +1,6 @@
 package com.pasifcode.caxias_diary.application.controller;
 
+import com.pasifcode.caxias_diary.domain.entity.Category;
 import com.pasifcode.caxias_diary.domain.entity.Event;
 import com.pasifcode.caxias_diary.domain.dto.EventCategoryDto;
 import com.pasifcode.caxias_diary.service.EventCategoryService;
@@ -17,11 +18,16 @@ public class EventCategoryController {
     @Autowired
     private EventCategoryService eventCategoryService;
 
-    @GetMapping("/list")
+    @GetMapping("/by-event/{event}")
     ResponseEntity<Page<EventCategoryDto>> findByEvent(@PathVariable Event event, Pageable pageable) {
         Page<EventCategoryDto> find = eventCategoryService.findByEvent(event, pageable);
         return ResponseEntity.ok(find);
     }
+        @GetMapping("/by-category/{category}")
+        ResponseEntity<Page<EventCategoryDto>> findByCategory(@PathVariable Category category, Pageable pageable) {
+            Page<EventCategoryDto> find = eventCategoryService.findByCategory(category, pageable);
+            return ResponseEntity.ok(find);
+        }
 
     @GetMapping("/{id}")
     ResponseEntity<EventCategoryDto> findEventCategoryById(@PathVariable Long id) {
