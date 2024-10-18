@@ -1,3 +1,5 @@
+import { BASE_URL } from ".";
+
 export type Category = {
   id?: number;
   name?: string;

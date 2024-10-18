@@ -1,18 +1,13 @@
 package com.pasifcode.caxias_diary.service;
 
-import com.pasifcode.caxias_diary.domain.entity.Post;
+import com.pasifcode.caxias_diary.domain.dto.PostDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.util.Optional;
 
 public interface PostService {
 
-    Page<Post> findAll(Pageable pageable);
+    Page<PostDto> findAll(Pageable pageable);
 
-    Post savePost(MultipartFile file, String title, String description) throws IOException;
+    PostDto savePost(PostDto dto);
 
-    Optional<Post> getImage(Long id);
 }

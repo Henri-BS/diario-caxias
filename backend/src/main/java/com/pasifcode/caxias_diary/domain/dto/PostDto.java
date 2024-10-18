@@ -17,20 +17,20 @@ public class PostDto implements Serializable {
     private Long id;
     private String title;
     private String description;
-    private String extension;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime uploadDate;
-    private String imageUrl;
+    private String image;
+    private Long userId;
 
     public PostDto() {
     }
 
-    public PostDto(Post entity, String imageUrl) {
-        this.imageUrl = imageUrl;
+    public PostDto(Post entity) {
         id = entity.getId();
         title = entity.getTitle();
+        image = entity.getImage();
         description = entity.getDescription();
-        extension = entity.getExtension().name();
+        userId = entity.getUser().getId();
         uploadDate = entity.getUploadDate();
     }
 
@@ -46,16 +46,15 @@ public class PostDto implements Serializable {
         return description;
     }
 
-    public String getExtension() {
-        return extension;
-    }
-
     public LocalDateTime getUploadDate() {
         return uploadDate;
     }
 
+    public String getImage() {
+        return image;
+    }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public Long getUserId() {
+        return userId;
     }
 }

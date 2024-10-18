@@ -1,6 +1,5 @@
 package com.pasifcode.caxias_diary.domain.entity;
 
-import com.pasifcode.caxias_diary.domain.enums.ImageExtension;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -26,11 +25,11 @@ public class Post {
     @CreatedDate
     private LocalDateTime uploadDate = LocalDateTime.now();
 
-    @Enumerated(EnumType.STRING)
-    private ImageExtension extension;
+    private String image;
 
-    @Lob
-    private byte[] file;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @OneToMany(mappedBy = "post")
     private Set<ProjectPost> projectPost = new HashSet<>();
@@ -46,13 +45,13 @@ public class Post {
     public Post() {
     }
 
-    public Post(Long id, String title, String description, LocalDateTime uploadDate, ImageExtension extension, byte[] file) {
+    public Post(Long id, String title, String description, LocalDateTime uploadDate, String image, User user) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.uploadDate = uploadDate;
-        this.extension = extension;
-        this.file = file;
+        this.image = image;
+        this.user = user;
     }
 
     public Long getId() {
@@ -87,24 +86,19 @@ public class Post {
         this.uploadDate = uploadDate;
     }
 
-    public ImageExtension getExtension() {
-        return extension;
+    public String getImage() {
+        return image;
     }
 
-    public void setExtension(ImageExtension extension) {
-        this.extension = extension;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public byte[] getFile() {
-        return file;
+    public User getUser() {
+        return user;
     }
 
-    public void setFile(byte[] file) {
-        this.file = file;
-    }
-
-
-    public String getFileName(){
-        return getTitle().concat(".").concat(getExtension().name());
+    public void setUser(User user) {
+        this.user = user;
     }
 }

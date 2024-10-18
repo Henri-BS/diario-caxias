@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 import * as FaIcons from "react-icons/fa6";
 import { useAuth } from "@/resources/auth";
 import { useRouter } from "next/navigation";
-import { Dropdown, DropdownDivider, Popover } from "flowbite-react";
+import { Dropdown, Popover } from "flowbite-react";
 
 
 interface TemplateProps {
@@ -115,11 +115,11 @@ const Header: FC = () => {
                 <div className="mx-auto flex justify-between items-center px-2 gap-4">
 
                     <div className="gap-2 flex items-center ">
-                        <div className=" text-2xl">
+                        <div className=" text-2xl cursor-pointer">
                             <FaIcons.FaBars onClick={showSidebar} />
                         </div>
                         <Link href={"/inicio"}>
-                            <h1 className="self-center text-2xl font-semibold whitespace-nowrap">
+                            <h1 className="self-center text-xl font-semibold whitespace-nowrap">
                                 Diário Caxias
                             </h1>
                         </Link>
@@ -134,6 +134,9 @@ const Header: FC = () => {
                                 </Link>
                                 <Link href={"/eventos/adicionar"}>
                                     <Dropdown.Item className="gap-2">Evento <FaIcons.FaCalendarCheck /></Dropdown.Item>
+                                </Link>
+                                <Link href={"/postagens/adicionar"}>
+                                    <Dropdown.Item className="gap-2">Notícia <FaIcons.FaNewspaper /></Dropdown.Item>
                                 </Link>
                             </div>
                         </Dropdown>

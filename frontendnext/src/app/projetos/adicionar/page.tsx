@@ -82,7 +82,7 @@ export default function AddFormProject() {
                             />
                         </div>
                         <div className="grid grid-cols-1">
-                            <label className="block text-sm font-medium leading-6 text-gray-700">Nome: *</label>
+                            <label className="block text-sm font-medium leading-6 text-gray-700">Título: *</label>
                             <TextInput
                                 color="bg-zinc-400"
                                 id="title"
@@ -101,14 +101,14 @@ export default function AddFormProject() {
                                 placeholder="descrição sobre o projeto" />
                             <FieldError error={errors.body} />
                         </div>
-                        <div className="grid grid-cols-1">
+                        <div className="mt-5 grid grid-cols-1">
                             <label className="block text-sm font-medium leading-6 text-gray-700">Url de Imagem: </label>
                             <TextInput
                                 color="bg-zinc-400"
                                 id="image"
                                 onChange={handleChange}
                                 value={values.image}
-                                placeholder="ex: http://example-web.com/image.png" />
+                                placeholder="http://example-web.com/image.png" />
                         </div>
                         <div className="mt-5 flex items-center justify-end gap-x-4">
                             <Button type="submit" gradientDuoTone="purpleToBlue" >Salvar</Button>

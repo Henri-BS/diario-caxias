@@ -1,10 +1,13 @@
+import { BASE_URL } from ".";
+import { useAuth } from "./auth";
+
 export type Post = {
   id?: number;
-  imageUrl?: string;
+  image?: string;
   title?: string;
   description?: string;
-  extension?: string;
   uploadDate?: string;
+  userId?: number;
 };
 
 export type PostPage = {
@@ -20,3 +23,20 @@ export type PostPage = {
 export type PostProps = {
   post: Post;
 };
+
+class PostService {
+  async savePost(post: Post): Promise<void> {
+    const response = await fetch(BASE_URL + "/posts/save", {
+      method: "POST",
+      body: JSON.stringify(post),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status == 409) {
+      const responseError = await response.json();
+      throw new Error(responseError.error);
+    }
+  }
+}
+export const usePostService = () => new PostService();

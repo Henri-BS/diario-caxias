@@ -123,7 +123,7 @@ export default function AddFormEvent() {
                                 placeholder="título do evento" />
                             <FieldError error={errors.title} />
                         </div>
-                        <div className="grid grid-cols-1">
+                        <div className="mt-5 grid grid-cols-1">
                             <label className="block text-sm font-medium leading-6 text-gray-700">Projeto Associado: *</label>
                             <TextInput
                                 color="bg-zinc-400"
@@ -146,7 +146,7 @@ export default function AddFormEvent() {
                                 }
                             </datalist>
                         </div>
-                        <div className="grid grid-cols-1">
+                        <div className="mt-5 grid grid-cols-1">
                             <label className='block text-sm font-medium leading-6 text-gray-700'>Descrição: *</label>
                             <Textarea
                                 color="bg-zinc-400"
@@ -156,7 +156,7 @@ export default function AddFormEvent() {
                                 placeholder="descrição sobre o evento" />
                             <FieldError error={errors.description} />
                         </div>
-                        <div className="grid grid-cols-1">
+                        <div className="mt-5 grid grid-cols-1">
                             <label className="block text-sm font-medium leading-6 text-gray-700">Data do Evento: *</label>
                             <TextInput
                             color="bg-zinc-400"
@@ -167,7 +167,7 @@ export default function AddFormEvent() {
                             />
                             <FieldError error={errors.date} />
                         </div>
-                        <div className="grid grid-cols-1">
+                        <div className="mt-5 grid grid-cols-1">
                             <label className="block text-sm font-medium leading-6 text-gray-700">Status do Evento: *</label>
                             <Select
                                 color="bg-zinc-400"
@@ -185,7 +185,7 @@ export default function AddFormEvent() {
                             </Select>
                             <FieldError error={errors.status} />
                         </div>
-                        <div className="grid grid-cols-1">
+                        <div className="mt-5 grid grid-cols-1">
                             <label className="block text-sm font-medium leading-6 text-gray-700">Url de Imagem: </label>
                             <TextInput
                                 color="bg-zinc-400"

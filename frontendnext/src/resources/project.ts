@@ -24,7 +24,6 @@ export type ProjectProps = {
 };
 
 class ProjectService {
-  auth = useAuth();
 
   async saveProject(project: Project): Promise<void> {
     const response = await fetch(BASE_URL + "/projects/save", {
