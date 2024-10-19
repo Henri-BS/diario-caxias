@@ -29,8 +29,8 @@ public class EventCategoryDto implements Serializable {
         categoryName = entity.getCategory().getName();
         eventId = entity.getEvent().getId();
         eventTitle = entity.getEvent().getTitle();
-        eventDate = entity.getEvent().getDate();
-        eventStatus = entity.getEvent().getStatus().getDescription();
+        eventDate = entity.getEvent().getEventDate();
+        eventStatus = entity.getEvent().getEventStatus().getDescription();
         eventImage = entity.getEvent().getImage();
         eventProjectTitle = entity.getEvent().getProject().getTitle();
     }

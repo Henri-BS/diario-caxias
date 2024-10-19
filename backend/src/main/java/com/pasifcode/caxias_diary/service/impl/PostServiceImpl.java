@@ -34,9 +34,9 @@ public class PostServiceImpl implements PostService {
         User user = userRepository.findById(dto.getUserId()).orElseThrow();
 
         Post add = new Post();
-        add.setTitle(dto.getTitle());
-        add.setDescription(dto.getDescription());
-        add.setImage(dto.getImage());
+        add.setTitle(dto.getPostTitle());
+        add.setDescription(dto.getPostDescription());
+        add.setImage(dto.getPostImage());
         add.setUser(user);
 
         return new PostDto(postRepository.saveAndFlush(add));

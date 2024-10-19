@@ -1,6 +1,6 @@
 'use client'
 
-import UserCard from "@/components/cards/UserCard";
+import { UserCard } from "@/components/cards/UserCard";
 import { Pagination } from "@/components/shared/Pagination";
 import { Template } from "@/components/Template";
 import { BASE_URL } from "@/resources";

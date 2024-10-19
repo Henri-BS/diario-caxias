@@ -11,30 +11,16 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tb_project")
-@EntityListeners(AuditingEntityListener.class)
-public class Project {
+public class Project extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "project_id", nullable = false)
     private Long id;
 
-    @Column(nullable = false)
-    private String title;
+    private Integer countEvents;
 
-    @Column(columnDefinition = "TEXT")
-    private String body;
-
-    private String image;
-
-    private Integer countEvents = 0;
-
-    private Long countCategories;
-
-    private Integer countUsers = 0;
-
-    @CreatedDate
-    private LocalDateTime createdDate = LocalDateTime.now();
+    private Integer countUsers;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -48,17 +34,14 @@ public class Project {
 
 
     public Project() {
+        super();
     }
 
-    public Project(Long id, String title, String body, String image, Integer countEvents, Long countCategories, Integer countUsers, LocalDateTime createdDate, User user) {
+    public Project(Long id, String title, String description, String image, Integer countEvents, Integer countUsers, LocalDateTime createdDate, User user) {
+        super(title, description, image, createdDate);
         this.id = id;
-        this.title = title;
-        this.body = body;
-        this.image = image;
         this.countEvents = countEvents;
-        this.countCategories = countCategories;
         this.countUsers = countUsers;
-        this.createdDate = createdDate;
         this.user = user;
     }
 
@@ -70,30 +53,6 @@ public class Project {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public Integer getCountEvents() {
         return countEvents;
     }
@@ -102,28 +61,12 @@ public class Project {
         this.countEvents = countEvents;
     }
 
-    public Long getCountCategories() {
-        return countCategories;
-    }
-
-    public void setCountCategories(Long countCategories) {
-        this.countCategories = countCategories;
-    }
-
     public Integer getCountUsers() {
         return countUsers;
     }
 
     public void setCountUsers(Integer countUsers) {
         this.countUsers = countUsers;
-    }
-
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
     }
 
     public User getUser() {

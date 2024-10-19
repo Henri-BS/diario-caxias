@@ -1,6 +1,5 @@
 package com.pasifcode.caxias_diary.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -25,19 +24,18 @@ public class User {
     @Column(nullable = false)
     private String email;
 
-    @JsonIgnore
     private String password;
 
+    private String image;
 
     @Column(columnDefinition = "TEXT")
-    private String bio;
+    private String userBio;
 
-    private String location;
+    private String userLocation;
 
     @CreatedDate
     private LocalDateTime createdDate = LocalDateTime.now();
 
-    private String image;
 
     @OneToMany(mappedBy = "user")
     private final Set<Project> projects = new HashSet<>();
@@ -87,20 +85,20 @@ public class User {
     }
 
 
-    public String getBio() {
-        return bio;
+    public String getUserBio() {
+        return userBio;
     }
 
-    public void setBio(String bio) {
-        this.bio = bio;
+    public void setUserBio(String userBio) {
+        this.userBio = userBio;
     }
 
-    public String getLocation() {
-        return location;
+    public String getUserLocation() {
+        return userLocation;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setUserLocation(String userLocation) {
+        this.userLocation = userLocation;
     }
 
     public LocalDateTime getCreatedDate() {

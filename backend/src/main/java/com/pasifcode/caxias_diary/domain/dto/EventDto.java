@@ -16,11 +16,11 @@ public class EventDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    private String title;
-    private String description;
-    private String image;
-    private LocalDate date;
-    private Status status;
+    private String eventTitle;
+    private String eventDescription;
+    private String eventImage;
+    private LocalDate eventDate;
+    private Status eventStatus;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime createdDate;
     private String projectTitle;
@@ -32,11 +32,11 @@ public class EventDto implements Serializable {
 
     public EventDto(Event entity) {
         id = entity.getId();
-        title = entity.getTitle();
-        description = entity.getDescription();
-        image = entity.getImage();
-        date = entity.getDate();
-        status = entity.getStatus();
+        eventTitle = entity.getTitle();
+        eventDescription = entity.getDescription();
+        eventImage = entity.getImage();
+        eventDate = entity.getEventDate();
+        eventStatus = entity.getEventStatus();
         createdDate = entity.getCreatedDate();
         projectTitle = entity.getProject().getTitle();
         userId = entity.getUser().getId();
@@ -47,25 +47,25 @@ public class EventDto implements Serializable {
         return id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getEventTitle() {
+        return eventTitle;
     }
 
-    public String getDescription() {
-        return description;
+    public String getEventDescription() {
+        return eventDescription;
     }
 
-    public String getImage() {
-        return image;
+    public String getEventImage() {
+        return eventImage;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getEventDate() {
+        return eventDate;
     }
 
 
-    public Status getStatus() {
-        return status;
+    public Status getEventStatus() {
+        return eventStatus;
     }
 
     public LocalDateTime getCreatedDate() {

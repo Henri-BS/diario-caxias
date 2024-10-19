@@ -3,11 +3,12 @@ import { BASE_URL } from ".";
 
 export type Event = {
   id?: number;
-  title?: string;
-  description?: string;
-  date?: string;
-  status?: string;
-  image?: string;
+  eventTitle?: string;
+  eventDescription?: string;
+  eventImage?: string;
+  eventDate?: string;
+  eventStatus?: string;
+  createdDate?: string;
   projectTitle?: string;
   userId?: number;
   username?: number;

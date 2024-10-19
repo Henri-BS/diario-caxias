@@ -80,11 +80,11 @@ export default function AddFormEvent() {
 
     async function onSubmit(values: FormProps) {
         const event: Event = {
-            title: values.title,
-            description: values.description,
-            image: values.image,
-            date: values.date,
-            status: values.status,
+            eventTitle: values.title,
+            eventDescription: values.description,
+            eventImage: values.image,
+            eventDate: values.date,
+            eventStatus: values.status,
             projectTitle: values.projectTitle,
             userId: userId
         }
@@ -117,7 +117,7 @@ export default function AddFormEvent() {
                             <label className="block text-sm font-medium leading-6 text-gray-700">Título: *</label>
                             <TextInput
                                 color="bg-zinc-400"
-                                id="title"
+                                id="eventTitle"
                                 onChange={handleChange}
                                 value={values.title}
                                 placeholder="título do evento" />
@@ -135,11 +135,11 @@ export default function AddFormEvent() {
                             />
                             <datalist id="projectList">
                                 {projectPage.content?.filter((x) =>
-                                    x.title?.toUpperCase().includes(query.toLocaleUpperCase()))
+                                    x.projectTitle?.toUpperCase().includes(query.toLocaleUpperCase()))
                                     .map((x) =>
                                         <>
-                                        <option id="query" key={x.id} value={x.title}>
-                                            {x.title}
+                                        <option id="query" key={x.id} value={x.projectTitle}>
+                                            {x.projectTitle}
                                         </option>
                                         </>
                                     )
@@ -150,7 +150,7 @@ export default function AddFormEvent() {
                             <label className='block text-sm font-medium leading-6 text-gray-700'>Descrição: *</label>
                             <Textarea
                                 color="bg-zinc-400"
-                                id="description"
+                                id="eventDescription"
                                 onChange={handleChange}
                                 value={values.description}
                                 placeholder="descrição sobre o evento" />
@@ -161,7 +161,7 @@ export default function AddFormEvent() {
                             <TextInput
                             color="bg-zinc-400"
                                 type="date"
-                                id="date"
+                                id="eventDate"
                                 onChange={handleChange}
                                 value={values.date}
                             />
@@ -171,7 +171,7 @@ export default function AddFormEvent() {
                             <label className="block text-sm font-medium leading-6 text-gray-700">Status do Evento: *</label>
                             <Select
                                 color="bg-zinc-400"
-                                id="status"
+                                id="eventStatus"
                                 onChange={handleChange}
                                 value={values.status}
                             >
@@ -189,7 +189,7 @@ export default function AddFormEvent() {
                             <label className="block text-sm font-medium leading-6 text-gray-700">Url de Imagem: </label>
                             <TextInput
                                 color="bg-zinc-400"
-                                id="image"
+                                id="eventImage"
                                 onChange={handleChange}
                                 value={values.image}
                                 placeholder="ex: http://example-web.com/image.png" />

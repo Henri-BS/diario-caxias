@@ -17,7 +17,7 @@ public class EventUserController {
     @Autowired
     private EventUserService eventUserService;
 
-    @GetMapping("/list")
+    @GetMapping("/by-event/{event}")
     ResponseEntity<Page<EventUserDto>> findByEvent(@PathVariable Event event, Pageable pageable) {
         Page<EventUserDto> find = eventUserService.findByEvent(event, pageable);
         return ResponseEntity.ok(find);

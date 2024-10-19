@@ -1,16 +1,14 @@
-import { BASE_URL } from ".";
 
 export type Category = {
   id?: number;
-  name?: string;
+  categoryName?: string;
+  categoryDescription?: string;
 };
 
 export type CategoryPage = {
   content: Category[];
   page: {
-    size: number;
     totalElements: number;
-    totalPages: number;
     number: number;
   };
 };

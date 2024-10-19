@@ -1,10 +1,7 @@
 package com.pasifcode.caxias_diary.domain.entity;
 
-import com.pasifcode.caxias_diary.domain.enums.ImageExtension;
 import com.pasifcode.caxias_diary.domain.enums.Status;
 import jakarta.persistence.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,33 +11,17 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tb_event")
-@EntityListeners(AuditingEntityListener.class)
-public class Event {
+public class Event extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "event_id")
     private Long id;
 
-    @Column(unique = true)
-    private String title;
-
-    private String description;
-
-    private LocalDate date;
-
-    private String image;
+    private LocalDate eventDate;
 
     @Enumerated(EnumType.STRING)
-    private ImageExtension extension;
-
-
-
-    @Enumerated(EnumType.STRING)
-    private Status status;
-
-    @CreatedDate
-    private LocalDateTime createdDate = LocalDateTime.now();
+    private Status eventStatus;
 
     @ManyToOne
     @JoinColumn(name = "project_id")
@@ -59,15 +40,11 @@ public class Event {
     public Event() {
     }
 
-    public Event(Long id, String title, String description, LocalDate date, String image, ImageExtension extension, Status status, LocalDateTime createdDate, Project project) {
+    public Event(Long id, String title, String description, LocalDate eventDate, String image, Status eventStatus, LocalDateTime createdDate, Project project) {
+        super(title, description, image, createdDate);
         this.id = id;
-        this.title = title;
-        this.description = description;
-        this.date = date;
-        this.image = image;
-        this.extension = extension;
-        this.status = status;
-        this.createdDate = createdDate;
+        this.eventDate = eventDate;
+        this.eventStatus = eventStatus;
         this.project = project;
     }
 
@@ -79,60 +56,20 @@ public class Event {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public LocalDate getEventDate() {
+        return eventDate;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setEventDate(LocalDate eventDate) {
+        this.eventDate = eventDate;
     }
 
-    public String getDescription() {
-        return description;
+    public Status getEventStatus() {
+        return eventStatus;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public ImageExtension getExtension() {
-        return extension;
-    }
-
-    public void setExtension(ImageExtension extension) {
-        this.extension = extension;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
+    public void setEventStatus(Status eventStatus) {
+        this.eventStatus = eventStatus;
     }
 
     public Project getProject() {
@@ -159,7 +96,4 @@ public class Event {
         return eventCategories;
     }
 
-    public String getFileName() {
-        return getTitle().concat(".").concat(getExtension().name());
-    }
 }

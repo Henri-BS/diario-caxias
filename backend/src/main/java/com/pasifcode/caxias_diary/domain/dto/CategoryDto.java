@@ -12,8 +12,8 @@ public class CategoryDto implements Serializable {
     private final static long serialVersionUID = 1L;
 
     private Long id;
-    private String name;
-    private String description;
+    private String categoryName;
+    private String categoryDescription;
     private Long countEvents;
 
     public CategoryDto() {
@@ -21,8 +21,8 @@ public class CategoryDto implements Serializable {
 
     public CategoryDto(Category entity) {
         id = entity.getId();
-        name = entity.getName();
-        description = entity.getDescription();
+        categoryName = entity.getName();
+        categoryDescription = entity.getDescription();
         countEvents = entity.getCountEvents();
     }
 
@@ -30,12 +30,12 @@ public class CategoryDto implements Serializable {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getCategoryDescription() {
+        return categoryDescription;
     }
 
     public Long getCountEvents() {

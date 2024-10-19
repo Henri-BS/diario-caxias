@@ -6,6 +6,7 @@ public class UserCategoryDto {
     private Long id;
     private Long userId;
     private String username;
+    private String userImage;
     private Long categoryId;
     private String categoryName;
 
@@ -16,6 +17,7 @@ public class UserCategoryDto {
         id = entity.getId();
         userId = entity.getUser().getId();
         username = entity.getUser().getUsername();
+        userImage = entity.getUser().getImage();
         categoryId = entity.getCategory().getId();
         categoryName = entity.getCategory().getName();
     }
@@ -30,6 +32,10 @@ public class UserCategoryDto {
 
     public String getUsername() {
         return username;
+    }
+
+    public String getUserImage() {
+        return userImage;
     }
 
     public Long getCategoryId() {

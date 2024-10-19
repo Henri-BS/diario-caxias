@@ -1,12 +1,11 @@
 import { BASE_URL } from ".";
-import { useAuth } from "./auth";
 
 export type Post = {
   id?: number;
-  image?: string;
-  title?: string;
-  description?: string;
-  uploadDate?: string;
+  postTitle?: string;
+  postDescription?: string;
+  postImage?: string;
+  createdDate?: string;
   userId?: number;
 };
 

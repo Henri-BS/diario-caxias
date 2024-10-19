@@ -1,11 +1,10 @@
 import { BASE_URL } from ".";
-import { useAuth } from "./auth";
 
 export type Project = {
   id?: number;
-  title?: string;
-  body?: string;
-  image?: string;
+  projectTitle?: string;
+  projectDescription?: string;
+  projectImage?: string;
   userId?: number;
 };
 

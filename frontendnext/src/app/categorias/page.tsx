@@ -17,7 +17,7 @@ export default function Categories() {
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
     }
-    const [categoryPage, setCategoryPage] = useState<CategoryPage>({ content: [], page: { number: 0, size: 0, totalPages: 0, totalElements: 0 } })
+    const [categoryPage, setCategoryPage] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } })
 
     useEffect(() => {
         axios.get(`${BASE_URL}/categories?page=${pageNumber}&query=${query}&size=12`)
@@ -46,7 +46,7 @@ export default function Categories() {
                 </div>
                 <div className="  grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-y-10 gap-x-6 items-start p-8">
                     {categoryPage.content?.filter((x) =>
-                        x.name?.toUpperCase().includes(query.toLocaleUpperCase()))
+                        x.categoryName?.toUpperCase().includes(query.toLocaleUpperCase()))
                         .map(x => (
                             <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
                                 <CategoryCard category={x} />

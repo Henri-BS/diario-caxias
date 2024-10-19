@@ -31,7 +31,7 @@ export default function ProjectDetails({ params }: any) {
             setPageNumber(newPageNumber)
         }
 
-        const [eventPage, setEventPage] = useState<EventPage>({ content: [], page: { number: 0, size: 0, totalElements: 0, totalPages: 0 } });
+        const [eventPage, setEventPage] = useState<EventPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
         useEffect(() => {
             axios.get(`${BASE_URL}/events/by-project/${projectId}?page=${pageNumber}&size=10`)
@@ -69,13 +69,13 @@ export default function ProjectDetails({ params }: any) {
                 <div className="relative flex flex-col sm:flex-row xl:flex-col items-start">
                     <div className="order-1 sm:ml-6 xl:ml-0">
                         <h3 className="mb-1 text-slate-900 font-semibold">
-                            <span className="mb-1 block text-lg leading-6 text-indigo-500">{project?.title}</span>
+                            <span className="mb-1 block text-lg leading-6 text-indigo-500">{project?.projectTitle}</span>
                         </h3>
                         <div className="prose prose-slate prose-sm text-slate-600">
-                            <p>{project?.body} </p>
+                            <p>{project?.projectDescription} </p>
                         </div>
                     </div>
-                    <img src={project?.image} alt={project?.title} className="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full" width="1216" height="640" />
+                    <img src={project?.projectImage} alt={project?.projectTitle} className="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full" width="1216" height="640" />
                 </div>
             </div>
             <Events params={projectId} />

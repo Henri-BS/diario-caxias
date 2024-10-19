@@ -3,9 +3,9 @@ export type User = {
   username?: string;
   email?: string;
   password?: string;
-  bio?: string;
-  image?: string;
-  location?: string;
+  userBio?: string;
+  userImage?: string;
+  userLocation?: string;
   createdDate?: string;
 };
 
@@ -22,6 +22,7 @@ export type UserPage = {
 export type UserProps = {
   user: User;
 };
+
 
 export class Credentials {
     email?: string;

@@ -83,8 +83,8 @@ public class UserServiceImpl implements UserService {
         User userInfo = userRepository.findById(id).orElseThrow();
 
         userInfo.setImage(image);
-        userInfo.setBio(bio);
-        userInfo.setLocation(location);
+        userInfo.setUserBio(bio);
+        userInfo.setUserLocation(location);
         return new UserDto(userRepository.save(userInfo));
     }
 

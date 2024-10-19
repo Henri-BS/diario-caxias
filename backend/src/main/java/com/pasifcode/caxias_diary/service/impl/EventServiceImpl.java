@@ -55,11 +55,11 @@ public class EventServiceImpl implements EventService {
         User user = userRepository.findById(dto.getUserId()).orElseThrow();
 
         Event add = new Event();
-        add.setTitle(dto.getTitle());
-        add.setDescription(dto.getDescription());
-        add.setImage(dto.getImage());
-        add.setDate(dto.getDate());
-        add.setStatus(dto.getStatus());
+        add.setTitle(dto.getEventTitle());
+        add.setDescription(dto.getEventDescription());
+        add.setImage(dto.getEventImage());
+        add.setEventDate(dto.getEventDate());
+        add.setEventStatus(dto.getEventStatus());
         add.setProject(project);
         add.setUser(user);
 
@@ -71,10 +71,10 @@ public class EventServiceImpl implements EventService {
         Event edit = eventRepository.findById(dto.getId()).orElseThrow();
 
         edit.setId(edit.getId());
-        edit.setTitle(dto.getTitle());
-        edit.setDescription(dto.getDescription());
-        edit.setDate(dto.getDate());
-        edit.setStatus(dto.getStatus());
+        edit.setTitle(dto.getEventTitle());
+        edit.setDescription(dto.getEventDescription());
+        edit.setEventDate(dto.getEventDate());
+        edit.setEventStatus(dto.getEventStatus());
 
         return new EventDto(eventRepository.save(edit));
     }

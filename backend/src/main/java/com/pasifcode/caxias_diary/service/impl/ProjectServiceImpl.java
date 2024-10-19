@@ -53,9 +53,9 @@ public class ProjectServiceImpl implements ProjectService {
         User user = userRepository.findById(dto.getUserId()).orElseThrow();
 
         Project add = new Project();
-        add.setTitle(dto.getTitle());
-        add.setBody(dto.getBody());
-        add.setImage(dto.getImage());
+        add.setTitle(dto.getProjectTitle());
+        add.setDescription(dto.getProjectDescription());
+        add.setImage(dto.getProjectImage());
         add.setUser(user);
 
         return new ProjectDto(projectRepository.saveAndFlush(add));
@@ -66,8 +66,8 @@ public class ProjectServiceImpl implements ProjectService {
         Project edit = projectRepository.findById(dto.getId()).orElseThrow();
 
         edit.setId(edit.getId());
-        edit.setTitle(dto.getTitle());
-        edit.setBody(dto.getBody());
+        edit.setTitle(dto.getProjectTitle());
+        edit.setDescription(dto.getProjectDescription());
         return new ProjectDto(projectRepository.save(edit));
     }
 

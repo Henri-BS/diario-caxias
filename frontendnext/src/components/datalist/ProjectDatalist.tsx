@@ -21,10 +21,10 @@ export default function ProjectDatalist() {
         <div>
             <datalist id="projectList">
                 {projectPage.content?.filter((x) =>
-                    x.title?.toUpperCase().includes(query.toLocaleUpperCase()))
+                    x.projectTitle?.toUpperCase().includes(query.toLocaleUpperCase()))
                     .map((x) =>
-                        <option id="query" key={x.id} value={x.title}>
-                            {x.title}
+                        <option id="query" key={x.id} value={x.projectTitle}>
+                            {x.projectTitle}
                         </option>
                     )
                 }

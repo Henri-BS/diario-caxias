@@ -14,7 +14,7 @@ public class EventUserDto implements Serializable {
 
     private Long id;
     private Long userId;
-    private String userName;
+    private String username;
     private String userImage;
     private Long eventId;
     private String eventTitle;
@@ -26,12 +26,12 @@ public class EventUserDto implements Serializable {
     public EventUserDto(EventUser entity) {
         id = entity.getId();
         userId = entity.getUser().getId();
-        userName = entity.getUser().getUsername();
+        username = entity.getUser().getUsername();
         userImage = entity.getUser().getImage();
         eventId = entity.getEvent().getId();
         eventTitle = entity.getEvent().getTitle();
-        eventDate = entity.getEvent().getDate();
-        eventStatus = entity.getEvent().getStatus().getDescription();
+        eventDate = entity.getEvent().getEventDate();
+        eventStatus = entity.getEvent().getEventStatus().getDescription();
         eventImage = entity.getEvent().getImage();
         eventProjectTitle = entity.getEvent().getProject().getTitle();
     }
@@ -47,8 +47,8 @@ public class EventUserDto implements Serializable {
         return userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
     public String getUserImage() {

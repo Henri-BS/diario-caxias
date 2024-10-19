@@ -13,31 +13,29 @@ public class ProjectDto implements Serializable {
     private final static long serialVersionUID = 1L;
 
     private Long id;
-    private String title;
-    private String body;
+    private String projectTitle;
+    private String projectDescription;
+    private String projectImage;
     private Integer countEvents;
-    private Long countCategories;
     private Integer countUsers;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime createdDate;
     private Long userId;
     private String username;
-    private String image;
 
     public ProjectDto() {
     }
 
     public ProjectDto(Project entity) {
         id = entity.getId();
-        title = entity.getTitle();
-        body = entity.getBody();
+        projectTitle = entity.getTitle();
+        projectDescription = entity.getDescription();
+        projectImage = entity.getImage();
         countEvents = entity.getCountEvents();
-        countCategories = entity.getCountCategories();
         countUsers = entity.getCountUsers();
         createdDate = entity.getCreatedDate();
         userId = entity.getUser().getId();
         username = entity.getUser().getUsername();
-        image = entity.getImage();
     }
 
 
@@ -45,20 +43,16 @@ public class ProjectDto implements Serializable {
         return id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getProjectTitle() {
+        return projectTitle;
     }
 
-    public String getBody() {
-        return body;
+    public String getProjectDescription() {
+        return projectDescription;
     }
 
     public Integer getCountEvents() {
         return countEvents;
-    }
-
-    public Long getCountCategories() {
-        return countCategories;
     }
 
     public Integer getCountUsers() {
@@ -77,8 +71,8 @@ public class ProjectDto implements Serializable {
         return username;
     }
 
-    public String getImage() {
-        return image;
+    public String getProjectImage() {
+        return projectImage;
     }
 
 }

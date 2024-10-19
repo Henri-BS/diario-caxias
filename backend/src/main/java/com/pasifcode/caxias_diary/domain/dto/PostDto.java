@@ -15,11 +15,11 @@ public class PostDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    private String title;
-    private String description;
+    private String postTitle;
+    private String postDescription;
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime uploadDate;
-    private String image;
+    private LocalDateTime createdDate;
+    private String postImage;
     private Long userId;
 
     public PostDto() {
@@ -27,31 +27,31 @@ public class PostDto implements Serializable {
 
     public PostDto(Post entity) {
         id = entity.getId();
-        title = entity.getTitle();
-        image = entity.getImage();
-        description = entity.getDescription();
+        postTitle = entity.getTitle();
+        postImage = entity.getImage();
+        postDescription = entity.getDescription();
         userId = entity.getUser().getId();
-        uploadDate = entity.getUploadDate();
+        createdDate = entity.getCreatedDate();
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getPostTitle() {
+        return postTitle;
     }
 
-    public String getDescription() {
-        return description;
+    public String getPostDescription() {
+        return postDescription;
     }
 
-    public LocalDateTime getUploadDate() {
-        return uploadDate;
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
     }
 
-    public String getImage() {
-        return image;
+    public String getPostImage() {
+        return postImage;
     }
 
     public Long getUserId() {

@@ -110,7 +110,7 @@ export default function Home() {
 
     function CategoryHomeList() {
         
-        const [categories, setCategories] = useState<CategoryPage>({ content: [], page: { number: 0, size: 0, totalElements: 0, totalPages: 0 } });
+        const [categories, setCategories] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } });
         useEffect(() => {
             axios.get(`${BASE_URL}/categories?size=12`)
                 .then((response) => {
@@ -153,7 +153,7 @@ export default function Home() {
                     </Link>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-6 items-start p-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
                     {events.content?.map(x => (
                         <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
                             <EventCard event={x} />

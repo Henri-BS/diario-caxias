@@ -18,9 +18,9 @@ public class UserDto implements Serializable {
     private String username;
     private String email;
     private String password;
-    private String image;
-    private String bio;
-    private String location;
+    private String userImage;
+    private String userBio;
+    private String userLocation;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime createdDate;
 
@@ -32,9 +32,9 @@ public class UserDto implements Serializable {
         username = entity.getUsername();
         email = entity.getEmail();
         password = entity.getPassword();
-        image = entity.getImage();
-        bio = entity.getBio();
-        location = entity.getLocation();
+        userImage = entity.getImage();
+        userBio = entity.getUserBio();
+        userLocation = entity.getUserLocation();
         createdDate = entity.getCreatedDate();
     }
 
@@ -54,16 +54,16 @@ public class UserDto implements Serializable {
         return password;
     }
 
-    public String getImage() {
-        return image;
+    public String getUserImage() {
+        return userImage;
     }
 
-    public String getBio() {
-        return bio;
+    public String getUserBio() {
+        return userBio;
     }
 
-    public String getLocation() {
-        return location;
+    public String getUserLocation() {
+        return userLocation;
     }
 
     public LocalDateTime getCreatedDate() {

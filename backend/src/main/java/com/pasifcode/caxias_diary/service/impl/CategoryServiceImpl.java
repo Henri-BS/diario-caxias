@@ -42,8 +42,8 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryDto saveCategory(CategoryDto dto) {
 
         Category add = new Category();
-        add.setName(dto.getName());
-        add.setDescription(dto.getDescription());
+        add.setName(dto.getCategoryName());
+        add.setDescription(dto.getCategoryDescription());
         return new CategoryDto(categoryRepository.saveAndFlush(add));
     }
 
@@ -52,8 +52,8 @@ public class CategoryServiceImpl implements CategoryService {
         Category edit = categoryRepository.findById(dto.getId()).orElseThrow();
 
         edit.setId(edit.getId());
-        edit.setName(dto.getName());
-        edit.setDescription(dto.getDescription());
+        edit.setName(dto.getCategoryName());
+        edit.setDescription(dto.getCategoryDescription());
         return new CategoryDto(categoryRepository.save(edit));
     }
 
