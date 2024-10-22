@@ -19,6 +19,7 @@ public class UserDto implements Serializable {
     private String email;
     private String password;
     private String userImage;
+    private String userCoverImage;
     private String userBio;
     private String userLocation;
     @JsonFormat(pattern = "dd/MM/yyyy")
@@ -33,6 +34,7 @@ public class UserDto implements Serializable {
         email = entity.getEmail();
         password = entity.getPassword();
         userImage = entity.getImage();
+        userCoverImage = entity.getCoverImage();
         userBio = entity.getUserBio();
         userLocation = entity.getUserLocation();
         createdDate = entity.getCreatedDate();
@@ -56,6 +58,10 @@ public class UserDto implements Serializable {
 
     public String getUserImage() {
         return userImage;
+    }
+
+    public String getUserCoverImage() {
+        return userCoverImage;
     }
 
     public String getUserBio() {

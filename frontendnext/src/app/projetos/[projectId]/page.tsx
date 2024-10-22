@@ -36,27 +36,7 @@ export default function ProjectDetails({ params }: any) {
                 setEventPage(response.data);
             });
     }, [projectId, pageNumber]);
-    function Events({ params }: any) {
-
-
-
-        return (
-            <>
-                <div className="flex flex-wrap w-full justify-between mt-12">
-                </div>
-                <div className="flex items-center w-full justify-center mt-12">
-                    <Pagination pagination={eventPage} onPageChange={handlePageChange} />
-                </div>
-                <div className=" grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
-                    {eventPage.content?.map(x => (
-                        <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start">
-                            <EventCard event={x} />
-                        </div>
-                    ))}
-                </div>
-            </>
-        );
-    }
+ 
 
     return (
         <Template>
@@ -74,7 +54,16 @@ export default function ProjectDetails({ params }: any) {
                 </div>
                 <p className="mt-5 text-medium">{project?.projectDescription} </p>
             </div>
-            <Events params={projectId} />
+                <div className="flex items-center w-full justify-center mt-12">
+                    <Pagination pagination={eventPage} onPageChange={handlePageChange} />
+                </div>
+                <div className=" grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
+                    {eventPage.content?.map(x => (
+                        <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start">
+                            <EventCard event={x} />
+                        </div>
+                    ))}
+                </div>
         </Template>
     );
 }

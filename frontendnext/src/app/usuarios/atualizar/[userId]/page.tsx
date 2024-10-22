@@ -124,7 +124,7 @@ export default function EditFormUser({ params }: any) {
                         </div>
                         <div className="mt-5 flex items-center justify-end gap-x-4">
                             <Button type="submit" gradientDuoTone="purpleToBlue" >Salvar</Button>
-                            <Link href="/users">
+                            <Link href={`/usuarios/${id}`}>
                                 <Button type="button" color="failure" >Cancelar</Button>
                             </Link>
                         </div>

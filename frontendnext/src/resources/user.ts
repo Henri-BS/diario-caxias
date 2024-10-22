@@ -9,6 +9,7 @@ export type User = {
   password?: string;
   userBio?: string;
   userImage?: string;
+  userCoverImage?: string;
   userLocation?: string;
   createdDate?: string;
 };

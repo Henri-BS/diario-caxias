@@ -10,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/projects")
 public class ProjectController {
@@ -26,8 +24,8 @@ public class ProjectController {
     }
 
     @GetMapping("/by-user/{user}")
-    public ResponseEntity<List<ProjectDto>> findByUser(@PathVariable User user) {
-        List<ProjectDto> list = projectService.findByUser(user);
+    public ResponseEntity<Page<ProjectDto>> findByUser(@PathVariable User user, Pageable pageable) {
+        Page<ProjectDto> list = projectService.findByUser(user, pageable);
         return ResponseEntity.ok(list);
     }
 

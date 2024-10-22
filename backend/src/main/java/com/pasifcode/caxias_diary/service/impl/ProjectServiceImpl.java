@@ -11,8 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @Transactional
 public class ProjectServiceImpl implements ProjectService {
@@ -35,9 +33,9 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectDto> findByUser(User user) {
-        List<Project> find = projectRepository.findByUser(user);
-        return find.stream().map(ProjectDto::new).toList();
+    public Page<ProjectDto> findByUser(User user, Pageable pageable) {
+        Page<Project> find = projectRepository.findByUser(user, pageable);
+        return find.map(ProjectDto::new);
     }
 
 

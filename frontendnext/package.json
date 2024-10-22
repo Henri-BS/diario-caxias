@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tiptap/pm": "^2.9.0",
+    "@tiptap/react": "^2.9.0",
+    "@tiptap/starter-kit": "^2.9.0",
     "axios": "^1.7.7",
     "flowbite": "^2.5.2",
     "flowbite-react": "^0.10.2",

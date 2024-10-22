@@ -28,6 +28,8 @@ public class User {
 
     private String image;
 
+    private String coverImage;
+
     @Column(columnDefinition = "TEXT")
     private String userBio;
 
@@ -35,7 +37,6 @@ public class User {
 
     @CreatedDate
     private LocalDateTime createdDate = LocalDateTime.now();
-
 
     @OneToMany(mappedBy = "user")
     private final Set<Project> projects = new HashSet<>();
@@ -115,6 +116,14 @@ public class User {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getCoverImage() {
+        return coverImage;
+    }
+
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
     }
 
     public Set<Project> getProjects() {

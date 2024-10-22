@@ -55,7 +55,7 @@ class EventService {
       },
     });
     if (response.status == 409) {
-      const responseError = await response.data();
+      const responseError = await response.data;
       throw new Error(responseError.error);
     }
   }
