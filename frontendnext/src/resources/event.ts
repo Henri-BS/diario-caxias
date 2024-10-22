@@ -1,3 +1,4 @@
+import axios from "axios";
 import { BASE_URL } from ".";
 
 
@@ -46,15 +47,15 @@ export type EventCategoryProps = {
 class EventService {
 
   async saveEvent(event: Event): Promise<void> {
-    const response = await fetch(BASE_URL + "/events/save", {
+    const response = await axios(BASE_URL + "/events/save", {
       method: "POST",
-      body: JSON.stringify(event),
+      data: JSON.stringify(event),
       headers: {
         "Content-Type": "application/json",
       },
     });
     if (response.status == 409) {
-      const responseError = await response.json();
+      const responseError = await response.data();
       throw new Error(responseError.error);
     }
   }

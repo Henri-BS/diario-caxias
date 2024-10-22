@@ -142,9 +142,11 @@ const Header: FC = () => {
                         </Dropdown>
                         <RenderIf condition={!!user}>
                             <div className="flex flex-row items-center">
+                                <Link href={`/usuarios/${user?.id}`}>
                                 <Popover title={user?.username} content={user?.username} className="bg-zinc-700 text-gray-100 p-1 rounded-lg" trigger="hover" arrow={false}>
                                     <img src={user?.image ? user?.image : "https://cdn1.iconfinder.com/data/icons/basic-ui-element-2-2-line/512/Basic_UI_Elements_-_2.1_-_line-11-256.png"} className="h-12 w-12 rounded-full bg-[#ffffffbe] cursor-point border border-gray-100 transition duration-600 hover:border-blue-500" />
                                 </Popover>
+                                </Link>
                                 <a className="flex flex-row items-center gap-2 py-3 px-6 text-md cursor-pointer font-medium text-blue-500 hover:underline" href={"/login"} onClick={logout}>
                                     Sair <FaIcons.FaRightFromBracket />
                                 </a>

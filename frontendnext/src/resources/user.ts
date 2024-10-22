@@ -1,3 +1,7 @@
+import axios from "axios";
+import { BASE_URL } from ".";
+import { useAuth } from "./auth";
+
 export type User = {
   id?: number;
   username?: string;
@@ -42,3 +46,19 @@ export class UserSessionToken {
     expiration?: number;
 }
 
+class UserService {
+ auth = useAuth();
+  async updateUserInfo(data: FormData): Promise<string> {
+    const userSession = this.auth.getUserSession();
+    const response = await axios(BASE_URL + `/users/update`, {
+      method: "PUT",
+      data: data,
+      headers: {
+        "Authorization": `Bearer ${userSession?.accessToken}`
+      },
+    });
+    return await response.data;
+  }  
+}
+
+export const useUserService = () => new UserService();

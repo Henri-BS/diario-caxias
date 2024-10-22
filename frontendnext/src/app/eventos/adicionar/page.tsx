@@ -1,20 +1,19 @@
 'use client'
 
 import { AuthenticatedPage } from "@/components/AuthenticatedPage";
-import ProjectDatalist from "@/components/datalist/ProjectDatalist";
 import { FieldError } from "@/components/shared/FieldError";
 import { useNotification } from "@/components/shared/Notification";
 import { Template } from "@/components/Template";
 import { BASE_URL } from "@/resources";
 import { useAuth } from "@/resources/auth";
 import { Event, useEventService } from "@/resources/event";
-import { Project, ProjectPage, useProjectService } from "@/resources/project";
+import { ProjectPage } from "@/resources/project";
 import axios from "axios";
-import { Button, Datepicker, Select, Textarea, TextInput } from "flowbite-react";
+import { Button, Select, Textarea, TextInput } from "flowbite-react";
 import { useFormik } from "formik";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { FaCalendarCheck, FaFolderClosed } from "react-icons/fa6";
+import { FaCalendarCheck } from "react-icons/fa6";
 import * as Yup from "yup";
 
 export interface FormProps {

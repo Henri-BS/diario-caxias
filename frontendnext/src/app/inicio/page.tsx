@@ -10,7 +10,6 @@ import { CategoryPage } from "@/resources/category";
 import { EventPage } from "@/resources/event";
 import { PostPage } from "@/resources/post";
 import { ProjectPage } from "@/resources/project";
-import { UserPage } from "@/resources/user";
 import axios from "axios";
 import { Carousel } from "flowbite-react";
 import Link from "next/link";
@@ -18,7 +17,7 @@ import { useEffect, useState } from "react";
 
 
 export default function Home() {
-    
+
     return (
         <>
             <Template>
@@ -33,18 +32,16 @@ export default function Home() {
                             Para saber um pouco mais sobre os recentes projetos ou eventos, clique nas últimas nóticias que aparecem aqui ao lado e faça a sua história em sua cidade.
                         </p>
                     </div>
-
                     <PostCarousel />
                 </div>
-
                 <ProjectHomeList />
                 <CategoryHomeList />
                 <EventHomeList />
             </Template>
         </>
     );
-    
-    
+
+
     function PostCarousel() {
         const [posts, setPosts] = useState<PostPage>({ content: [], page: { number: 0, size: 0, totalElements: 0, totalPages: 0 } });
         useEffect(() => {
@@ -53,7 +50,7 @@ export default function Home() {
                     setPosts(response.data);
                 });
         }, []);
-    
+
         return (
             <>
 
@@ -64,7 +61,7 @@ export default function Home() {
                             Ver mais
                         </Link>
                     </div>
-                    <div className="h-96 w-96">
+                    <div className="h-[480px] w-96 ">
                         <Carousel>
                             {posts.content.map(x => (
                                 <div key={x.id}>
@@ -87,7 +84,7 @@ export default function Home() {
                     setProjects(response.data);
                 })
         }, [])
-    
+
         return (
             <>
                 <div className="flex justify-between p-4 " >
@@ -109,7 +106,7 @@ export default function Home() {
     }
 
     function CategoryHomeList() {
-        
+
         const [categories, setCategories] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } });
         useEffect(() => {
             axios.get(`${BASE_URL}/categories?size=12`)
@@ -117,7 +114,7 @@ export default function Home() {
                     setCategories(response.data);
                 });
         }, []);
-    
+
         return (
             <>
                 <div className="flex justify-between p-4 " >
@@ -134,16 +131,16 @@ export default function Home() {
             </>
         );
     }
-    
+
     function EventHomeList() {
-        const [events, setEvents] = useState<EventPage>({ content: [], page: { number: 0,  totalElements: 0 } })
+        const [events, setEvents] = useState<EventPage>({ content: [], page: { number: 0, totalElements: 0 } })
         useEffect(() => {
             axios.get(`${BASE_URL}/events?size=10`)
                 .then((response) => {
                     setEvents(response.data);
                 })
         }, [])
-        
+
         return (
             <>
                 <div className="flex justify-between p-4 " >

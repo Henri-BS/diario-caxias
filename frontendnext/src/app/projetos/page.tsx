@@ -1,12 +1,13 @@
 'use client'
 
 import { ProjectCard } from "@/components/cards/ProjectCard";
+import { useNotification } from "@/components/shared/Notification";
 import { Pagination } from "@/components/shared/Pagination";
 import { Template } from "@/components/Template";
 import { BASE_URL } from "@/resources";
-import { ProjectPage } from "@/resources/project";
+import { ProjectPage, useProjectService } from "@/resources/project";
 import axios from "axios";
-import { TextInput } from "flowbite-react";
+import { Select, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 
 
@@ -17,13 +18,13 @@ export default function Projects() {
         setPageNumber(newPageNumber);
     }
     const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
+        useEffect(() => {
+            axios.get(`${BASE_URL}/projects?page=${pageNumber}&query=${query}&size=10`)
+                .then((response) => {
+                    setProjectPage(response.data);
+                });
+        }, [pageNumber, query]);
 
-    useEffect(() => {
-        axios.get(`${BASE_URL}/projects?page=${pageNumber}&query=${query}&size=5`)
-            .then((response) => {
-                setProjectPage(response.data);
-            });
-    }, [pageNumber, query]);
 
     return (
         <>
@@ -33,12 +34,13 @@ export default function Projects() {
                         <TextInput className="w-full"
                             color="bg-zinc-400"
                             type="text"
-                            id="value"
+                            id="query"
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                             placeholder="buscar projetos..."
                         />
                     </div>
+                    
                 </div>
                 <div className="flex items-center w-full justify-center">
                     <Pagination pagination={projectPage} onPageChange={handlePageChange} />

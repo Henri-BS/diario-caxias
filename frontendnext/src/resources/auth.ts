@@ -1,14 +1,15 @@
 import { jwtDecode } from "jwt-decode";
 import { BASE_URL } from ".";
 import { AccessToken, Credentials, UserSessionToken } from "./user";
+import axios from "axios";
 
 class AuthService {
   static AUTH_PARAM: string = "_auth";
 
   async authenticate(credentials: Credentials): Promise<AccessToken> {
-    const response = await fetch(BASE_URL + "/users/login", {
+    const response = await axios(BASE_URL + "/users/login", {
       method: "POST",
-      body: JSON.stringify(credentials),
+      data: JSON.stringify(credentials),
       headers: {
         "Content-Type": "application/json",
       },
@@ -16,19 +17,19 @@ class AuthService {
     if (response.status == 401) {
       throw new Error("Usuário ou senha incorretos");
     }
-    return await response.json();
+    return await response.data;
   }
 
   async saveUser(credentials: Credentials): Promise<void> {
-    const response = await fetch(BASE_URL + "/users/save", {
+    const response = await axios(BASE_URL + "/users/save", {
       method: "POST",
-      body: JSON.stringify(credentials),
+      data: JSON.stringify(credentials),
       headers: {
         "Content-Type": "application/json",
       },
     });
     if (response.status == 401) {
-      const responseError = await response.json();
+      const responseError = await response.data;
       throw new Error(responseError);
     }
   }
