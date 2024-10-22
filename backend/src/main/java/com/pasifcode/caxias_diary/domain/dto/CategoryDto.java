@@ -14,7 +14,6 @@ public class CategoryDto implements Serializable {
     private Long id;
     private String categoryName;
     private String categoryDescription;
-    private Long countEvents;
 
     public CategoryDto() {
     }
@@ -23,7 +22,6 @@ public class CategoryDto implements Serializable {
         id = entity.getId();
         categoryName = entity.getName();
         categoryDescription = entity.getDescription();
-        countEvents = entity.getCountEvents();
     }
 
     public Long getId() {
@@ -38,8 +36,5 @@ public class CategoryDto implements Serializable {
         return categoryDescription;
     }
 
-    public Long getCountEvents() {
-        return countEvents;
-    }
 }
 

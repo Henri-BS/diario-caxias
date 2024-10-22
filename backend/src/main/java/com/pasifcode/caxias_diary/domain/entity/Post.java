@@ -1,8 +1,6 @@
 package com.pasifcode.caxias_diary.domain.entity;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -16,6 +14,8 @@ public class Post extends BaseEntity {
     @Column(name = "post_id")
     private Long id;
 
+    private String summary;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -26,9 +26,10 @@ public class Post extends BaseEntity {
     public Post() {
     }
 
-    public Post(Long id, String title, String description, LocalDateTime createdDate, String image, User user) {
+    public Post(Long id, String title, String description, LocalDateTime createdDate, String summary, String image, User user) {
         super(title, description, image, createdDate);
         this.id = id;
+        this.summary = summary;
         this.user = user;
     }
 
@@ -38,6 +39,14 @@ public class Post extends BaseEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     public User getUser() {

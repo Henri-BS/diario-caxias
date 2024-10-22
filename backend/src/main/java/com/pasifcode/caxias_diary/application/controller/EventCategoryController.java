@@ -23,11 +23,12 @@ public class EventCategoryController {
         Page<EventCategoryDto> find = eventCategoryService.findByEvent(event, pageable);
         return ResponseEntity.ok(find);
     }
-        @GetMapping("/by-category/{category}")
-        ResponseEntity<Page<EventCategoryDto>> findByCategory(@PathVariable Category category, Pageable pageable) {
-            Page<EventCategoryDto> find = eventCategoryService.findByCategory(category, pageable);
-            return ResponseEntity.ok(find);
-        }
+
+    @GetMapping("/by-category/{category}")
+    ResponseEntity<Page<EventCategoryDto>> findByCategory(@PathVariable Category category, Pageable pageable) {
+        Page<EventCategoryDto> find = eventCategoryService.findByCategory(category, pageable);
+        return ResponseEntity.ok(find);
+    }
 
     @GetMapping("/{id}")
     ResponseEntity<EventCategoryDto> findEventCategoryById(@PathVariable Long id) {

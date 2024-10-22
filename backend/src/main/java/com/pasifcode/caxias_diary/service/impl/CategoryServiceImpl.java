@@ -32,9 +32,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional(readOnly = true)
     public CategoryDto findCategoryById(Long id) {
         Category find = categoryRepository.findById(id).orElseThrow();
-        Long countEvents = eventCategoryRepository.countByCategory(find);
-        find.setCountEvents(countEvents);
-
         return new CategoryDto(find);
     }
 

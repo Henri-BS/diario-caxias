@@ -17,6 +17,7 @@ public class PostDto implements Serializable {
     private Long id;
     private String postTitle;
     private String postDescription;
+    private String postSummary;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime createdDate;
     private String postImage;
@@ -30,6 +31,7 @@ public class PostDto implements Serializable {
         postTitle = entity.getTitle();
         postImage = entity.getImage();
         postDescription = entity.getDescription();
+        postSummary = entity.getSummary();
         userId = entity.getUser().getId();
         createdDate = entity.getCreatedDate();
     }
@@ -44,6 +46,10 @@ public class PostDto implements Serializable {
 
     public String getPostDescription() {
         return postDescription;
+    }
+
+    public String getPostSummary() {
+        return postSummary;
     }
 
     public LocalDateTime getCreatedDate() {

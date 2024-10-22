@@ -35,8 +35,6 @@ public class UserController {
         return ResponseEntity.ok(find);
     }
 
-
-
     @PostMapping("/save")
     public ResponseEntity register(@RequestBody UserDto dto) {
         try {
@@ -58,13 +56,14 @@ public class UserController {
         return ResponseEntity.ok(token);
     }
 
-    @PutMapping("/info/{id}")
+    @PutMapping("/update")
     public ResponseEntity<UserDto> saveUserInfo(
-            @RequestParam String image,
-            @RequestParam String bio,
-            @RequestParam String location,
-            @PathVariable Long id) {
-        UserDto userInfo = userService.saveUserInfo(image, bio, location, id);
-        return new ResponseEntity(userInfo, HttpStatus.CREATED);
+                @RequestParam String username,
+            @RequestParam String userImage,
+            @RequestParam String userBio,
+            @RequestParam String userLocation,
+            @RequestParam Long id) {
+        UserDto userInfo = userService.saveUserInfo(username, userImage, userBio, userLocation, id);
+        return new ResponseEntity<>(userInfo, HttpStatus.OK);
     }
 }

@@ -85,7 +85,7 @@ export default function AddFormProject() {
                             <label className="block text-sm font-medium leading-6 text-gray-700">Título: *</label>
                             <TextInput
                                 color="bg-zinc-400"
-                                id="projectTitle"
+                                id="title"
                                 onChange={handleChange}
                                 value={values.title}
                                 placeholder="título do projeto" />
@@ -95,7 +95,7 @@ export default function AddFormProject() {
                             <label className='block text-sm font-medium leading-6 text-gray-700'>Descrição: </label>
                             <Textarea
                                 color="bg-zinc-400"
-                                id="projectDescription"
+                                id="description"
                                 onChange={handleChange}
                                 value={values.description}
                                 placeholder="descrição sobre o projeto" />
@@ -105,7 +105,7 @@ export default function AddFormProject() {
                             <label className="block text-sm font-medium leading-6 text-gray-700">Url de Imagem: </label>
                             <TextInput
                                 color="bg-zinc-400"
-                                id="projectImage"
+                                id="image"
                                 onChange={handleChange}
                                 value={values.image}
                                 placeholder="http://example-web.com/image.png" />

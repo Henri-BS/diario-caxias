@@ -12,6 +12,7 @@ import { UserPage } from "@/resources/user";
 import axios from "axios";
 
 import { useEffect, useState } from "react";
+import * as FaIcons from "react-icons/fa6";
 
 export default function CategoryDetails({ params }: any) {
     const categoryId = params.categoryId;
@@ -48,25 +49,31 @@ export default function CategoryDetails({ params }: any) {
 
     return (
         <Template>
-            <div className="w-full text-center p-6 bg-zinc-100 border border-zinc-300 rounded-lg shadow-md ">
-                <h5 className=" mb-2 text-5xl font-bold tracking-tight text-gray-900 ">{category?.categoryName}</h5>
-            </div> 
-            <h2 className="text-2xl mt-5">Eventos Relacionados</h2>
+            <div className="w-full p-6 bg-zinc-100 border border-zinc-300 rounded-lg shadow-md ">
+                <h5 className=" mb-2 text-4xl font-bold tracking-tight text-indigo-500 ">{category?.categoryName}</h5>
+                <p className="font-medium text-lg">{category?.categoryDescription}</p>
+                <div className="grid md:grid-cols-2 text-gray-800 mt-5">
+                    <p className="flex flex-row items-center text-lg gap-2"><FaIcons.FaCalendarCheck /> Eventos relacionados: <b>{eventPage.page.totalElements}</b></p>
+                    <p className="flex flex-row items-center text-lg gap-2"><FaIcons.FaUser />Usuários relacionados: <b>{userPage.page.totalElements}</b></p>
+                </div>
+            </div>
+            
+            <h2 className="flex flex-row text-2xl mt-5 gap-2"><FaIcons.FaCalendarCheck/>Eventos Relacionados</h2>
             <div className="flex items-center w-full justify-center">
                 <Pagination pagination={eventPage} onPageChange={handlePageChange} />
             </div>
-            <div className="  grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
                 {eventPage.content?.map(x => (
                     <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
                         <EventCard event={x} />
                     </div>
                 ))}
             </div>
-            <h2 className="text-2xl mt-5">Usuários Relacionados</h2>
+            <h2 className="flex flex-row text-2xl mt-5 gap-2"><FaIcons.FaUser /> Usuários Relacionados</h2>
             <div className="flex items-center w-full justify-center">
                 <Pagination pagination={userPage} onPageChange={handlePageChange} />
             </div>
-            <div className="  grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
                 {userPage.content?.map(x => (
                     <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
                         <UserCard user={x} />

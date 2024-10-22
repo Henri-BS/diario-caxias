@@ -29,7 +29,7 @@ INSERT INTO tb_user (username, image, email, password, created_date) VALUES ('Os
 INSERT INTO tb_user (username, image, email, password, created_date) VALUES ('Joel Castro',      'https://cdn1.iconfinder.com/data/icons/basic-ui-element-2-2-line/512/Basic_UI_Elements_-_2.1_-_line-11-256.png',    'joel@example.com',        '12345678', now());
 INSERT INTO tb_user (username, image, email, password, created_date) VALUES ('Rose Santana',     'https://cdn1.iconfinder.com/data/icons/basic-ui-element-2-2-line/512/Basic_UI_Elements_-_2.1_-_line-11-256.png',    'rose@example.com',        '12345678', now());
 
-INSERT INTO tb_category (name) VALUES ('Meio Ambiente');
+INSERT INTO tb_category (name, description) VALUES ('Meio Ambiente', 'O meio ambiente envolve os interesses regionais com as causas ambientais, algumas atribuições relacionadas ao meio ambiente são: a preservação de biomas, garantia dos recursos hídricos e florestais e o uso sustentável de ecossistemas.');
 INSERT INTO tb_category (name) VALUES ('Arquitetura');
 INSERT INTO tb_category (name) VALUES ('Agricultura');
 INSERT INTO tb_category (name) VALUES ('Moradia');

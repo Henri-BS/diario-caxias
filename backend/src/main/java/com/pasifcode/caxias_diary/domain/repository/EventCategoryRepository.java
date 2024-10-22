@@ -16,7 +16,4 @@ public interface EventCategoryRepository extends JpaRepository<EventCategory, Lo
 
     Page<EventCategory> findByCategory(Category category, Pageable pageable);
 
-    long countByCategory(Category category);
-
-
 }

@@ -30,11 +30,18 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public PostDto findById(Long id) {
+        Post find = postRepository.findById(id).orElseThrow();
+        return new PostDto(find);
+    }
+
+    @Override
     public PostDto savePost(PostDto dto) {
         User user = userRepository.findById(dto.getUserId()).orElseThrow();
 
         Post add = new Post();
         add.setTitle(dto.getPostTitle());
+        add.setSummary(dto.getPostSummary());
         add.setDescription(dto.getPostDescription());
         add.setImage(dto.getPostImage());
         add.setUser(user);

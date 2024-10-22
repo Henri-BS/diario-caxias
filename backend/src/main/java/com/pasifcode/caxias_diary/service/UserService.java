@@ -19,7 +19,7 @@ public interface UserService {
 
     AccessToken authenticate(String email, String password);
 
-    UserDto saveUserInfo(String image, String bio, String location, Long id);
+    UserDto saveUserInfo(String username, String userImage, String bio, String location, Long id);
 
     Optional<User> getUserImage(Long id);
 }

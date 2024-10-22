@@ -7,7 +7,7 @@ import { useNotification } from "@/components/shared/Notification";
 import { Template } from "@/components/Template";
 import { useAuth } from "@/resources/auth";
 import { Post, usePostService } from "@/resources/post";
-import { Button, TextInput } from "flowbite-react";
+import { Button, Textarea, TextInput } from "flowbite-react";
 import { useFormik } from "formik";
 import Link from "next/link";
 import { useState } from "react";
@@ -17,6 +17,7 @@ import * as Yup from "yup";
 export interface FormProps {
     title: string;
     description: string;
+    summary: string;
     image: string;
     userId: number;
 }
@@ -24,6 +25,7 @@ export interface FormProps {
 export const formSchema: FormProps = {
     title: "",
     description: "",
+    summary: "",
     image: "",
     userId: 0
 };
@@ -34,9 +36,13 @@ export const formValidationSchema = Yup.object().shape({
         .required("O campo título é obrigatório!")
         .min(3, "O título deve ter no mínimo 3 caracteres!")
         .max(80, "O título deve ter no máximo 80 caracteres!"),
+        summary: Yup.string()
+        .trim()
+        .required("O campo de resumo é obrigatório!")
+        .max(250, "O título deve ter no máximo 250 caracteres!"),
     description: Yup.string()
         .trim()
-        .required("O campo de descrição é obrigatório!")
+        .required("O campo de descrição é obrigatório!"),
 });
 
 export default function AddFormPost() {
@@ -53,7 +59,7 @@ export default function AddFormPost() {
     })
 
     async function onSubmit(values: FormProps) {
-        const post: Post = { postTitle: values.title, postDescription: values.description, postImage: values.image, userId: userId }
+        const post: Post = { postTitle: values.title, postDescription: values.description, postSummary: values.summary, postImage: values.image, userId: userId }
         try {
             await service.savePost(post);
             notification.notify("Salvo com sucesso!", "success");
@@ -83,17 +89,27 @@ export default function AddFormPost() {
                             <label className="block text-sm font-medium leading-6 text-gray-700">Título: *</label>
                             <TextInput
                                 color="bg-zinc-400"
-                                id="postTitle"
+                                id="title"
                                 onChange={handleChange}
                                 value={values.title}
-                                placeholder="título do projeto" />
+                                placeholder="título da postagem" />
                             <FieldError error={errors.title} />
                         </div>
                         <div className="grid grid-cols-1">
-                            <label className="block text-sm font-medium leading-6 text-gray-700">Título: *</label>
-                            <TextInput
+                            <label className="block text-sm font-medium leading-6 text-gray-700">Resumo: *</label>
+                            <Textarea
                                 color="bg-zinc-400"
-                                id="postDescription"
+                                id="summary"
+                                onChange={handleChange}
+                                value={values.summary}
+                                placeholder="resumo da postagem" />
+                            <FieldError error={errors.summary} />
+                        </div>
+                        <div className="grid grid-cols-1">
+                            <label className="block text-sm font-medium leading-6 text-gray-700">Descrição: *</label>
+                            <Textarea
+                                color="bg-zinc-400"
+                                id="description"
                                 onChange={handleChange}
                                 value={values.description}
                                 placeholder="descrição da postagem" />
@@ -103,7 +119,7 @@ export default function AddFormPost() {
                             <label className="block text-sm font-medium leading-6 text-gray-700">Url de Imagem: </label>
                             <TextInput
                                 color="bg-zinc-400"
-                                id="postImage"
+                                id="image"
                                 onChange={handleChange}
                                 value={values.image}
                                 placeholder="http://example-web.com/image.png" />

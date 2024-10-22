@@ -8,6 +8,8 @@ public interface PostService {
 
     Page<PostDto> findAll(Pageable pageable);
 
+    PostDto findById(Long id);
+
     PostDto savePost(PostDto dto);
 
 }
