@@ -1,9 +1,11 @@
 'use client'
 
+import { CategoryCard } from "@/components/cards/CategoryCard";
 import { ProjectCard } from "@/components/cards/ProjectCard";
 import { Pagination } from "@/components/shared/Pagination";
 import { Template } from "@/components/Template";
 import { BASE_URL } from "@/resources";
+import { CategoryPage } from "@/resources/category";
 import { ProjectPage } from "@/resources/project";
 import { User } from "@/resources/user";
 import axios from "axios";
@@ -29,6 +31,7 @@ export default function UserPersonalProfile({ params }: any) {
         setPageNumber(newPageNumber)
     }
     const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
+    const [categoryPage, setCategoryPage] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
         axios.get(`${BASE_URL}/projects/by-user/${userId}?page=${pageNumber}&size=10`)
@@ -37,6 +40,12 @@ export default function UserPersonalProfile({ params }: any) {
             });
     }, [userId, pageNumber]);
 
+    useEffect(() => {
+        axios.get(`${BASE_URL}/user-category/by-user/${userId}?page=${pageNumber}&size=12`)
+            .then((response) => {
+                setCategoryPage(response.data);
+            });
+    }, [pageNumber]);
 
 
     return (
@@ -61,16 +70,29 @@ export default function UserPersonalProfile({ params }: any) {
                     <hr className="mt-6" />
                 </div>
             </div>
-<h1 className="mt-12 text-2xl">Projetos Criados</h1>
+            <h2 className="flex flex-row text-2xl mt-5 gap-2"><FaIcons.FaTag /> Categorias Relacionadas</h2>
+            <div className="flex items-center w-full justify-center">
+                <Pagination pagination={categoryPage} onPageChange={handlePageChange} />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
+                {categoryPage.content?.map(x => (
+                    <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                        <CategoryCard category={x} />
+                    </div>
+                ))}
+            </div>
+
+
+            <h2 className="flex flex-row text-2xl mt-5 gap-2"><FaIcons.FaFolderClosed /> Projetos Criados</h2>
             <div className="flex items-center w-full justify-center mt-12">
                 <Pagination pagination={projectPage} onPageChange={handlePageChange} />
             </div>
             <div className="  grid grid-cols-1 xl:grid-cols-2 gap-y-10 gap-x-6 items-start p-8">
                 {projectPage.content?.map(x => (
-                        <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
-                            <ProjectCard project={x} />
-                        </div>
-                    ))}
+                    <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                        <ProjectCard project={x} />
+                    </div>
+                ))}
             </div>
         </Template>
     );

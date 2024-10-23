@@ -30,7 +30,7 @@ export default function PostDetails({ params }: any) {
     const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/project-post/?post=${postId}?page=${pageNumber}&size=10`)
+        axios.get(`${BASE_URL}/project-post/by-post/${postId}?page=${pageNumber}&size=10`)
             .then((response) => {
                 setProjectPage(response.data);
             });

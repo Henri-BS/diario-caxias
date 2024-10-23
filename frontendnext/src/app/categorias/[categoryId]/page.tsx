@@ -44,7 +44,7 @@ export default function CategoryDetails({ params }: any) {
             .then((response) => {
                 setUserPage(response.data);
             });
-    }, [categoryId, pageNumber]);
+    }, [ pageNumber]);
 
 
     return (

@@ -22,12 +22,6 @@ public class UserCategoryServiceImpl implements UserCategoryService {
     @Autowired
     private UserCategoryRepository userCategoryRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private CategoryRepository categoryRepository;
-
     @Override
     @Transactional(readOnly = true)
     public Page<UserCategoryDto> findByCategory(Category category, Pageable pageable) {
@@ -36,14 +30,11 @@ public class UserCategoryServiceImpl implements UserCategoryService {
     }
 
     @Override
-    public UserCategoryDto saveUserCategory(UserCategoryDto dto) {
-    User user = userRepository.findById(dto.getUserId()).orElseThrow();
-    Category category = categoryRepository.findByName(dto.getCategoryName());
-
-        UserCategory add = new UserCategory();
-        add.setUser(user);
-        add.setCategory(category);
-        return new UserCategoryDto(userCategoryRepository.saveAndFlush(add));
+    @Transactional(readOnly = true)
+    public Page<UserCategoryDto> findByUser(User user, Pageable pageable) {
+        Page<UserCategory> list = userCategoryRepository.findByUser(user, pageable);
+        return list.map(UserCategoryDto::new);
     }
+
 
 }

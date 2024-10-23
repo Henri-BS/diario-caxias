@@ -10,5 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProjectPostRepository extends JpaRepository<ProjectPost, Long> {
-    Page<ProjectPost> findByPostOrProject(Post post, Project project, Pageable pageable);
+    Page<ProjectPost> findByPost(Post post, Pageable pageable);
+
+    Page<ProjectPost> findByProject(Project project, Pageable pageable);
 }

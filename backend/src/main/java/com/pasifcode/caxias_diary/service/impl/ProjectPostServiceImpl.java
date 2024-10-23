@@ -20,8 +20,14 @@ public class ProjectPostServiceImpl implements ProjectPostService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<ProjectPostDto> search(Post post, Project project, Pageable pageable) {
-        Page<ProjectPost> list = projectPostRepository.findByPostOrProject(post, project, pageable);
+    public Page<ProjectPostDto> findByPost(Post post, Pageable pageable) {
+        Page<ProjectPost> list = projectPostRepository.findByPost(post, pageable);
+        return list.map(ProjectPostDto::new);
+    }
+
+    @Override
+    public Page<ProjectPostDto> findByProject(Project project, Pageable pageable) {
+        Page<ProjectPost> list = projectPostRepository.findByProject(project, pageable);
         return list.map(ProjectPostDto::new);
     }
 }

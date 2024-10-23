@@ -7,5 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ProjectPostService {
-    Page<ProjectPostDto> search(Post post, Project project, Pageable pageable);
+    Page<ProjectPostDto> findByPost(Post post, Pageable pageable);
+
+    Page<ProjectPostDto> findByProject(Project project, Pageable pageable);
 }
