@@ -1,6 +1,7 @@
 package com.pasifcode.caxias_diary.application.controller;
 
 import com.pasifcode.caxias_diary.application.exception.DuplicateTuplesException;
+import com.pasifcode.caxias_diary.application.security.AccessToken;
 import com.pasifcode.caxias_diary.domain.dto.CredentialsDto;
 import com.pasifcode.caxias_diary.domain.dto.UserDto;
 import com.pasifcode.caxias_diary.service.UserService;
@@ -31,7 +32,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> findUserById(@PathVariable Long id) {
-            UserDto find = userService.findUserById(id);
+            UserDto find = userService.findById(id);
             return ResponseEntity.ok(find);
     }
 
@@ -48,7 +49,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody CredentialsDto credentialsDto) {
-        var token = userService.authenticate(credentialsDto.getEmail(), credentialsDto.getPassword());
+        AccessToken token = userService.authenticate(credentialsDto.getEmail(), credentialsDto.getPassword());
 
         if (token == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

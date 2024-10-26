@@ -14,6 +14,7 @@ public class Post extends BaseEntity {
     @Column(name = "post_id")
     private Long id;
 
+    @Column(length = 300)
     private String summary;
 
     @ManyToOne

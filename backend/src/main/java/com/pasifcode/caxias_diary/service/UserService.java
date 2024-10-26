@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface UserService {
     Page<UserDto> findAll(Pageable pageable);
 
-    UserDto findUserById(Long id);
+    UserDto findById(Long id);
 
     User findByEmail(String email);
 

@@ -23,7 +23,7 @@ public class Category {
 
 
     @OneToMany(mappedBy = "category")
-    private Set<EventCategory> eventCategories = new HashSet<>();
+    private Set<ProjectCategory> eventCategories = new HashSet<>();
 
     @OneToMany(mappedBy = "category")
     private Set<UserCategory> userCategories = new HashSet<>();
@@ -61,7 +61,7 @@ public class Category {
         this.description = description;
     }
 
-    public Set<EventCategory> getEventCategories() {
+    public Set<ProjectCategory> getEventCategories() {
         return eventCategories;
     }
 

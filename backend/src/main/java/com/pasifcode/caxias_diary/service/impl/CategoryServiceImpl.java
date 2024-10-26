@@ -3,7 +3,7 @@ package com.pasifcode.caxias_diary.service.impl;
 import com.pasifcode.caxias_diary.domain.dto.CategoryDto;
 import com.pasifcode.caxias_diary.domain.entity.Category;
 import com.pasifcode.caxias_diary.domain.repository.CategoryRepository;
-import com.pasifcode.caxias_diary.domain.repository.EventCategoryRepository;
+import com.pasifcode.caxias_diary.domain.repository.ProejectCategoryRepository;
 import com.pasifcode.caxias_diary.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,7 +19,7 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
 
     @Autowired
-    private EventCategoryRepository eventCategoryRepository;
+    private ProejectCategoryRepository proejectCategoryRepository;
 
     @Override
     @Transactional(readOnly = true)

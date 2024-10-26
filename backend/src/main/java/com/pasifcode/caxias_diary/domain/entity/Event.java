@@ -34,9 +34,6 @@ public class Event extends BaseEntity {
     @OneToMany(mappedBy = "event")
     private final Set<EventUser> eventUsers = new HashSet<>();
 
-    @OneToMany(mappedBy = "event")
-    private final Set<EventCategory> eventCategories = new HashSet<>();
-
     public Event() {
     }
 
@@ -92,8 +89,5 @@ public class Event extends BaseEntity {
         return eventUsers;
     }
 
-    public Set<EventCategory> getEventCategories() {
-        return eventCategories;
-    }
 
 }

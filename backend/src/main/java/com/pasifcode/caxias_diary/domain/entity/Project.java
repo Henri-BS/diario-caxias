@@ -1,8 +1,6 @@
 package com.pasifcode.caxias_diary.domain.entity;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -27,11 +25,13 @@ public class Project extends BaseEntity {
     private User user;
 
     @OneToMany(mappedBy = "project")
+    private final Set<Event> events = new HashSet<>();
+
+    @OneToMany(mappedBy = "project")
     private final Set<ProjectPost> posts = new HashSet<>();
 
     @OneToMany(mappedBy = "project")
-    private final Set<Event> events = new HashSet<>();
-
+    private final Set<ProjectCategory> projectCategory = new HashSet<>();
 
     public Project() {
         super();
@@ -81,5 +81,11 @@ public class Project extends BaseEntity {
         return events;
     }
 
+    public Set<ProjectPost> getPosts() {
+        return posts;
+    }
 
+    public Set<ProjectCategory> getProjectCategory() {
+        return projectCategory;
+    }
 }

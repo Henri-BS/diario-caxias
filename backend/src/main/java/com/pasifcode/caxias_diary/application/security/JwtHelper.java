@@ -44,7 +44,7 @@ public class JwtHelper {
         Map<String, Object> claims = new HashMap<>();
         claims.put("id", user.getId());
         claims.put("username", user.getUsername());
-        claims.put("image", user.getImage());
+        claims.put("userImage", user.getImage());
         return claims;
     }
 

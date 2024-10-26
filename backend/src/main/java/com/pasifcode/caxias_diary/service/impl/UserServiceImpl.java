@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 
@@ -40,8 +41,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserDto findUserById(Long id) {
-        User find = userRepository.findById(id).orElseThrow();
+    public UserDto findById(Long id) {
+        User find = userRepository.findById(id).orElseThrow(NoSuchElementException::new);
         return new UserDto(find);
     }
 
