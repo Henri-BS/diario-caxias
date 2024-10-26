@@ -22,7 +22,7 @@ public class Post extends BaseEntity {
     private User user;
 
     @OneToMany(mappedBy = "post")
-    private Set<ProjectPost> projectPost = new HashSet<>();
+    private final Set<ProjectPost> projectPost = new HashSet<>();
 
     public Post() {
     }
@@ -58,7 +58,4 @@ public class Post extends BaseEntity {
         this.user = user;
     }
 
-    public Set<ProjectPost> getProjectPost() {
-        return projectPost;
-    }
 }

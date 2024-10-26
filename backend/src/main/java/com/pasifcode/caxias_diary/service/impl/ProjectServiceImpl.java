@@ -21,9 +21,6 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private EventRepository eventRepository;
-
     @Override
     @Transactional(readOnly = true)
     public Page<ProjectDto> findAll(Pageable pageable) {
@@ -73,6 +70,4 @@ public class ProjectServiceImpl implements ProjectService {
     public void deleteProject(Long id) {
         this.projectRepository.deleteById(id);
     }
-
-
 }

@@ -22,7 +22,7 @@ public abstract class BaseEntity {
     private String image;
 
     @CreatedDate
-    private LocalDateTime createdDate = LocalDateTime.now();;
+    private LocalDateTime createdDate = LocalDateTime.now();
 
     public BaseEntity() {
     }
@@ -60,9 +60,5 @@ public abstract class BaseEntity {
 
     public LocalDateTime getCreatedDate() {
         return createdDate;
-    }
-
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
     }
 }

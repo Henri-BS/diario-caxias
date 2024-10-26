@@ -6,8 +6,6 @@ import com.pasifcode.caxias_diary.domain.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Optional;
-
 public interface UserService {
     Page<UserDto> findAll(Pageable pageable);
 
@@ -21,5 +19,4 @@ public interface UserService {
 
     UserDto saveUserInfo(String username, String userImage, String bio, String location, Long id);
 
-    Optional<User> getUserImage(Long id);
 }

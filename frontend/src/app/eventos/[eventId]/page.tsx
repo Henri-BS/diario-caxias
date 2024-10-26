@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import  * as FaIcons from "react-icons/fa6";
 import { CategoryCard } from "@/components/cards/CategoryCard";
 import { Accordion } from "flowbite-react";
+import moment from "moment";
 
 export default function EventDetails({ params }: any) {
     const eventId = params.eventId;
@@ -54,7 +55,7 @@ export default function EventDetails({ params }: any) {
                                 <FaIcons.FaFolderClosed /> Projeto: {event?.projectTitle}
                             </p>
                             <p className="flex gap-2 items-center text-center text-lg font-semibold text-gray-700">
-                                <GoIcons.GoCalendar /> Data do evento: {event?.eventDate}
+                                <GoIcons.GoCalendar /> Data do evento: {moment(event?.eventDate).format("dd/MM/yyyy")}
                             </p>
                             <p className="flex gap-2 items-center text-center text-lg font-semibold text-gray-700">
                                 <GoIcons.GoChecklist /> Status: {event?.eventStatus}

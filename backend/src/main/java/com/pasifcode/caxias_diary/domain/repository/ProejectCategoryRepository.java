@@ -1,7 +1,6 @@
 package com.pasifcode.caxias_diary.domain.repository;
 
 import com.pasifcode.caxias_diary.domain.entity.Category;
-import com.pasifcode.caxias_diary.domain.entity.Event;
 import com.pasifcode.caxias_diary.domain.entity.Project;
 import com.pasifcode.caxias_diary.domain.entity.ProjectCategory;
 import org.springframework.data.domain.Page;

@@ -16,7 +16,7 @@ export default function Posts() {
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
     }
-    const [postPage, setPostPage] = useState<PostPage>({ content: [], page: { number: 0, size: 0, totalElements: 0, totalPages: 0 } });
+    const [postPage, setPostPage] = useState<PostPage>({ content: [], page: { number: 0,  totalElements: 0} });
 
     useEffect(() => {
         axios.get(`${BASE_URL}/posts?page=${pageNumber}&query=${query}&size=10`)

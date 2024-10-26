@@ -16,8 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
-import java.util.Optional;
-
 
 @Service
 @Transactional
@@ -89,10 +87,5 @@ public class UserServiceImpl implements UserService {
         userInfo.setUserLocation(userLocation);
 
         return new UserDto(userRepository.save(userInfo));
-    }
-
-    @Override
-    public Optional<User> getUserImage(Long id) {
-        return userRepository.findById(id);
     }
 }

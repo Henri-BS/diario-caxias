@@ -1,13 +1,14 @@
 'use client'
 
-import AddFormEvent from "@/app/eventos/adicionar/page";
 import { CategoryCard } from "@/components/cards/CategoryCard";
 import { EventCard } from "@/components/cards/EventCard";
+import { PostCard } from "@/components/cards/PostCard";
 import { Pagination } from "@/components/shared/Pagination";
 import { Template } from "@/components/Template";
 import { BASE_URL } from "@/resources";
 import { CategoryPage } from "@/resources/category";
 import { EventPage } from "@/resources/event";
+import { PostPage } from "@/resources/post";
 import { Project } from "@/resources/project";
 import axios from "axios";
 import { Accordion } from "flowbite-react";
@@ -50,6 +51,15 @@ export default function ProjectDetails({ params }: any) {
     }, [projectId, pageNumber]);
 
 
+    const [postPage, setPostPage] = useState<PostPage>({ content: [], page: { number: 0, totalElements: 0 } });
+
+    useEffect(() => {
+        axios.get(`${BASE_URL}/project-post/by-project/${projectId}?page=${pageNumber}&size=10`)
+            .then((response) => {
+                setPostPage(response.data);
+            });
+    }, [project, pageNumber]);
+
     return (
         <Template>
             <div >
@@ -61,6 +71,7 @@ export default function ProjectDetails({ params }: any) {
                         <div className="prose prose-slate prose-sm text-slate-600 mt-5">
                             <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaTag /> Categorias relacionados: <b>{categoryPage.page.totalElements}</b></p>
                             <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaCalendarCheck /> Eventos relacionados: <b>{eventPage.page.totalElements}</b></p>
+                            <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaNewspaper /> Notícias relacionados: <b>{postPage.page.totalElements}</b></p>
                         </div>
                     </div>
                     <img src={project?.projectImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[22rem] sm:mb-0 " />
@@ -98,6 +109,23 @@ export default function ProjectDetails({ params }: any) {
                             {eventPage.content?.map(x => (
                                 <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start">
                                     <EventCard event={x} />
+                                </div>
+                            ))}
+                        </div>
+                    </Accordion.Content>
+                </Accordion.Panel>
+                <Accordion.Panel>
+                    <Accordion.Title>
+                        <h2 className="flex flex-row gap-2 mt-5 text-2xl text-zinc-800 "><FaIcons.FaNewspaper />Notícias Relacionados</h2>
+                    </Accordion.Title>
+                    <Accordion.Content className="p-2">
+                        <div className="flex items-center w-full justify-center mt-12">
+                            <Pagination pagination={postPage} onPageChange={handlePageChange} />
+                        </div>
+                        <div className=" grid grid-cols-1 lg:grid-cols-2 gap-y-10 gap-x-6 items-start p-8">
+                            {postPage.content?.map(x => (
+                                <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start">
+                                    <PostCard post={x} />
                                 </div>
                             ))}
                         </div>

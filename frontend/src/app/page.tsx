@@ -11,7 +11,7 @@ import { EventPage } from "@/resources/event";
 import { PostPage } from "@/resources/post";
 import { ProjectPage } from "@/resources/project";
 import axios from "axios";
-import { CustomFlowbiteTheme, Flowbite, Carousel, Accordion } from "flowbite-react";
+import { CustomFlowbiteTheme, Flowbite, Carousel } from "flowbite-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
@@ -43,7 +43,7 @@ export default function Home() {
 
 
     function PostCarousel() {
-        const [posts, setPosts] = useState<PostPage>({ content: [], page: { number: 0, size: 0, totalElements: 0, totalPages: 0 } });
+        const [posts, setPosts] = useState<PostPage>({ content: [], page: { number: 0, totalElements: 0 } });
         useEffect(() => {
             axios.get(`${BASE_URL}/posts?size=8`)
                 .then((response) => {

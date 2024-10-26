@@ -14,9 +14,7 @@ export type Post = {
 export type PostPage = {
   content: Post[];
   page: {
-    size: number;
     totalElements: number;
-    totalPages: number;
     number: number;
   };
 };

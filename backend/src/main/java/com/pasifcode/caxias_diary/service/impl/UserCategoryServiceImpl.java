@@ -1,13 +1,10 @@
 package com.pasifcode.caxias_diary.service.impl;
 
-import com.pasifcode.caxias_diary.domain.dto.CategoryDto;
 import com.pasifcode.caxias_diary.domain.dto.UserCategoryDto;
 import com.pasifcode.caxias_diary.domain.entity.Category;
 import com.pasifcode.caxias_diary.domain.entity.User;
 import com.pasifcode.caxias_diary.domain.entity.UserCategory;
-import com.pasifcode.caxias_diary.domain.repository.CategoryRepository;
 import com.pasifcode.caxias_diary.domain.repository.UserCategoryRepository;
-import com.pasifcode.caxias_diary.domain.repository.UserRepository;
 import com.pasifcode.caxias_diary.service.UserCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

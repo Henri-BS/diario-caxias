@@ -21,12 +21,11 @@ public class Category {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @OneToMany(mappedBy = "category")
+    private final Set<ProjectCategory> eventCategories = new HashSet<>();
 
     @OneToMany(mappedBy = "category")
-    private Set<ProjectCategory> eventCategories = new HashSet<>();
-
-    @OneToMany(mappedBy = "category")
-    private Set<UserCategory> userCategories = new HashSet<>();
+    private final Set<UserCategory> userCategories = new HashSet<>();
 
     public Category() {
     }
@@ -59,14 +58,6 @@ public class Category {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Set<ProjectCategory> getEventCategories() {
-        return eventCategories;
-    }
-
-    public Set<UserCategory> getUserCategories() {
-        return userCategories;
     }
 
 
