@@ -3,6 +3,7 @@
 import { ProjectProps } from "@/resources/project";
 import Link from "next/link";
 
+
 export const ProjectCard = ({ project }: ProjectProps) => {
     return (
         <Link href={`/projetos/${project.id}`} key={project.id} className="flex flex-col h-70 items-center bg-zinc-100 border border-zinc-300 rounded-xl shadow-md md:flex-row md:w-full hover:shadow-xl transition duration-700 hover:scale-105">

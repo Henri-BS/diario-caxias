@@ -1,10 +1,7 @@
 'use client'
 
-import { AuthenticatedPage } from "@/components/AuthenticatedPage";
-import { FieldError } from "@/components/shared/FieldError";
-import { useNotification } from "@/components/shared/Notification";
-import { Template } from "@/components/Template";
-import { BASE_URL } from "@/resources";
+import { AuthenticatedPage, FieldError, useNotification, Template } from "@/components";
+import { baseUrl } from "@/utils/resource";
 import { useAuth } from "@/resources/auth";
 import { Event, useEventService } from "@/resources/event";
 import { ProjectPage } from "@/resources/project";
@@ -14,44 +11,7 @@ import { useFormik } from "formik";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaCalendarCheck } from "react-icons/fa6";
-import * as Yup from "yup";
-
-export interface FormProps {
-    title: string;
-    description: string;
-    image: string;
-    date: string;
-    status: string;
-    projectTitle: string;
-    userId: number;
-}
-
-export const formSchema: FormProps = {
-    title: "",
-    description: "",
-    image: "",
-    date: "",
-    status: "",
-    projectTitle: "",
-    userId: 0
-};
-
-export const formValidationSchema = Yup.object().shape({
-    title: Yup.string()
-        .trim()
-        .required("O campo título é obrigatório!")
-        .min(3, "O título deve ter no mínimo 3 caracteres!")
-        .max(100, "O título deve ter no máximo 100 caracteres!"),
-    description: Yup.string()
-        .trim()
-        .required("O campo de descrição é obrigatório!"),
-    date: Yup.string()
-        .trim()
-        .required("O campo de data é obrigatório!"),
-    status: Yup.string()
-        .trim()
-        .required("O campo de status é obrigatório!")
-});
+import {eventFormSchema, EventFormProps, eventValidationSchema} from "@/app/formSchema"
 
 export default function AddFormEvent() {
 
@@ -65,19 +25,19 @@ export default function AddFormEvent() {
     const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/projects?title=${query}`)
+        axios.get(`${baseUrl}/projects?title=${query}`)
             .then((response) => {
                 setProjectPage(response.data);
             })
     }, [query]);
 
-    const { values, handleChange, handleSubmit, errors, resetForm } = useFormik<FormProps>({
-        initialValues: formSchema,
-        validationSchema: formValidationSchema,
+    const { values, handleChange, handleSubmit, errors, resetForm } = useFormik<EventFormProps>({
+        initialValues: eventFormSchema,
+        validationSchema: eventValidationSchema,
         onSubmit: onSubmit
     })
 
-    async function onSubmit(values: FormProps) {
+    async function onSubmit(values: EventFormProps) {
         const event: Event = {
             eventTitle: values.title,
             eventDescription: values.description,
@@ -137,9 +97,9 @@ export default function AddFormEvent() {
                                     x.projectTitle?.toUpperCase().includes(query.toLocaleUpperCase()))
                                     .map((x) =>
                                         <>
-                                        <option id="query" key={x.id} value={x.projectTitle}>
-                                            {x.projectTitle}
-                                        </option>
+                                            <option id="query" key={x.id} value={x.projectTitle}>
+                                                {x.projectTitle}
+                                            </option>
                                         </>
                                     )
                                 }
@@ -158,7 +118,7 @@ export default function AddFormEvent() {
                         <div className="mt-5 grid grid-cols-1">
                             <label className="block text-sm font-medium leading-6 text-gray-700">Data do Evento: *</label>
                             <TextInput
-                            color="bg-zinc-400"
+                                color="bg-zinc-400"
                                 type="date"
                                 id="eventDate"
                                 onChange={handleChange}

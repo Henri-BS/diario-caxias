@@ -1,10 +1,7 @@
 'use client'
 
-import { CategoryCard } from "@/components/cards/CategoryCard";
-import { ProjectCard } from "@/components/cards/ProjectCard";
-import { Pagination } from "@/components/shared/Pagination";
-import { Template } from "@/components/Template";
-import { BASE_URL } from "@/resources";
+import { CategoryCard, ProjectCard, Pagination, Template } from "@/components";
+import { baseUrl } from "@/utils/resource";
 import { useAuth } from "@/resources/auth";
 import { CategoryPage } from "@/resources/category";
 import { ProjectPage } from "@/resources/project";
@@ -24,7 +21,7 @@ export default function UserPersonalProfile({ params }: any) {
 
     const [user, setUser] = useState<User>();
     useEffect(() => {
-        axios.get(`${BASE_URL}/users/${userId}`)
+        axios.get(`${baseUrl}/users/${userId}`)
             .then((response) => {
                 setUser(response.data);
             });
@@ -38,14 +35,14 @@ export default function UserPersonalProfile({ params }: any) {
     const [categoryPage, setCategoryPage] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/projects/by-user/${userId}?page=${pageNumber}&size=10`)
+        axios.get(`${baseUrl}/projects/by-user/${userId}?page=${pageNumber}&size=10`)
             .then((response) => {
                 setProjectPage(response.data);
             });
     }, [userId, pageNumber]);
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/user-category/by-user/${userId}?page=${pageNumber}&size=12`)
+        axios.get(`${baseUrl}/user-category/by-user/${userId}?page=${pageNumber}&size=12`)
             .then((response) => {
                 setCategoryPage(response.data);
             });

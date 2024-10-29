@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL } from ".";
+import { baseUrl } from "@/utils/resource";
 
 
 export type Event = {
@@ -47,7 +47,7 @@ export type EventCategoryProps = {
 class EventService {
 
   async saveEvent(event: Event): Promise<void> {
-    const response = await axios(BASE_URL + "/events/save", {
+    const response = await axios(baseUrl + "/events/save", {
       method: "POST",
       data: JSON.stringify(event),
       headers: {

@@ -1,7 +1,6 @@
 'use client'
 
 import { CategoryProps } from "@/resources/category";
-import { EventCategoryProps } from "@/resources/event";
 import Link from "next/link";
 
 export const CategoryCard = ({ category }: CategoryProps) => {

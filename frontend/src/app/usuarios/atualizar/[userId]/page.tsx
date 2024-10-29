@@ -1,46 +1,15 @@
 'use client'
 
-import { AuthenticatedPage } from "@/components/AuthenticatedPage";
-import { FieldError } from "@/components/shared/FieldError";
-import { useNotification } from "@/components/shared/Notification";
-import { Template } from "@/components/Template";
-import { BASE_URL } from "@/resources";
+import { UserFormProps, userFormSchema, userValidationSchema } from "@/app/formSchema";
+import { AuthenticatedPage, FieldError, useNotification, Template } from "@/components";
 import { useAuth } from "@/resources/auth";
-import { User, useUserService } from "@/resources/user";
-import axios from "axios";
+import { useUserService } from "@/resources/user";
 import { Button, Textarea, TextInput } from "flowbite-react";
 import { useFormik } from "formik";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaUser } from "react-icons/fa6";
-import * as Yup from "yup";
 
-export interface FormProps {
-    username: string;
-    userImage: string;
-    userCoverImage: string;
-    userBio: string;
-    userLocation: string;
-    id: string;
-}
-
-export const formSchema: FormProps = {
-    username: "",
-    userImage: "",
-    userCoverImage: "",
-    userBio: "",
-    userLocation: "",
-    id: ""
-};
-
-export const formValidationSchema = Yup.object().shape({
-    username: Yup.string()
-        .trim()
-        .required("O campo nome de usuário é obrigatório!")
-        .min(3, "O nome de usuário deve ter no mínimo 3 caracteres!")
-        .max(80, "O nome de usuário deve ter no máximo 80 caracteres!"),
-    
-});
 
 export default function EditFormUser({ params }: any) {
    
@@ -51,13 +20,13 @@ export default function EditFormUser({ params }: any) {
     const id = auth.getUserSession()?.id?.toString();
 
 
-    const formik = useFormik<FormProps>({
-        initialValues: formSchema,
+    const formik = useFormik<UserFormProps>({
+        initialValues: userFormSchema,
         onSubmit: handleSubmit,
-        validationSchema: formValidationSchema
+        validationSchema: userValidationSchema
     });
 
-    async function handleSubmit(data: FormProps) {
+    async function handleSubmit(data: UserFormProps) {
         setLoading(true);
         const formData = new FormData();
         formData.append("username", data.username);

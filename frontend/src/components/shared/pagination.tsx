@@ -2,7 +2,7 @@ import { Category } from "@/resources/category";
 import { Event } from "@/resources/event";
 import { Post } from "@/resources/post";
 import { Project } from "@/resources/project";
-import { RenderIf } from "../Template";
+import { RenderIf } from "../template";
 import { User } from "@/resources/user";
 
 type Page = {

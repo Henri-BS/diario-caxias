@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-import { BASE_URL } from ".";
+import { baseUrl } from "@/utils/resource";
 import { AccessToken, Credentials, UserSessionToken } from "./user";
 import axios from "axios";
 
@@ -7,7 +7,7 @@ class AuthService {
   static AUTH_PARAM: string = "_auth";
 
   async authenticate(credentials: Credentials): Promise<AccessToken> {
-    const response = await axios(BASE_URL + "/users/login", {
+    const response = await axios(baseUrl + "/users/login", {
       method: "POST",
       data: JSON.stringify(credentials),
       headers: {
@@ -21,7 +21,7 @@ class AuthService {
   }
 
   async saveUser(credentials: Credentials): Promise<void> {
-    const response = await axios(BASE_URL + "/users/save", {
+    const response = await axios(baseUrl + "/users/save", {
       method: "POST",
       data: JSON.stringify(credentials),
       headers: {

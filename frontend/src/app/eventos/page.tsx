@@ -1,9 +1,7 @@
 'use client'
 
-import { EventCard } from "@/components/cards/EventCard";
-import { Pagination } from "@/components/shared/Pagination";
-import { Template } from "@/components/Template";
-import { BASE_URL } from "@/resources";
+import { EventCard, Pagination, Template } from "@/components";
+import { baseUrl } from "@/utils/resource";
 import { EventPage } from "@/resources/event";
 import axios from "axios";
 import { TextInput } from "flowbite-react";
@@ -19,7 +17,7 @@ export default function Events() {
     const [eventPage, setEventPage] = useState<EventPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/events?page=${pageNumber}&query=${query}&size=10`)
+        axios.get(`${baseUrl}/events?page=${pageNumber}&query=${query}&size=10`)
             .then((response) => {
                 setEventPage(response.data);
             });

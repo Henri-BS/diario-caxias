@@ -1,9 +1,7 @@
 'use client'
 
-import { ProjectCard } from "@/components/cards/ProjectCard";
-import { Pagination } from "@/components/shared/Pagination";
-import { Template } from "@/components/Template";
-import { BASE_URL } from "@/resources";
+import { ProjectCard, Pagination, Template } from "@/components";
+import { baseUrl } from "@/utils/resource";
 import { Post } from "@/resources/post";
 import { ProjectPage } from "@/resources/project";
 import axios from "axios";
@@ -17,7 +15,7 @@ export default function PostDetails({ params }: any) {
 
     const [post, setPost] = useState<Post>();
     useEffect(() => {
-        axios.get(`${BASE_URL}/posts/${postId}`)
+        axios.get(`${baseUrl}/posts/${postId}`)
             .then((response) => {
                 setPost(response.data);
             });
@@ -31,7 +29,7 @@ export default function PostDetails({ params }: any) {
     const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/project-post/by-post/${postId}?page=${pageNumber}&size=10`)
+        axios.get(`${baseUrl}/project-post/by-post/${postId}?page=${pageNumber}&size=10`)
             .then((response) => {
                 setProjectPage(response.data);
             });

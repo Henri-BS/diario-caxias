@@ -1,9 +1,7 @@
 'use client'
 
-import { PostCard } from "@/components/cards/PostCard";
-import { Pagination } from "@/components/shared/Pagination";
-import { Template } from "@/components/Template";
-import { BASE_URL } from "@/resources";
+import { PostCard, Pagination, Template } from "@/components";
+import { baseUrl } from "@/utils/resource";
 import { PostPage } from "@/resources/post";
 import axios from "axios";
 import { TextInput } from "flowbite-react";
@@ -19,7 +17,7 @@ export default function Posts() {
     const [postPage, setPostPage] = useState<PostPage>({ content: [], page: { number: 0,  totalElements: 0} });
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/posts?page=${pageNumber}&query=${query}&size=10`)
+        axios.get(`${baseUrl}/posts?page=${pageNumber}&query=${query}&size=10`)
             .then((response) => {
                 setPostPage(response.data);
             });

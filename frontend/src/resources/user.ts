@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL } from ".";
+import { baseUrl } from "@/utils/resource";
 import { useAuth } from "./auth";
 
 export type User = {
@@ -51,7 +51,7 @@ class UserService {
  auth = useAuth();
   async updateUserInfo(data: FormData): Promise<string> {
     const userSession = this.auth.getUserSession();
-    const response = await axios(BASE_URL + `/users/update`, {
+    const response = await axios(baseUrl + `/users/update`, {
       method: "PUT",
       data: data,
       headers: {

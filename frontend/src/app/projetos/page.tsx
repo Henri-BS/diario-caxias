@@ -1,13 +1,10 @@
 'use client'
 
-import { ProjectCard } from "@/components/cards/ProjectCard";
-import { useNotification } from "@/components/shared/Notification";
-import { Pagination } from "@/components/shared/Pagination";
-import { Template } from "@/components/Template";
-import { BASE_URL } from "@/resources";
-import { ProjectPage, useProjectService } from "@/resources/project";
+import { ProjectCard, Pagination, Template } from "@/components";
+import { baseUrl } from "@/utils/resource";
+import { ProjectPage } from "@/resources/project";
 import axios from "axios";
-import { Select, TextInput } from "flowbite-react";
+import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 
 
@@ -19,7 +16,7 @@ export default function Projects() {
     }
     const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
         useEffect(() => {
-            axios.get(`${BASE_URL}/projects?page=${pageNumber}&query=${query}&size=10`)
+            axios.get(`${baseUrl}/projects?page=${pageNumber}&query=${query}&size=10`)
                 .then((response) => {
                     setProjectPage(response.data);
                 });

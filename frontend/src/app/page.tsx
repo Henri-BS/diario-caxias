@@ -1,11 +1,7 @@
 'use client'
 
-import { CategoryCard } from "@/components/cards/CategoryCard";
-import { EventCard } from "@/components/cards/EventCard";
-import { PostCard } from "@/components/cards/PostCard";
-import { ProjectCard } from "@/components/cards/ProjectCard";
-import { Template } from "@/components/Template";
-import { BASE_URL } from "@/resources";
+import { CategoryCard, EventCard, PostCard, ProjectCard, Template } from "@/components";
+import { baseUrl } from "@/resources";
 import { CategoryPage } from "@/resources/category";
 import { EventPage } from "@/resources/event";
 import { PostPage } from "@/resources/post";
@@ -45,7 +41,7 @@ export default function Home() {
     function PostCarousel() {
         const [posts, setPosts] = useState<PostPage>({ content: [], page: { number: 0, totalElements: 0 } });
         useEffect(() => {
-            axios.get(`${BASE_URL}/posts?size=8`)
+            axios.get(`${baseUrl}/posts?size=8`)
                 .then((response) => {
                     setPosts(response.data);
                 });
@@ -102,7 +98,7 @@ export default function Home() {
 
         const [projects, setProjects] = useState<ProjectPage>({ content: [], page: { number: 0, size: 0, totalElements: 0, totalPages: 0 } })
         useEffect(() => {
-            axios.get(`${BASE_URL}/projects?size=10`)
+            axios.get(`${baseUrl}/projects?size=10`)
                 .then((response) => {
                     setProjects(response.data);
                 })
@@ -132,7 +128,7 @@ export default function Home() {
 
         const [categories, setCategories] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } });
         useEffect(() => {
-            axios.get(`${BASE_URL}/categories?size=12`)
+            axios.get(`${baseUrl}/categories?size=12`)
                 .then((response) => {
                     setCategories(response.data);
                 });
@@ -160,7 +156,7 @@ export default function Home() {
     function EventHomeList() {
         const [events, setEvents] = useState<EventPage>({ content: [], page: { number: 0, totalElements: 0 } })
         useEffect(() => {
-            axios.get(`${BASE_URL}/events?size=12`)
+            axios.get(`${baseUrl}/events?size=12`)
                 .then((response) => {
                     setEvents(response.data);
                 })

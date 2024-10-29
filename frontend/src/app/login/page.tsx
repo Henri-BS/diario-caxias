@@ -1,14 +1,12 @@
 'use client'
 
-import { useNotification } from "@/components/shared/Notification";
+import { loginFormSchema, LoginFormProps, loginValidationSchema } from "../formSchema";
+import { useNotification, FieldError, Template, RenderIf } from "@/components";
 import { useAuth } from "@/resources/auth";
 import { AccessToken, Credentials, User } from "@/resources/user";
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { formSchema, LoginForm, validationSchema } from "../formSchema";
-import { FieldError } from "@/components/shared/FieldError";
-import { Template, RenderIf } from "@/components/Template";
 import { Button, TextInput } from "flowbite-react";
 
 export default function Login() {
@@ -19,13 +17,13 @@ export default function Login() {
     const notification = useNotification();
     const router = useRouter();
 
-    const { values, handleChange, handleSubmit, errors, resetForm } = useFormik<LoginForm>({
-        initialValues: formSchema,
-        validationSchema: validationSchema,
+    const { values, handleChange, handleSubmit, errors, resetForm } = useFormik<LoginFormProps>({
+        initialValues: loginFormSchema,
+        validationSchema: loginValidationSchema,
         onSubmit: onSubmit
     });
 
-    async function onSubmit(values: LoginForm) {
+    async function onSubmit(values: LoginFormProps) {
         if (!newUserState) {
             const credentials: Credentials = { email: values.email, password: values.password }
             try {

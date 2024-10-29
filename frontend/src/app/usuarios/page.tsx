@@ -1,9 +1,7 @@
 'use client'
 
-import { UserCard } from "@/components/cards/UserCard";
-import { Pagination } from "@/components/shared/Pagination";
-import { Template } from "@/components/Template";
-import { BASE_URL } from "@/resources";
+import { UserCard, Pagination, Template} from "@/components";
+import { baseUrl } from "@/utils/resource";
 import { UserPage } from "@/resources/user";
 import axios from "axios";
 import { TextInput } from "flowbite-react";
@@ -19,7 +17,7 @@ export default function Usuarios() {
     const [userPage, setUserPage] = useState<UserPage>({ content: [], page: { number: 0, size: 0, totalPages: 0, totalElements: 0 } });
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/users?page=${pageNumber}&query=${query}&size=12`)
+        axios.get(`${baseUrl}/users?page=${pageNumber}&query=${query}&size=12`)
             .then((response) => {
                 setUserPage(response.data);
             });

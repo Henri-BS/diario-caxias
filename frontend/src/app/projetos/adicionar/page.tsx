@@ -1,9 +1,7 @@
 'use client'
 
-import { AuthenticatedPage } from "@/components/AuthenticatedPage";
-import { FieldError } from "@/components/shared/FieldError";
-import { useNotification } from "@/components/shared/Notification";
-import { Template } from "@/components/Template";
+import { ProjectFormProps, projectFormSchema, projectValidationSchema } from "@/app/formSchema";
+import { AuthenticatedPage, FieldError, useNotification, Template } from "@/components";
 import { useAuth } from "@/resources/auth";
 import { Project, useProjectService } from "@/resources/project";
 import { Button, Textarea, TextInput } from "flowbite-react";
@@ -11,32 +9,7 @@ import { useFormik } from "formik";
 import Link from "next/link";
 import { useState } from "react";
 import { FaFolderClosed } from "react-icons/fa6";
-import * as Yup from "yup";
 
-export interface FormProps {
-    title: string;
-    description: string;
-    image: string;
-    userId: number;
-}
-
-export const formSchema: FormProps = {
-    title: "",
-    description: "",
-    image: "",
-    userId: 0
-};
-
-export const formValidationSchema = Yup.object().shape({
-    title: Yup.string()
-        .trim()
-        .required("O campo título é obrigatório!")
-        .min(3, "O título deve ter no mínimo 3 caracteres!")
-        .max(80, "O título deve ter no máximo 80 caracteres!"),
-    description: Yup.string()
-        .trim()
-        .required("O campo de descrição é obrigatório!")
-});
 
 export default function AddFormProject() {
 
@@ -47,14 +20,14 @@ export default function AddFormProject() {
     const userId = auth.getUserSession()?.id;
 
 
-    const { values, handleChange, handleSubmit, errors, resetForm } = useFormik<FormProps>({
-        initialValues: formSchema,
-        validationSchema: formValidationSchema,
+    const { values, handleChange, handleSubmit, errors, resetForm } = useFormik<ProjectFormProps>({
+        initialValues: projectFormSchema,
+        validationSchema: projectValidationSchema,
         onSubmit: onSubmit
     })
 
 
-    async function onSubmit(values: FormProps) {
+    async function onSubmit(values: ProjectFormProps) {
         const project: Project = { projectTitle: values.title, projectDescription: values.description, projectImage: values.image, userId: userId}
         try {
             await service.saveProject(project);

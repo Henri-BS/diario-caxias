@@ -1,11 +1,8 @@
 'use client'
 
 
-import { UserCard } from "@/components/cards/UserCard";
-import { Pagination } from "@/components/shared/Pagination";
-import { Template } from "@/components/Template";
-import { BASE_URL } from "@/resources";
-import { CategoryPage } from "@/resources/category";
+import { UserCard, Pagination, Template } from "@/components";
+import { baseUrl } from "@/utils/resource";
 import { Event } from "@/resources/event";
 import { UserPage } from "@/resources/user";
 import axios from "axios";
@@ -13,7 +10,6 @@ import * as GoIcons from "react-icons/go";
 
 import { useEffect, useState } from "react";
 import  * as FaIcons from "react-icons/fa6";
-import { CategoryCard } from "@/components/cards/CategoryCard";
 import { Accordion } from "flowbite-react";
 import moment from "moment";
 
@@ -22,7 +18,7 @@ export default function EventDetails({ params }: any) {
 
     const [event, setEvent] = useState<Event>();
     useEffect(() => {
-        axios.get(`${BASE_URL}/events/${eventId}`)
+        axios.get(`${baseUrl}/events/${eventId}`)
             .then((response) => {
                 setEvent(response.data);
             });
@@ -35,7 +31,7 @@ export default function EventDetails({ params }: any) {
     const [userPage, setUserPage] = useState<UserPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/event-user/by-event/${eventId}?page=${pageNumber}&size=12`)
+        axios.get(`${baseUrl}/event-user/by-event/${eventId}?page=${pageNumber}&size=12`)
             .then((response) => {
                 setUserPage(response.data);
             });

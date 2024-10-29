@@ -1,11 +1,7 @@
 'use client'
 
-import { CategoryCard } from "@/components/cards/CategoryCard";
-import { EventCard } from "@/components/cards/EventCard";
-import { PostCard } from "@/components/cards/PostCard";
-import { Pagination } from "@/components/shared/Pagination";
-import { Template } from "@/components/Template";
-import { BASE_URL } from "@/resources";
+import { CategoryCard, EventCard, PostCard, Pagination, Template } from "@/components";
+import { baseUrl } from "@/utils/resource";
 import { CategoryPage } from "@/resources/category";
 import { EventPage } from "@/resources/event";
 import { PostPage } from "@/resources/post";
@@ -21,7 +17,7 @@ export default function ProjectDetails({ params }: any) {
 
     const [project, setProject] = useState<Project>();
     useEffect(() => {
-        axios.get(`${BASE_URL}/projects/${projectId}`)
+        axios.get(`${baseUrl}/projects/${projectId}`)
             .then((response) => {
                 setProject(response.data);
             });
@@ -35,7 +31,7 @@ export default function ProjectDetails({ params }: any) {
     const [eventPage, setEventPage] = useState<EventPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/events/by-project/${projectId}?page=${pageNumber}&size=10`)
+        axios.get(`${baseUrl}/events/by-project/${projectId}?page=${pageNumber}&size=10`)
             .then((response) => {
                 setEventPage(response.data);
             });
@@ -44,7 +40,7 @@ export default function ProjectDetails({ params }: any) {
     const [categoryPage, setCategoryPage] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/project-category/by-project/${projectId}?page=${pageNumber}&size=12`)
+        axios.get(`${baseUrl}/project-category/by-project/${projectId}?page=${pageNumber}&size=12`)
             .then((response) => {
                 setCategoryPage(response.data);
             });
@@ -54,7 +50,7 @@ export default function ProjectDetails({ params }: any) {
     const [postPage, setPostPage] = useState<PostPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/project-post/by-project/${projectId}?page=${pageNumber}&size=10`)
+        axios.get(`${baseUrl}/project-post/by-project/${projectId}?page=${pageNumber}&size=10`)
             .then((response) => {
                 setPostPage(response.data);
             });

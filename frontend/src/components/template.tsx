@@ -8,8 +8,8 @@ import { useAuth } from "@/resources/auth";
 import { useRouter } from "next/navigation";
 import { Button, Dropdown, Modal, Popover } from "flowbite-react";
 import axios from "axios";
-import { User, useUserService } from "@/resources/user";
-import { BASE_URL } from "@/resources";
+import { User } from "@/resources/user";
+import { baseUrl } from "@/resources";
 
 
 interface TemplateProps {
@@ -112,7 +112,7 @@ const Header: FC = () => {
         const [user, setUser] = useState<User>();
         if (!!userSession) {
             useEffect(() => {
-                axios.get(`${BASE_URL}/users/${userId}`)
+                axios.get(`${baseUrl}/users/${userId}`)
                     .then((response) => {
                         setUser(response.data);
                     });

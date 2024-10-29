@@ -1,10 +1,7 @@
 'use client'
 
-import { ProjectCard } from "@/components/cards/ProjectCard";
-import { UserCard } from "@/components/cards/UserCard";
-import { Pagination } from "@/components/shared/Pagination";
-import { Template } from "@/components/Template";
-import { BASE_URL } from "@/resources";
+import { ProjectCard, UserCard, Pagination, Template } from "@/components";
+import { baseUrl } from "@/utils/resource";
 import { Category } from "@/resources/category";
 import { ProjectPage } from "@/resources/project";
 import { UserPage } from "@/resources/user";
@@ -19,7 +16,7 @@ export default function CategoryDetails({ params }: any) {
 
     const [category, setCategory] = useState<Category>();
     useEffect(() => {
-        axios.get(`${BASE_URL}/categories/${categoryId}`)
+        axios.get(`${baseUrl}/categories/${categoryId}`)
             .then((response) => {
                 setCategory(response.data);
             });
@@ -33,14 +30,14 @@ export default function CategoryDetails({ params }: any) {
     const [userPage, setUserPage] = useState<UserPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/project-category/by-category/${categoryId}?page=${pageNumber}&size=12`)
+        axios.get(`${baseUrl}/project-category/by-category/${categoryId}?page=${pageNumber}&size=12`)
             .then((response) => {
                 setProjectPage(response.data);
             });
     }, [categoryId, pageNumber]);
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/user-category/by-category/${categoryId}?page=${pageNumber}&size=12`)
+        axios.get(`${baseUrl}/user-category/by-category/${categoryId}?page=${pageNumber}&size=12`)
             .then((response) => {
                 setUserPage(response.data);
             });
@@ -68,7 +65,7 @@ export default function CategoryDetails({ params }: any) {
                         <div className="grid grid-cols-1 gap-y-10 gap-x-6 items-start p-8">
                             {projectPage.content?.map(x => (
                                 <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
-                                    <ProjectCard project={x} />
+                                    <ProjectCard project={x}/>
                                 </div>
                             ))}
                         </div>

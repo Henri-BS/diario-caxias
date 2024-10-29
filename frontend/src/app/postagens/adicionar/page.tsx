@@ -1,10 +1,8 @@
 'use client'
 
 
-import { AuthenticatedPage } from "@/components/AuthenticatedPage";
-import { FieldError } from "@/components/shared/FieldError";
-import { useNotification } from "@/components/shared/Notification";
-import { Template } from "@/components/Template";
+import { postFormSchema, PostFormProps, postValidationSchema } from "@/app/formSchema";
+import { AuthenticatedPage, FieldError, useNotification, Template } from "@/components";
 import { useAuth } from "@/resources/auth";
 import { Post, usePostService } from "@/resources/post";
 import { Button, Textarea, TextInput } from "flowbite-react";
@@ -12,38 +10,7 @@ import { useFormik } from "formik";
 import Link from "next/link";
 import { useState } from "react";
 import { FaNewspaper } from "react-icons/fa6";
-import * as Yup from "yup";
 
-export interface FormProps {
-    title: string;
-    description: string;
-    summary: string;
-    image: string;
-    userId: number;
-}
-
-export const formSchema: FormProps = {
-    title: "",
-    description: "",
-    summary: "",
-    image: "",
-    userId: 0
-};
-
-export const formValidationSchema = Yup.object().shape({
-    title: Yup.string()
-        .trim()
-        .required("O campo título é obrigatório!")
-        .min(3, "O título deve ter no mínimo 3 caracteres!")
-        .max(80, "O título deve ter no máximo 80 caracteres!"),
-        summary: Yup.string()
-        .trim()
-        .required("O campo de resumo é obrigatório!")
-        .max(250, "O título deve ter no máximo 250 caracteres!"),
-    description: Yup.string()
-        .trim()
-        .required("O campo de descrição é obrigatório!"),
-});
 
 export default function AddFormPost() {
     const [loading, setLoading] = useState<boolean>(false);
@@ -52,13 +19,13 @@ export default function AddFormPost() {
     const auth = useAuth();
     const userId = auth.getUserSession()?.id;
 
-    const { values, handleChange, handleSubmit, errors, resetForm } = useFormik<FormProps>({
-        initialValues: formSchema,
-        validationSchema: formValidationSchema,
+    const { values, handleChange, handleSubmit, errors, resetForm } = useFormik<PostFormProps>({
+        initialValues: postFormSchema,
+        validationSchema: postValidationSchema,
         onSubmit: onSubmit
     })
 
-    async function onSubmit(values: FormProps) {
+    async function onSubmit(values: PostFormProps) {
         const post: Post = { postTitle: values.title, postDescription: values.description, postSummary: values.summary, postImage: values.image, userId: userId }
         try {
             await service.savePost(post);
