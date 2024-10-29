@@ -1,4 +1,4 @@
-import { UserProps } from "@/resources/user";
+import { UserProps } from "@/resource/user";
 
 export const UserCard = ({ user}: UserProps) => {
     return (
@@ -11,4 +11,3 @@ export const UserCard = ({ user}: UserProps) => {
         </div>
     );
 }
-

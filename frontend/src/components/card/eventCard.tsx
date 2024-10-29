@@ -1,6 +1,6 @@
 'use client'
 
-import { EventProps } from "@/resources/event";
+import { EventProps } from "@/resource/event";
 import Link from "next/link";
 import * as GoIcons from "react-icons/go";
 import moment from "moment";

@@ -1,19 +1,22 @@
 'use client'
 
-import { AuthenticatedPage, FieldError, useNotification, Template } from "@/components";
-import { baseUrl } from "@/utils/resource";
-import { useAuth } from "@/resources/auth";
-import { Event, useEventService } from "@/resources/event";
-import { ProjectPage } from "@/resources/project";
 import axios from "axios";
 import { Button, Select, Textarea, TextInput } from "flowbite-react";
-import { useFormik } from "formik";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaCalendarCheck } from "react-icons/fa6";
 import {eventFormSchema, EventFormProps, eventValidationSchema} from "@/app/formSchema"
+import { FieldError } from "@/components/fieldError";
+import { useNotification } from "@/components/notification";
+import { Template } from "@/components/template";
+import { useAuth } from "@/resource/auth";
+import { Event, useEventService } from "@/resource/event";
+import { ProjectPage } from "@/resource/project";
+import { useFormik } from "formik";
+import { AuthenticatedPage } from "@/components/authenticatedPage";
 
 export default function AddFormEvent() {
+    const baseUrl = process.env.NODE_ENV ?? "http://localhost:8080";
 
     const [loading, setLoading] = useState<boolean>(false);
     const notification = useNotification();

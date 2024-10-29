@@ -1,5 +1,4 @@
 import axios from "axios";
-import { baseUrl } from "@/utils/resource";
 import { useAuth } from "./auth";
 
 export type User = {
@@ -28,38 +27,39 @@ export type UserProps = {
   user: User;
 };
 
-
 export class Credentials {
-    email?: string;
-    password?: string;
+  email?: string;
+  password?: string;
 }
 
 export class AccessToken {
-    accessToken?: string;
+  accessToken?: string;
 }
 
 export class UserSessionToken {
-    id?: number;
-    username?: string;
-    userImage?: string;
-    email?: string;
-    accessToken?: string;
-    expiration?: number;
+  id?: number;
+  username?: string;
+  userImage?: string;
+  email?: string;
+  accessToken?: string;
+  expiration?: number;
 }
 
 class UserService {
- auth = useAuth();
+  baseUrl: string = process.env.NODE_ENV ?? "http://localhost:8080";
+
+  auth = useAuth();
   async updateUserInfo(data: FormData): Promise<string> {
     const userSession = this.auth.getUserSession();
-    const response = await axios(baseUrl + `/users/update`, {
+    const response = await axios(this.baseUrl + `/users/update`, {
       method: "PUT",
       data: data,
       headers: {
-        "Authorization": `Bearer ${userSession?.accessToken}`
+        Authorization: `Bearer ${userSession?.accessToken}`,
       },
     });
     return await response.data;
-  }  
+  }
 }
 
 export const useUserService = () => new UserService();

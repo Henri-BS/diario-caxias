@@ -2,9 +2,12 @@
 
 
 import { postFormSchema, PostFormProps, postValidationSchema } from "@/app/formSchema";
-import { AuthenticatedPage, FieldError, useNotification, Template } from "@/components";
-import { useAuth } from "@/resources/auth";
-import { Post, usePostService } from "@/resources/post";
+import { AuthenticatedPage } from "@/components/authenticatedPage";
+import { FieldError } from "@/components/fieldError";
+import { useNotification } from "@/components/notification";
+import { Template } from "@/components/template";
+import { useAuth } from "@/resource/auth";
+import { usePostService, Post } from "@/resource/post";
 import { Button, Textarea, TextInput } from "flowbite-react";
 import { useFormik } from "formik";
 import Link from "next/link";

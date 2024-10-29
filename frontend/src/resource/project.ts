@@ -1,5 +1,4 @@
 import axios from "axios";
-import { baseUrl } from "@/utils/resource";
 
 export type Project = {
   id?: number;
@@ -24,9 +23,10 @@ export type ProjectProps = {
 };
 
 class ProjectService {
+  baseUrl: string = process.env.NODE_ENV ?? "http://localhost:8080";
 
   async saveProject(project: Project): Promise<void> {
-    const response = await axios(baseUrl + "/projects/save", {
+    const response = await axios(this.baseUrl + "/projects/save", {
       method: "POST",
       data: JSON.stringify(project),
       headers: {

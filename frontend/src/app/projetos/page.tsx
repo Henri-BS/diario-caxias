@@ -1,20 +1,23 @@
 'use client'
 
-import { ProjectCard, Pagination, Template } from "@/components";
-import { baseUrl } from "@/utils/resource";
-import { ProjectPage } from "@/resources/project";
+import { ProjectCard } from "@/components/card/projectCard";
+import { Pagination } from "@/components/pagination";
+import { Template } from "@/components/template";
+import { ProjectPage } from "@/resource/project";
 import axios from "axios";
 import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 
 
 export default function Projects() {
+    const baseUrl = process.env.NODE_ENV ?? "http://localhost:8080";
     const [query, setQuery] = useState("");
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
     }
     const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
+
         useEffect(() => {
             axios.get(`${baseUrl}/projects?page=${pageNumber}&query=${query}&size=10`)
                 .then((response) => {

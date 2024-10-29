@@ -1,97 +1,60 @@
 'use client'
 
-import { ProjectFormProps, projectFormSchema, projectValidationSchema } from "@/app/formSchema";
-import { AuthenticatedPage, FieldError, useNotification, Template } from "@/components";
-import { useAuth } from "@/resources/auth";
-import { Project, useProjectService } from "@/resources/project";
-import { Button, Textarea, TextInput } from "flowbite-react";
-import { useFormik } from "formik";
-import Link from "next/link";
-import { useState } from "react";
-import { FaFolderClosed } from "react-icons/fa6";
+import { ProjectCard } from "@/components/card/projectCard";
+import { Pagination } from "@/components/pagination";
+import { Template } from "@/components/template";
+import { ProjectPage } from "@/resource/project";
+import axios from "axios";
+import { TextInput } from "flowbite-react";
+import { useEffect, useState } from "react";
 
 
-export default function AddFormProject() {
-
-    const [loading, setLoading] = useState<boolean>(false);
-    const notification = useNotification();
-    const service = useProjectService();
-    const auth = useAuth();
-    const userId = auth.getUserSession()?.id;
-
-
-    const { values, handleChange, handleSubmit, errors, resetForm } = useFormik<ProjectFormProps>({
-        initialValues: projectFormSchema,
-        validationSchema: projectValidationSchema,
-        onSubmit: onSubmit
-    })
-
-
-    async function onSubmit(values: ProjectFormProps) {
-        const project: Project = { projectTitle: values.title, projectDescription: values.description, projectImage: values.image, userId: userId}
-        try {
-            await service.saveProject(project);
-            notification.notify("Salvo com sucesso!", "success");
-            resetForm();
-        } catch (error: any) {
-            const message = error?.message;
-            notification.notify(message, "error");
-        }
+export default function Projects() {
+    const baseUrl = process.env.NODE_ENV ?? "http://localhost:8080";
+    const [query, setQuery] = useState("");
+    const [pageNumber, setPageNumber] = useState(0);
+    const handlePageChange = (newPageNumber: number) => {
+        setPageNumber(newPageNumber);
     }
+    const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
+
+        useEffect(() => {
+            axios.get(`${baseUrl}/projects?page=${pageNumber}&query=${query}&size=10`)
+                .then((response) => {
+                    setProjectPage(response.data);
+                });
+        }, [pageNumber, query]);
+
 
     return (
-        <AuthenticatedPage>
-            <Template loading={loading}>
-                <section className="flex flex-col items-center justify-center my-5">
-                    <span className="flex gap-2 mt-3 mb-10 text-2xl font-bold tracking-tight text-gray-900">
-                        Adicionar Novo Projeto <FaFolderClosed />
-                    </span>
-                    <form onSubmit={handleSubmit} className="space-y-2 w-1/2">
-                        <div className="grid grid-cols-1">
-                            <TextInput type="hidden"
-                                id="userId"
-                                onChange={handleChange}
-                                value={userId}
-                            />
-                        </div>
-                        <div className="grid grid-cols-1">
-                            <label className="block text-sm font-medium leading-6 text-gray-700">Título: *</label>
-                            <TextInput
-                                color="bg-zinc-400"
-                                id="title"
-                                onChange={handleChange}
-                                value={values.title}
-                                placeholder="título do projeto" />
-                            <FieldError error={errors.title} />
-                        </div>
-                        <div className="mt-5 grid grid-cols-1">
-                            <label className='block text-sm font-medium leading-6 text-gray-700'>Descrição: </label>
-                            <Textarea
-                                color="bg-zinc-400"
-                                id="description"
-                                onChange={handleChange}
-                                value={values.description}
-                                placeholder="descrição sobre o projeto" />
-                            <FieldError error={errors.description} />
-                        </div>
-                        <div className="mt-5 grid grid-cols-1">
-                            <label className="block text-sm font-medium leading-6 text-gray-700">Url de Imagem: </label>
-                            <TextInput
-                                color="bg-zinc-400"
-                                id="image"
-                                onChange={handleChange}
-                                value={values.image}
-                                placeholder="http://example-web.com/image.png" />
-                        </div>
-                        <div className="mt-5 flex items-center justify-end gap-x-4">
-                            <Button type="submit" gradientDuoTone="purpleToBlue" >Salvar</Button>
-                            <Link href="/projetos">
-                                <Button type="button" color="failure" >Cancelar</Button>
-                            </Link>
-                        </div>
-                    </form>
-                </section>
+        <>
+            <Template>
+                <div className="flex items-center justify-between my-5">
+                    <div className="flex space-x-4 px-4">
+                        <TextInput className="w-full"
+                            color="bg-zinc-400"
+                            type="text"
+                            id="query"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            placeholder="buscar projetos..."
+                        />
+                    </div>
+                    
+                </div>
+                <div className="flex items-center w-full justify-center">
+                    <Pagination pagination={projectPage} onPageChange={handlePageChange} />
+                </div>
+                <div className="  grid grid-cols-1 xl:grid-cols-2 gap-y-10 gap-x-6 items-start p-8">
+                    {projectPage.content?.filter((x) =>
+                        x.projectTitle?.toUpperCase().includes(query.toLocaleUpperCase()))
+                        .map(x => (
+                            <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                                <ProjectCard project={x} />
+                            </div>
+                        ))}
+                </div>
             </Template>
-        </AuthenticatedPage>
+        </>
     );
 }

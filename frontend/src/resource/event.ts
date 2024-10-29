@@ -1,5 +1,4 @@
 import axios from "axios";
-import { baseUrl } from "@/utils/resource";
 
 
 export type Event = {
@@ -28,26 +27,12 @@ export type EventProps = {
   event: Event;
 };
 
-export type EventCategory = {
-  id?: number;
-  categoryName?: string;
-  eventId?: number;
-  eventTitle?: string;
-  eventDate?: string;
-  eventStatus?: string;
-  eventImage?: string;
-  eventProjectTitle?: string;
-};
-
-export type EventCategoryProps = {
-  eventCategory: EventCategory;
-};
-
 
 class EventService {
+    baseUrl: string = process.env.NODE_ENV ?? "http://localhost:8080"
 
   async saveEvent(event: Event): Promise<void> {
-    const response = await axios(baseUrl + "/events/save", {
+    const response = await axios(this.baseUrl + "/events/save", {
       method: "POST",
       data: JSON.stringify(event),
       headers: {

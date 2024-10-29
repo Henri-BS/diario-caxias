@@ -1,14 +1,17 @@
 'use client'
 
-import { PostCard, Pagination, Template } from "@/components";
-import { baseUrl } from "@/utils/resource";
-import { PostPage } from "@/resources/post";
+
+import { PostCard } from "@/components/card/postCard";
+import { Pagination } from "@/components/pagination";
+import { Template } from "@/components/template";
+import { PostPage } from "@/resource/post";
 import axios from "axios";
 import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 
 
 export default function Posts() {
+    const baseUrl = process.env.NODE_ENV ?? "http://localhost:8080";
     const [query, setQuery] = useState("");
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {

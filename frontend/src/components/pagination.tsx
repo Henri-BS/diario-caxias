@@ -1,9 +1,10 @@
-import { Category } from "@/resources/category";
-import { Event } from "@/resources/event";
-import { Post } from "@/resources/post";
-import { Project } from "@/resources/project";
-import { RenderIf } from "../template";
-import { User } from "@/resources/user";
+import { Category } from "../resource/category";
+import { Event } from "../resource/event";
+import { Post } from "../resource/post";
+import { Project } from "../resource/project"
+import { User } from "../resource/user";
+import { RenderIf } from "./template";
+
 
 type Page = {
     content: Project[] | Post[] | Event[] | Category[] | User[];

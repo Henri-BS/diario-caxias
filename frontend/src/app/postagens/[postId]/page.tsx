@@ -1,9 +1,10 @@
 'use client'
 
-import { ProjectCard, Pagination, Template } from "@/components";
-import { baseUrl } from "@/utils/resource";
-import { Post } from "@/resources/post";
-import { ProjectPage } from "@/resources/project";
+import { ProjectCard } from "@/components/card/projectCard";
+import { Pagination } from "@/components/pagination";
+import { Template } from "@/components/template";
+import { Post } from "@/resource/post";
+import { ProjectPage } from "@/resource/project";
 import axios from "axios";
 import { Accordion } from "flowbite-react";
 
@@ -12,8 +13,10 @@ import * as FaIcons from "react-icons/fa6";
 
 export default function PostDetails({ params }: any) {
     const postId = params.postId;
+    const baseUrl = process.env.NODE_ENV ?? "http://localhost:8080";
 
     const [post, setPost] = useState<Post>();
+
     useEffect(() => {
         axios.get(`${baseUrl}/posts/${postId}`)
             .then((response) => {
@@ -77,7 +80,3 @@ export default function PostDetails({ params }: any) {
         </Template>
     );
 }
-
-
-
-

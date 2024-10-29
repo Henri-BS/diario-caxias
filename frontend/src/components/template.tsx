@@ -4,12 +4,12 @@ import Link from "next/link";
 import React, { FC, useEffect, useState } from "react"
 import { ToastContainer } from "react-toastify";
 import * as FaIcons from "react-icons/fa6";
-import { useAuth } from "@/resources/auth";
+import { useAuth } from "../resource/auth";
 import { useRouter } from "next/navigation";
 import { Button, Dropdown, Modal, Popover } from "flowbite-react";
 import axios from "axios";
-import { User } from "@/resources/user";
-import { baseUrl } from "@/resources";
+import { User } from "../resource/user";
+
 
 
 interface TemplateProps {
@@ -109,6 +109,7 @@ const Header: FC = () => {
     const userId = userSession?.id;
 
     function FindUser() {
+        const baseUrl = process.env.NODE_ENV ?? "http://localhost:8080";
         const [user, setUser] = useState<User>();
         if (!!userSession) {
             useEffect(() => {

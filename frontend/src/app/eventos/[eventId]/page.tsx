@@ -1,10 +1,5 @@
 'use client'
 
-
-import { UserCard, Pagination, Template } from "@/components";
-import { baseUrl } from "@/utils/resource";
-import { Event } from "@/resources/event";
-import { UserPage } from "@/resources/user";
 import axios from "axios";
 import * as GoIcons from "react-icons/go";
 
@@ -12,11 +7,18 @@ import { useEffect, useState } from "react";
 import  * as FaIcons from "react-icons/fa6";
 import { Accordion } from "flowbite-react";
 import moment from "moment";
+import { UserPage } from "@/resource/user";
+import { UserCard } from "@/components/card/userCard";
+import { Template } from "@/components/template";
+import { Event } from "@/resource/event";
+import { Pagination } from "@/components/pagination";
 
 export default function EventDetails({ params }: any) {
     const eventId = params.eventId;
+    const baseUrl = process.env.NODE_ENV ?? "http://localhost:8080";
 
     const [event, setEvent] = useState<Event>();
+
     useEffect(() => {
         axios.get(`${baseUrl}/events/${eventId}`)
             .then((response) => {
@@ -92,8 +94,3 @@ export default function EventDetails({ params }: any) {
         </Template>
     );
 }
-
-
-
-
-

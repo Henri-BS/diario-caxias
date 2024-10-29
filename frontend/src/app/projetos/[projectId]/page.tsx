@@ -1,11 +1,14 @@
 'use client'
 
-import { CategoryCard, EventCard, PostCard, Pagination, Template } from "@/components";
-import { baseUrl } from "@/utils/resource";
-import { CategoryPage } from "@/resources/category";
-import { EventPage } from "@/resources/event";
-import { PostPage } from "@/resources/post";
-import { Project } from "@/resources/project";
+import { CategoryCard } from "@/components/card/categoryCard";
+import { EventCard } from "@/components/card/eventCard";
+import { PostCard } from "@/components/card/postCard";
+import { Pagination } from "@/components/pagination";
+import { Template } from "@/components/template";
+import { CategoryPage } from "@/resource/category";
+import { EventPage } from "@/resource/event";
+import { PostPage } from "@/resource/post";
+import { Project } from "@/resource/project";
 import axios from "axios";
 import { Accordion } from "flowbite-react";
 
@@ -14,8 +17,10 @@ import * as FaIcons from "react-icons/fa6";
 
 export default function ProjectDetails({ params }: any) {
     const projectId = params.projectId;
+    const baseUrl = process.env.NODE_ENV ?? "http://localhost:8080";
 
     const [project, setProject] = useState<Project>();
+
     useEffect(() => {
         axios.get(`${baseUrl}/projects/${projectId}`)
             .then((response) => {
@@ -131,7 +136,3 @@ export default function ProjectDetails({ params }: any) {
         </Template>
     );
 }
-
-
-
-

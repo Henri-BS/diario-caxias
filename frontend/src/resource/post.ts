@@ -1,5 +1,4 @@
 import axios from "axios";
-import { baseUrl } from "@/utils/resource";
 
 export type Post = {
   id?: number;
@@ -24,8 +23,10 @@ export type PostProps = {
 };
 
 class PostService {
+  baseUrl: string = process.env.NODE_ENV ?? "http://localhost:8080";
+
   async savePost(post: Post): Promise<void> {
-    const response = await axios(baseUrl + "/posts/save", {
+    const response = await axios(this.baseUrl + "/posts/save", {
       method: "POST",
       data: JSON.stringify(post),
       headers: {
@@ -37,8 +38,5 @@ class PostService {
       throw new Error(responseError.error);
     }
   }
-
-  
 }
 export const usePostService = () => new PostService();
-

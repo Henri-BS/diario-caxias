@@ -1,6 +1,6 @@
 'use client'
 
-import { ProjectProps } from "@/resources/project";
+import { ProjectProps } from "@/resource/project";
 import Link from "next/link";
 
 

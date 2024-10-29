@@ -1,10 +1,13 @@
 'use client'
 
-import { ProjectCard, UserCard, Pagination, Template } from "@/components";
-import { baseUrl } from "@/utils/resource";
-import { Category } from "@/resources/category";
-import { ProjectPage } from "@/resources/project";
-import { UserPage } from "@/resources/user";
+
+import { ProjectCard } from "@/components/card/projectCard";
+import { UserCard } from "@/components/card/userCard";
+import { Pagination } from "@/components/pagination";
+import { Template } from "@/components/template";
+import { Category } from "@/resource/category";
+import { ProjectPage } from "@/resource/project";
+import { UserPage } from "@/resource/user";
 import axios from "axios";
 import { Accordion } from "flowbite-react";
 
@@ -13,8 +16,10 @@ import * as FaIcons from "react-icons/fa6";
 
 export default function CategoryDetails({ params }: any) {
     const categoryId = params.categoryId;
+    const baseUrl = process.env.NODE_ENV ?? "http://localhost:8080";
 
     const [category, setCategory] = useState<Category>();
+
     useEffect(() => {
         axios.get(`${baseUrl}/categories/${categoryId}`)
             .then((response) => {
@@ -93,8 +98,3 @@ export default function CategoryDetails({ params }: any) {
         </Template>
     );
 }
-
-
-
-
-

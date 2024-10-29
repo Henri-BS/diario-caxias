@@ -1,5 +1,5 @@
 import Login from "@/app/login/page";
-import { useAuth } from "@/resources/auth";
+import { useAuth } from "@/resource/auth";
 import { FC, ReactNode } from "react";
 
 interface AuthenticatedPageProps {
