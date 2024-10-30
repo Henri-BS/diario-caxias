@@ -42,7 +42,7 @@ export default function Home() {
 
 
   function PostCarousel() {
-    const baseUrl = "http://localhost:8080";
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
     const [posts, setPosts] = useState<PostPage>({ content: [], page: { number: 0, totalElements: 0 } });
     useEffect(() => {
       axios.get(`${baseUrl}/posts?size=8`)
@@ -99,7 +99,7 @@ export default function Home() {
   }
 
   function ProjectHomeList() {
-    const baseUrl = "http://localhost:8080";
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
     const [projects, setProjects] = useState<ProjectPage>({ content: [], page: { number: 0, size: 0, totalElements: 0, totalPages: 0 } })
     useEffect(() => {
       axios.get(`${baseUrl}/projects?size=10`)
@@ -129,7 +129,7 @@ export default function Home() {
   }
 
   function CategoryHomeList() {
-    const baseUrl = "http://localhost:8080";
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
     const [categories, setCategories] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } });
     useEffect(() => {
       axios.get(`${baseUrl}/categories?size=12`)
@@ -158,7 +158,7 @@ export default function Home() {
   }
 
   function EventHomeList() {
-    const baseUrl = "http://localhost:8080";
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
     const [events, setEvents] = useState<EventPage>({ content: [], page: { number: 0, totalElements: 0 } })
     useEffect(() => {
       axios.get(`${baseUrl}/events?size=12`)

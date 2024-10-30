@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 
 
 export default function Posts() {
-    const baseUrl = "http://localhost:8080";
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
     const [query, setQuery] = useState("");
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {

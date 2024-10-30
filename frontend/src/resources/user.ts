@@ -46,12 +46,12 @@ export class UserSessionToken {
 }
 
 class UserService {
-  baseUrl: string = "http://localhost:8080";
+  baseUrl: string = process.env.NEXT_PUBLIC_API_URL + "/users";
 
   auth = useAuth();
   async updateUserInfo(data: FormData): Promise<string> {
     const userSession = this.auth.getUserSession();
-    const response = await axios(this.baseUrl + `/users/update`, {
+    const response = await axios(this.baseUrl + `/update`, {
       method: "PUT",
       data: data,
       headers: {

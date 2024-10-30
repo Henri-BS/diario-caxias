@@ -16,7 +16,7 @@ import * as FaIcons from "react-icons/fa6";
 
 export default function CategoryDetails({ params }: any) {
     const categoryId = params.categoryId;
-    const baseUrl = "http://localhost:8080";
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
     const [category, setCategory] = useState<Category>();
 

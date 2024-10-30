@@ -29,10 +29,10 @@ export type EventProps = {
 
 
 class EventService {
-    baseUrl: string = "http://localhost:8080"
+    baseUrl: string = process.env.NEXT_PUBLIC_API_URL + "/events";
 
   async saveEvent(event: Event): Promise<void> {
-    const response = await axios(this.baseUrl + "/events/save", {
+    const response = await axios(this.baseUrl + "/save", {
       method: "POST",
       data: JSON.stringify(event),
       headers: {

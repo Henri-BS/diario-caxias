@@ -15,7 +15,7 @@ import { UserPage } from "@/resources/user";
 
 export default function EventDetails({ params }: any) {
     const eventId = params.eventId;
-    const baseUrl = "http://localhost:8080";
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
     const [event, setEvent] = useState<Event>();
 

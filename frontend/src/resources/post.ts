@@ -23,10 +23,10 @@ export type PostProps = {
 };
 
 class PostService {
-  baseUrl: string =  "http://localhost:8080";
+  baseUrl: string =  process.env.NEXT_PUBLIC_API_URL + "/posts";
 
   async savePost(post: Post): Promise<void> {
-    const response = await axios(this.baseUrl + "/posts/save", {
+    const response = await axios(this.baseUrl + "/save", {
       method: "POST",
       data: JSON.stringify(post),
       headers: {

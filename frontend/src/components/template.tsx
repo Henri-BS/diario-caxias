@@ -110,7 +110,7 @@ const Header: FC = () => {
     const userId = userSession?.id;
 
     function FindUser() {
-        const baseUrl = "http://localhost:8080";
+        const baseUrl = process.env.NEXT_PUBLIC_API_URL;
         const [user, setUser] = useState<User>();
         if (!!userSession) {
             useEffect(() => {

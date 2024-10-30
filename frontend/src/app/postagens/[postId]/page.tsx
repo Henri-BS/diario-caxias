@@ -13,7 +13,7 @@ import * as FaIcons from "react-icons/fa6";
 
 export default function PostDetails({ params }: any) {
     const postId = params.postId;
-    const baseUrl = "http://localhost:8080";
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
     const [post, setPost] = useState<Post>();
 

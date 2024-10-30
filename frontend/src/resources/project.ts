@@ -23,10 +23,10 @@ export type ProjectProps = {
 };
 
 class ProjectService {
-  baseUrl: string = "http://localhost:8080";
+  baseUrl: string = process.env.NEXT_PUBLIC_API_URL + "/projects";
 
   async saveProject(project: Project): Promise<void> {
-    const response = await axios(this.baseUrl + "/projects/save", {
+    const response = await axios(this.baseUrl + "/save", {
       method: "POST",
       data: JSON.stringify(project),
       headers: {

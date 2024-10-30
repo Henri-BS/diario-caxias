@@ -17,7 +17,7 @@ import * as FaIcons from "react-icons/fa6";
 
 export default function ProjectDetails({ params }: any) {
     const projectId = params.projectId;
-    const baseUrl = "http://localhost:8080";
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
     const [project, setProject] = useState<Project>();
 
