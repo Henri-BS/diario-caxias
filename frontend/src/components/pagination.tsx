@@ -1,9 +1,10 @@
-import { Category } from "../resource/category";
-import { Event } from "../resource/event";
-import { Post } from "../resource/post";
-import { Project } from "../resource/project"
-import { User } from "../resource/user";
+
+import { Category } from "@/resources/category";
+import { Post } from "@/resources/post";
+import { Project } from "@/resources/project";
+import { User } from "@/resources/user";
 import { RenderIf } from "./template";
+import { Event } from "@/resources/event";
 
 
 type Page = {

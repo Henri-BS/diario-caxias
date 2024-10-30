@@ -31,7 +31,7 @@ INSERT INTO tb_user (username, image, email, password, created_date) VALUES ('Ro
 
 INSERT INTO tb_category (name, description) VALUES ('Meio Ambiente', 'O Meio Ambiente envolve os interesses regionais com as causas ambientais, algumas atribuições relacionadas ao meio ambiente são: a preservação de biomas, garantia dos recursos hídricos e florestais e o uso sustentável de ecossistemas.');
 INSERT INTO tb_category (name, description) VALUES ('Agricultura', 'A Agricultura abrange o conjunto de práticas e atividades voltadas para o cultivo de plantas e a criação de animais com o objetivo de produzir alimentos, fibras, medicinais e outros produtos. Envolve processos como a preparação do solo, plantio, manejo de pragas, colheita e distribuição dos produtos agrícolas.');
-INSERT INTO tb_category (name) VALUES ('Botânica');
+INSERT INTO tb_category (name, description) VALUES ('Botânica', 'A Botânica é o ramo da Biologia que se dedica ao estudo das plantas. Ela abrange a fisiologia, morfologia, ecologia vegetal e taxonomia, ou seja, todas as características, interações e funcionamento das plantas.');
 INSERT INTO tb_category (name) VALUES ('Moradia');
 INSERT INTO tb_category (name) VALUES ('Arquitetura');
 INSERT INTO tb_category (name) VALUES ('Geografia');

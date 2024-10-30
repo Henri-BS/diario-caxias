@@ -5,9 +5,9 @@ import { ProjectCard } from "@/components/card/projectCard";
 import { UserCard } from "@/components/card/userCard";
 import { Pagination } from "@/components/pagination";
 import { Template } from "@/components/template";
-import { Category } from "@/resource/category";
-import { ProjectPage } from "@/resource/project";
-import { UserPage } from "@/resource/user";
+import { Category } from "@/resources/category";
+import { ProjectPage } from "@/resources/project";
+import { UserPage } from "@/resources/user";
 import axios from "axios";
 import { Accordion } from "flowbite-react";
 
@@ -16,7 +16,7 @@ import * as FaIcons from "react-icons/fa6";
 
 export default function CategoryDetails({ params }: any) {
     const categoryId = params.categoryId;
-    const baseUrl = process.env.NODE_ENV ?? "http://localhost:8080";
+    const baseUrl = "http://localhost:8080";
 
     const [category, setCategory] = useState<Category>();
 
@@ -64,13 +64,14 @@ export default function CategoryDetails({ params }: any) {
                     <Accordion.Title>
                         <h2 className="flex flex-row gap-2 mt-5 text-2xl text-zinc-800 "><FaIcons.FaFolderClosed />Projetos Relacionados</h2>
                     </Accordion.Title>
-                    <Accordion.Content className="p-2">            <div className="flex items-center w-full justify-center">
-                        <Pagination pagination={projectPage} onPageChange={handlePageChange} />
-                    </div>
+                    <Accordion.Content className="p-2">
+                        <div className="flex items-center w-full justify-center">
+                            <Pagination pagination={projectPage} onPageChange={handlePageChange} />
+                        </div>
                         <div className="grid grid-cols-1 gap-y-10 gap-x-6 items-start p-8">
                             {projectPage.content?.map(x => (
                                 <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
-                                    <ProjectCard project={x}/>
+                                    <ProjectCard project={x} />
                                 </div>
                             ))}
                         </div>

@@ -1,13 +1,13 @@
 'use client'
 
 
-import { postFormSchema, PostFormProps, postValidationSchema } from "@/app/formSchema";
+import { PostFormProps, postFormSchema, postValidationSchema } from "@/app/formSchema";
 import { AuthenticatedPage } from "@/components/authenticatedPage";
 import { FieldError } from "@/components/fieldError";
 import { useNotification } from "@/components/notification";
 import { Template } from "@/components/template";
-import { useAuth } from "@/resource/auth";
-import { usePostService, Post } from "@/resource/post";
+import { useAuth } from "@/resources/auth";
+import { usePostService, Post } from "@/resources/post";
 import { Button, Textarea, TextInput } from "flowbite-react";
 import { useFormik } from "formik";
 import Link from "next/link";

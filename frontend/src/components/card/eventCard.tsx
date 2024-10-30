@@ -1,6 +1,6 @@
 'use client'
 
-import { EventProps } from "@/resource/event";
+import { EventProps } from "@/resources/event";
 import Link from "next/link";
 import * as GoIcons from "react-icons/go";
 import moment from "moment";
@@ -18,7 +18,7 @@ export const EventCard = ({ event }: EventProps) => {
 
             <div className="mt-4 flex space-x-3 lg:mt-6 justify-between">
                 <p className="flex gap-2 items-center text-center text-sm font-medium text-gray-700">
-                    <GoIcons.GoCalendar /> {moment(event.eventDate).format("dd/MM/yyyy")}
+                    <GoIcons.GoCalendar /> {moment(event.eventDate).format("DD/MM/yyyy")}
                 </p>
                 <p className="flex gap-2 items-center text-center text-sm font-medium text-gray-700">
                     <GoIcons.GoChecklist /> {event.eventStatus}

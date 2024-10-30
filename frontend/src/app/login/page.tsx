@@ -1,6 +1,5 @@
 'use client'
 
-import { loginFormSchema, LoginFormProps, loginValidationSchema } from "../formSchema";
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -8,8 +7,9 @@ import { Button, TextInput } from "flowbite-react";
 import { FieldError } from "@/components/fieldError";
 import { useNotification } from "@/components/notification";
 import { Template, RenderIf } from "@/components/template";
-import { useAuth } from "@/resource/auth";
-import { Credentials, AccessToken, User } from "@/resource/user";
+import { useAuth } from "@/resources/auth";
+import { Credentials, AccessToken, User } from "@/resources/user";
+import { LoginFormProps, loginFormSchema, loginValidationSchema } from "../formSchema";
 
 export default function Login() {
     const [loading, setLoading] = useState<boolean>(false);

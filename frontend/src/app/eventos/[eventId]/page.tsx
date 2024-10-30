@@ -7,15 +7,15 @@ import { useEffect, useState } from "react";
 import  * as FaIcons from "react-icons/fa6";
 import { Accordion } from "flowbite-react";
 import moment from "moment";
-import { UserPage } from "@/resource/user";
 import { UserCard } from "@/components/card/userCard";
 import { Template } from "@/components/template";
-import { Event } from "@/resource/event";
 import { Pagination } from "@/components/pagination";
+import { Event } from "@/resources/event";
+import { UserPage } from "@/resources/user";
 
 export default function EventDetails({ params }: any) {
     const eventId = params.eventId;
-    const baseUrl = process.env.NODE_ENV ?? "http://localhost:8080";
+    const baseUrl = "http://localhost:8080";
 
     const [event, setEvent] = useState<Event>();
 
@@ -53,7 +53,7 @@ export default function EventDetails({ params }: any) {
                                 <FaIcons.FaFolderClosed /> Projeto: {event?.projectTitle}
                             </p>
                             <p className="flex gap-2 items-center text-center text-lg font-semibold text-gray-700">
-                                <GoIcons.GoCalendar /> Data do evento: {moment(event?.eventDate).format("dd/MM/yyyy")}
+                                <GoIcons.GoCalendar /> Data do evento: {moment(event?.eventDate).format("DD/MM/yyyy")}
                             </p>
                             <p className="flex gap-2 items-center text-center text-lg font-semibold text-gray-700">
                                 <GoIcons.GoChecklist /> Status: {event?.eventStatus}

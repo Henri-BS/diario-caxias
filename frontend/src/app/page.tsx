@@ -4,15 +4,15 @@ import { CategoryCard } from "@/components/card/categoryCard";
 import { EventCard } from "@/components/card/eventCard";
 import { PostCard } from "@/components/card/postCard";
 import { ProjectCard } from "@/components/card/projectCard";
-import { Template } from "@/components/template";
-import { CategoryPage } from "@/resource/category";
-import { EventPage } from "@/resource/event";
-import { PostPage } from "@/resource/post";
-import { ProjectPage } from "@/resource/project";
+import { CategoryPage } from "@/resources/category";
+import { EventPage } from "@/resources/event";
+import { PostPage } from "@/resources/post";
+import { ProjectPage } from "@/resources/project";
 import axios from "axios";
 import { CustomFlowbiteTheme, Flowbite, Carousel } from "flowbite-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { Template } from "../components/template";
 
 export default function Home() {
   return (
@@ -42,7 +42,7 @@ export default function Home() {
 
 
   function PostCarousel() {
-    const baseUrl = process.env.NODE_ENV ?? "http://localhost:8080";
+    const baseUrl = "http://localhost:8080";
     const [posts, setPosts] = useState<PostPage>({ content: [], page: { number: 0, totalElements: 0 } });
     useEffect(() => {
       axios.get(`${baseUrl}/posts?size=8`)
@@ -99,7 +99,7 @@ export default function Home() {
   }
 
   function ProjectHomeList() {
-    const baseUrl = process.env.NODE_ENV ?? "http://localhost:8080";
+    const baseUrl = "http://localhost:8080";
     const [projects, setProjects] = useState<ProjectPage>({ content: [], page: { number: 0, size: 0, totalElements: 0, totalPages: 0 } })
     useEffect(() => {
       axios.get(`${baseUrl}/projects?size=10`)
@@ -129,7 +129,7 @@ export default function Home() {
   }
 
   function CategoryHomeList() {
-    const baseUrl = process.env.NODE_ENV ?? "http://localhost:8080";
+    const baseUrl = "http://localhost:8080";
     const [categories, setCategories] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } });
     useEffect(() => {
       axios.get(`${baseUrl}/categories?size=12`)
@@ -158,7 +158,7 @@ export default function Home() {
   }
 
   function EventHomeList() {
-    const baseUrl = process.env.NODE_ENV ?? "http://localhost:8080";
+    const baseUrl = "http://localhost:8080";
     const [events, setEvents] = useState<EventPage>({ content: [], page: { number: 0, totalElements: 0 } })
     useEffect(() => {
       axios.get(`${baseUrl}/events?size=12`)

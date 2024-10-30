@@ -46,7 +46,7 @@ export class UserSessionToken {
 }
 
 class UserService {
-  baseUrl: string = process.env.NODE_ENV ?? "http://localhost:8080";
+  baseUrl: string = "http://localhost:8080";
 
   auth = useAuth();
   async updateUserInfo(data: FormData): Promise<string> {

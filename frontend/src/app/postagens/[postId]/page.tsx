@@ -3,8 +3,8 @@
 import { ProjectCard } from "@/components/card/projectCard";
 import { Pagination } from "@/components/pagination";
 import { Template } from "@/components/template";
-import { Post } from "@/resource/post";
-import { ProjectPage } from "@/resource/project";
+import { Post } from "@/resources/post";
+import { ProjectPage } from "@/resources/project";
 import axios from "axios";
 import { Accordion } from "flowbite-react";
 
@@ -13,7 +13,7 @@ import * as FaIcons from "react-icons/fa6";
 
 export default function PostDetails({ params }: any) {
     const postId = params.postId;
-    const baseUrl = process.env.NODE_ENV ?? "http://localhost:8080";
+    const baseUrl = "http://localhost:8080";
 
     const [post, setPost] = useState<Post>();
 
@@ -41,7 +41,7 @@ export default function PostDetails({ params }: any) {
     return (
         <Template>
             <div >
-                <div className="relative flex flex-col sm:flex-row xl:flex-col items-start">
+                <div className="relative flex flex-col md:flex-row xl:flex-col items-start">
                     <div className="order-1 sm:ml-6 xl:ml-0">
                         <h3 className="mb-1 text-slate-900 font-semibold">
                             <span className="mb-1 text-3xl leading-6 text-indigo-500">{post?.postTitle}</span>
@@ -51,10 +51,12 @@ export default function PostDetails({ params }: any) {
                             <i>{post?.postSummary}</i>
                         </div>
                     </div>
-                    <img src={post?.postImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[22rem] sm:mb-0 " />
-                    <p className="flex gap-2 mt-2 items-center text-center text-sm font-medium text-gray-700">
-                        enviado em: {post?.createdDate}
-                    </p>
+                    <div className="flex flex-col">
+                        <img src={post?.postImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[60rem] sm:mb-0 " />
+                        <p className="flex gap-2 mt-2 items-center text-center text-sm font-medium text-gray-700">
+                            enviado em: {post?.createdDate}
+                        </p>
+                    </div>
                 </div>
                 <p className="mt-5 text-xl text-gray-800 text-justify">{post?.postDescription} </p>
             </div>

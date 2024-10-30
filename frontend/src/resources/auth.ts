@@ -3,7 +3,7 @@ import { AccessToken, Credentials, UserSessionToken } from "./user";
 import axios from "axios";
 
 class AuthService {
-  baseUrl: string = process.env.NODE_ENV ?? "http://localhost:8080";
+  baseUrl: string = "http://localhost:8080";
   static AUTH_PARAM: string = "_auth";
 
   async authenticate(credentials: Credentials): Promise<AccessToken> {

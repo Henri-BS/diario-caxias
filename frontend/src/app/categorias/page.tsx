@@ -3,14 +3,14 @@
 import { CategoryCard } from "@/components/card/categoryCard";
 import { Pagination } from "@/components/pagination";
 import { Template } from "@/components/template";
-import { CategoryPage } from "@/resource/category";
+import { CategoryPage } from "@/resources/category";
 import axios from "axios";
 import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 
 
 export default function Categories() {
-    const baseUrl = process.env.NODE_ENV ?? "http://localhost:8080";
+    const baseUrl = "http://localhost:8080";
     const [query, setQuery] = useState("");
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {

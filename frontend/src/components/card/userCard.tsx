@@ -1,4 +1,5 @@
-import { UserProps } from "@/resource/user";
+import { UserProps } from "@/resources/user";
+
 
 export const UserCard = ({ user}: UserProps) => {
     return (

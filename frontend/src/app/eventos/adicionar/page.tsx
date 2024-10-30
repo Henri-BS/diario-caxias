@@ -9,15 +9,14 @@ import {eventFormSchema, EventFormProps, eventValidationSchema} from "@/app/form
 import { FieldError } from "@/components/fieldError";
 import { useNotification } from "@/components/notification";
 import { Template } from "@/components/template";
-import { useAuth } from "@/resource/auth";
-import { Event, useEventService } from "@/resource/event";
-import { ProjectPage } from "@/resource/project";
 import { useFormik } from "formik";
 import { AuthenticatedPage } from "@/components/authenticatedPage";
+import { useAuth } from "@/resources/auth";
+import { Event, useEventService } from "@/resources/event";
+import { ProjectPage } from "@/resources/project";
 
 export default function AddFormEvent() {
-    const baseUrl = process.env.NODE_ENV ?? "http://localhost:8080";
-
+    const baseUrl = "http://localhost:8080";
     const [loading, setLoading] = useState<boolean>(false);
     const notification = useNotification();
     const service = useEventService();
@@ -79,13 +78,13 @@ export default function AddFormEvent() {
                             <label className="block text-sm font-medium leading-6 text-gray-700">Título: *</label>
                             <TextInput
                                 color="bg-zinc-400"
-                                id="eventTitle"
+                                id="title"
                                 onChange={handleChange}
                                 value={values.title}
                                 placeholder="título do evento" />
                             <FieldError error={errors.title} />
                         </div>
-                        <div className="mt-5 grid grid-cols-1">
+                        <div className="grid grid-cols-1">
                             <label className="block text-sm font-medium leading-6 text-gray-700">Projeto Associado: *</label>
                             <TextInput
                                 color="bg-zinc-400"
@@ -100,40 +99,40 @@ export default function AddFormEvent() {
                                     x.projectTitle?.toUpperCase().includes(query.toLocaleUpperCase()))
                                     .map((x) =>
                                         <>
-                                            <option id="query" key={x.id} value={x.projectTitle}>
-                                                {x.projectTitle}
-                                            </option>
+                                        <option id="query" key={x.id} value={x.projectTitle}>
+                                            {x.projectTitle}
+                                        </option>
                                         </>
                                     )
                                 }
                             </datalist>
                         </div>
-                        <div className="mt-5 grid grid-cols-1">
+                        <div className="grid grid-cols-1">
                             <label className='block text-sm font-medium leading-6 text-gray-700'>Descrição: *</label>
                             <Textarea
                                 color="bg-zinc-400"
-                                id="eventDescription"
+                                id="description"
                                 onChange={handleChange}
                                 value={values.description}
                                 placeholder="descrição sobre o evento" />
                             <FieldError error={errors.description} />
                         </div>
-                        <div className="mt-5 grid grid-cols-1">
+                        <div className="grid grid-cols-1">
                             <label className="block text-sm font-medium leading-6 text-gray-700">Data do Evento: *</label>
                             <TextInput
-                                color="bg-zinc-400"
+                            color="bg-zinc-400"
                                 type="date"
-                                id="eventDate"
+                                id="date"
                                 onChange={handleChange}
                                 value={values.date}
                             />
                             <FieldError error={errors.date} />
                         </div>
-                        <div className="mt-5 grid grid-cols-1">
+                        <div className="grid grid-cols-1">
                             <label className="block text-sm font-medium leading-6 text-gray-700">Status do Evento: *</label>
                             <Select
                                 color="bg-zinc-400"
-                                id="eventStatus"
+                                id="status"
                                 onChange={handleChange}
                                 value={values.status}
                             >
@@ -147,11 +146,11 @@ export default function AddFormEvent() {
                             </Select>
                             <FieldError error={errors.status} />
                         </div>
-                        <div className="mt-5 grid grid-cols-1">
+                        <div className="grid grid-cols-1">
                             <label className="block text-sm font-medium leading-6 text-gray-700">Url de Imagem: </label>
                             <TextInput
                                 color="bg-zinc-400"
-                                id="eventImage"
+                                id="image"
                                 onChange={handleChange}
                                 value={values.image}
                                 placeholder="ex: http://example-web.com/image.png" />

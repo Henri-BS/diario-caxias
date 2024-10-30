@@ -23,7 +23,7 @@ export type ProjectProps = {
 };
 
 class ProjectService {
-  baseUrl: string = process.env.NODE_ENV ?? "http://localhost:8080";
+  baseUrl: string = "http://localhost:8080";
 
   async saveProject(project: Project): Promise<void> {
     const response = await axios(this.baseUrl + "/projects/save", {

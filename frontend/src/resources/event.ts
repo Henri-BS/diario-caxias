@@ -29,7 +29,7 @@ export type EventProps = {
 
 
 class EventService {
-    baseUrl: string = process.env.NODE_ENV ?? "http://localhost:8080"
+    baseUrl: string = "http://localhost:8080"
 
   async saveEvent(event: Event): Promise<void> {
     const response = await axios(this.baseUrl + "/events/save", {

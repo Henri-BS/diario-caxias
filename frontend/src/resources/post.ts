@@ -23,7 +23,7 @@ export type PostProps = {
 };
 
 class PostService {
-  baseUrl: string = process.env.NODE_ENV ?? "http://localhost:8080";
+  baseUrl: string =  "http://localhost:8080";
 
   async savePost(post: Post): Promise<void> {
     const response = await axios(this.baseUrl + "/posts/save", {

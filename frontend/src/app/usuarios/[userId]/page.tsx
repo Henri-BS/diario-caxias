@@ -4,10 +4,11 @@ import { CategoryCard } from "@/components/card/categoryCard";
 import { ProjectCard } from "@/components/card/projectCard";
 import { Pagination } from "@/components/pagination";
 import { Template } from "@/components/template";
-import { useAuth } from "@/resource/auth";
-import { CategoryPage } from "@/resource/category";
-import { ProjectPage } from "@/resource/project";
-import { User } from "@/resource/user";
+import { useAuth } from "@/resources/auth";
+import { CategoryPage } from "@/resources/category";
+import { ProjectPage } from "@/resources/project";
+import { User } from "@/resources/user";
+
 import axios from "axios";
 import { Accordion } from "flowbite-react";
 import Link from "next/link";
@@ -17,7 +18,7 @@ import * as FaIcons from "react-icons/fa6";
 
 
 export default function UserPersonalProfile({ params }: any) {
-    const baseUrl = process.env.NODE_ENV ?? "http://localhost:8080";
+    const baseUrl = "http://localhost:8080";
     const auth = useAuth();
     const userId = auth.getUserSession()?.id;
 
