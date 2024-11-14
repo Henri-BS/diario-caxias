@@ -5,51 +5,50 @@ import { ProjectCard } from "@/components/card/projectCard";
 import { Pagination } from "@/components/pagination";
 import { Template } from "@/components/template";
 import { useAuth } from "@/resources/auth";
-import { CategoryPage } from "@/resources/category";
-import { ProjectPage } from "@/resources/project";
-import { User } from "@/resources/user";
+import { CategoryPage, useCategoryService, useUserCategoryService } from "@/resources/category";
+import { ProjectPage, useProjectService } from "@/resources/project";
+import { User, useUserService } from "@/resources/user";
 
-import axios from "axios";
 import { Accordion } from "flowbite-react";
 import Link from "next/link";
 
 import { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa6";
 
-
 export default function UserPersonalProfile({ params }: any) {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
     const auth = useAuth();
     const userId = auth.getUserSession()?.id;
-
+    const userService = useUserService();
+    const projectService = useProjectService();
+    const userCategoryService = useUserCategoryService();
     const [user, setUser] = useState<User>();
-    useEffect(() => {
-        axios.get(`${baseUrl}/users/${userId}`)
-            .then((response) => {
-                setUser(response.data);
-            });
-    }, [userId]);
-
+    const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
+    const [categoryPage, setCategoryPage] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } });
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber)
     }
-    const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
-    const [categoryPage, setCategoryPage] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        axios.get(`${baseUrl}/projects/by-user/${userId}?page=${pageNumber}&size=10`)
+        userService.findUserById(userId)
             .then((response) => {
-                setProjectPage(response.data);
+                setUser(response);
+            });
+    }, [userId]);
+
+    useEffect(() => {
+        projectService.findProjectsByUser(userId, pageNumber)
+            .then((response) => {
+                setProjectPage(response);
             });
     }, [userId, pageNumber]);
 
     useEffect(() => {
-        axios.get(`${baseUrl}/user-category/by-user/${userId}?page=${pageNumber}&size=12`)
+        userCategoryService.findCategoriesByUser(userId, pageNumber)
             .then((response) => {
-                setCategoryPage(response.data);
+                setCategoryPage(response);
             });
-    }, [pageNumber]);
+    }, [userId, pageNumber]);
 
 
     return (

@@ -11,8 +11,6 @@ import { useAuth } from "@/resources/auth";
 import { User } from "@/resources/user";
 
 
-
-
 interface TemplateProps {
     children: React.ReactNode
     loading?: boolean;

@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useAuth } from "./auth";
+import { PostPage } from "./post";
 
 export type Project = {
   id?: number;
@@ -24,6 +26,43 @@ export type ProjectProps = {
 
 class ProjectService {
   baseUrl: string = process.env.NEXT_PUBLIC_API_URL + "/projects";
+  auth = useAuth();
+
+  async findProjects( pageNumber?: number, query?: string ): Promise<ProjectPage> {
+    const userSession = this.auth.getUserSession();
+    const url = `${this.baseUrl}?page=${pageNumber}&query=${query}&size=12`;
+    const response = axios(url, {
+      headers: {
+        Authorization: `Bearer ${userSession?.accessToken}`,
+      },
+    });
+    const resp = await response;
+    return resp.data;
+  }
+
+  async findProjectsByUser( userId?: number, pageNumber?: number ): Promise<ProjectPage> {
+    const userSession = this.auth.getUserSession();
+    const url = `${this.baseUrl}/by-user/${userId}?page=${pageNumber}&size=10`;
+    const response = axios(url, {
+      headers: {
+        Authorization: `Bearer ${userSession?.accessToken}`,
+      },
+    });
+    const resp = await response;
+    return resp.data;
+  }
+
+  async findProjectById(id?: number): Promise<Project> {
+    const userSession = this.auth.getUserSession();
+    const url = `${this.baseUrl}/${id}`;
+    const response = axios(url, {
+      headers: {
+        Authorization: `Bearer ${userSession?.accessToken}`,
+      },
+    });
+    const resp = await response;
+    return resp.data;
+  }
 
   async saveProject(project: Project): Promise<void> {
     const response = await axios(this.baseUrl + "/save", {
@@ -39,4 +78,24 @@ class ProjectService {
     }
   }
 }
+
 export const useProjectService = () => new ProjectService();
+
+class ProjectPostService {
+  baseUrl: string = process.env.NEXT_PUBLIC_API_URL + "/project-post";
+  auth = useAuth();
+
+  async findProjectsByPost( postId?: number, pageNumber?: number ): Promise<PostPage> {
+    const userSession = this.auth.getUserSession();
+    const url = `${this.baseUrl}/by-post/${postId}?page=${pageNumber}&size=8`;
+    const response = axios(url, {
+      headers: {
+        Authorization: `Bearer ${userSession?.accessToken}`,
+      },
+    });
+    const resp = await response;
+    return resp.data;
+  }
+}
+
+export const useProjectPostService = () => new ProjectPostService();

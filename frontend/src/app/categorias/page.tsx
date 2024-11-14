@@ -3,15 +3,15 @@
 import { CategoryCard } from "@/components/card/categoryCard";
 import { Pagination } from "@/components/pagination";
 import { Template } from "@/components/template";
-import { CategoryPage } from "@/resources/category";
-import axios from "axios";
+import { CategoryPage, useCategoryService } from "@/resources/category";
 import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 
 
 export default function Categories() {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    
     const [query, setQuery] = useState("");
+    const categoryService = useCategoryService();
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
@@ -19,9 +19,9 @@ export default function Categories() {
     const [categoryPage, setCategoryPage] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } })
 
     useEffect(() => {
-        axios.get(`${baseUrl}/categories?page=${pageNumber}&query=${query}&size=12`)
+        categoryService.findCategories(pageNumber, query)
             .then((response) => {
-                setCategoryPage(response.data);
+                setCategoryPage(response);
             });
     }, [pageNumber, query]);
 

@@ -3,15 +3,13 @@
 import { ProjectCard } from "@/components/card/projectCard";
 import { Pagination } from "@/components/pagination";
 import { Template } from "@/components/template";
-import { ProjectPage } from "@/resources/project";
-import axios from "axios";
+import { ProjectPage, useProjectService } from "@/resources/project";
 import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 
-
 export default function Projects() {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
     const [query, setQuery] = useState("");
+    const projectService = useProjectService();
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
@@ -19,12 +17,11 @@ export default function Projects() {
     const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
         useEffect(() => {
-            axios.get(`${baseUrl}/projects?page=${pageNumber}&query=${query}&size=10`)
+            projectService.findProjects(pageNumber, query)
                 .then((response) => {
-                    setProjectPage(response.data);
+                    setProjectPage(response);
                 });
         }, [pageNumber, query]);
-
 
     return (
         <>

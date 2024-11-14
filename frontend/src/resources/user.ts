@@ -49,6 +49,31 @@ class UserService {
   baseUrl: string = process.env.NEXT_PUBLIC_API_URL + "/users";
 
   auth = useAuth();
+
+  async findUsers( pageNumber?: number, query?: string): Promise<UserPage> {
+    const userSession = this.auth.getUserSession();
+    const url = `${this.baseUrl}?page=${pageNumber}&query=${query}&size=12`;
+    const response = axios(url, {
+      headers: {
+        Authorization: `Bearer ${userSession?.accessToken}`,
+      },
+    });
+    const resp = await response;
+    return resp.data;
+  }
+
+  async findUserById(id?: number): Promise<User> {
+    const userSession = this.auth.getUserSession();
+    const url = `${this.baseUrl}/${id}`;
+    const response = axios(url, {
+      headers: {
+        Authorization: `Bearer ${userSession?.accessToken}`,
+      },
+    });
+    const resp = await response;
+    return resp.data;
+  }
+
   async updateUserInfo(data: FormData): Promise<string> {
     const userSession = this.auth.getUserSession();
     const response = await axios(this.baseUrl + `/update`, {
@@ -63,3 +88,23 @@ class UserService {
 }
 
 export const useUserService = () => new UserService();
+
+class EventUserService {
+  baseUrl: string = process.env.NEXT_PUBLIC_API_URL + "/event-user";
+  auth = useAuth();
+
+
+  async findUsersByEvent(eventId?: number, pageNumber?: number): Promise<UserPage> {
+    const userSession = this.auth.getUserSession();
+    const url = `${this.baseUrl}/by-event/${eventId}?page=${pageNumber}&size=9`;
+    const response = axios(url, {
+      headers: {
+        Authorization: `Bearer ${userSession?.accessToken}`,
+      },
+    });
+    const resp = await response;
+    return resp.data;
+  }
+}
+
+export const useEventUserService = () => new EventUserService();

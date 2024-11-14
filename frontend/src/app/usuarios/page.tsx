@@ -3,25 +3,25 @@
 import { UserCard } from "@/components/card/userCard";
 import { Pagination } from "@/components/pagination";
 import { Template } from "@/components/template";
-import { UserPage } from "@/resources/user";
+import { UserPage, useUserService } from "@/resources/user";
 import axios from "axios";
 import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 
 
 export default function Usuarios() {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
     const [query, setQuery] = useState("");
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
     }
     const [userPage, setUserPage] = useState<UserPage>({ content: [], page: { number: 0, size: 0, totalPages: 0, totalElements: 0 } });
+    const userService = useUserService();
 
     useEffect(() => {
-        axios.get(`${baseUrl}/users?page=${pageNumber}&query=${query}&size=12`)
+        userService.findUsers(pageNumber, query)
             .then((response) => {
-                setUserPage(response.data);
+                setUserPage(response);
             });
     }, [pageNumber, query]);
 

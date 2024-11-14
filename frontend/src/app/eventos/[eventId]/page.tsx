@@ -1,6 +1,5 @@
 'use client'
 
-import axios from "axios";
 import * as GoIcons from "react-icons/go";
 
 import { useEffect, useState } from "react";
@@ -10,19 +9,19 @@ import moment from "moment";
 import { UserCard } from "@/components/card/userCard";
 import { Template } from "@/components/template";
 import { Pagination } from "@/components/pagination";
-import { Event } from "@/resources/event";
-import { UserPage } from "@/resources/user";
+import { Event, useEventService } from "@/resources/event";
+import { useEventUserService, UserPage } from "@/resources/user";
 
 export default function EventDetails({ params }: any) {
     const eventId = params.eventId;
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-
+    const eventService = useEventService();
+    const eventUserService = useEventUserService();
     const [event, setEvent] = useState<Event>();
 
     useEffect(() => {
-        axios.get(`${baseUrl}/events/${eventId}`)
+        eventService.findEventById(eventId)
             .then((response) => {
-                setEvent(response.data);
+                setEvent(response);
             });
     }, [eventId]);
 
@@ -33,9 +32,9 @@ export default function EventDetails({ params }: any) {
     const [userPage, setUserPage] = useState<UserPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        axios.get(`${baseUrl}/event-user/by-event/${eventId}?page=${pageNumber}&size=12`)
+        eventUserService.findUsersByEvent(eventId, pageNumber)
             .then((response) => {
-                setUserPage(response.data);
+                setUserPage(response);
             });
     }, [eventId, pageNumber]);
 

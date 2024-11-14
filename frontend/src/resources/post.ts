@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useAuth } from "./auth";
 
 export type Post = {
   id?: number;
@@ -24,6 +25,31 @@ export type PostProps = {
 
 class PostService {
   baseUrl: string =  process.env.NEXT_PUBLIC_API_URL + "/posts";
+  auth = useAuth();
+
+  async findPosts( pageNumber?: number, query?: string): Promise<PostPage> {
+    const userSession = this.auth.getUserSession();
+    const url = `${this.baseUrl}?page=${pageNumber}&query=${query}&size=12`;
+    const response = axios(url, {
+      headers: {
+        Authorization: `Bearer ${userSession?.accessToken}`,
+      },
+    });
+    const resp = await response;
+    return resp.data;
+  }
+
+  async findPostById(id?: number): Promise<Post> {
+    const userSession = this.auth.getUserSession();
+    const url = `${this.baseUrl}/${id}`;
+    const response = axios(url, {
+      headers: {
+        Authorization: `Bearer ${userSession?.accessToken}`,
+      },
+    });
+    const resp = await response;
+    return resp.data;
+  }
 
   async savePost(post: Post): Promise<void> {
     const response = await axios(this.baseUrl + "/save", {

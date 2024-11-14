@@ -3,9 +3,8 @@
 import { ProjectCard } from "@/components/card/projectCard";
 import { Pagination } from "@/components/pagination";
 import { Template } from "@/components/template";
-import { Post } from "@/resources/post";
-import { ProjectPage } from "@/resources/project";
-import axios from "axios";
+import { Post, usePostService } from "@/resources/post";
+import { ProjectPage, useProjectPostService } from "@/resources/project";
 import { Accordion } from "flowbite-react";
 
 import { useEffect, useState } from "react";
@@ -13,28 +12,26 @@ import * as FaIcons from "react-icons/fa6";
 
 export default function PostDetails({ params }: any) {
     const postId = params.postId;
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-
+    const postService = usePostService();
+    const projectPostService = useProjectPostService();
     const [post, setPost] = useState<Post>();
-
-    useEffect(() => {
-        axios.get(`${baseUrl}/posts/${postId}`)
-            .then((response) => {
-                setPost(response.data);
-            });
-    }, [postId]);
-
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber)
     }
-
     const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        axios.get(`${baseUrl}/project-post/by-post/${postId}?page=${pageNumber}&size=10`)
+        postService.findPostById(postId)
             .then((response) => {
-                setProjectPage(response.data);
+                setPost(response);
+            });
+    }, [postId]);
+
+    useEffect(() => {
+        projectPostService.findProjectsByPost(postId, pageNumber)
+            .then((response) => {
+                setProjectPage(response);
             });
     }, [postId, pageNumber]);
 

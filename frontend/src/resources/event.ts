@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useAuth } from "./auth";
 
 
 export type Event = {
@@ -30,6 +31,43 @@ export type EventProps = {
 
 class EventService {
     baseUrl: string = process.env.NEXT_PUBLIC_API_URL + "/events";
+    auth = useAuth();
+
+    async findEvents( pageNumber?: number, query?: string): Promise<EventPage> {
+      const userSession = this.auth.getUserSession();
+      const url = `${this.baseUrl}?page=${pageNumber}&query=${query}&size=12`;
+      const response = axios(url, {
+        headers: {
+          Authorization: `Bearer ${userSession?.accessToken}`,
+        },
+      });
+      const resp = await response;
+      return resp.data;
+    }
+  
+    async findEventsByProject( projectId?: number, pageNumber?: number ): Promise<EventPage> {
+      const userSession = this.auth.getUserSession();
+      const url = `${this.baseUrl}/by-project/${projectId}?page=${pageNumber}&size=8`;
+      const response = axios(url, {
+        headers: {
+          Authorization: `Bearer ${userSession?.accessToken}`,
+        },
+      });
+      const resp = await response;
+      return resp.data;
+    }
+
+    async findEventById(id?: number): Promise<Event> {
+      const userSession = this.auth.getUserSession();
+      const url = `${this.baseUrl}/${id}`;
+      const response = axios(url, {
+        headers: {
+          Authorization: `Bearer ${userSession?.accessToken}`,
+        },
+      });
+      const resp = await response;
+      return resp.data;
+    }
 
   async saveEvent(event: Event): Promise<void> {
     const response = await axios(this.baseUrl + "/save", {

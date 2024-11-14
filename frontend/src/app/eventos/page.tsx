@@ -3,15 +3,14 @@
 import { EventCard } from "@/components/card/eventCard";
 import { Pagination } from "@/components/pagination";
 import { Template } from "@/components/template";
-import { EventPage } from "@/resources/event";
-import axios from "axios";
+import { EventPage, useEventService } from "@/resources/event";
 import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 
 
 export default function Events() {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
     const [query, setQuery] = useState("");
+    const eventService = useEventService();
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
@@ -19,9 +18,9 @@ export default function Events() {
     const [eventPage, setEventPage] = useState<EventPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        axios.get(`${baseUrl}/events?page=${pageNumber}&query=${query}&size=10`)
+        eventService.findEvents(pageNumber, query)
             .then((response) => {
-                setEventPage(response.data);
+                setEventPage(response);
             });
     }, [pageNumber, query]);
 

@@ -4,15 +4,14 @@
 import { PostCard } from "@/components/card/postCard";
 import { Pagination } from "@/components/pagination";
 import { Template } from "@/components/template";
-import { PostPage } from "@/resources/post";
-import axios from "axios";
+import { PostPage, usePostService } from "@/resources/post";
 import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 
 
 export default function Posts() {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
     const [query, setQuery] = useState("");
+    const postService = usePostService();
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
@@ -20,9 +19,9 @@ export default function Posts() {
     const [postPage, setPostPage] = useState<PostPage>({ content: [], page: { number: 0,  totalElements: 0} });
 
     useEffect(() => {
-        axios.get(`${baseUrl}/posts?page=${pageNumber}&query=${query}&size=10`)
+        postService.findPosts(pageNumber, query)
             .then((response) => {
-                setPostPage(response.data);
+                setPostPage(response);
             });
     }, [pageNumber, query]);
 
