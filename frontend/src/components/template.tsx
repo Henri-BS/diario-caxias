@@ -88,7 +88,7 @@ const Header: FC = () => {
             icon: <FaIcons.FaCalendarCheck />
         },
         {
-            title: "Categrias",
+            title: "Categorias",
             path: "/categorias",
             icon: <FaIcons.FaTag />
         },
@@ -299,13 +299,13 @@ const Footer: FC = () => {
                             </ul>
                             <ul>
                                 <h3 className="text-lg">Categorias</h3>
-                                <li>Lista de Categrias: a lista completa de eventos pode ser acessada através da opção "Categorias" no menu lateral da barra de navegação, na página da lista é possível buscar categorias pelo título através do mecanismo de busca.</li>
+                                <li>Lista de Categrias: a lista completa de categorias pode ser acessada através da opção "Categorias" no menu lateral da barra de navegação, na página da lista é possível buscar categorias pelo título através do mecanismo de busca.</li>
                                 <li>Perfil da Categoria: ao clicar em um card na lista de categorias, é possível acessar o perfil da categoria que possui informações como: descrição da categoria, projetos e usuários relacionados.</li>
                             </ul>
                             <ul>
                                 <h3 className="text-lg">Notícias</h3>
-                                <li>As nóticias têm o propósito de manter os usuários informados sobre as últimas ocorrências relacionadas a temática de um projeto, uma nóticia pode flar sobre mais de um projeto específico e também pode abordar a temática do projeto de outras formas se for mais conveniente.</li>
-                                <li>Lista de Eventos: a lista completa de eventos pode ser acessada através da opção "Notícias" no menu lateral da barra de navegação, na página da lista é possível buscar notícias pelo título através do mecanismo de busca.</li>
+                                <li>As notícias têm o propósito de manter os usuários informados sobre as últimas ocorrências relacionadas a temática de um projeto, uma nóticia pode flar sobre mais de um projeto específico e também pode abordar a temática do projeto de outras formas se for mais conveniente.</li>
+                                <li>Lista de Notícias: a lista completa de notícias pode ser acessada através da opção "Notícias" no menu lateral da barra de navegação, na página da lista é possível buscar notícias pelo título através do mecanismo de busca.</li>
                                 <li>Perfil da Notícia: ao clicar em um card na lista de notícias, é possível acessar o perfil da notícia que possui informações como: descrição da notícia, resumo e projetos relacionados.</li>
                                 <li>Criação de Notícia: usuários cadastrados podem criar notícias, basta clicar no botão de criação no canto superior direito da tela e selecionar a opção "Notícias" depois é necessário inserir os dados solicitados e salvar.</li>
                             </ul>

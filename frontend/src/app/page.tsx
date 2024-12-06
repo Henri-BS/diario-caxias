@@ -2,12 +2,12 @@
 
 import { CategoryCard } from "@/components/card/categoryCard";
 import { EventCard } from "@/components/card/eventCard";
-import { PostCard } from "@/components/card/postCard";
+import { CarouselPostCard, PostCard } from "@/components/card/postCard";
 import { ProjectCard } from "@/components/card/projectCard";
-import { CategoryPage } from "@/resources/category";
-import { EventPage } from "@/resources/event";
-import { PostPage } from "@/resources/post";
-import { ProjectPage } from "@/resources/project";
+import { CategoryPage, useCategoryService } from "@/resources/category";
+import { EventPage, useEventService } from "@/resources/event";
+import { PostPage, usePostService } from "@/resources/post";
+import { ProjectPage, useProjectService } from "@/resources/project";
 import axios from "axios";
 import { CustomFlowbiteTheme, Flowbite, Carousel } from "flowbite-react";
 import Link from "next/link";
@@ -18,8 +18,8 @@ export default function Home() {
   return (
     <>
       <Template>
-        <div className=" grid grid-cols-1 lg:grid-cols-2">
-          <div className="flex flex-col block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow">
+        <div className=" grid grid-cols-1 lg:grid-cols-2 flex gap-x-8">
+          <div className="flex flex-col block w-full p-6 bg-white border border-gray-200 rounded-lg shadow mb-4">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-center">
               Boas vindas ao Diário Caxias
             </h5>
@@ -42,12 +42,12 @@ export default function Home() {
 
 
   function PostCarousel() {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    const postService = usePostService();
     const [posts, setPosts] = useState<PostPage>({ content: [], page: { number: 0, totalElements: 0 } });
     useEffect(() => {
-      axios.get(`${baseUrl}/posts?size=8`)
+      postService.findPosts()
         .then((response) => {
-          setPosts(response.data);
+          setPosts(response);
         });
     }, []);
 
@@ -82,12 +82,12 @@ export default function Home() {
               Ver mais
             </Link>
           </div>
-          <div className="h-[650px] w-full">
+          <div className="h-[540px] w-full">
             <Flowbite theme={{ theme: customTheme }}>
               <Carousel className="text-gray-900">
                 {posts.content.map(x => (
                   <div key={x.id} className="flex justify-center items-center">
-                    <PostCard post={x} />
+                    <CarouselPostCard post={x} />
                   </div>
                 ))}
               </Carousel>
@@ -99,12 +99,12 @@ export default function Home() {
   }
 
   function ProjectHomeList() {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    const projectService = useProjectService();
     const [projects, setProjects] = useState<ProjectPage>({ content: [], page: { number: 0, size: 0, totalElements: 0, totalPages: 0 } })
     useEffect(() => {
-      axios.get(`${baseUrl}/projects?size=10`)
+      projectService.findProjects()
         .then((response) => {
-          setProjects(response.data);
+          setProjects(response);
         })
     }, [])
 
@@ -129,12 +129,12 @@ export default function Home() {
   }
 
   function CategoryHomeList() {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    const categoryService = useCategoryService();
     const [categories, setCategories] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } });
     useEffect(() => {
-      axios.get(`${baseUrl}/categories?size=12`)
+      categoryService.findCategories()
         .then((response) => {
-          setCategories(response.data);
+          setCategories(response);
         });
     }, []);
 
@@ -158,12 +158,12 @@ export default function Home() {
   }
 
   function EventHomeList() {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    const eventService = useEventService();
     const [events, setEvents] = useState<EventPage>({ content: [], page: { number: 0, totalElements: 0 } })
     useEffect(() => {
-      axios.get(`${baseUrl}/events?size=12`)
+      eventService.findEvents()
         .then((response) => {
-          setEvents(response.data);
+          setEvents(response);
         })
     }, [])
 

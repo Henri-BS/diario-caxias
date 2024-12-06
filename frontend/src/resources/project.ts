@@ -30,7 +30,7 @@ class ProjectService {
 
   async findProjects( pageNumber?: number, query?: string ): Promise<ProjectPage> {
     const userSession = this.auth.getUserSession();
-    const url = `${this.baseUrl}?page=${pageNumber}&query=${query}&size=12`;
+    const url = `${this.baseUrl}?page=${pageNumber}&query=${query}&size=8`;
     const response = axios(url, {
       headers: {
         Authorization: `Bearer ${userSession?.accessToken}`,
