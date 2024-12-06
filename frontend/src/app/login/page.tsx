@@ -31,7 +31,7 @@ export default function Login() {
             try {
                 const accessToken: AccessToken = await auth.authenticate(credentials);
                 auth.initSession(accessToken);
-                router.push("/")
+                router.refresh();
             } catch (error: any) {
                 const message = error?.message;
                 notification.notify(message, "error");

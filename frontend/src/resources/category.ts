@@ -25,7 +25,7 @@ class CategoryService {
 
   async findCategories( pageNumber?: number, query?: string): Promise<CategoryPage> {
     const userSession = this.auth.getUserSession();
-    const url = `${this.baseUrl}/?page=${pageNumber}&query=${query}&size=12`;
+    const url = `${this.baseUrl}?page=${pageNumber}&query=${query}&size=12`;
     const response = axios(url, {
       headers: {
         Authorization: `Bearer ${userSession?.accessToken}`,
