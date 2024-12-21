@@ -12,29 +12,9 @@ import { CustomFlowbiteTheme, Flowbite, Carousel } from "flowbite-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Template } from "../components/template";
-import { CategoryMockHomeList, EventMockHomeList, EventMockList, PostMockCarousel, ProjectHomeMockList } from "@/mock/mockList";
+import { CategoryMockHomeList, EventMockHomeList, PostMockCarousel, ProjectHomeMockList } from "@/mock/mockList";
 
-export const customTheme: CustomFlowbiteTheme = {
-  carousel: {
-    root: {
-      base: "relative h-full w-full",
-      leftControl: "absolute left-0 top-0 flex h-full items-center justify-center px-4 focus:outline-none",
-      rightControl: "absolute right-0 top-0 flex h-full items-center justify-center px-4 focus:outline-none"
-    },
-    indicators: {
-      active: {
-        off: "bg-gray-400/70 hover:bg-gray-500",
-        on: "bg-gray-500"
-      },
-      base: "h-3 w-3 rounded-full",
-      wrapper: "absolute bottom-5 left-1/2 flex -translate-x-1/2 space-x-3"
-    },
-    control: {
-      base: "inline-flex h-8 w-8 items-center justify-center rounded-full group-focus:outline-none group-focus:ring-4 group-focus:ring-white bg-gray-800/50 group-hover:bg-gray-800/60 group-focus:ring-gray-800/70 sm:h-10 sm:w-10",
-      icon: "h-5 w-5 text-white sm:h-6 sm:w-6"
-    },
-  }
-};
+
 
 export default function Home() {
   return (
@@ -64,6 +44,29 @@ export default function Home() {
 
 
   function PostCarousel() {
+
+    const customTheme: CustomFlowbiteTheme = {
+      carousel: {
+        root: {
+          base: "relative h-full w-full",
+          leftControl: "absolute left-0 top-0 flex h-full items-center justify-center px-4 focus:outline-none",
+          rightControl: "absolute right-0 top-0 flex h-full items-center justify-center px-4 focus:outline-none"
+        },
+        indicators: {
+          active: {
+            off: "bg-gray-400/70 hover:bg-gray-500",
+            on: "bg-gray-500"
+          },
+          base: "h-3 w-3 rounded-full",
+          wrapper: "absolute bottom-5 left-1/2 flex -translate-x-1/2 space-x-3"
+        },
+        control: {
+          base: "inline-flex h-8 w-8 items-center justify-center rounded-full group-focus:outline-none group-focus:ring-4 group-focus:ring-white bg-gray-800/50 group-hover:bg-gray-800/60 group-focus:ring-gray-800/70 sm:h-10 sm:w-10",
+          icon: "h-5 w-5 text-white sm:h-6 sm:w-6"
+        },
+      }
+    };
+
     const postService = usePostService();
     const [posts, setPosts] = useState<PostPage>({ content: [], page: { number: 0, totalElements: 0 } });
     useEffect(() => {
