@@ -8,11 +8,33 @@ import { CategoryPage, useCategoryService } from "@/resources/category";
 import { EventPage, useEventService } from "@/resources/event";
 import { PostPage, usePostService } from "@/resources/post";
 import { ProjectPage, useProjectService } from "@/resources/project";
-import axios from "axios";
 import { CustomFlowbiteTheme, Flowbite, Carousel } from "flowbite-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Template } from "../components/template";
+import { CategoryMockHomeList, EventMockHomeList, EventMockList, PostMockCarousel, ProjectHomeMockList } from "@/mock/mockList";
+
+export const customTheme: CustomFlowbiteTheme = {
+  carousel: {
+    root: {
+      base: "relative h-full w-full",
+      leftControl: "absolute left-0 top-0 flex h-full items-center justify-center px-4 focus:outline-none",
+      rightControl: "absolute right-0 top-0 flex h-full items-center justify-center px-4 focus:outline-none"
+    },
+    indicators: {
+      active: {
+        off: "bg-gray-400/70 hover:bg-gray-500",
+        on: "bg-gray-500"
+      },
+      base: "h-3 w-3 rounded-full",
+      wrapper: "absolute bottom-5 left-1/2 flex -translate-x-1/2 space-x-3"
+    },
+    control: {
+      base: "inline-flex h-8 w-8 items-center justify-center rounded-full group-focus:outline-none group-focus:ring-4 group-focus:ring-white bg-gray-800/50 group-hover:bg-gray-800/60 group-focus:ring-gray-800/70 sm:h-10 sm:w-10",
+      icon: "h-5 w-5 text-white sm:h-6 sm:w-6"
+    },
+  }
+};
 
 export default function Home() {
   return (
@@ -51,27 +73,7 @@ export default function Home() {
         });
     }, []);
 
-    const customTheme: CustomFlowbiteTheme = {
-      carousel: {
-        root: {
-          base: "relative h-full w-full",
-          leftControl: "absolute left-0 top-0 flex h-full items-center justify-center px-4 focus:outline-none",
-          rightControl: "absolute right-0 top-0 flex h-full items-center justify-center px-4 focus:outline-none"
-        },
-        indicators: {
-          active: {
-            off: "bg-gray-400/70 hover:bg-gray-500",
-            on: "bg-gray-500"
-          },
-          base: "h-3 w-3 rounded-full",
-          wrapper: "absolute bottom-5 left-1/2 flex -translate-x-1/2 space-x-3"
-        },
-        control: {
-          base: "inline-flex h-8 w-8 items-center justify-center rounded-full group-focus:outline-none group-focus:ring-4 group-focus:ring-white bg-gray-800/50 group-hover:bg-gray-800/60 group-focus:ring-gray-800/70 sm:h-10 sm:w-10",
-          icon: "h-5 w-5 text-white sm:h-6 sm:w-6"
-        },
-      }
-    };
+
 
     return (
       <>
@@ -82,15 +84,17 @@ export default function Home() {
               Ver mais
             </Link>
           </div>
-          <div className="h-[540px] w-full">
+          <div className="h-[520px] w-full ">
             <Flowbite theme={{ theme: customTheme }}>
-              <Carousel className="text-gray-900">
-                {posts.content.map(x => (
-                  <div key={x.id} className="flex justify-center items-center">
-                    <CarouselPostCard post={x} />
-                  </div>
-                ))}
-              </Carousel>
+              {!posts.content.length ? <PostMockCarousel /> :
+                <Carousel>
+                  {posts.content.map(post => (
+                    <div key={post.id} className="flex justify-center items-center">
+                      <CarouselPostCard post={post} />
+                    </div>
+                  ))}
+                </Carousel>
+              }
             </Flowbite>
           </div>
         </div>
@@ -116,14 +120,15 @@ export default function Home() {
             Ver mais
           </Link>
         </div>
-
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-y-10 gap-x-6 items-start p-8">
-          {projects.content?.map(x => (
-            <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
-              <ProjectCard project={x} />
-            </div>
-          ))}
-        </div>
+        {!projects.content.length ? <ProjectHomeMockList /> :
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-y-10 gap-x-6 items-start p-8">
+            {projects.content?.map(project => (
+              <div key={project.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                <ProjectCard project={project} />
+              </div>
+            ))}
+          </div>
+        }
       </>
     );
   }
@@ -146,13 +151,15 @@ export default function Home() {
             Ver mais
           </Link>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-6 items-start p-8">
-          {categories?.content.map(x => (
-            <div key={x.id} className="w-100 py-4 ">
-              <CategoryCard category={x} />
-            </div>
-          ))}
-        </div>
+        {!categories.content.length ? <CategoryMockHomeList /> :
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-6 items-start p-8">
+            {categories?.content.map(category => (
+              <div key={category.id} className="w-100 py-4 ">
+                <CategoryCard category={category} />
+              </div>
+            ))}
+          </div>
+        }
       </>
     );
   }
@@ -175,14 +182,15 @@ export default function Home() {
             Ver mais
           </Link>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
-          {events.content?.map(x => (
-            <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
-              <EventCard event={x} />
-            </div>
-          ))}
-        </div>
+        {!events.content.length ? <EventMockHomeList /> :
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
+            {events.content?.map(event => (
+              <div key={event.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                <EventCard event={event} />
+              </div>
+            ))}
+          </div>
+        }
       </>
     );
   }

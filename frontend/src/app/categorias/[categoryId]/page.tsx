@@ -5,6 +5,7 @@ import { ProjectCard } from "@/components/card/projectCard";
 import { UserCard } from "@/components/card/userCard";
 import { Pagination } from "@/components/pagination";
 import { Template } from "@/components/template";
+import { CategoryMockProfile } from "@/mock/mockProfile";
 import { Category } from "@/resources/category";
 import { ProjectPage } from "@/resources/project";
 import { UserPage } from "@/resources/user";
@@ -51,6 +52,7 @@ export default function CategoryDetails({ params }: any) {
 
     return (
         <Template>
+            {!category ? <CategoryMockProfile params={params} /> :
             <div className="w-full p-6 bg-zinc-100 border border-zinc-300 rounded-lg shadow-md ">
                 <h5 className=" mb-2 text-4xl font-bold tracking-tight text-indigo-500 ">{category?.categoryName}</h5>
                 <p className="font-medium text-lg">{category?.categoryDescription}</p>
@@ -59,6 +61,7 @@ export default function CategoryDetails({ params }: any) {
                     <p className="flex flex-row items-center text-lg gap-2"><FaIcons.FaUser />Usuários relacionados: <b>{userPage.page.totalElements}</b></p>
                 </div>
             </div>
+}
             <Accordion collapseAll>
                 <Accordion.Panel>
                     <Accordion.Title>
@@ -69,9 +72,9 @@ export default function CategoryDetails({ params }: any) {
                             <Pagination pagination={projectPage} onPageChange={handlePageChange} />
                         </div>
                         <div className="grid grid-cols-1 gap-y-10 gap-x-6 items-start p-8">
-                            {projectPage.content?.map(x => (
-                                <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
-                                    <ProjectCard project={x} />
+                            {projectPage.content?.map(project => (
+                                <div key={project.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                                    <ProjectCard project={project} />
                                 </div>
                             ))}
                         </div>
@@ -87,9 +90,9 @@ export default function CategoryDetails({ params }: any) {
                             <Pagination pagination={userPage} onPageChange={handlePageChange} />
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
-                            {userPage.content?.map(x => (
-                                <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
-                                    <UserCard user={x} />
+                            {userPage.content?.map(user => (
+                                <div key={user.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                                    <UserCard user={user} />
                                 </div>
                             ))}
                         </div>

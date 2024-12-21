@@ -16,9 +16,7 @@ public class Project extends BaseEntity {
     @Column(name = "project_id", nullable = false)
     private Long id;
 
-    private Integer countEvents;
 
-    private Integer countUsers;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -37,11 +35,9 @@ public class Project extends BaseEntity {
         super();
     }
 
-    public Project(Long id, String title, String description, String image, Integer countEvents, Integer countUsers, LocalDateTime createdDate, User user) {
+    public Project(Long id, String title, String description, String image, LocalDateTime createdDate, User user) {
         super(title, description, image, createdDate);
         this.id = id;
-        this.countEvents = countEvents;
-        this.countUsers = countUsers;
         this.user = user;
     }
 
@@ -51,22 +47,6 @@ public class Project extends BaseEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getCountEvents() {
-        return countEvents;
-    }
-
-    public void setCountEvents(Integer countEvents) {
-        this.countEvents = countEvents;
-    }
-
-    public Integer getCountUsers() {
-        return countUsers;
-    }
-
-    public void setCountUsers(Integer countUsers) {
-        this.countUsers = countUsers;
     }
 
     public User getUser() {

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
 import "./globals.css";
 import 'react-toastify/ReactToastify.min.css'
+import { CustomFlowbiteTheme } from "flowbite-react";
 
 const rubik = Rubik({ subsets: ["latin"] , weight: "400"});
 
@@ -23,3 +24,4 @@ export default function RootLayout({
     </html>
   );
 }
+

@@ -16,8 +16,6 @@ public class ProjectDto implements Serializable {
     private String projectTitle;
     private String projectDescription;
     private String projectImage;
-    private Integer countEvents;
-    private Integer countUsers;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime createdDate;
     private Long userId;
@@ -31,8 +29,6 @@ public class ProjectDto implements Serializable {
         projectTitle = entity.getTitle();
         projectDescription = entity.getDescription();
         projectImage = entity.getImage();
-        countEvents = entity.getCountEvents();
-        countUsers = entity.getCountUsers();
         createdDate = entity.getCreatedDate();
         userId = entity.getUser().getId();
         username = entity.getUser().getUsername();
@@ -49,14 +45,6 @@ public class ProjectDto implements Serializable {
 
     public String getProjectDescription() {
         return projectDescription;
-    }
-
-    public Integer getCountEvents() {
-        return countEvents;
-    }
-
-    public Integer getCountUsers() {
-        return countUsers;
     }
 
     public LocalDateTime getCreatedDate() {

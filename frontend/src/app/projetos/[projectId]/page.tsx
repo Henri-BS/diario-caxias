@@ -5,6 +5,7 @@ import { EventCard } from "@/components/card/eventCard";
 import { PostCard } from "@/components/card/postCard";
 import { Pagination } from "@/components/pagination";
 import { Template } from "@/components/template";
+import { ProjectMockProfile } from "@/mock/mockProfile";
 import { CategoryPage, useProjectCategoryService } from "@/resources/category";
 import { EventPage, useEventService } from "@/resources/event";
 import { PostPage } from "@/resources/post";
@@ -63,7 +64,8 @@ export default function ProjectDetails({ params }: any) {
 
     return (
         <Template>
-            <div >
+            {!project ? <ProjectMockProfile params={params} /> :
+                <div >
                 <div className="relative flex flex-col sm:flex-row xl:flex-col items-start">
                     <div className="order-1 sm:ml-6 xl:ml-0">
                         <h3 className="mb-1 text-slate-900 font-semibold">
@@ -79,6 +81,7 @@ export default function ProjectDetails({ params }: any) {
                 </div>
                 <p className="mt-5 text-xl text-justify">{project?.projectDescription} </p>
             </div>
+            }
             <Accordion collapseAll className="mt-12 ">
                 <Accordion.Panel>
                     <Accordion.Title>
@@ -89,9 +92,9 @@ export default function ProjectDetails({ params }: any) {
                             <Pagination pagination={categoryPage} onPageChange={handlePageChange} />
                         </div>
                         <div className="  grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
-                            {categoryPage.content?.map(x => (
-                                <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
-                                    <CategoryCard category={x} />
+                            {categoryPage.content?.map(category => (
+                                <div key={category.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                                    <CategoryCard category={category} />
                                 </div>
                             ))}
                         </div>
@@ -107,9 +110,9 @@ export default function ProjectDetails({ params }: any) {
                             <Pagination pagination={eventPage} onPageChange={handlePageChange} />
                         </div>
                         <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-4 items-start p-8">
-                            {eventPage.content?.map(x => (
-                                <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start">
-                                    <EventCard event={x} />
+                            {eventPage.content?.map(event => (
+                                <div key={event.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start">
+                                    <EventCard event={event} />
                                 </div>
                             ))}
                         </div>
@@ -124,9 +127,9 @@ export default function ProjectDetails({ params }: any) {
                             <Pagination pagination={postPage} onPageChange={handlePageChange} />
                         </div>
                         <div className=" mt-10 grid grid-cols-1 lg:grid-cols-2 gap-y-6 gap-x-8 ">
-                            {postPage.content?.map(x => (
-                                <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start">
-                                    <PostCard post={x} />
+                            {postPage.content?.map(post => (
+                                <div key={post.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start">
+                                    <PostCard post={post} />
                                 </div>
                             ))}
                         </div>

@@ -130,7 +130,7 @@ const Header: FC = () => {
 
     function logout() {
         auth.invalidateSession();
-        router.push("/login");
+        router.refresh();
     }
 
     return (
@@ -143,7 +143,7 @@ const Header: FC = () => {
                             <FaIcons.FaBars onClick={showSidebar} />
                         </div>
                         <Link href={"/"}>
-                            <h1 className="self-center text-xl font-semibold whitespace-nowrap">
+                            <h1 className="self-center text-lg font-semibold whitespace-nowrap">
                                 Diário Caxias
                             </h1>
                         </Link>

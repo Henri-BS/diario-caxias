@@ -95,12 +95,12 @@ export default function AddFormEvent() {
                                 placeholder="buscar projeto pelo nome"
                             />
                             <datalist id="projectList">
-                                {projectPage.content?.filter((x) =>
-                                    x.projectTitle?.toUpperCase().includes(query.toLocaleUpperCase()))
-                                    .map((x) =>
+                                {projectPage.content?.filter((post) =>
+                                    post.projectTitle?.toUpperCase().includes(query.toLocaleUpperCase()))
+                                    .map((project) =>
                                         <>
-                                        <option id="query" key={x.id} value={x.projectTitle}>
-                                            {x.projectTitle}
+                                        <option id="query" key={project.id} value={project.projectTitle}>
+                                            {project.projectTitle}
                                         </option>
                                         </>
                                     )
