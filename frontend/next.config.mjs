@@ -1,6 +1,7 @@
 
 
 const nextConfig = {
+  output: 'export',
   pageExtensions: [
     "page.tsx",
     "page.ts",
