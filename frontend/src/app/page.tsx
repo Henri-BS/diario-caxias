@@ -2,7 +2,7 @@
 
 import { CategoryCard } from "@/components/card/categoryCard";
 import { EventCard } from "@/components/card/eventCard";
-import { CarouselPostCard, PostCard } from "@/components/card/postCard";
+import { CarouselPostCard } from "@/components/card/postCard";
 import { ProjectCard } from "@/components/card/projectCard";
 import { CategoryPage, useCategoryService } from "@/resources/category";
 import { EventPage, useEventService } from "@/resources/event";

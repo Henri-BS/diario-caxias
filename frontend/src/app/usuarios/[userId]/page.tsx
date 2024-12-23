@@ -5,7 +5,7 @@ import { ProjectCard } from "@/components/card/projectCard";
 import { Pagination } from "@/components/pagination";
 import { Template } from "@/components/template";
 import { useAuth } from "@/resources/auth";
-import { CategoryPage, useCategoryService, useUserCategoryService } from "@/resources/category";
+import { CategoryPage, useUserCategoryService } from "@/resources/category";
 import { ProjectPage, useProjectService } from "@/resources/project";
 import { User, useUserService } from "@/resources/user";
 
@@ -16,6 +16,8 @@ import { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa6";
 
 export default function UserPersonalProfile({ params }: any) {
+    const id  = params.id;
+    
     const auth = useAuth();
     const userId = auth.getUserSession()?.id;
     const userService = useUserService();

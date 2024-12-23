@@ -50,7 +50,7 @@ export default function Categories() {
                             {categoryPage.content?.filter((category) =>
                                 category.categoryName?.toUpperCase().includes(query.toLocaleUpperCase()))
                                 .map(category => (
-                                    <div key={category.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                                    <div key={category?.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
                                         <CategoryCard category={category} />
                                     </div>
                                 ))}

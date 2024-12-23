@@ -7,8 +7,6 @@
   --foreground: #2e2d2d;
 }
 
-
-
 body {
   color: var(--foreground);
   background: var(--background);

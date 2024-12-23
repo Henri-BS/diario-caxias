@@ -84,7 +84,7 @@ export default function EventDetails({ params }: any) {
                         </div>
                         <div className="  grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
                             {userPage.content?.map(user => (
-                                <div key={user.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                                <div key={user?.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
                                     <UserCard user={user} />
                                 </div>
                             ))}
