@@ -1,6 +1,6 @@
 # Diário Caxias
 
-Diário Caxias é uma plataforma você poderá encontrar um vasto acervo de projetos e eventos que visam contribuir com o desenvolvimento educacional, profissional e cultural da cidade de Caxias do Maranhão. O Diário Caxias se compromete em estabelecer um vínculo entre a educação formal e a informal, permitindo que pessoas das mais diversas áreas ou níveis acadêmicos possam participar ativamente das atividades propostas, almejando uma participação multidisciplinar dos Caxienses. Dedicada a promover e apoiar iniciativas que visam a integração social e o desenvolvimento comunitário na cidade de Caxias do Maranhão. Esta plataforma serve como um ponto de encontro para cidadãos, organizações não governamentais, empresas e instituições públicas que desejam contribuir para o bem-estar da comunidade local.
+Diário Caxias é uma plataforma onde você poderá encontrar um vasto acervo de projetos e eventos que visam contribuir com o desenvolvimento educacional, profissional e cultural da cidade de Caxias do Maranhão. O Diário Caxias se compromete em estabelecer um vínculo entre a educação formal e a informal, permitindo que pessoas das mais diversas áreas ou níveis acadêmicos possam participar ativamente das atividades propostas, almejando uma participação multidisciplinar dos Caxienses. Dedicada a promover e apoiar iniciativas que visam a integração social e o desenvolvimento comunitário na cidade de Caxias do Maranhão. Esta plataforma serve como um ponto de encontro para cidadãos, organizações não governamentais, empresas e instituições públicas que desejam contribuir para o bem-estar da comunidade local.
 
 ### O Diário Caxias se compromete com os seguintes objetivos:
 - Conectar indivíduos e grupos com projetos de educacionais e profissionais que necessitam de voluntários, recursos ou parcerias.
@@ -107,7 +107,7 @@ na página da lista é possível buscar notícias pelo título através do mecan
 ![Lista de Notícias](https://github.com/Henri-BS/diario-caxias/blob/main/images/post_list.jpeg)
 
 
-- ### perfil do notícia
+- ### perfil da notícia
 
 Ao selecionar uma notícia na lista de notícias, é possível acessar o perfil que possui informações como: 
 descrição da notícia, resumo e projetos relacionados.  
