@@ -1,0 +1,6 @@
+spring:
+    profiles:
+        active: dev
+    jpa:
+        open-in-view: false
+
