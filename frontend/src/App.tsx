@@ -1,8 +1,9 @@
+import PageRoutes from "routes/PageRoutes";
 
 function App() {
   return (
     <div >
-      Home
+      <PageRoutes/>
     </div>
   );
 }
