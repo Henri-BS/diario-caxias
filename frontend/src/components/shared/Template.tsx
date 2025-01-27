@@ -2,11 +2,15 @@
 
 import { useEffect, useState } from "react"
 import * as FaIcons from "react-icons/fa6";
-import { Button, Dropdown, Label, ListGroup, Modal, Popover } from "flowbite-react";
+import { Button, Dropdown, Label, ListGroup, Modal, Popover, Tooltip } from "flowbite-react";
 import axios from "axios";
 import { useAuth } from "resources/auth";
 import { User } from "resources/user";
 import { Link, useNavigate } from "react-router-dom";
+
+export function removeAccents(str: any) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
 
 export const Loading = () => {
     return (
@@ -76,18 +80,17 @@ export const Header = () => {
         }, []);
         return (
 
-                
-                <Popover  content={
-                    <ListGroup  className="w-36" >
-                        <ListGroup.Item title="perfil de usuário" icon={FaIcons.FaUser} href={`/perfil/${userId}`}>{user?.username}</ListGroup.Item>
-                        <ListGroup.Item icon={FaIcons.FaRightFromBracket} href="/login" className="flex flex-row items-center gap-x-4 text-md cursor-pointer font-medium" onClick={logout}>
-                            Sair 
-                        </ListGroup.Item>
-
-                    </ListGroup>
-                } className=" rounded-lg" trigger="click" arrow={false} >
-                    <img src={user?.userImage ?? "https://cdn1.iconfinder.com/data/icons/basic-ui-element-2-2-line/512/Basic_UI_Elements_-_2.1_-_line-11-256.png"} className="h-12 w-12 rounded-full bg-[#ffffffbe] cursor-point border border-gray-100 transition duration-600 hover:border-blue-500" />
-                </Popover>
+            <Dropdown label="" dismissOnClick={false}
+                renderTrigger={() => <img src={user?.userImage ?? "https://cdn1.iconfinder.com/data/icons/basic-ui-element-2-2-line/512/Basic_UI_Elements_-_2.1_-_line-11-256.png"} className="h-12 w-12 rounded-full bg-[#ffffffbe] cursor-point border border-gray-100 transition duration-600 hover:border-blue-500" />}>
+                <Tooltip content={user?.username}>
+                    <Dropdown.Item icon={FaIcons.FaUser} href={`/perfil/${userId}`} className="text-md font-medium">
+                        Meu Perfil
+                    </Dropdown.Item>
+                </Tooltip>
+                <Dropdown.Item icon={FaIcons.FaRightFromBracket} href="/login" className="text-md font-medium" onClick={logout}>
+                    Sair
+                </Dropdown.Item>
+            </Dropdown>
 
         )
     }
