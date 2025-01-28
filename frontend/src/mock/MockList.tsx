@@ -1,7 +1,10 @@
 import { TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { projectMock } from "./MockData";
+import { eventMock, projectMock } from "./MockData";
+import { removeAccents } from "components/shared/Template";
+import * as GoIcons from "react-icons/go"
+import moment from "moment";
 
 export const ProjectMockList = () => {
 
@@ -40,6 +43,61 @@ export const ProjectMockList = () => {
                         </div>
                     )
                 })}
+            </div>
+        </>
+    );
+}
+
+export const EventMockList = () => {
+
+    const [query, setQuery] = useState("");
+
+    const filter = () => {
+        return eventMock.filter(item => 
+            item.eventTitle.toUpperCase().includes(query.toLocaleUpperCase()) ||
+            removeAccents(item.eventTitle).toUpperCase().includes(query.toLocaleUpperCase())
+        );
+    };
+
+    const result = filter();
+    return (
+        <>
+            <div className="flex items-center justify-between my-5">
+                <div className="flex space-x-4 px-4">
+                    <TextInput className="w-full"
+                        color="bg-zinc-400"
+                        type="text"
+                        id="query"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        placeholder="buscar eventos..."
+                    />
+                </div>
+            </div>
+            <div className="  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
+                {result.map(event => (
+                    <div key={event.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                        <Link to={`/eventos/${event.id}`}
+                            className="max-w-sm bg-zinc-100 border border-zinc-300 p-4 rounded-xl shadow-md transition duration-700 hover:shadow-xl hover:scale-105">
+
+                            <img className="object-cover w-full rounded-t-xl h-60" src={event.eventImage ? event.eventImage : "https://cdn1.iconfinder.com/data/icons/dashboard-ui-vol-1/48/JD-46-512.png"} />
+                            <hr />
+                            <h5 className="h-32 text-xl font-bold tracking-tight text-gray-900">
+                                {event.eventTitle}
+                            </h5>
+                            <span className="text-md text-gray-500 dark:text-gray-400 overflow-hidden">{event.projectTitle}</span>
+
+                            <div className="mt-4 flex space-x-3 lg:mt-6 justify-between">
+                                <p className="flex gap-2 items-center text-center text-sm font-medium text-gray-700">
+                                    <GoIcons.GoCalendar /> {moment(event.eventDate).format("DD/MM/yyyy")}
+                                </p>
+                                <p className="flex gap-2 items-center text-center text-sm font-medium text-gray-700">
+                                    <GoIcons.GoChecklist /> {event.eventStatus}
+                                </p>
+                            </div>
+                        </Link>
+                    </div>
+                ))}
             </div>
         </>
     );

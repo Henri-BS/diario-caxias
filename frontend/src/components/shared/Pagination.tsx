@@ -1,10 +1,9 @@
 
+import { Project } from "resources/project";
 import { User } from "resources/user";
 
-
-
 type Page = {
-    content:  User[];
+    content:  User[] | Project[] | Event[];
     page: {
         size?: number;
         number: number;

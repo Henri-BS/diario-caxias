@@ -1,5 +1,6 @@
 import { Header, Footer, Loading } from "components/shared/Template";
 import Login from "pages/forms/LoginForm";
+import Events from "pages/lists/EventList";
 import Projects from "pages/lists/ProjectList";
 import Users from "pages/lists/UserList";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -16,7 +17,7 @@ export default function PageRoutes({ loading = false }: TemplateProps) {
         <>
             <BrowserRouter>
                 <Header />
-                <div className={`${loading ? 'animate-pulse' : ''} mt-10`} >
+                <div className={`${loading ? 'animate-pulse' : ''} mt-10 p-6`} >
                     {loading ?
                         <div className="text-center">
                             <Loading />
@@ -27,6 +28,7 @@ export default function PageRoutes({ loading = false }: TemplateProps) {
                             <Route path="/usuarios" element={<Users />} />
                             <Route path="/perfil:userId" element={<Login />} />
                             <Route path="/projetos" element={<Projects />} />
+                            <Route path="/eventos" element={<Events />} />
                         </Routes>
                     }
                 </div>
