@@ -102,7 +102,7 @@ export const Header = () => {
 
     return (
         <>
-            <header className="border-b border-gray-500 fixed w-full backdrop-blur-sm bg-[#171717ec] text-white py-6 z-40 top-0">
+            <header className="border-b border-gray-500 fixed w-full backdrop-blur-sm bg-[#171717ec] text-white py-5 z-40 top-0">
                 <div className="mx-auto flex justify-between items-center px-2 gap-4">
 
                     <div className="gap-2 flex items-center ">
@@ -136,7 +136,6 @@ export const Header = () => {
                             :
                             <div className="flex flex-row items-center">
                                 <FindUser />
-
                             </div>
                         }
                     </div>
@@ -180,7 +179,6 @@ export const Footer = () => {
                         </a>
 
                         <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-100 sm:mb-0 ">
-
                             <li>
                                 <a onClick={() => setAboutModal(true)} className="cursor-pointer hover:underline me-4 md:me-6">Sobre o Diário Caxias</a>
                             </li>

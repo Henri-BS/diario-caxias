@@ -37,7 +37,7 @@ public class UserController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity register(@RequestBody UserDto dto) {
+    public ResponseEntity<Map<String, String>> register(@RequestBody UserDto dto) {
         try {
             userService.saveUser(dto);
             return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody CredentialsDto credentialsDto) {
+    public ResponseEntity<AccessToken> login(@RequestBody CredentialsDto credentialsDto) {
         AccessToken token = userService.authenticate(credentialsDto.getEmail(), credentialsDto.getPassword());
 
         if (token == null) {

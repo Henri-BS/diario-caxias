@@ -1,5 +1,5 @@
 
-INSERT INTO tb_user (username, image, email, password, created_date) VALUES ('Jack Azevedo',     'https://cdn1.iconfinder.com/data/icons/diversity-avatars-volume-01-v2/64/hipster-man-white-512.png',                'jack@example.com',        '12345678', now());
+INSERT INTO tb_user (username, image, email, password, created_date) VALUES ('James Azevedo',     'https://cdn1.iconfinder.com/data/icons/diversity-avatars-volume-01-v2/64/hipster-man-white-512.png',                'jack@example.com',        '12345678', now());
 INSERT INTO tb_user (username, image, email, password, created_date) VALUES ('Ryan Azevedo',     'https://cdn2.iconfinder.com/data/icons/diversity-avatars-volume-09/64/avatar-boler-suit-african-512.png',           'ryan@example.com',        '12345678', now());
 INSERT INTO tb_user (username, image, email, password, created_date) VALUES ('Francis Rocha',    'https://cdn2.iconfinder.com/data/icons/diversity-v2-0-volume-01/64/accountant-asian-female-512.png',                'francis@example.com',     '12345678', now());
 INSERT INTO tb_user (username, image, email, password, created_date) VALUES ('Anna Rocha',       'https://cdn2.iconfinder.com/data/icons/diversity-v2-0-volume-01/64/artist-asian-female-512.png',                    'anna@example.com',        '12345678', now());

@@ -1,5 +1,6 @@
 import { Header, Footer, Loading } from "components/shared/Template";
 import Login from "pages/forms/LoginForm";
+import Projects from "pages/lists/ProjectList";
 import Users from "pages/lists/UserList";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -25,6 +26,7 @@ export default function PageRoutes({ loading = false }: TemplateProps) {
                             <Route path="/login" element={<Login />} />
                             <Route path="/usuarios" element={<Users />} />
                             <Route path="/perfil:userId" element={<Login />} />
+                            <Route path="/projetos" element={<Projects />} />
                         </Routes>
                     }
                 </div>

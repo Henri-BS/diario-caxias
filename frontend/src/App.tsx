@@ -2,9 +2,9 @@ import PageRoutes from "routes/PageRoutes";
 
 function App() {
   return (
-    <div >
+    <>
       <PageRoutes/>
-    </div>
+    </>
   );
 }
 
