@@ -47,7 +47,7 @@ export default function Posts() {
                         <div className="flex items-center w-full justify-center">
                             <Pagination pagination={postPage} onPageChange={handlePageChange} />
                         </div>
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-10 gap-x-10 items-start p-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-10 items-start p-8">
                             {postPage?.content.filter((post) =>
                                 post.postTitle?.toUpperCase().includes(query.toLocaleUpperCase()) ||
                                 removeAccents(post.postTitle)?.toUpperCase().includes(query.toLocaleUpperCase())

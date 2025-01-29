@@ -5,6 +5,7 @@ import Events from "pages/lists/EventList";
 import Posts from "pages/lists/PostList";
 import Projects from "pages/lists/ProjectList";
 import Users from "pages/lists/UserList";
+import Home from "pages/main/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
@@ -26,6 +27,7 @@ export default function PageRoutes({ loading = false }: TemplateProps) {
                         </div>
                         :
                         <Routes>
+                            <Route path="/" element={<Home />} />
                             <Route path="/login" element={<Login />} />
                             <Route path="/usuarios" element={<Users />} />
                             <Route path="/perfil:userId" element={<Login />} />
