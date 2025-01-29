@@ -1,5 +1,6 @@
 import { Header, Footer, Loading } from "components/shared/Template";
 import Login from "pages/forms/LoginForm";
+import Categories from "pages/lists/CategoryList";
 import Events from "pages/lists/EventList";
 import Projects from "pages/lists/ProjectList";
 import Users from "pages/lists/UserList";
@@ -29,6 +30,7 @@ export default function PageRoutes({ loading = false }: TemplateProps) {
                             <Route path="/perfil:userId" element={<Login />} />
                             <Route path="/projetos" element={<Projects />} />
                             <Route path="/eventos" element={<Events />} />
+                            <Route path="/categorias" element={<Categories />} />
                         </Routes>
                     }
                 </div>

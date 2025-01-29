@@ -10,7 +10,7 @@ export const EventCard = ({ event }: EventProps) => {
         <Link to={`/eventos/${event.id}`}
             className="max-w-sm bg-zinc-100 border border-zinc-300 p-4 rounded-xl shadow-md transition duration-700 hover:shadow-xl hover:scale-105">
 
-            <img className="object-cover w-full rounded-t-xl h-60" src={event.eventImage ? event.eventImage : "https://cdn1.iconfinder.com/data/icons/dashboard-ui-vol-1/48/JD-46-512.png"} />
+            <img className="object-cover w-full rounded-t-xl h-60" src={event.eventImage ?? "https://cdn1.iconfinder.com/data/icons/dashboard-ui-vol-1/48/JD-46-512.png"} />
             <hr />
             <h5 className="h-32 text-xl font-bold tracking-tight text-gray-900">
                 {event.eventTitle}

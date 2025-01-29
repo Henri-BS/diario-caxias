@@ -1,3 +1,78 @@
+export const categoryMock = [
+    {
+        id: 1,
+        categoryName: 'Meio Ambiente',
+        categoryDescription: 'O Meio Ambiente envolve os interesses regionais com as causas ambientais, algumas atribuições relacionadas ao meio ambiente são: a preservação de biomas, garantia dos recursos hídricos e florestais e o uso sustentável de ecossistemas.'
+    },
+    {
+        id: 2,
+        categoryName: 'Agricultura',
+        categoryDescription: 'A Agricultura abrange o conjunto de práticas e atividades voltadas para o cultivo de plantas e a criação de animais com o objetivo de produzir alimentos, fibras, medicinais e outros produtos. Envolve processos como a preparação do solo, plantio, manejo de pragas, colheita e distribuição dos produtos agrícolas.'
+    },
+    {
+        id: 3,
+        categoryName: 'Botânica',
+        categoryDescription: 'A Botânica é a ciência que estuda as plantas, incluindo sua estrutura, propriedades, processos vitais, classificação e importância ecológica. Algumas disciplinas principais dentro da botânica são: Taxonomia Botânica, Fisiologia Vegetal e Morfologia Vegetal'
+    },
+    {
+        id: 4,
+        categoryName: 'Moradia',
+        categoryDescription: 'A categoria "Moradia" abrange diversos aspectos relacionados aos lugares onde as pessoas vivem. Aqui estão alguns pontos principais: Tipos de Moradia, Estrutura, Localização, Sustentabilidade e Acessibilidade'
+    },
+    {
+        id: 5,
+        categoryName: 'Arquitetura',
+        categoryDescription: 'A categoria Arquitetura engloba o estudo, o planejamento e a construção de edifícios e outras estruturas físicas. Ela abrange várias disciplinas e conhecimentos, incluindo arte, ciência, tecnologia e engenharia. Aqui estão alguns pontos principais sobre arquitetura: Teoria da Arquitetura, Design, Planejamento e Urbanismo'
+    },
+    {
+        id: 6,
+        categoryName: 'Geografia',
+        categoryDescription: 'A categoria Geografia abrange o estudo das características físicas da Terra e a relação entre os seres humanos e o ambiente natural. Aqui estão alguns pontos principais sobre geografia: Geografia Física, Geografia Humana, Geopolítica e Cartografia'
+    },
+    {
+        id: 7,
+        categoryName: 'Hidrografia',
+        categoryDescription: 'A categoria Hidrografia estuda as águas da Terra, suas características, distribuição e os fenômenos relacionados a elas. Alguns pontos principais sobre hidrografia são: Corpos de Água, Ciclo Hidrológico e Mapeamento Hidrográfico'
+    },
+    {
+        id: 8,
+        categoryName: 'Biologia',
+        categoryDescription: 'A categoria Biologia é o ramo da ciência que estuda os seres vivos e os processos vitais. Estes são alguns pontos principais sobre biologia: Genética, Microbiologia, Zoologia e Ecologia'
+    },
+    {
+        id: 9,
+        categoryName: 'Educação',
+    },
+    {
+        id: 10,
+        categoryName: 'História',
+    },
+    {
+        id: 11,
+        categoryName: 'Cultura',
+    },
+    {
+        id: 12,
+        categoryName: 'Ciência',
+    },
+    {
+        id: 13,
+        categoryName: 'Tecnologia',
+    },
+    {
+        id: 14,
+        categoryName: 'Segurança',
+    },
+    {
+        id: 15,
+        categoryName: 'Economia',
+    },
+    {
+        id: 16,
+        categoryName: 'Transporte',
+    },
+]
+
 export const projectMock = [
     {
         id: 1,

@@ -1,17 +1,19 @@
 import { TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { eventMock, projectMock } from "./MockData";
+import { categoryMock, eventMock, projectMock } from "./MockData";
 import { removeAccents } from "components/shared/Template";
 import * as GoIcons from "react-icons/go"
 import moment from "moment";
 
-export const ProjectMockList = () => {
+export const CategoryMockList = () => {
 
     const [query, setQuery] = useState("");
 
     const filter = () => {
-        return projectMock.filter(item => item.projectTitle.toUpperCase().includes(query.toLocaleUpperCase()));
+        return categoryMock.filter(item =>
+            item.categoryName.toUpperCase().includes(query.toLocaleUpperCase())
+        );
     };
 
     const result = filter();
@@ -19,7 +21,51 @@ export const ProjectMockList = () => {
         <>
             <div className="flex items-center justify-between my-5">
                 <div className="flex space-x-4 px-4">
-                    <TextInput className="w-full"
+                    <TextInput icon={GoIcons.GoSearch}
+                        className="w-full"
+                        color="bg-zinc-400"
+                        type="text"
+                        id="value"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        placeholder="buscar categorias..."
+                    />
+                </div>
+            </div>
+            <div className="  grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-y-10 gap-x-6 items-start p-8">
+                {result.map(category => (
+                    <div key={category.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                        <Link to={`/categorias/${category.id}`} className="w-full text-center">
+                            <div className="p-6 bg-zinc-100 border border-zinc-300 rounded-lg shadow-md transition duration-700 hover:shadow-xl hover:scale-105">
+                                <h5 className=" mb-2 text-2xl font-bold tracking-tight text-gray-900 ">{category.categoryName}</h5>
+                            </div>
+                        </Link>
+                    </div>
+                ))}
+            </div>
+        </>
+    );
+}
+
+export const ProjectMockList = () => {
+
+    const [query, setQuery] = useState("");
+
+    const filter = () => {
+        return projectMock.filter(item =>
+            item.projectTitle.toUpperCase().includes(query.toLocaleUpperCase()) ||
+            removeAccents(item.projectTitle).toUpperCase().includes(query.toLocaleUpperCase())
+
+        );
+    };
+
+    const result = filter();
+    return (
+        <>
+            <div className="flex items-center justify-between my-5">
+                <div className="flex space-x-4 px-4">
+                    <TextInput icon={GoIcons.GoSearch}
+                        className="w-full"
                         color="bg-zinc-400"
                         type="text"
                         id="query"
@@ -53,7 +99,7 @@ export const EventMockList = () => {
     const [query, setQuery] = useState("");
 
     const filter = () => {
-        return eventMock.filter(item => 
+        return eventMock.filter(item =>
             item.eventTitle.toUpperCase().includes(query.toLocaleUpperCase()) ||
             removeAccents(item.eventTitle).toUpperCase().includes(query.toLocaleUpperCase())
         );

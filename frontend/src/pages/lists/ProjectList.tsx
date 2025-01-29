@@ -6,6 +6,7 @@ import { ProjectPage, useProjectService } from "resources/project";
 import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { ProjectMockList } from "mock/MockList";
+import { GoSearch } from "react-icons/go";
 
 export default function Projects() {
     const [query, setQuery] = useState("");
@@ -29,7 +30,8 @@ export default function Projects() {
                 <div>
                     <div className="flex items-center justify-between my-5">
                         <div className="flex space-x-4 px-4">
-                            <TextInput className="w-full"
+                            <TextInput icon={GoSearch}
+                                className="w-full"
                                 color="bg-zinc-400"
                                 type="text"
                                 id="query"

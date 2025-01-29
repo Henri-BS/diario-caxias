@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import * as FaIcons from "react-icons/fa6";
-import { Button, Dropdown, Label, ListGroup, Modal, Popover, Tooltip } from "flowbite-react";
+import { Button, Dropdown, Modal, Tooltip } from "flowbite-react";
 import axios from "axios";
 import { useAuth } from "resources/auth";
 import { User } from "resources/user";

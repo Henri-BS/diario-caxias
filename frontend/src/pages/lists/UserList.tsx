@@ -6,7 +6,7 @@ import { UserPage, useUserService } from "resources/user";
 import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { removeAccents } from "components/shared/Template";
-
+import { GoSearch } from "react-icons/go";
 
 export default function Users() {
     const [query, setQuery] = useState("");
@@ -28,7 +28,8 @@ export default function Users() {
         <>
             <div className="flex items-center justify-between my-5">
                 <div className="flex space-x-4 px-4">
-                    <TextInput className="w-full"
+                    <TextInput icon={GoSearch}
+                        className="w-full"
                         color="bg-zinc-400"
                         type="text"
                         id="value"

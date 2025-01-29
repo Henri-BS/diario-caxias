@@ -1,4 +1,7 @@
 
+import { TextInput } from "flowbite-react";
+import { useState } from "react";
+import { GoSearch } from "react-icons/go";
 import { Project } from "resources/project";
 import { User } from "resources/user";
 
@@ -56,3 +59,4 @@ export const Pagination = ({ pagination, onPageChange }: PageProps) => {
         </>
     );
 }
+
