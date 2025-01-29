@@ -1,7 +1,7 @@
 import { TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { categoryMock, eventMock, projectMock } from "./MockData";
+import { categoryMock, eventMock, postMock, projectMock } from "./MockData";
 import { removeAccents } from "components/shared/Template";
 import * as GoIcons from "react-icons/go"
 import moment from "moment";
@@ -25,10 +25,10 @@ export const CategoryMockList = () => {
                         className="w-full"
                         color="bg-zinc-400"
                         type="text"
-                        id="value"
+                        id="query"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
-                        placeholder="buscar categorias..."
+                        placeholder="buscar"
                     />
                 </div>
             </div>
@@ -38,6 +38,53 @@ export const CategoryMockList = () => {
                         <Link to={`/categorias/${category.id}`} className="w-full text-center">
                             <div className="p-6 bg-zinc-100 border border-zinc-300 rounded-lg shadow-md transition duration-700 hover:shadow-xl hover:scale-105">
                                 <h5 className=" mb-2 text-2xl font-bold tracking-tight text-gray-900 ">{category.categoryName}</h5>
+                            </div>
+                        </Link>
+                    </div>
+                ))}
+            </div>
+        </>
+    );
+}
+
+export const PostMockList = () => {
+    const [query, setQuery] = useState("");
+
+    const filter = () => {
+        return postMock.filter(item =>
+            item.postTitle.toUpperCase().includes(query.toLocaleUpperCase()) ||
+            removeAccents(item.postTitle).toUpperCase().includes(query.toLocaleUpperCase())
+        );
+    };
+
+    const result = filter();
+    return (
+        <>
+            <div className="flex items-center justify-between my-5">
+                <div className="flex space-x-4 px-4">
+                    <TextInput icon={GoIcons.GoSearch}
+                        className="w-full"
+                        color="bg-zinc-400"
+                        type="text"
+                        id="query"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        placeholder="buscar"
+                    />
+                </div>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-10 gap-x-10 items-start p-8">
+                {result.map(post => (
+                    <div key={post.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                        <Link
+                            to={`/postagens/${post.id}`}
+                            className=" bg-zinc-200 border border-zinc-300 rounded-xl  hover:bg-zinc-100 shadow-md transition duration-700 hover:shadow-xl ">
+                            <div className=" w-[470px] bg-zinc-100 border border-zinc-300 rounded-xl shadow hover:bg-zinc-300">
+                                <img className="object-cover w-full rounded-t-xl h-80" src={post.postImage ? post.postImage : "https://cdn1.iconfinder.com/data/icons/dashboard-ui-vol-1/48/JD-46-512.png"} alt={post.postTitle} />
+                                <div className="p-5 max-h-60 text-ellipsis overflow-hidden">
+                                    <h5 className="mb-2 h-24 text-2xl font-semibold tracking-tight text-gray-900 overflow-hidden">{post.postTitle}</h5>
+                                    <p className="mb-3 h-26 font-normal text-gray-700 overflow-hidden">{post.postSummary}</p>
+                                </div>
                             </div>
                         </Link>
                     </div>
@@ -71,7 +118,7 @@ export const ProjectMockList = () => {
                         id="query"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
-                        placeholder="buscar projetos..."
+                        placeholder="buscar"
                     />
                 </div>
             </div>
@@ -116,7 +163,7 @@ export const EventMockList = () => {
                         id="query"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
-                        placeholder="buscar eventos..."
+                        placeholder="buscar"
                     />
                 </div>
             </div>

@@ -35,7 +35,7 @@ export default function Users() {
                         id="value"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
-                        placeholder="buscar usuários..."
+                        placeholder="buscar"
                     />
                 </div>
             </div>
@@ -45,8 +45,10 @@ export default function Users() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
                 {userPage.content?.filter((user) =>
                     user.username?.toUpperCase().includes(query.toLocaleUpperCase()) ||
-                    removeAccents(user.username)?.toUpperCase().includes(query.toLocaleUpperCase()))
-                    .map(user => (
+                    removeAccents(user.username)?.toUpperCase().includes(query.toLocaleUpperCase()) ||
+                    user.userLocation?.toUpperCase().includes(query.toLocaleUpperCase()) ||
+                    removeAccents(user.userLocation)?.toUpperCase().includes(query.toLocaleUpperCase())
+                ).map(user => (
                         <div key={user.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
                             <UserCard user={user} />
                         </div>
