@@ -1,13 +1,10 @@
-'use client'
-
 import { useFormik } from "formik";
 import { useState } from "react";
 import { Button, TextInput } from "flowbite-react";
 import { useAuth } from "resources/auth";
 import { Credentials, AccessToken, User } from "resources/user";
 import { useNavigate } from "react-router-dom";
-import { FieldError } from "components/shared/FieldError";
-import { useNotification } from "components/shared/Notification";
+import { useNotification, FieldError } from "components/shared/Notification";
 import * as Yup from "yup";
 
 interface LoginFormProps {

@@ -28,4 +28,13 @@ public class UserCategoryController {
         Page<UserCategoryDto> list = userCategoryService.findByUser(user, pageable);
         return ResponseEntity.ok(list);
     }
+
+    @GetMapping
+    ResponseEntity<Page<UserCategoryDto>> search(
+            @RequestParam(required = false) String username,
+            @RequestParam(required = false) String categoryName,
+            Pageable pageable) {
+        Page<UserCategoryDto> find = userCategoryService.search(username, categoryName, pageable);
+        return ResponseEntity.ok(find);
+    }
 }

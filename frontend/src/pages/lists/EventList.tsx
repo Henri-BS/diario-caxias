@@ -1,5 +1,3 @@
-'use client'
-
 import { EventCard } from "components/cards/EventCard";
 import { Pagination } from "components/shared/Pagination";
 import { EventMockList } from "mock/MockList";

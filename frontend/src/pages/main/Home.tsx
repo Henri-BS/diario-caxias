@@ -1,5 +1,3 @@
-'use client'
-
 import { CategoryCard } from "components/cards/CategoryCard";
 import { EventCard } from "components/cards/EventCard";
 import { CarouselPostCard } from "components/cards/PostCard";

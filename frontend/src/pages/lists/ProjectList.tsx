@@ -1,5 +1,3 @@
-'use client'
-
 import { ProjectCard } from "components/cards/ProjectCard";
 import { Pagination } from "components/shared/Pagination";
 import { ProjectPage, useProjectService } from "resources/project";

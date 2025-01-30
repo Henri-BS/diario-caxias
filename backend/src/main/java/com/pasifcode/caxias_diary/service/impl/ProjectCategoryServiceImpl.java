@@ -11,6 +11,7 @@ import com.pasifcode.caxias_diary.service.ProjectCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProjectCategoryServiceImpl implements ProjectCategoryService {
 
     @Autowired
-    private ProejectCategoryRepository proejectCategoryRepository;
+    private ProejectCategoryRepository projectCategoryRepository;
 
     @Autowired
     private CategoryRepository CategoryRepository;
@@ -27,23 +28,26 @@ public class ProjectCategoryServiceImpl implements ProjectCategoryService {
     @Autowired
     private ProjectRepository projectRepository;
 
-    @Override
-    @Transactional(readOnly = true)
-    public Page<ProjectCategoryDto> findByProject(Project project, Pageable pageable) {
-        Page<ProjectCategory> find = proejectCategoryRepository.findByProject(project, pageable);
-        return find.map(ProjectCategoryDto::new);
-    }
 
     @Override
-    public Page<ProjectCategoryDto> findByCategory(Category category, Pageable pageable) {
-        Page<ProjectCategory> find = proejectCategoryRepository.findByCategory(category, pageable);
-        return find.map(ProjectCategoryDto::new);
+    public Page<ProjectCategoryDto> search(String projectTitle, String categoryName, Pageable pageable) {
+        Specification<ProjectCategory> spec = Specification.where(null);
+
+        if (projectTitle != null) {
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("project").get("title"), projectTitle));
+        }
+
+        if (categoryName != null) {
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("category").get("name"), categoryName));
+        }
+
+        return projectCategoryRepository.findAll(spec, pageable).map(ProjectCategoryDto::new);
     }
 
     @Override
     @Transactional(readOnly = true)
     public ProjectCategoryDto findById(Long id) {
-        ProjectCategory find = proejectCategoryRepository.findById(id).orElseThrow();
+        ProjectCategory find = projectCategoryRepository.findById(id).orElseThrow();
         return new ProjectCategoryDto(find);
     }
 
@@ -55,6 +59,6 @@ public class ProjectCategoryServiceImpl implements ProjectCategoryService {
         ProjectCategory add = new ProjectCategory();
         add.setCategory(Category);
         add.setProject(event);
-        return new ProjectCategoryDto(proejectCategoryRepository.saveAndFlush(add));
+        return new ProjectCategoryDto(projectCategoryRepository.saveAndFlush(add));
     }
 }

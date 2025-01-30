@@ -17,8 +17,8 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping
-    ResponseEntity<Page<CategoryDto>> findAllCategories(@RequestParam(defaultValue = "") String name, Pageable pageable) {
-        Page<CategoryDto> list = categoryService.findAllCategories( pageable);
+    ResponseEntity<Page<CategoryDto>> search(@RequestParam(defaultValue = "") String query, Pageable pageable) {
+        Page<CategoryDto> list = categoryService.search(pageable);
         return ResponseEntity.ok(list);
     }
 
@@ -28,6 +28,11 @@ public class CategoryController {
         return ResponseEntity.ok(find);
     }
 
+    @GetMapping("/by-name/{name}")
+    ResponseEntity<CategoryDto> findCategoryByName(@PathVariable String name) {
+        CategoryDto find = categoryService.findCategoryByName(name);
+        return ResponseEntity.ok(find);
+    }
 
     @PostMapping("/save")
     ResponseEntity<CategoryDto> saveCategory(@RequestBody CategoryDto dto) {

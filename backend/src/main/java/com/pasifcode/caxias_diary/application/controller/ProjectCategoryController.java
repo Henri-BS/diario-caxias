@@ -18,15 +18,12 @@ public class ProjectCategoryController {
     @Autowired
     private ProjectCategoryService projectCategoryService;
 
-    @GetMapping("/by-project/{project}")
-    ResponseEntity<Page<ProjectCategoryDto>> findByEvent(@PathVariable Project project, Pageable pageable) {
-        Page<ProjectCategoryDto> find = projectCategoryService.findByProject(project, pageable);
-        return ResponseEntity.ok(find);
-    }
-
-    @GetMapping("/by-category/{category}")
-    ResponseEntity<Page<ProjectCategoryDto>> findByCategory(@PathVariable Category category, Pageable pageable) {
-        Page<ProjectCategoryDto> find = projectCategoryService.findByCategory(category, pageable);
+    @GetMapping
+    ResponseEntity<Page<ProjectCategoryDto>> search(
+            @RequestParam(required = false) String projectTitle,
+            @RequestParam(required = false) String categoryName,
+            Pageable pageable) {
+        Page<ProjectCategoryDto> find = projectCategoryService.search(projectTitle, categoryName, pageable);
         return ResponseEntity.ok(find);
     }
 

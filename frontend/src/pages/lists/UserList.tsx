@@ -1,5 +1,3 @@
-'use client'
-
 import { UserCard } from "components/cards/UserCard";
 import { Pagination } from "components/shared/Pagination";
 import { UserPage, useUserService } from "resources/user";

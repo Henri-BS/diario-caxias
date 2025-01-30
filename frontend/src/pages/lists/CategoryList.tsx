@@ -1,5 +1,3 @@
-'use client'
-
 import { CategoryCard } from "components/cards/CategoryCard";
 import { Pagination } from "components/shared/Pagination";
 import { CategoryMockList } from "mock/MockList";
@@ -21,11 +19,11 @@ export default function Categories() {
     const [categoryPage, setCategoryPage] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } })
 
     useEffect(() => {
-        categoryService.findCategories(pageNumber, query)
+        categoryService.findCategories(query, pageNumber)
             .then((response) => {
                 setCategoryPage(response);
             });
-    }, [pageNumber, query]);
+    }, [query, pageNumber]);
 
     return (
         <>

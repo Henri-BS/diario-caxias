@@ -20,28 +20,48 @@ export type CategoryProps = {
 };
 
 class CategoryService {
-  baseUrl: string = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080" + "/categories";
+  baseUrl: string = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
   auth = useAuth();
+  userSession = this.auth.getUserSession();
 
-  async findCategories( pageNumber?: number, query?: string): Promise<CategoryPage> {
-    const userSession = this.auth.getUserSession();
-    const url = `${this.baseUrl}?page=${pageNumber}&query=${query}&size=12`;
+  async findCategories(query?: string, pageNumber?: number, categoryName?: string): Promise<CategoryPage> {
+    const url = `${this.baseUrl}/categories?query=${query}&categoryName${categoryName}&page=${pageNumber}&size=12`;
     const response = axios(url, {
       headers: {
-        Authorization: `Bearer ${userSession?.accessToken}`,
+        Authorization: `Bearer ${this.userSession?.accessToken}`,
       },
     });
     const resp = await response;
     return resp.data;
   }
 
-
-  async findUserById(id?: number): Promise<Category> {
-    const userSession = this.auth.getUserSession();
-    const url = `${this.baseUrl}/${id}`;
+  async findCategoryByName(name?: string): Promise<Category> {
+    const url = `${this.baseUrl}/categories/by-name/${name}`;
     const response = axios(url, {
       headers: {
-        Authorization: `Bearer ${userSession?.accessToken}`,
+        Authorization: `Bearer ${this.userSession?.accessToken}`,
+      },
+    });
+    const resp = await response;
+    return resp.data;
+  }
+
+  async findUserByCategory(categoryName?: string, pageNumber?: number): Promise<CategoryPage> {
+    const url = `${this.baseUrl}/user-category?categoryName=${categoryName}&page=${pageNumber}&size=9`;
+    const response = axios(url, {
+      headers: {
+        Authorization: `Bearer ${this.userSession?.accessToken}`,
+      },
+    });
+    const resp = await response;
+    return resp.data;
+  }
+
+  async findProjectByCategory(categoryName?: string, pageNumber?: number): Promise<CategoryPage> {
+    const url = `${this.baseUrl}/project-category?categoryName=${categoryName}&page=${pageNumber}&size=9`;
+    const response = axios(url, {
+      headers: {
+        Authorization: `Bearer ${this.userSession?.accessToken}`,
       },
     });
     const resp = await response;
@@ -50,43 +70,3 @@ class CategoryService {
 }
 
 export const useCategoryService = () => new CategoryService();
-
-class UserCategoryService {
-  baseUrl: string = process.env.NEXT_PUBLIC_API_URL + "/user-category";
-  auth = useAuth();
-
-
-  async findCategoriesByUser(userId?: number, pageNumber?: number): Promise<CategoryPage> {
-    const userSession = this.auth.getUserSession();
-    const url = `${this.baseUrl}/by-user/${userId}?page=${pageNumber}&size=8`;
-    const response = axios(url, {
-      headers: {
-        Authorization: `Bearer ${userSession?.accessToken}`,
-      },
-    });
-    const resp = await response;
-    return resp.data;
-  }
-}
-
-export const useUserCategoryService = () => new UserCategoryService();
-
-class ProjectCategoryService {
-  baseUrl: string = process.env.NEXT_PUBLIC_API_URL + "/project-category";
-  auth = useAuth();
-
-
-  async findCategoriesByUser(projectId?: number, pageNumber?: number): Promise<CategoryPage> {
-    const userSession = this.auth.getUserSession();
-    const url = `${this.baseUrl}/by-project/${projectId}?page=${pageNumber}&size=9`;
-    const response = axios(url, {
-      headers: {
-        Authorization: `Bearer ${userSession?.accessToken}`,
-      },
-    });
-    const resp = await response;
-    return resp.data;
-  }
-}
-
-export const useProjectCategoryService = () => new ProjectCategoryService();

@@ -8,9 +8,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface ProjectCategoryService {
 
-    Page<ProjectCategoryDto> findByProject(Project project, Pageable pageable);
 
-    Page<ProjectCategoryDto> findByCategory(Category category, Pageable pageable);
+    Page<ProjectCategoryDto> search(String projectTitle, String categoryName, Pageable pageable);
 
     ProjectCategoryDto findById(Long id);
 
