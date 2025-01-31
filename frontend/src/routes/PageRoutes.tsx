@@ -2,6 +2,7 @@ import { Header, Footer, Loading } from "components/shared/Template";
 import { EventAddForm } from "pages/forms/EventForm";
 import Login from "pages/forms/LoginForm";
 import { PostAddForm } from "pages/forms/PostForm";
+import { ProjectAddForm } from "pages/forms/ProjectForm";
 import Categories from "pages/lists/CategoryList";
 import Events from "pages/lists/EventList";
 import Posts from "pages/lists/PostList";
@@ -30,6 +31,7 @@ export default function PageRoutes() {
                         <Route path="/perfil/:userId" element={<UserPersonalProfile />} />
                         <Route path="/projetos" element={<Projects />} />
                         <Route path="/projetos/:projectId" element={<ProjectProfile />} />
+                        <Route path="/projetos/adicionar" element={<ProjectAddForm />} />
                         <Route path="/eventos" element={<Events />} />
                         <Route path="/eventos/:eventTitle" element={<EventProfile />} />
                         <Route path="/eventos/adicionar" element={<EventAddForm />} />
