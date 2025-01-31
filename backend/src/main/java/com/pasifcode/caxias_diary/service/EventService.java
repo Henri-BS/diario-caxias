@@ -5,7 +5,6 @@ import com.pasifcode.caxias_diary.domain.entity.Project;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-
 public interface EventService {
 
     Page<EventDto> findAll(Pageable pageable);
@@ -13,6 +12,8 @@ public interface EventService {
     Page<EventDto> findByProject(Project project, Pageable pageable);
 
     EventDto findEventById(Long id);
+
+    EventDto findEventByTitle(String title);
 
     EventDto saveEvent(EventDto dto);
 

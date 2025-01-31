@@ -1,8 +1,6 @@
 package com.pasifcode.caxias_diary.application.controller;
 
 import com.pasifcode.caxias_diary.domain.dto.ProjectPostDto;
-import com.pasifcode.caxias_diary.domain.entity.Post;
-import com.pasifcode.caxias_diary.domain.entity.Project;
 import com.pasifcode.caxias_diary.service.ProjectPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,15 +15,12 @@ public class ProjectPostController {
     @Autowired
     private ProjectPostService projectPostService;
 
-    @GetMapping("/by-post/{post}")
-    ResponseEntity<Page<ProjectPostDto>> findByPost( @PathVariable Post post, Pageable pageable) {
-        Page<ProjectPostDto> find = projectPostService.findByPost(post, pageable);
-        return ResponseEntity.ok(find);
-    }
-
-    @GetMapping("/by-project/{project}")
-    ResponseEntity<Page<ProjectPostDto>> findByProject( @PathVariable Project project, Pageable pageable) {
-        Page<ProjectPostDto> find = projectPostService.findByProject(project, pageable);
+    @GetMapping
+    ResponseEntity<Page<ProjectPostDto>> search(
+            @RequestParam(required = false) Long projectId,
+            @RequestParam(required = false) Long postId,
+            Pageable pageable) {
+        Page<ProjectPostDto> find = projectPostService.search(projectId, postId, pageable);
         return ResponseEntity.ok(find);
     }
 }

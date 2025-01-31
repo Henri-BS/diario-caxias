@@ -24,15 +24,16 @@ export type PostProps = {
 };
 
 class PostService {
-  baseUrl: string =  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080" + "/posts";
+  baseUrl: string =  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
   auth = useAuth();
+  userSession = this.auth.getUserSession();
+
 
   async findPosts( pageNumber?: number, query?: string): Promise<PostPage> {
-    const userSession = this.auth.getUserSession();
-    const url = `${this.baseUrl}?page=${pageNumber}&query=${query}&size=12`;
+    const url = `${this.baseUrl}/posts?page=${pageNumber}&query=${query}&size=12`;
     const response = axios(url, {
       headers: {
-        Authorization: `Bearer ${userSession?.accessToken}`,
+        Authorization: `Bearer ${this.userSession?.accessToken}`,
       },
     });
     const resp = await response;
@@ -41,10 +42,10 @@ class PostService {
 
   async findPostById(id?: number): Promise<Post> {
     const userSession = this.auth.getUserSession();
-    const url = `${this.baseUrl}/${id}`;
+    const url = `${this.baseUrl}/posts/${id}`;
     const response = axios(url, {
       headers: {
-        Authorization: `Bearer ${userSession?.accessToken}`,
+        Authorization: `Bearer ${this.userSession?.accessToken}`,
       },
     });
     const resp = await response;
@@ -52,7 +53,7 @@ class PostService {
   }
 
   async savePost(post: Post): Promise<void> {
-    const response = await axios(this.baseUrl + "/save", {
+    const response = await axios(this.baseUrl + "/posts/save", {
       method: "POST",
       data: JSON.stringify(post),
       headers: {
@@ -63,6 +64,17 @@ class PostService {
       const responseError = await response.data;
       throw new Error(responseError.error);
     }
+  }
+
+  async findProjectsByPost( postId?: number, pageNumber?: number ): Promise<PostPage> {
+    const url = `${this.baseUrl}/project-post?postId=${postId}&page=${pageNumber}&size=8`;
+    const response = axios(url, {
+      headers: {
+        Authorization: `Bearer ${this.userSession?.accessToken}`,
+      },
+    });
+    const resp = await response;
+    return resp.data;
   }
 }
 export const usePostService = () => new PostService();

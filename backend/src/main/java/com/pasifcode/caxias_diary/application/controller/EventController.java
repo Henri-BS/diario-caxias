@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping("/events")
 public class EventController {
@@ -38,6 +37,12 @@ public class EventController {
     @GetMapping("/{id}")
     ResponseEntity<EventDto> findEventById(@PathVariable Long id) {
         EventDto find = eventService.findEventById(id);
+        return ResponseEntity.ok(find);
+    }
+
+    @GetMapping("/by-title/{title}")
+    ResponseEntity<EventDto> findEventByTitle(@PathVariable String title) {
+        EventDto find = eventService.findEventByTitle(title);
         return ResponseEntity.ok(find);
     }
 

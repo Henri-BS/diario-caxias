@@ -33,7 +33,7 @@ export const Header = () => {
             icon: <FaIcons.FaHouse />
         },
         {
-            title: "Notícias",
+            title: "Postagens",
             path: "/postagens",
             icon: <FaIcons.FaNewspaper />
         },
@@ -126,7 +126,7 @@ export const Header = () => {
                                 <Dropdown.Item className="gap-2">Evento <FaIcons.FaCalendarCheck /></Dropdown.Item>
                             </Link>
                             <Link to={"/postagens/adicionar"}>
-                                <Dropdown.Item className="gap-2">Notícia <FaIcons.FaNewspaper /></Dropdown.Item>
+                                <Dropdown.Item className="gap-2">Postagem <FaIcons.FaNewspaper /></Dropdown.Item>
                             </Link>
                         </Dropdown>
                         {!userSession ?
@@ -246,7 +246,7 @@ export const Footer = () => {
                                 <h3 className="text-lg">Projetos</h3>
                                 <li>Os projetos possuem o objetivo de agregar todo o conteúdo relacionado a uma determinada temática. Um projeto pode possuir vários eventos, categorias ou nóticias que estejam relacionados a temática.</li>
                                 <li>Lista de Projetos: a lista completa de projetos pode ser acessada através da opção "Projetos" no menu lateral da barra de navegação, na página da lista é possível buscar projetos pelo título através do mecanismo de busca.</li>
-                                <li>Perfil do Projeto: ao clicar em um card na lista de projetos, é possível acessar o perfil do projeto que possui informações como: descrição do projeto, eventos, categorias e notícias relacionadas.</li>
+                                <li>Perfil do Projeto: ao clicar em um card na lista de projetos, é possível acessar o perfil do projeto que possui informações como: descrição do projeto, eventos, categorias e postagens relacionadas.</li>
                                 <li>Criação de Projeto: usuários cadastrados podem criar projetos, basta clicar no botão de criação no canto superior direito da tela e selecionar a opção "Projetos" depois é necessário inserir os dados solicitados e salvar.</li>
                             </ul>
                             <ul>
@@ -262,11 +262,11 @@ export const Footer = () => {
                                 <li>Perfil da Categoria: ao clicar em um card na lista de categorias, é possível acessar o perfil da categoria que possui informações como: descrição da categoria, projetos e usuários relacionados.</li>
                             </ul>
                             <ul>
-                                <h3 className="text-lg">Notícias</h3>
-                                <li>As notícias têm o propósito de manter os usuários informados sobre as últimas ocorrências relacionadas a temática de um projeto, uma nóticia pode flar sobre mais de um projeto específico e também pode abordar a temática do projeto de outras formas se for mais conveniente.</li>
-                                <li>Lista de Notícias: a lista completa de notícias pode ser acessada através da opção "Notícias" no menu lateral da barra de navegação, na página da lista é possível buscar notícias pelo título através do mecanismo de busca.</li>
-                                <li>Perfil da Notícia: ao clicar em um card na lista de notícias, é possível acessar o perfil da notícia que possui informações como: descrição da notícia, resumo e projetos relacionados.</li>
-                                <li>Criação de Notícia: usuários cadastrados podem criar notícias, basta clicar no botão de criação no canto superior direito da tela e selecionar a opção "Notícias" depois é necessário inserir os dados solicitados e salvar.</li>
+                                <h3 className="text-lg">Postagens</h3>
+                                <li>As postagens têm o propósito de manter os usuários informados sobre as últimas ocorrências relacionadas a temática de um projeto, uma nóticia pode flar sobre mais de um projeto específico e também pode abordar a temática do projeto de outras formas se for mais conveniente.</li>
+                                <li>Lista de Postagens: a lista completa de postagens pode ser acessada através da opção "Postagens" no menu lateral da barra de navegação, na página da lista é possível buscar postagens pelo título através do mecanismo de busca.</li>
+                                <li>Perfil da Postagem: ao clicar em um card na lista de postagens, é possível acessar o perfil da postagem que possui informações como: descrição da postagem, resumo e projetos relacionados.</li>
+                                <li>Criação de Postagem: usuários cadastrados podem criar postagens, basta clicar no botão de criação no canto superior direito da tela e selecionar a opção "Postagens" depois é necessário inserir os dados solicitados e salvar.</li>
                             </ul>
                         </p>
                     </div>

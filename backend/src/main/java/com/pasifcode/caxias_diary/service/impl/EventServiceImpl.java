@@ -14,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 @Service
 @Transactional
 public class EventServiceImpl implements EventService {
@@ -46,6 +45,13 @@ public class EventServiceImpl implements EventService {
     @Transactional(readOnly = true)
     public EventDto findEventById(Long id) {
         Event find = eventRepository.findById(id).orElseThrow();
+        return new EventDto(find);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public EventDto findEventByTitle(String title) {
+        Event find = eventRepository.findByTitle(title);
         return new EventDto(find);
     }
 

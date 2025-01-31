@@ -1,5 +1,3 @@
-'use client'
-
 import { EventProps } from "resources/event";
 import * as GoIcons from "react-icons/go";
 import moment from "moment";

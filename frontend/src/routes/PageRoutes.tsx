@@ -7,6 +7,8 @@ import Projects from "pages/lists/ProjectList";
 import Users from "pages/lists/UserList";
 import Home from "pages/main/Home";
 import { CategoryProfile } from "pages/profiles/CategoryProfile";
+import { EventProfile } from "pages/profiles/EventProfile";
+import { PostProfile } from "pages/profiles/PostProfile";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
@@ -34,9 +36,11 @@ export default function PageRoutes({ loading = false }: TemplateProps) {
                             <Route path="/perfil/:userId" element={<Login />} />
                             <Route path="/projetos" element={<Projects />} />
                             <Route path="/eventos" element={<Events />} />
+                            <Route path="/eventos/:eventTitle" element={<EventProfile />} />
                             <Route path="/categorias" element={<Categories />} />
                             <Route path="/categorias/:categoryName" element={<CategoryProfile />} />
                             <Route path="/postagens" element={<Posts />} />
+                            <Route path="/postagens/:postId" element={<PostProfile />} />
                         </Routes>
                     }
                 </div>

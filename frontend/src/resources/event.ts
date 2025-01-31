@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useAuth } from "./auth";
+import { UserPage } from "./user";
 
 export type Event = {
   id?: number;
@@ -14,7 +15,6 @@ export type Event = {
   username?: number;
 };
 
-
 export type EventPage = {
   content: Event[];
   page: {
@@ -27,49 +27,63 @@ export type EventProps = {
   event: Event;
 };
 
-
 class EventService {
-    baseUrl: string = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080" + "/events";
-    auth = useAuth();
+  baseUrl: string = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
+  auth = useAuth();
 
-    async findEvents( pageNumber?: number, query?: string): Promise<EventPage> {
-      const userSession = this.auth.getUserSession();
-      const url = `${this.baseUrl}?page=${pageNumber}&query=${query}&size=12`;
-      const response = axios(url, {
-        headers: {
-          Authorization: `Bearer ${userSession?.accessToken}`,
-        },
-      });
-      const resp = await response;
-      return resp.data;
-    }
-  
-    async findEventsByProject( projectId?: number, pageNumber?: number ): Promise<EventPage> {
-      const userSession = this.auth.getUserSession();
-      const url = `${this.baseUrl}/by-project/${projectId}?page=${pageNumber}&size=8`;
-      const response = axios(url, {
-        headers: {
-          Authorization: `Bearer ${userSession?.accessToken}`,
-        },
-      });
-      const resp = await response;
-      return resp.data;
-    }
+  async findEvents(pageNumber?: number, query?: string): Promise<EventPage> {
+    const userSession = this.auth.getUserSession();
+    const url = `${this.baseUrl}/events?page=${pageNumber}&query=${query}&size=12`;
+    const response = axios(url, {
+      headers: {
+        Authorization: `Bearer ${userSession?.accessToken}`,
+      },
+    });
+    const resp = await response;
+    return resp.data;
+  }
 
-    async findEventById(id?: number): Promise<Event> {
-      const userSession = this.auth.getUserSession();
-      const url = `${this.baseUrl}/${id}`;
-      const response = axios(url, {
-        headers: {
-          Authorization: `Bearer ${userSession?.accessToken}`,
-        },
-      });
-      const resp = await response;
-      return resp.data;
-    }
+  async findEventsByProject(
+    projectId?: number,
+    pageNumber?: number
+  ): Promise<EventPage> {
+    const userSession = this.auth.getUserSession();
+    const url = `${this.baseUrl}/events/by-project/${projectId}?page=${pageNumber}&size=8`;
+    const response = axios(url, {
+      headers: {
+        Authorization: `Bearer ${userSession?.accessToken}`,
+      },
+    });
+    const resp = await response;
+    return resp.data;
+  }
+
+  async findEventById(id?: number): Promise<Event> {
+    const userSession = this.auth.getUserSession();
+    const url = `${this.baseUrl}/events/${id}`;
+    const response = axios(url, {
+      headers: {
+        Authorization: `Bearer ${userSession?.accessToken}`,
+      },
+    });
+    const resp = await response;
+    return resp.data;
+  }
+
+  async findEventByTitle(title?: string): Promise<Event> {
+    const userSession = this.auth.getUserSession();
+    const url = `${this.baseUrl}/events/by-title/${title}`;
+    const response = axios(url, {
+      headers: {
+        Authorization: `Bearer ${userSession?.accessToken}`,
+      },
+    });
+    const resp = await response;
+    return resp.data;
+  }
 
   async saveEvent(event: Event): Promise<void> {
-    const response = await axios(this.baseUrl + "/save", {
+    const response = await axios(this.baseUrl + "/events/save", {
       method: "POST",
       data: JSON.stringify(event),
       headers: {
@@ -80,6 +94,19 @@ class EventService {
       const responseError = await response.data;
       throw new Error(responseError.error);
     }
+  }
+
+  
+  async findUsersByEvent(eventId?: number, pageNumber?: number): Promise<UserPage> {
+    const userSession = this.auth.getUserSession();
+    const url = `${this.baseUrl}/event-user?eventId=${eventId}&page=${pageNumber}&size=9`;
+    const response = axios(url, {
+      headers: {
+        Authorization: `Bearer ${userSession?.accessToken}`,
+      },
+    });
+    const resp = await response;
+    return resp.data;
   }
 }
 export const useEventService = () => new EventService();

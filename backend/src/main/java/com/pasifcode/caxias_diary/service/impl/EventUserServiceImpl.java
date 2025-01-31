@@ -1,7 +1,7 @@
 package com.pasifcode.caxias_diary.service.impl;
 
-import com.pasifcode.caxias_diary.domain.entity.*;
 import com.pasifcode.caxias_diary.domain.dto.EventUserDto;
+import com.pasifcode.caxias_diary.domain.entity.*;
 import com.pasifcode.caxias_diary.domain.repository.EventRepository;
 import com.pasifcode.caxias_diary.domain.repository.EventUserRepository;
 import com.pasifcode.caxias_diary.domain.repository.UserRepository;
@@ -9,6 +9,7 @@ import com.pasifcode.caxias_diary.service.EventUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,11 +27,20 @@ public class EventUserServiceImpl implements EventUserService {
     private EventRepository eventRepository;
 
     @Override
-    @Transactional(readOnly = true)
-    public Page<EventUserDto> findByEvent(Event event, Pageable pageable) {
-        Page<EventUser> find = eventUserRepository.findByEvent(event, pageable);
-        return find.map(EventUserDto::new);
+    public Page<EventUserDto> search(Long userId, Long eventId, Pageable pageable) {
+        Specification<EventUser> spec = Specification.where(null);
+
+        if (userId != null) {
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("user").get("id"), userId));
+        }
+
+        if (eventId != null) {
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("event").get("id"), eventId));
+        }
+
+        return eventUserRepository.findAll(spec, pageable).map(EventUserDto::new);
     }
+
 
     @Override
     @Transactional(readOnly = true)

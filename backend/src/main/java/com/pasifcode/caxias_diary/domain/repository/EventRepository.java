@@ -14,6 +14,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     Page<Event> findByProject(Project project, Pageable pageable);
 
-    List<Event> findByProject(Project project);
+    Event findByTitle(String title);
 
 }

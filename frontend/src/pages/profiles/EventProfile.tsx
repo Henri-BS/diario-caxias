@@ -17,21 +17,21 @@ export function EventProfile() {
     const params = useParams();
     return (
         <>
-            <EventDetails params={`${params.eventTitle}`} />
+            <EventDetails params={`${params.eventId}`} />
         </>
     );
 }
 
-export function EventDetails({ params: eventTitle }: Props) {
+export function EventDetails({ params: eventId }: Props) {
     const eventService = useEventService();
     const [event, setEvent] = useState<Event>();
 
     useEffect(() => {
-        eventService.findEventById(eventTitle)
+        eventService.findEventById(eventId)
             .then((response) => {
                 setEvent(response);
             });
-    }, [eventTitle]);
+    }, [eventId]);
 
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
@@ -40,15 +40,15 @@ export function EventDetails({ params: eventTitle }: Props) {
 
     const [userPage, setUserPage] = useState<UserPage>({ content: [], page: { number: 0, totalElements: 0 } });
     useEffect(() => {
-        eventService.findUsersByEvent(eventTitle, pageNumber)
+        eventService.findUsersByEvent(eventId, pageNumber)
             .then((response) => {
                 setUserPage(response);
             });
-    }, [eventTitle, pageNumber]);
+    }, [eventId, pageNumber]);
 
     return (
         <>
-            {!event ? <EventMockProfile params={eventTitle} /> :
+            {!event ? <EventMockProfile params={eventId} /> :
                 <div className="mt-10">
                     <div className="relative flex flex-col sm:flex-row xl:flex-col items-start">
                         <div className="order-1 sm:ml-6 xl:ml-0">

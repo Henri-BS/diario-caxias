@@ -76,7 +76,7 @@ export default function Home() {
             <>
                 <div className="flex flex-col justify-center items-center">
                     <div className="flex justify-between w-full" >
-                        <h1 className="text-2xl">Últimas Notícias</h1>
+                        <h1 className="text-2xl">Últimas Postagens</h1>
                         <Link to={"/postagens"} className="text-xl text-blue-600 hover:text-blue-400 hover:underline">
                             Ver mais
                         </Link>

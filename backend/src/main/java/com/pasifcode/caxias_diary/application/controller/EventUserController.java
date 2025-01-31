@@ -1,6 +1,5 @@
 package com.pasifcode.caxias_diary.application.controller;
 
-import com.pasifcode.caxias_diary.domain.entity.Event;
 import com.pasifcode.caxias_diary.domain.dto.EventUserDto;
 import com.pasifcode.caxias_diary.service.EventUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +16,12 @@ public class EventUserController {
     @Autowired
     private EventUserService eventUserService;
 
-    @GetMapping("/by-event/{event}")
-    ResponseEntity<Page<EventUserDto>> findByEvent(@PathVariable Event event, Pageable pageable) {
-        Page<EventUserDto> find = eventUserService.findByEvent(event, pageable);
+    @GetMapping
+    ResponseEntity<Page<EventUserDto>> search(
+            @RequestParam(required = false) Long userId,
+            @RequestParam(required = false) Long eventId,
+            Pageable pageable) {
+        Page<EventUserDto> find = eventUserService.search(userId, eventId, pageable);
         return ResponseEntity.ok(find);
     }
 
