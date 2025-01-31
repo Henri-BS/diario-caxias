@@ -17,11 +17,11 @@ export default function Projects() {
     const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        projectService.findProjects(pageNumber, query)
+        projectService.findProjects(query, pageNumber)
             .then((response) => {
                 setProjectPage(response);
             });
-    }, [pageNumber, query]);
+    }, [query, pageNumber]);
 
     return (
         <>

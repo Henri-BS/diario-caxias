@@ -28,7 +28,7 @@ class ProjectService {
   auth = useAuth();
   userSession = this.auth.getUserSession();
 
-  async findProjects( pageNumber?: number, query?: string ): Promise<ProjectPage> {
+  async findProjects(  query?: string, pageNumber?: number ): Promise<ProjectPage> {
     const url = `${this.baseUrl}/projects?page=${pageNumber}&query=${query}&size=8`;
     const response = axios(url, {
       headers: {
