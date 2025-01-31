@@ -1,8 +1,6 @@
 package com.pasifcode.caxias_diary.application.controller;
 
-import com.pasifcode.caxias_diary.domain.entity.Category;
 import com.pasifcode.caxias_diary.domain.dto.ProjectCategoryDto;
-import com.pasifcode.caxias_diary.domain.entity.Project;
 import com.pasifcode.caxias_diary.service.ProjectCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,10 +18,10 @@ public class ProjectCategoryController {
 
     @GetMapping
     ResponseEntity<Page<ProjectCategoryDto>> search(
-            @RequestParam(required = false) String projectTitle,
+            @RequestParam(required = false) Long projectId,
             @RequestParam(required = false) String categoryName,
             Pageable pageable) {
-        Page<ProjectCategoryDto> find = projectCategoryService.search(projectTitle, categoryName, pageable);
+        Page<ProjectCategoryDto> find = projectCategoryService.search(projectId, categoryName, pageable);
         return ResponseEntity.ok(find);
     }
 

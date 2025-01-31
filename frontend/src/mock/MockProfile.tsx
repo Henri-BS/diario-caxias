@@ -1,6 +1,6 @@
 import * as FaIcons from "react-icons/fa6";
 import * as GoIcons from "react-icons/go";
-import { categoryMock, eventMock, postMock } from "./MockData";
+import { categoryMock, eventMock, postMock, projectMock } from "./MockData";
 import moment from "moment";
 
 export function CategoryMockProfile({ params }: any) {
@@ -113,6 +113,44 @@ export function PostMockProfile({ params }: any) {
                                 </div>
                             </div>
                             <p className="mt-5 text-xl text-gray-800 text-justify">{post?.postDescription} </p>
+                        </div>
+                    </div>
+                )
+            })}
+        </>
+    )
+}
+
+export function ProjectMockProfile({ params }: any) {
+    const projectId = params.projectId;
+
+    const filterById = (id: any) => {
+        return projectMock.filter(item => item.id.toString() === id);
+    };
+
+    const result = filterById(projectId);
+
+
+    return (
+        <>
+            {result.map(project => {
+                return (
+                    <div key={project.id}>
+                        <div >
+                            <div className="relative flex flex-col sm:flex-row xl:flex-col items-start">
+                                <div className="order-1 sm:ml-6 xl:ml-0">
+                                    <h3 className="mb-1 text-slate-900 font-semibold">
+                                        <span className="mb-1 block text-3xl leading-6 text-indigo-500">{project?.projectTitle}</span>
+                                    </h3>
+                                    <div className="prose prose-slate prose-sm text-slate-600 mt-5">
+                                        <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaTag /> Categorias relacionados: <b>{0}</b></p>
+                                        <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaCalendarCheck /> Eventos relacionados: <b>{0}</b></p>
+                                        <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaNewspaper /> Postagens relacionados: <b>{0}</b></p>
+                                    </div>
+                                </div>
+                                <img src={project?.projectImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[22rem] sm:mb-0 " />
+                            </div>
+                            <p className="mt-5 text-xl text-justify">{project?.projectDescription} </p>
                         </div>
                     </div>
                 )

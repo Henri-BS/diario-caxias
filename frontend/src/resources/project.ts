@@ -24,15 +24,15 @@ export type ProjectProps = {
 };
 
 class ProjectService {
-  baseUrl: string = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080" + "/projects";
+  baseUrl: string = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
   auth = useAuth();
+  userSession = this.auth.getUserSession();
 
   async findProjects( pageNumber?: number, query?: string ): Promise<ProjectPage> {
-    const userSession = this.auth.getUserSession();
-    const url = `${this.baseUrl}?page=${pageNumber}&query=${query}&size=8`;
+    const url = `${this.baseUrl}/projects?page=${pageNumber}&query=${query}&size=8`;
     const response = axios(url, {
       headers: {
-        Authorization: `Bearer ${userSession?.accessToken}`,
+        Authorization: `Bearer ${this.userSession?.accessToken}`,
       },
     });
     const resp = await response;
@@ -40,11 +40,10 @@ class ProjectService {
   }
 
   async findProjectsByUser( userId?: number, pageNumber?: number ): Promise<ProjectPage> {
-    const userSession = this.auth.getUserSession();
-    const url = `${this.baseUrl}/by-user/${userId}?page=${pageNumber}&size=10`;
+    const url = `${this.baseUrl}/projects/by-user/${userId}?page=${pageNumber}&size=10`;
     const response = axios(url, {
       headers: {
-        Authorization: `Bearer ${userSession?.accessToken}`,
+        Authorization: `Bearer ${this.userSession?.accessToken}`,
       },
     });
     const resp = await response;
@@ -52,11 +51,32 @@ class ProjectService {
   }
 
   async findProjectById(id?: number): Promise<Project> {
-    const userSession = this.auth.getUserSession();
-    const url = `${this.baseUrl}/${id}`;
+    const url = `${this.baseUrl}/projects/${id}`;
     const response = axios(url, {
       headers: {
-        Authorization: `Bearer ${userSession?.accessToken}`,
+        Authorization: `Bearer ${this.userSession?.accessToken}`,
+      },
+    });
+    const resp = await response;
+    return resp.data;
+  }
+
+  async findCategoriesByProject( projectId?: number, pageNumber?: number ): Promise<ProjectPage> {
+    const url = `${this.baseUrl}/project-category?projectId=${projectId}&page=${pageNumber}&size=9`;
+    const response = axios(url, {
+      headers: {
+        Authorization: `Bearer ${this.userSession?.accessToken}`,
+      },
+    });
+    const resp = await response;
+    return resp.data;
+  }
+
+  async findPostsByProject( projectId?: number, pageNumber?: number ): Promise<ProjectPage> {
+    const url = `${this.baseUrl}/project-post?projectId=${projectId}&page=${pageNumber}&size=9`;
+    const response = axios(url, {
+      headers: {
+        Authorization: `Bearer ${this.userSession?.accessToken}`,
       },
     });
     const resp = await response;
@@ -64,7 +84,7 @@ class ProjectService {
   }
 
   async saveProject(project: Project): Promise<void> {
-    const response = await axios(this.baseUrl + "/save", {
+    const response = await axios(this.baseUrl + "/projects/save", {
       method: "POST",
       data: JSON.stringify(project),
       headers: {

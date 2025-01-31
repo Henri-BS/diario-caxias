@@ -30,11 +30,11 @@ public class ProjectCategoryServiceImpl implements ProjectCategoryService {
 
 
     @Override
-    public Page<ProjectCategoryDto> search(String projectTitle, String categoryName, Pageable pageable) {
+    public Page<ProjectCategoryDto> search(Long projectId, String categoryName, Pageable pageable) {
         Specification<ProjectCategory> spec = Specification.where(null);
 
-        if (projectTitle != null) {
-            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("project").get("title"), projectTitle));
+        if (projectId != null) {
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("project").get("id"), projectId));
         }
 
         if (categoryName != null) {
