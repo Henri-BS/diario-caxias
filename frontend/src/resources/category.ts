@@ -57,6 +57,17 @@ class CategoryService {
     return resp.data;
   }
 
+  async findCategoriesByUser(userId?: number, pageNumber?: number): Promise<CategoryPage> {
+    const url = `${this.baseUrl}/user-category?userId=${userId}&page=${pageNumber}&size=9`;
+    const response = axios(url, {
+      headers: {
+        Authorization: `Bearer ${this.userSession?.accessToken}`,
+      },
+    });
+    const resp = await response;
+    return resp.data;
+  }
+
   async findProjectByCategory(categoryName?: string, pageNumber?: number): Promise<CategoryPage> {
     const url = `${this.baseUrl}/project-category?categoryName=${categoryName}&page=${pageNumber}&size=9`;
     const response = axios(url, {

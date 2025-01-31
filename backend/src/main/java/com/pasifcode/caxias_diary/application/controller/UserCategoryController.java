@@ -17,10 +17,10 @@ public class UserCategoryController {
 
     @GetMapping
     ResponseEntity<Page<UserCategoryDto>> search(
-            @RequestParam(required = false) String username,
+            @RequestParam(required = false) Long userId,
             @RequestParam(required = false) String categoryName,
             Pageable pageable) {
-        Page<UserCategoryDto> find = userCategoryService.search(username, categoryName, pageable);
+        Page<UserCategoryDto> find = userCategoryService.search(userId, categoryName, pageable);
         return ResponseEntity.ok(find);
     }
 }

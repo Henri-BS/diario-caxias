@@ -19,11 +19,11 @@ public class UserCategoryServiceImpl implements UserCategoryService {
     private UserCategoryRepository userCategoryRepository;
 
     @Override
-    public Page<UserCategoryDto> search(String username, String categoryName, Pageable pageable) {
+    public Page<UserCategoryDto> search(Long userId, String categoryName, Pageable pageable) {
         Specification<UserCategory> spec = Specification.where(null);
 
-        if (username != null) {
-            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("user").get("username"), username));
+        if (userId != null) {
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("user").get("id"), userId));
         }
 
         if (categoryName != null) {
