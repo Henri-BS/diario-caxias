@@ -44,7 +44,7 @@ export const eventValidationSchema = Yup.object().shape({
     status: Yup.string().trim().required("O campo de status é obrigatório!"),
 });
 
-export default function EventAddForm() {
+export function EventAddForm() {
     const notification = useNotification();
     const eventService = useEventService();
     const projectService = useProjectService();
