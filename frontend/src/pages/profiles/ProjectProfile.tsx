@@ -7,7 +7,6 @@ import { CategoryPage } from "resources/category";
 import { EventPage, useEventService } from "resources/event";
 import { PostPage } from "resources/post";
 import { Project, useProjectService } from "resources/project";
-import axios from "axios";
 import { Accordion } from "flowbite-react";
 
 import { useEffect, useState } from "react";

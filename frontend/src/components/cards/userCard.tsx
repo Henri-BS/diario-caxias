@@ -1,6 +1,5 @@
 import { UserProps } from "resources/user";
 
-
 export const UserCard = ({ user}: UserProps) => {
     return (
         <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-xl transition duration-700 hover:scale-105">

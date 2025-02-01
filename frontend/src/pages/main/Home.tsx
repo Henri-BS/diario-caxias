@@ -11,8 +11,6 @@ import { useState, useEffect } from "react";
 import { CategoryMockHomeList, EventMockHomeList, PostMockCarousel, ProjectHomeMockList } from "mock/MockList";
 import { Link } from "react-router-dom";
 
-
-
 export default function Home() {
     return (
         <>

@@ -1,5 +1,3 @@
-'use client'
-
 import { useEffect, useState } from "react"
 import * as FaIcons from "react-icons/fa6";
 import { Button, Dropdown, Modal, Tooltip } from "flowbite-react";
