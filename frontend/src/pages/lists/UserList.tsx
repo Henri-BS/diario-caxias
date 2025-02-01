@@ -23,7 +23,7 @@ export default function Users() {
     }, [pageNumber, query]);
 
     return (
-        <>
+        <div className="mt-10">
             <div className="flex items-center justify-between my-5">
                 <div className="flex space-x-4 px-4">
                     <TextInput icon={GoSearch}
@@ -52,6 +52,6 @@ export default function Users() {
                         </div>
                     ))}
             </div>
-        </>
+        </div>
     );
 }

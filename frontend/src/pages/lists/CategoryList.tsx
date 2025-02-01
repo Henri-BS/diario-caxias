@@ -28,7 +28,7 @@ export default function Categories() {
     return (
         <>
             {!categoryPage.content.length ? <CategoryMockList /> :
-                <div>
+                <div className="mt-10">
                     <div className="flex items-center justify-between my-5">
                         <div className="flex space-x-4 px-4">
                             <TextInput icon={GoSearch}

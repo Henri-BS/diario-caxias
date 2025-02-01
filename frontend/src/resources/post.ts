@@ -41,7 +41,6 @@ class PostService {
   }
 
   async findPostById(id?: number): Promise<Post> {
-    const userSession = this.auth.getUserSession();
     const url = `${this.baseUrl}/posts/${id}`;
     const response = axios(url, {
       headers: {
@@ -53,17 +52,13 @@ class PostService {
   }
 
   async savePost(post: Post): Promise<void> {
-    const response = await axios(this.baseUrl + "/posts/save", {
+      await axios(this.baseUrl + "/posts/save", {
       method: "POST",
       data: JSON.stringify(post),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    if (response.status == 409) {
-      const responseError = await response.data;
-      throw new Error(responseError.error);
-    }
   }
 
   async findProjectsByPost( postId?: number, pageNumber?: number ): Promise<PostPage> {

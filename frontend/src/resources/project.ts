@@ -84,17 +84,13 @@ class ProjectService {
   }
 
   async saveProject(project: Project): Promise<void> {
-    const response = await axios(this.baseUrl + "/projects/save", {
+     await axios(this.baseUrl + "/projects/save", {
       method: "POST",
       data: JSON.stringify(project),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    if (response.status == 409) {
-      const responseError = await response.data();
-      throw new Error(responseError.error);
-    }
   }
 }
 

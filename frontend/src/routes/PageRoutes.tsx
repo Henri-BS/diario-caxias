@@ -1,4 +1,4 @@
-import { Header, Footer, Loading } from "components/shared/Template";
+import { Header, Footer } from "components/shared/Template";
 import { EventAddForm } from "pages/forms/EventForm";
 import Login from "pages/forms/LoginForm";
 import { PostAddForm } from "pages/forms/PostForm";

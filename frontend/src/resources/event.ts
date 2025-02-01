@@ -30,13 +30,13 @@ export type EventProps = {
 class EventService {
   baseUrl: string = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
   auth = useAuth();
+  userSession = this.auth.getUserSession();
 
   async findEvents(pageNumber?: number, query?: string): Promise<EventPage> {
-    const userSession = this.auth.getUserSession();
     const url = `${this.baseUrl}/events?page=${pageNumber}&query=${query}&size=12`;
     const response = axios(url, {
       headers: {
-        Authorization: `Bearer ${userSession?.accessToken}`,
+        Authorization: `Bearer ${this.userSession?.accessToken}`,
       },
     });
     const resp = await response;
@@ -47,11 +47,10 @@ class EventService {
     projectId?: number,
     pageNumber?: number
   ): Promise<EventPage> {
-    const userSession = this.auth.getUserSession();
     const url = `${this.baseUrl}/events/by-project/${projectId}?page=${pageNumber}&size=8`;
     const response = axios(url, {
       headers: {
-        Authorization: `Bearer ${userSession?.accessToken}`,
+        Authorization: `Bearer ${this.userSession?.accessToken}`,
       },
     });
     const resp = await response;
@@ -59,11 +58,10 @@ class EventService {
   }
 
   async findEventById(id?: number): Promise<Event> {
-    const userSession = this.auth.getUserSession();
     const url = `${this.baseUrl}/events/${id}`;
     const response = axios(url, {
       headers: {
-        Authorization: `Bearer ${userSession?.accessToken}`,
+        Authorization: `Bearer ${this.userSession?.accessToken}`,
       },
     });
     const resp = await response;
@@ -71,11 +69,10 @@ class EventService {
   }
 
   async findEventByTitle(title?: string): Promise<Event> {
-    const userSession = this.auth.getUserSession();
     const url = `${this.baseUrl}/events/by-title/${title}`;
     const response = axios(url, {
       headers: {
-        Authorization: `Bearer ${userSession?.accessToken}`,
+        Authorization: `Bearer ${this.userSession?.accessToken}`,
       },
     });
     const resp = await response;
@@ -83,26 +80,21 @@ class EventService {
   }
 
   async saveEvent(event: Event): Promise<void> {
-    const response = await axios(this.baseUrl + "/events/save", {
+    await axios(this.baseUrl + "/events/save", {
       method: "POST",
       data: JSON.stringify(event),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    if (response.status == 409) {
-      const responseError = await response.data;
-      throw new Error(responseError.error);
-    }
   }
 
   
   async findUsersByEvent(eventId?: number, pageNumber?: number): Promise<UserPage> {
-    const userSession = this.auth.getUserSession();
     const url = `${this.baseUrl}/event-user?eventId=${eventId}&page=${pageNumber}&size=9`;
     const response = axios(url, {
       headers: {
-        Authorization: `Bearer ${userSession?.accessToken}`,
+        Authorization: `Bearer ${this.userSession?.accessToken}`,
       },
     });
     const resp = await response;
