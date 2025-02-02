@@ -19,7 +19,7 @@ type PageProps = {
 export const Pagination = ({ pagination, onPageChange }: PageProps) => {
 
     const next = (pageNumber: number) => {
-        if (pageNumber != pagination.page?.totalPages) {
+        if (pageNumber !== pagination.page?.totalPages) {
             onPageChange(pagination.page?.number + 1)
         }
     }

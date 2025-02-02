@@ -1,16 +1,17 @@
 import * as GoIcons from "react-icons/go";
-
-import { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa6";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
 import { Accordion } from "flowbite-react";
 import moment from "moment";
 import { UserCard } from "components/cards/UserCard";
-import { Pagination } from "components/shared/Pagination";
-import { Event, useEventService } from "resources/event";
-import { UserPage } from "resources/user";
 import { EventMockProfile } from "mock/MockProfile";
 import { Props } from "resources";
-import { useParams } from "react-router-dom";
+import { Event, useEventService } from "resources/event";
+import { UserPage } from "resources/user";
+import { Pagination } from "components/shared/Pagination";
+
 
 
 export function EventProfile() {

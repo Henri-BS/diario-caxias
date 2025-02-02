@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { GoSearch } from "react-icons/go";
 import { removeAccents } from "components/shared/Template";
 
-
 export default function Categories() {
 
     const [query, setQuery] = useState("");

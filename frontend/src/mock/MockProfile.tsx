@@ -64,7 +64,7 @@ export function EventMockProfile({ params }: any) {
                                 </div>
                             </div>
                             <div className="flex flex-col">
-                                <img src={event?.eventImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full" width="1216" height="640" />
+                                <img src={event?.eventImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full" width="1216" height="640" alt=""/>
                                 <p className="flex gap-2 mt-2 items-center text-center text-sm font-medium text-gray-700">
                                     enviado em: {event?.createdDate}
                                 </p>
@@ -106,7 +106,7 @@ export function PostMockProfile({ params }: any) {
                                     </div>
                                 </div>
                                 <div className="flex flex-col">
-                                    <img src={post?.postImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[60rem] sm:mb-0 " />
+                                    <img src={post?.postImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[60rem] sm:mb-0" alt=""/>
                                     <p className="flex gap-2 mt-2 items-center text-center text-sm font-medium text-gray-700">
                                         enviado em: {post?.createdDate}
                                     </p>
@@ -148,7 +148,7 @@ export function ProjectMockProfile({ params }: any) {
                                         <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaNewspaper /> Postagens relacionados: <b>{0}</b></p>
                                     </div>
                                 </div>
-                                <img src={project?.projectImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[22rem] sm:mb-0 " />
+                                <img src={project?.projectImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[22rem] sm:mb-0" alt=""/>
                             </div>
                             <p className="mt-5 text-xl text-justify">{project?.projectDescription} </p>
                         </div>

@@ -3,7 +3,7 @@ import * as FaIcons from "react-icons/fa6";
 import { Button, Dropdown, Modal, Tooltip } from "flowbite-react";
 import axios from "axios";
 import { useAuth } from "resources/auth";
-import { User } from "resources/user";
+import { User, useUserService } from "resources/user";
 import { Link, useNavigate } from "react-router-dom";
 
 export function removeAccents(str: any) {
@@ -63,16 +63,16 @@ export const Header = () => {
     const auth = useAuth();
     const userSession = auth.getUserSession();
     const navigate = useNavigate();
+    const userService = useUserService();
     const userId = userSession?.id;
 
     function FindUser() {
-        const baseUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
         const [user, setUser] = useState<User>();
         useEffect(() => {
             if (!!userSession) {
-                axios.get(`${baseUrl}/users/${userId}`)
+                userService.findUserById(userId)
                     .then((response) => {
-                        setUser(response.data);
+                        setUser(response);
                     });
             }
         }, []);
