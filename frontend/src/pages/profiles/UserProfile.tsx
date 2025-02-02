@@ -50,9 +50,7 @@ export function UserPersonalDetails({ params: userId }:Props) {
             .then((response) => {
                 setProjectPage(response);
             });
-    }, [userId, pageNumber]);
 
-    useEffect(() => {
         categoryService.findCategoriesByUser(userId, pageNumber)
             .then((response) => {
                 setCategoryPage(response);

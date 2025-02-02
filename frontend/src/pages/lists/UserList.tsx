@@ -1,5 +1,5 @@
-import { UserCard } from "components/cards/UserCard";
 import { Pagination } from "components/shared/Pagination";
+import { UserCard } from "components/cards/UserCard";
 import { UserPage, useUserService } from "resources/user";
 import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";

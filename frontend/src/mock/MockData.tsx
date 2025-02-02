@@ -449,7 +449,7 @@ export const eventMock = [
     {
         id: 15,
         eventTitle: 'Seminário 3 sobre os Agrobairros em Caxias',
-        eventDescription: 'O evento \Seminário 3 sobre os Agrobairros em Caxias\ trata-se de um seminário sobre os Agrobairros em Caxias. O Evento reunirá especialistas, agricultores locais, residentes nos bairros envolvidos e interessados na temática para discutir as práticas e políticas sobre os Agrobairros Caxienses. Será uma oportunidade para aprender, trocar experiências e buscar soluções inovadoras.',
+        eventDescription: 'O evento "Seminário 3 sobre os Agrobairros em Caxias" trata-se de um seminário sobre os Agrobairros em Caxias. O Evento reunirá especialistas, agricultores locais, residentes nos bairros envolvidos e interessados na temática para discutir as práticas e políticas sobre os Agrobairros Caxienses. Será uma oportunidade para aprender, trocar experiências e buscar soluções inovadoras.',
         eventImage: 'https://cdn1.iconfinder.com/data/icons/business-vivid-vol-2/256/Seminar-1024.png',
         eventDate: '2023-01-03',
         eventStatus: 'Finalizado',
@@ -461,7 +461,7 @@ export const eventMock = [
     {
         id: 16,
         eventTitle: 'Atividade prática 3 sobre os Agrobairros em Caxias',
-        eventDescription: 'O evento \Atividade prática 3 sobre os Agrobairros em Caxias\ é uma iniciativa que visa implementar medidas práticas e técnicas em benefício dos Agrobairros em Caxias. Este evento prático reunirá moradores do bairro para colaborar na criação de hortas que não só fornecerão alimentos saudáveis, mas também promoverão a integração social, a educação ambiental e a sustentabilidade.',
+        eventDescription: 'O evento "Atividade prática 3 sobre os Agrobairros em Caxias" é uma iniciativa que visa implementar medidas práticas e técnicas em benefício dos Agrobairros em Caxias. Este evento prático reunirá moradores do bairro para colaborar na criação de hortas que não só fornecerão alimentos saudáveis, mas também promoverão a integração social, a educação ambiental e a sustentabilidade.',
         eventImage: 'https://cdn2.iconfinder.com/data/icons/career-advancement-4/512/Practice-1024.png',
         eventDate: '2023-01-09',
         eventStatus: 'Indefinido',
@@ -473,7 +473,7 @@ export const eventMock = [
     {
         id: 17,
         eventTitle: 'Palestra 3 sobre os Agrobairros em Caxias',
-        eventDescription: 'O evento \Palestra 3 sobre os Agrobairros em Caxias\ é uma iniciativa educativa voltada para os moradores de Agrobairros que desejam aprender mais sobre detalhes sobre Agrobairros. Este evento visa fornecer conhecimentos práticos e teóricos e a conscientização de uma agricultura urbana mais saudável e sustentável.',
+        eventDescription: 'O evento "Palestra 3 sobre os Agrobairros em Caxias" é uma iniciativa educativa voltada para os moradores de Agrobairros que desejam aprender mais sobre detalhes sobre Agrobairros. Este evento visa fornecer conhecimentos práticos e teóricos e a conscientização de uma agricultura urbana mais saudável e sustentável.',
         eventImage: 'https://cdn2.iconfinder.com/data/icons/system-filled-outline/64/warning-danger-system-icon-512.png',
         eventDate: '2023-02-15',
         eventStatus: 'Indefinido',
@@ -485,7 +485,7 @@ export const eventMock = [
     {
         id: 18,
         eventTitle: 'Apresentação e debate dos dados periódicos 3 sobre os Agrobairros em Caxias',
-        eventDescription: 'O evento \Apresentação e debate dos dados periódicos 3 sobre os Agrobairros em Caxias\ é uma oportunidade para os moradores, gestores públicos e interessados se reunirem para analisar e discutir os dados mais recentes sobre o desenvolvimento sobre os Agrobairros na cidade. Este evento visa promover a transparência, a participação comunitária e a tomada de decisões informadas com base em dados concretos.',
+        eventDescription: 'O evento "Apresentação e debate dos dados periódicos 3 sobre os Agrobairros em Caxias" é uma oportunidade para os moradores, gestores públicos e interessados se reunirem para analisar e discutir os dados mais recentes sobre o desenvolvimento sobre os Agrobairros na cidade. Este evento visa promover a transparência, a participação comunitária e a tomada de decisões informadas com base em dados concretos.',
         eventImage: 'https://cdn-icons-png.flaticon.com/512/9912/9912471.png',
         eventDate: '2023-03-11',
         eventStatus: 'Indefinido',
@@ -497,7 +497,7 @@ export const eventMock = [
     {
         id: 19,
         eventTitle: 'Criação de soluções 3 sobre os Agrobairros em Caxias',
-        eventDescription: 'O evento \Criação de soluções 3 sobre os Agrobairros em Caxias\ objetiva reunir especialistas, agricultores urbanos e entusiastas da tecnologia para discutir e desenvolver soluções inovadoras em prol dos Agrobairros de Caxias. Este evento busca promover a adoção de novas ideias para aumentar a eficiência, sustentabilidade e produtividade das hortas urbanas.',
+        eventDescription: 'O evento "Criação de soluções 3 sobre os Agrobairros em Caxias" objetiva reunir especialistas, agricultores urbanos e entusiastas da tecnologia para discutir e desenvolver soluções inovadoras em prol dos Agrobairros de Caxias. Este evento busca promover a adoção de novas ideias para aumentar a eficiência, sustentabilidade e produtividade das hortas urbanas.',
         eventImage: 'https://cdn0.iconfinder.com/data/icons/smart-technology-malibu-volume-1/128/intelligent-power-512.png',
         eventDate: '2023-04-18',
         eventStatus: 'Cancelado',
@@ -509,7 +509,7 @@ export const eventMock = [
     {
         id: 20,
         eventTitle: 'Videoconfêrencia 3 sobre os Agrobairros em Caxias',
-        eventDescription: 'O evento \Videoconfêrencia 3 sobre os Agrobairros em Caxias\ promove o compartilhamento de conhecimentos e práticas sobre Agrobairros. Este evento online reunirá especialistas, agricultores urbanos e interessados para discutir técnicas, desafios e inovações, promovendo a sustentabilidade e a segurança alimentar',
+        eventDescription: 'O evento "Videoconfêrencia 3 sobre os Agrobairros em Caxias" promove o compartilhamento de conhecimentos e práticas sobre Agrobairros. Este evento online reunirá especialistas, agricultores urbanos e interessados para discutir técnicas, desafios e inovações, promovendo a sustentabilidade e a segurança alimentar',
         eventImage: 'https://cdn-icons-png.flaticon.com/512/4730/4730760.png',
         eventDate: '2023-05-12',
         eventStatus: 'Planejando',

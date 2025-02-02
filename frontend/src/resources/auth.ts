@@ -14,7 +14,7 @@ class AuthService {
         "Content-Type": "application/json",
       },
     });
-    if (response.status == 401) {
+    if (response.status === 401) {
       throw new Error("Usuário ou senha incorretos");
     }
     return await response.data;
@@ -28,7 +28,7 @@ class AuthService {
         "Content-Type": "application/json",
       },
     });
-    if (response.status == 401) {
+    if (response.status === 401) {
       const responseError = await response.data;
       throw new Error(responseError);
     }
