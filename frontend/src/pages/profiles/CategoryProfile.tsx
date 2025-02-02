@@ -1,16 +1,17 @@
-import { ProjectCard } from "components/cards/ProjectCard";
-import { UserCard } from "components/cards/UserCard";
-import { Pagination } from "components/shared/Pagination";
-import { CategoryMockProfile } from "mock/MockProfile";
-import { Category, useCategoryService } from "resources/category";
-import { ProjectPage } from "resources/project";
-import { UserPage } from "resources/user";
-import { Accordion } from "flowbite-react";
+
 
 import { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa6";
 import { Props } from "resources";
 import { useParams } from "react-router-dom";
+import { ProjectCard } from "components/cards/ProjectCard";
+import { UserCard } from "components/cards/UserCards";
+import { Accordion } from "flowbite-react";
+import { CategoryMockProfile } from "mock/MockProfile";
+import { useCategoryService, Category } from "resources/category";
+import { ProjectPage } from "resources/project";
+import { UserPage } from "resources/user";
+import { Pagination } from "components/shared/Pagination";
 
 export function CategoryProfile() {
     const params = useParams();
