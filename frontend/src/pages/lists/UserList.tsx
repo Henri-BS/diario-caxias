@@ -1,10 +1,11 @@
-import { UserCard } from "components/cards/UserCard";
+
 import { Pagination } from "components/shared/Pagination";
 import { UserPage, useUserService } from "resources/user";
 import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { removeAccents } from "components/shared/Template";
 import { GoSearch } from "react-icons/go";
+import { UserCard } from "components/cards/UserCard";
 
 export default function Users() {
     const [query, setQuery] = useState("");
