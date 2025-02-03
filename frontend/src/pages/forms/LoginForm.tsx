@@ -1,3 +1,4 @@
+
 import { useFormik } from "formik";
 import { useState } from "react";
 import { Button, TextInput } from "flowbite-react";
@@ -156,9 +157,9 @@ export default function Login() {
                                         Login
                                     </Button>
                                     Não possui uma conta?
-                                    <a className="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                    <span className="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                         onClick={() => setNewUserState(true)} >Cadastre-se
-                                    </a>
+                                    </span>
                                 </div>
                             }
                         </div>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import * as FaIcons from "react-icons/fa6";
 import { Button, Dropdown, Modal, Tooltip } from "flowbite-react";
-import axios from "axios";
 import { useAuth } from "resources/auth";
 import { User, useUserService } from "resources/user";
 import { Link, useNavigate } from "react-router-dom";
@@ -79,7 +78,7 @@ export const Header = () => {
         return (
 
             <Dropdown label="" dismissOnClick={false}
-                renderTrigger={() => <img src={user?.userImage ?? "https://cdn1.iconfinder.com/data/icons/basic-ui-element-2-2-line/512/Basic_UI_Elements_-_2.1_-_line-11-256.png"} className="h-12 w-12 rounded-full bg-[#ffffffbe] cursor-point border border-gray-100 transition duration-600 hover:border-blue-500" />}>
+                renderTrigger={() => <img src={user?.userImage ?? "https://cdn1.iconfinder.com/data/icons/basic-ui-element-2-2-line/512/Basic_UI_Elements_-_2.1_-_line-11-256.png"} className="h-12 w-12 rounded-full bg-[#ffffffbe] cursor-point border border-gray-100 transition duration-600 hover:border-blue-500" alt={user?.username} />}>
                 <Tooltip content={user?.username}>
                     <Dropdown.Item icon={FaIcons.FaUser} href={`/perfil/${userId}`} className="text-md font-medium">
                         Meu Perfil
@@ -157,8 +156,6 @@ export const Header = () => {
     );
 }
 
-
-
 export const Footer = () => {
 
     const [aboutModal, setAboutModal] = useState<boolean>(false);
@@ -178,16 +175,16 @@ export const Footer = () => {
 
                         <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-100 sm:mb-0 ">
                             <li>
-                                <a onClick={() => setAboutModal(true)} className="cursor-pointer hover:underline me-4 md:me-6">Sobre o Diário Caxias</a>
+                                <span onClick={() => setAboutModal(true)} className="cursor-pointer hover:underline me-4 md:me-6">Sobre o Diário Caxias</span>
                             </li>
                             <li>
-                                <a onClick={() => setTutorialModal(true)} className="cursor-pointer hover:underline me-4 md:me-6">Tutorial do site</a>
+                                <span onClick={() => setTutorialModal(true)} className="cursor-pointer hover:underline me-4 md:me-6">Tutorial do site</span>
                             </li>
                             <li>
-                                <a onClick={() => setContributeModal(true)} className="cursor-pointer hover:underline me-4 md:me-6">Como contribuir?</a>
+                                <span onClick={() => setContributeModal(true)} className="cursor-pointer hover:underline me-4 md:me-6">Como contribuir?</span>
                             </li>
                             <li>
-                                <a onClick={() => setTermsModal(true)} className="cursor-pointer hover:underline me-4 md:me-6">Termos de uso e privacidade</a>
+                                <span onClick={() => setTermsModal(true)} className="cursor-pointer hover:underline me-4 md:me-6">Termos de uso e privacidade</span>
                             </li>
                         </ul>
                     </div>

@@ -47,15 +47,14 @@ export type UserSessionToken = {
 
 class UserService {
   baseUrl: string = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
-
   auth = useAuth();
+  userSession = this.auth.getUserSession();
 
   async findUsers( pageNumber?: number, query?: string): Promise<UserPage> {
-    const userSession = this.auth.getUserSession();
     const url = `${this.baseUrl}/users?page=${pageNumber}&query=${query}&size=12`;
     const response = axios(url, {
       headers: {
-        Authorization: `Bearer ${userSession?.accessToken}`,
+        Authorization: `Bearer ${this.userSession?.accessToken}`,
       },
     });
     const resp = await response;
@@ -63,11 +62,10 @@ class UserService {
   }
 
   async findUserById(id?: number): Promise<User> {
-    const userSession = this.auth.getUserSession();
     const url = `${this.baseUrl}/users/${id}`;
     const response = axios(url, {
       headers: {
-        Authorization: `Bearer ${userSession?.accessToken}`,
+        Authorization: `Bearer ${this.userSession?.accessToken}`,
       },
     });
     const resp = await response;

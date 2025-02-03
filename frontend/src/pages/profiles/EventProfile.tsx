@@ -67,7 +67,7 @@ export function EventDetails({ params: eventId }: Props) {
                             </div>
                         </div>
                         <div className="flex flex-col">
-                            <img src={event?.eventImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full" width="1216" height="640" />
+                            <img src={event?.eventImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full" width="1216" height="640" alt={event.eventTitle} />
                             <p className="flex gap-2 mt-2 items-center text-center text-sm font-medium text-gray-700">
                                 enviado em: {event?.createdDate}
                             </p>

@@ -73,7 +73,7 @@ export function ProjectDetails({ params: projectId }: Props) {
                                 <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaNewspaper /> Postagens relacionados: <b>{postPage.page.totalElements}</b></p>
                             </div>
                         </div>
-                        <img src={project?.projectImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[22rem] sm:mb-0 " />
+                        <img src={project?.projectImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[22rem] sm:mb-0" alt={project.projectTitle} />
                     </div>
                     <p className="mt-5 text-xl text-justify">{project?.projectDescription} </p>
                     <Accordion collapseAll className="mt-12 ">

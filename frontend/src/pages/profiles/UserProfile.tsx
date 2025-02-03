@@ -64,10 +64,10 @@ export function UserPersonalDetails({ params: userId }:Props) {
             <div className="flex flex-wrap items-center  justify-center mt-10">
                 <div className="container lg:w-full bg-white shadow-xl transform duration-200 easy-in-out">
                     <div className=" h-40 overflow-hidden" >
-                        <img className="w-full rounded-t-lg" src={user?.userCoverImage ?? "https://www.pixelstalk.net/wp-content/uploads/2016/05/Black-background-lines-scratches-1920x1080.jpg"} alt="" />
+                        <img className="w-full rounded-t-lg" src={user?.userCoverImage ?? "https://www.pixelstalk.net/wp-content/uploads/2016/05/Black-background-lines-scratches-1920x1080.jpg"} alt={user?.username} />
                     </div>
                     <div className="flex justify-center px-5 -mt-12">
-                        <img className="h-32 w-32 bg-white p-2 rounded-full" src={user?.userImage ?? "https://cdn1.iconfinder.com/data/icons/basic-ui-element-2-2-line/512/Basic_UI_Elements_-_2.1_-_line-11-256.png"} alt="" />
+                        <img className="h-32 w-32 bg-white p-2 rounded-full" src={user?.userImage ?? "https://cdn1.iconfinder.com/data/icons/basic-ui-element-2-2-line/512/Basic_UI_Elements_-_2.1_-_line-11-256.png"} alt={user?.username} />
                     </div>
                     <div className="text-gray-600 text-center px-14">
                         <h2 className="text-gray-800 text-3xl font-bold">{user?.username}</h2>

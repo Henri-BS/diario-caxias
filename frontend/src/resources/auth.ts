@@ -3,11 +3,11 @@ import { AccessToken, Credentials, UserSessionToken } from "./user";
 import axios from "axios";
 
 class AuthService {
-  baseUrl: string =  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080" + "/users";
+  baseUrl: string =  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
   static AUTH_PARAM: string = "_auth";
 
   async authenticate(credentials: Credentials): Promise<AccessToken> {
-    const response = await axios(this.baseUrl + "/login", {
+    const response = await axios(this.baseUrl + "/users/login", {
       method: "POST",
       data: JSON.stringify(credentials),
       headers: {
@@ -21,7 +21,7 @@ class AuthService {
   }
 
   async saveUser(credentials: Credentials): Promise<void> {
-    const response = await axios(this.baseUrl + "/save", {
+    const response = await axios(this.baseUrl + "/users/save", {
       method: "POST",
       data: JSON.stringify(credentials),
       headers: {
