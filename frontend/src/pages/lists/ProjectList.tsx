@@ -1,15 +1,16 @@
 import { ProjectCard } from "components/cards/ProjectCard";
 import { Pagination } from "components/shared/Pagination";
-import { ProjectPage, useProjectService } from "resources/project";
+import { ProjectPage } from "resources/project";
 import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { ProjectMockList } from "mock/MockList";
 import { GoSearch } from "react-icons/go";
 import { removeAccents } from "components/shared/Template";
+import axios from "axios";
+import { baseUrl } from "utils/requests";
 
 export default function Projects() {
     const [query, setQuery] = useState("");
-    const projectService = useProjectService();
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
@@ -17,9 +18,9 @@ export default function Projects() {
     const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        projectService.findProjects(query, pageNumber)
+        axios.get(`${baseUrl}/projects?query=${query}&page=${pageNumber}&size=12`)
             .then((response) => {
-                setProjectPage(response);
+                setProjectPage(response.data);
             });
     }, [query, pageNumber]);
 

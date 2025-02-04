@@ -1,5 +1,3 @@
-import axios from "axios";
-import { useAuth } from "./auth";
 
 export type User = {
   id?: number;
@@ -45,32 +43,4 @@ export type UserSessionToken = {
   expiration?: number;
 }
 
-class UserService {
-  baseUrl: string = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
-  auth = useAuth();
-  userSession = this.auth.getUserSession();
 
-  async findUsers( pageNumber?: number, query?: string): Promise<UserPage> {
-    const url = `${this.baseUrl}/users?page=${pageNumber}&query=${query}&size=12`;
-    const response = axios(url, {
-      headers: {
-        Authorization: `Bearer ${this.userSession?.accessToken}`,
-      },
-    });
-    const resp = await response;
-    return resp.data;
-  }
-
-  async findUserById(id?: number): Promise<User> {
-    const url = `${this.baseUrl}/users/${id}`;
-    const response = axios(url, {
-      headers: {
-        Authorization: `Bearer ${this.userSession?.accessToken}`,
-      },
-    });
-    const resp = await response;
-    return resp.data;
-  }
-}
-
-export const useUserService = () => new UserService();

@@ -1,16 +1,17 @@
 import { CategoryCard } from "components/cards/CategoryCard";
 import { Pagination } from "components/shared/Pagination";
 import { CategoryMockList } from "mock/MockList";
-import { CategoryPage, useCategoryService } from "resources/category";
+import { CategoryPage } from "resources/category";
 import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { GoSearch } from "react-icons/go";
 import { removeAccents } from "components/shared/Template";
+import { baseUrl } from "utils/requests";
+import axios from "axios";
 
 export default function Categories() {
 
     const [query, setQuery] = useState("");
-    const categoryService = useCategoryService();
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
@@ -18,9 +19,9 @@ export default function Categories() {
     const [categoryPage, setCategoryPage] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } })
 
     useEffect(() => {
-        categoryService.findCategories(query, pageNumber)
+        axios.get(`${baseUrl}/categories?query=${query}&page=${pageNumber}&size=12`)
             .then((response) => {
-                setCategoryPage(response);
+                setCategoryPage(response.data);
             });
     }, [query, pageNumber]);
 

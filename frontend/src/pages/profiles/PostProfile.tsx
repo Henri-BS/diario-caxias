@@ -1,7 +1,7 @@
 import { ProjectCard } from "components/cards/ProjectCard";
 import { Pagination } from "components/shared/Pagination";
 import { PostMockProfile } from "mock/MockProfile";
-import { Post, usePostService } from "resources/post";
+import { Post } from "resources/post";
 import { ProjectPage } from "resources/project";
 import { Accordion } from "flowbite-react";
 
@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa6";
 import { Props } from "resources";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+import { baseUrl } from "utils/requests";
 
 
 export function PostProfile() {
@@ -22,7 +24,6 @@ export function PostProfile() {
 
 
 export function PostDetails({ params: postId }: Props) {
-    const postService = usePostService();
     const [post, setPost] = useState<Post>();
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
@@ -31,16 +32,16 @@ export function PostDetails({ params: postId }: Props) {
     const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        postService.findPostById(postId)
+        axios.get(`${baseUrl}/posts/${postId}`)
             .then((response) => {
-                setPost(response);
+                setPost(response.data);
             });
     }, [postId]);
 
     useEffect(() => {
-        postService.findProjectsByPost(postId, pageNumber)
+        axios.get(`${baseUrl}/project-post?postId=${postId}&page=${pageNumber}&size=8`)
             .then((response) => {
-                setProjectPage(response);
+                setProjectPage(response.data);
             });
     }, [postId, pageNumber]);
 

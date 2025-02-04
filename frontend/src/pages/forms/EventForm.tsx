@@ -5,10 +5,12 @@ import { useNotification, FieldError } from "components/shared/Notification";
 import { useFormik } from "formik";
 import { useAuth } from "resources/auth";
 import { Event, useEventService } from "resources/event";
-import { ProjectPage, useProjectService } from "resources/project";
+import { ProjectPage } from "resources/project";
 import Login from "./LoginForm";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { baseUrl } from "utils/requests";
 
 export interface EventFormProps {
     title: string;
@@ -46,17 +48,16 @@ export const eventValidationSchema = Yup.object().shape({
 export function EventAddForm() {
     const notification = useNotification();
     const eventService = useEventService();
-    const projectService = useProjectService();
     const auth = useAuth();
     const userId = auth.getUserSession()?.id;
 
-    const [query, setQuery] = useState("");
+    const query = "";
     const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        projectService.findProjects(query)
+        axios.get(`${baseUrl}/projects?query=${query}&size=20`)
             .then((response) => {
-                setProjectPage(response);
+                setProjectPage(response.data);
             })
     }, [query]);
 

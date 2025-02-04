@@ -1,16 +1,17 @@
 import { PostCard } from "components/cards/PostCard";
 import { Pagination } from "components/shared/Pagination";
 import { PostMockList } from "mock/MockList";
-import { PostPage, usePostService } from "resources/post";
+import { PostPage } from "resources/post";
 import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { GoSearch } from "react-icons/go";
 import { removeAccents } from "components/shared/Template";
+import axios from "axios";
+import { baseUrl } from "utils/requests";
 
 
 export default function Posts() {
     const [query, setQuery] = useState("");
-    const postService = usePostService();
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
@@ -18,9 +19,9 @@ export default function Posts() {
     const [postPage, setPostPage] = useState<PostPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        postService.findPosts(pageNumber, query)
+        axios.get(`${baseUrl}/posts?query=${query}&page=${pageNumber}&size=12`)
             .then((response) => {
-                setPostPage(response);
+                setPostPage(response.data);
             });
     }, [pageNumber, query]);
 

@@ -2,14 +2,16 @@ import { CategoryCard } from "components/cards/CategoryCard";
 import { EventCard } from "components/cards/EventCard";
 import { CarouselPostCard } from "components/cards/PostCard";
 import { ProjectCard } from "components/cards/ProjectCard";
-import { CategoryPage, useCategoryService } from "resources/category";
-import { EventPage, useEventService } from "resources/event";
-import { PostPage, usePostService } from "resources/post";
-import { ProjectPage, useProjectService } from "resources/project";
+import { CategoryPage } from "resources/category";
+import { EventPage } from "resources/event";
+import { PostPage } from "resources/post";
+import { ProjectPage } from "resources/project";
 import { CustomFlowbiteTheme, Flowbite, Carousel } from "flowbite-react";
 import { useState, useEffect } from "react";
 import { CategoryMockHomeList, EventMockHomeList, PostMockCarousel, ProjectHomeMockList } from "mock/MockList";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { baseUrl } from "utils/requests";
 
 export default function Home() {
     return (
@@ -61,12 +63,11 @@ export default function Home() {
             }
         };
 
-        const postService = usePostService();
         const [posts, setPosts] = useState<PostPage>({ content: [], page: { number: 0, totalElements: 0 } });
         useEffect(() => {
-            postService.findPosts()
+            axios.get(`${baseUrl}/posts?size=12`)
                 .then((response) => {
-                    setPosts(response);
+                    setPosts(response.data);
                 });
         }, []);
 
@@ -98,12 +99,11 @@ export default function Home() {
     }
 
     function ProjectHomeList() {
-        const projectService = useProjectService();
         const [projects, setProjects] = useState<ProjectPage>({ content: [], page: { number: 0, size: 0, totalElements: 0, totalPages: 0 } })
         useEffect(() => {
-            projectService.findProjects()
+            axios.get(`${baseUrl}/projects?size=8`)
                 .then((response) => {
-                    setProjects(response);
+                    setProjects(response.data);
                 })
         }, [])
 
@@ -129,12 +129,11 @@ export default function Home() {
     }
 
     function CategoryHomeList() {
-        const categoryService = useCategoryService();
         const [categories, setCategories] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } });
         useEffect(() => {
-            categoryService.findCategories()
+            axios.get(`${baseUrl}/categories?&size=9`)
                 .then((response) => {
-                    setCategories(response);
+                    setCategories(response.data);
                 });
         }, []);
 
@@ -160,12 +159,11 @@ export default function Home() {
     }
 
     function EventHomeList() {
-        const eventService = useEventService();
         const [events, setEvents] = useState<EventPage>({ content: [], page: { number: 0, totalElements: 0 } })
         useEffect(() => {
-            eventService.findEvents()
+            axios.get(`${baseUrl}/events?size=12`)
                 .then((response) => {
-                    setEvents(response);
+                    setEvents(response.data);
                 })
         }, [])
 

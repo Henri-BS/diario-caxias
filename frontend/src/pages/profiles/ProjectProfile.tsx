@@ -4,15 +4,17 @@ import { PostCard } from "components/cards/PostCard";
 import { Pagination } from "components/shared/Pagination";
 import { ProjectMockProfile } from "mock/MockProfile";
 import { CategoryPage } from "resources/category";
-import { EventPage, useEventService } from "resources/event";
+import { EventPage } from "resources/event";
 import { PostPage } from "resources/post";
-import { Project, useProjectService } from "resources/project";
+import { Project } from "resources/project";
 import { Accordion } from "flowbite-react";
 
 import { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa6";
 import { Props } from "resources";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+import { baseUrl } from "utils/requests";
 
 export function ProjectProfile() {
     const params = useParams();
@@ -24,8 +26,6 @@ export function ProjectProfile() {
 }
 
 export function ProjectDetails({ params: projectId }: Props) {
-    const projectService = useProjectService();
-    const eventService = useEventService();
     const [project, setProject] = useState<Project>();
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
@@ -36,24 +36,24 @@ export function ProjectDetails({ params: projectId }: Props) {
     const [postPage, setPostPage] = useState<PostPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        projectService.findProjectById(projectId)
+        axios.get(`${baseUrl}/projects/${projectId}`)
             .then((response) => {
-                setProject(response);
+                setProject(response.data);
             });
     }, [projectId]);
 
     useEffect(() => {
-        eventService.findEventsByProject(projectId, pageNumber)
+        axios.get(`${baseUrl}/events/by-project/${projectId}?page=${pageNumber}&size=8`)
             .then((response) => {
-                setEventPage(response);
+                setEventPage(response.data);
             });
-        projectService.findCategoriesByProject(projectId, pageNumber)
+        axios.get(`${baseUrl}/project-category?projectId=${projectId}&page=${pageNumber}&size=9`)
             .then((response) => {
-                setCategoryPage(response);
+                setCategoryPage(response.data);
             });
-        projectService.findPostsByProject(projectId, pageNumber)
+        axios.get(`${baseUrl}/project-post?projectId=${projectId}&page=${pageNumber}&size=9`)
             .then((response) => {
-                setPostPage(response);
+                setPostPage(response.data);
             });
     }, [projectId, pageNumber]);
 

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
 import * as FaIcons from "react-icons/fa6";
-import { Button, Dropdown, Modal, Tooltip } from "flowbite-react";
+import { Button, Drawer, Dropdown, Modal, Sidebar, Tooltip } from "flowbite-react";
 import { useAuth } from "resources/auth";
-import { User, useUserService } from "resources/user";
+import { User } from "resources/user";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { baseUrl } from "utils/requests";
 
 export function removeAccents(str: any) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -23,55 +25,21 @@ export const Loading = () => {
 
 export const Header = () => {
 
-    const SidebarItems = [
-        {
-            title: "Início",
-            path: "/",
-            icon: <FaIcons.FaHouse />
-        },
-        {
-            title: "Postagens",
-            path: "/postagens",
-            icon: <FaIcons.FaNewspaper />
-        },
-        {
-            title: "Projetos",
-            path: "/projetos",
-            icon: <FaIcons.FaFolderClosed />
-        },
-        {
-            title: "Eventos",
-            path: "/eventos",
-            icon: <FaIcons.FaCalendarCheck />
-        },
-        {
-            title: "Categorias",
-            path: "/categorias",
-            icon: <FaIcons.FaTag />
-        },
-        {
-            title: "Usuários",
-            path: "/usuarios",
-            icon: <FaIcons.FaUser />
-        }
-    ]
-
-    const [sidebar, setSidebar] = useState(true);
-    const showSidebar = () => setSidebar(!sidebar);
+    const [isOpen, setIsOpen] = useState(true);
+    const handleClose = () => setIsOpen(false);
 
     const auth = useAuth();
     const userSession = auth.getUserSession();
     const navigate = useNavigate();
-    const userService = useUserService();
     const userId = userSession?.id;
 
     function FindUser() {
         const [user, setUser] = useState<User>();
         useEffect(() => {
             if (!!userSession) {
-                userService.findUserById(userId)
+                axios.get(`${baseUrl}/users/${userId}`)
                     .then((response) => {
-                        setUser(response);
+                        setUser(response.data);
                     });
             }
         }, []);
@@ -104,7 +72,7 @@ export const Header = () => {
 
                     <div className="gap-2 flex items-center ">
                         <div className=" text-2xl cursor-pointer">
-                            <FaIcons.FaBars onClick={showSidebar} />
+                            <FaIcons.FaBars onClick={() => setIsOpen(true)} />
                         </div>
                         <Link to={"/"}>
                             <h1 className="self-center text-lg font-semibold whitespace-nowrap">
@@ -113,18 +81,12 @@ export const Header = () => {
                         </Link>
                     </div>
 
-                    <div className="flex  gap-2 items-center text-gray-300">
-                        <Dropdown label={<FaIcons.FaPlus />} color="[transparent]" >
+                    <div className="flex  gap-2 items-center text-gray-300 ">
+                        <Dropdown title="Adicionar" label={<FaIcons.FaPlus />} inline >
                             <Dropdown.Header className="font-semibold text-md">Adicionar</Dropdown.Header>
-                            <Link to={"/projetos/adicionar"}>
-                                <Dropdown.Item className="gap-2">Projeto <FaIcons.FaFolderClosed /></Dropdown.Item>
-                            </Link>
-                            <Link to={"/eventos/adicionar"}>
-                                <Dropdown.Item className="gap-2">Evento <FaIcons.FaCalendarCheck /></Dropdown.Item>
-                            </Link>
-                            <Link to={"/postagens/adicionar"}>
-                                <Dropdown.Item className="gap-2">Postagem <FaIcons.FaNewspaper /></Dropdown.Item>
-                            </Link>
+                                <Dropdown.Item href={"/projetos/adicionar"} icon={FaIcons.FaFolderClosed} >Projeto </Dropdown.Item>
+                                <Dropdown.Item href={"/eventos/adicionar"} icon={FaIcons.FaCalendarCheck} >Evento </Dropdown.Item>
+                                <Dropdown.Item href={"/postagens/adicionar"} icon={FaIcons.FaNewspaper} >Postagem </Dropdown.Item>
                         </Dropdown>
                         {!userSession ?
                             <Link to={"/login"} >
@@ -138,20 +100,45 @@ export const Header = () => {
                     </div>
                 </div>
             </header>
-            <nav className={sidebar ? "fixed z-40 top-0 left-full transition duration-600" : "flex flex-col justify-top fixed z-40  bg-zinc-800 w-96 h-screen top-20 left-0 transition duration-600"}>
-                <ul className="w-full" >
-                    {SidebarItems.map((item, index) => {
-                        return (
-                            <li key={index} className="flex justify-start items-center p-4 h-20">
-                                <Link to={item.path} className="flex items-center px-4 borber rounded-xl w-full h-16 p-4 text-2xl text-gray-400 hover:text-gray-100 hover:bg-gray-600 transition duration-600">
-                                    {item.icon}
-                                    <span className="ml-4">{item.title}</span>
-                                </Link>
-                            </li>
-                        )
-                    })}
-                </ul>
-            </nav>
+
+
+            <Drawer open={isOpen} onClose={handleClose} className="bg-zinc-900">
+                <Drawer.Header title="Diário Caxias" titleIcon={() => <></>} />
+                <Drawer.Items>
+                    <Sidebar
+                        aria-label="Sidebar with multi-level dropdown example"
+                        className="[&>div]:bg-transparent [&>div]:p-0"
+                    >
+
+                        <div className="flex h-full flex-col justify-between py-2">
+                            <div>
+                                <Sidebar.Items>
+                                    <Sidebar.ItemGroup>
+                                        <Sidebar.Item href={`/`} icon={FaIcons.FaHouse} className="bg-zinc-700 hover:bg-zinc-600 text-white">
+                                            Início
+                                        </Sidebar.Item>
+                                        <Sidebar.Item href={`/postagens`} icon={FaIcons.FaNewspaper} className="bg-zinc-700 hover:bg-zinc-600 text-white">
+                                            Postagens
+                                        </Sidebar.Item>
+                                        <Sidebar.Item href={`/projetos`} icon={FaIcons.FaFolderClosed} className="bg-zinc-700 hover:bg-zinc-600 text-white">
+                                            Projetos
+                                        </Sidebar.Item>
+                                        <Sidebar.Item href={`/eventos`} icon={FaIcons.FaCalendarCheck} className="bg-zinc-700 hover:bg-zinc-600 text-white">
+                                            Eventos
+                                        </Sidebar.Item>
+                                        <Sidebar.Item href={`/categorias`} icon={FaIcons.FaTag} className="bg-zinc-700 hover:bg-zinc-600 text-white">
+                                            Categorias
+                                        </Sidebar.Item>
+                                        <Sidebar.Item href={`/usuarios`} icon={FaIcons.FaUser} className="bg-zinc-700 hover:bg-zinc-600 text-white">
+                                            Usuários
+                                        </Sidebar.Item>
+                                    </Sidebar.ItemGroup>
+                                </Sidebar.Items>
+                            </div>
+                        </div>
+                    </Sidebar>
+                </Drawer.Items>
+            </Drawer>
         </>
     );
 }

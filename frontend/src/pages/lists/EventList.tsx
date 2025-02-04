@@ -1,15 +1,16 @@
 import { EventCard } from "components/cards/EventCard";
 import { Pagination } from "components/shared/Pagination";
 import { EventMockList } from "mock/MockList";
-import { EventPage, useEventService } from "resources/event";
+import { EventPage } from "resources/event";
 import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { GoSearch } from "react-icons/go";
 import { removeAccents } from "components/shared/Template";
+import { baseUrl } from "utils/requests";
+import axios from "axios";
 
 export default function Events() {
     const [query, setQuery] = useState("");
-    const eventService = useEventService();
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
@@ -17,9 +18,9 @@ export default function Events() {
     const [eventPage, setEventPage] = useState<EventPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        eventService.findEvents(pageNumber, query)
+        axios.get(`${baseUrl}/events?query=${query}&page=${pageNumber}&size=12`)
             .then((response) => {
-                setEventPage(response);
+                setEventPage(response.data);
             });
     }, [pageNumber, query]);
 

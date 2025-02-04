@@ -8,10 +8,12 @@ import { ProjectCard } from "components/cards/ProjectCard";
 import { UserCard } from "components/cards/UserCards";
 import { Accordion } from "flowbite-react";
 import { CategoryMockProfile } from "mock/MockProfile";
-import { useCategoryService, Category } from "resources/category";
+import { Category } from "resources/category";
 import { ProjectPage } from "resources/project";
 import { UserPage } from "resources/user";
 import { Pagination } from "components/shared/Pagination";
+import axios from "axios";
+import { baseUrl } from "utils/requests";
 
 export function CategoryProfile() {
     const params = useParams();
@@ -22,12 +24,11 @@ export function CategoryProfile() {
 
 export function CategoryDetails({ params: categoryName }: Props) {
 
-    const categoryService = useCategoryService();
     const [category, setCategory] = useState<Category>();
     useEffect(() => {
-        categoryService.findCategoryByName(categoryName)
+        axios.get(`${baseUrl}/categories/by-name/${categoryName}`)
             .then((response) => {
-                setCategory(response);
+                setCategory(response.data);
             });
     }, [categoryName]);
 
@@ -39,14 +40,14 @@ export function CategoryDetails({ params: categoryName }: Props) {
     const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
     const [userPage, setUserPage] = useState<UserPage>({ content: [], page: { number: 0, totalElements: 0 } });
     useEffect(() => {
-        categoryService.findProjectByCategory(categoryName, pageNumber)
+        axios.get(`${baseUrl}/project-category?categoryName=${categoryName}&page=${pageNumber}&size=9`)
             .then((response) => {
-                setProjectPage(response);
+                setProjectPage(response.data);
             });
 
-        categoryService.findUserByCategory(categoryName, pageNumber)
+            axios.get(`${baseUrl}/user-category?categoryName=${categoryName}&page=${pageNumber}&size=9`)
             .then((response) => {
-                setUserPage(response);
+                setUserPage(response.data);
             });
     }, [categoryName, pageNumber]);
 

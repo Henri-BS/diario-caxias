@@ -1,10 +1,12 @@
 import { Pagination } from "components/shared/Pagination";
 import { UserCard } from "components/cards/UserCards";
-import { UserPage, useUserService } from "resources/user";
+import { UserPage } from "resources/user";
 import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { removeAccents } from "components/shared/Template";
 import { GoSearch } from "react-icons/go";
+import axios from "axios";
+import { baseUrl } from "utils/requests";
 
 export default function Users() {
     const [query, setQuery] = useState("");
@@ -13,12 +15,11 @@ export default function Users() {
         setPageNumber(newPageNumber);
     }
     const [userPage, setUserPage] = useState<UserPage>({ content: [], page: { number: 0, size: 0, totalPages: 0, totalElements: 0 } });
-    const userService = useUserService();
 
     useEffect(() => {
-        userService.findUsers(pageNumber, query)
+        axios.get(`${baseUrl}/users?query=${query}&page=${pageNumber}&size=12`)
             .then((response) => {
-                setUserPage(response);
+                setUserPage(response.data);
             });
     }, [pageNumber, query]);
 
