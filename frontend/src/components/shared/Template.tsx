@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import * as FaIcons from "react-icons/fa6";
-import { Button, Drawer, Dropdown, Modal, Sidebar, Tooltip } from "flowbite-react";
+import { Button, Drawer, Dropdown, Modal, Sidebar, Tooltip, Footer as FooterFR } from "flowbite-react";
 import { useAuth } from "resources/auth";
 import { User } from "resources/user";
 import { Link, useNavigate } from "react-router-dom";
@@ -25,8 +25,6 @@ export const Loading = () => {
 
 export const Header = () => {
 
-    const [isOpen, setIsOpen] = useState(true);
-    const handleClose = () => setIsOpen(false);
 
     const auth = useAuth();
     const userSession = auth.getUserSession();
@@ -52,11 +50,13 @@ export const Header = () => {
                         Meu Perfil
                     </Dropdown.Item>
                 </Tooltip>
+                    <Dropdown.Item icon={FaIcons.FaSquarePen} href={`/perfil/editar/${userId}`} className="text-md font-medium">
+                        Editar
+                    </Dropdown.Item>
                 <Dropdown.Item icon={FaIcons.FaRightFromBracket} href="/login" className="text-md font-medium" onClick={logout}>
                     Sair
                 </Dropdown.Item>
             </Dropdown>
-
         )
     }
 
@@ -65,14 +65,16 @@ export const Header = () => {
         navigate(0);
     }
 
+    const [isOpen, setIsOpen] = useState(true);
+    const showSidebar = () => setIsOpen(!isOpen);
+
     return (
         <>
             <header className="border-b border-gray-500 fixed w-full backdrop-blur-sm bg-[#171717ec] text-white py-5 z-40 top-0">
                 <div className="mx-auto flex justify-between items-center px-2 gap-4">
-
                     <div className="gap-2 flex items-center ">
                         <div className=" text-2xl cursor-pointer">
-                            <FaIcons.FaBars onClick={() => setIsOpen(true)} />
+                            <FaIcons.FaBars onClick={showSidebar} />
                         </div>
                         <Link to={"/"}>
                             <h1 className="self-center text-lg font-semibold whitespace-nowrap">
@@ -84,9 +86,9 @@ export const Header = () => {
                     <div className="flex  gap-2 items-center text-gray-300 ">
                         <Dropdown title="Adicionar" label={<FaIcons.FaPlus />} inline >
                             <Dropdown.Header className="font-semibold text-md">Adicionar</Dropdown.Header>
-                                <Dropdown.Item href={"/projetos/adicionar"} icon={FaIcons.FaFolderClosed} >Projeto </Dropdown.Item>
-                                <Dropdown.Item href={"/eventos/adicionar"} icon={FaIcons.FaCalendarCheck} >Evento </Dropdown.Item>
-                                <Dropdown.Item href={"/postagens/adicionar"} icon={FaIcons.FaNewspaper} >Postagem </Dropdown.Item>
+                            <Dropdown.Item href={"/projetos/adicionar"} icon={FaIcons.FaFolderClosed}>Projeto </Dropdown.Item>
+                            <Dropdown.Item href={"/eventos/adicionar"} icon={FaIcons.FaCalendarCheck}>Evento </Dropdown.Item>
+                            <Dropdown.Item href={"/postagens/adicionar"} icon={FaIcons.FaNewspaper}>Postagem </Dropdown.Item>
                         </Dropdown>
                         {!userSession ?
                             <Link to={"/login"} >
@@ -101,17 +103,11 @@ export const Header = () => {
                 </div>
             </header>
 
-
-            <Drawer open={isOpen} onClose={handleClose} className="bg-zinc-900">
-                <Drawer.Header title="Diário Caxias" titleIcon={() => <></>} />
-                <Drawer.Items>
-                    <Sidebar
-                        aria-label="Sidebar with multi-level dropdown example"
-                        className="[&>div]:bg-transparent [&>div]:p-0"
-                    >
-
-                        <div className="flex h-full flex-col justify-between py-2">
-                            <div>
+            <div>
+                <div className={isOpen ? "fixed z-40 top-0 left-full transition duration-600" : "flex flex-col justify-top fixed z-40  bg-zinc-800 w-80 h-screen top-20 left-0 transition duration-600"}>
+                    <div className="w-full p-6" >
+                        <Sidebar className="[&>div]:bg-transparent [&>div]:p-0">
+                            <div className="flex h-full flex-col justify-between py-2">
                                 <Sidebar.Items>
                                     <Sidebar.ItemGroup>
                                         <Sidebar.Item href={`/`} icon={FaIcons.FaHouse} className="bg-zinc-700 hover:bg-zinc-600 text-white">
@@ -135,10 +131,13 @@ export const Header = () => {
                                     </Sidebar.ItemGroup>
                                 </Sidebar.Items>
                             </div>
-                        </div>
-                    </Sidebar>
-                </Drawer.Items>
-            </Drawer>
+                        </Sidebar>
+                    </div>
+                </div>
+                <div onClick={showSidebar} className={isOpen ? "fixed z-40 top-0 left-full transition duration-600 " : "flex flex-col justify-top fixed z-20   bg-[#171717ac] w-full h-screen top-20 left-0 transition duration-600"}>
+
+                </div>
+            </div>
         </>
     );
 }
@@ -152,46 +151,33 @@ export const Footer = () => {
 
     return (
         <>
-            <footer className="mt-2 bg-white shadow bg-zinc-800">
+            <FooterFR className="mt-2 bg-white shadow bg-zinc-800">
                 <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
                     <div className="sm:flex sm:items-center sm:justify-between">
 
-                        <a href="/" className="flex items-center sm:justify-between">
+                        <Link to="/" className="flex items-center sm:justify-between">
+                        <img src={require("logo.png")} className="h-12 w-12" alt="logo" />
                             <span className="self-center text-3xl font-semibold whitespace-nowrap text-white">Diário Caxias</span>
-                        </a>
+                        </Link>
 
-                        <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-100 sm:mb-0 ">
-                            <li>
-                                <span onClick={() => setAboutModal(true)} className="cursor-pointer hover:underline me-4 md:me-6">Sobre o Diário Caxias</span>
-                            </li>
-                            <li>
-                                <span onClick={() => setTutorialModal(true)} className="cursor-pointer hover:underline me-4 md:me-6">Tutorial do site</span>
-                            </li>
-                            <li>
-                                <span onClick={() => setContributeModal(true)} className="cursor-pointer hover:underline me-4 md:me-6">Como contribuir?</span>
-                            </li>
-                            <li>
-                                <span onClick={() => setTermsModal(true)} className="cursor-pointer hover:underline me-4 md:me-6">Termos de uso e privacidade</span>
-                            </li>
-                        </ul>
+                        <div className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-100 sm:mb-0 space-x-6">
+                            <span onClick={() => setAboutModal(true)} className="cursor-pointer hover:underline" title="Sobre o Diário Caxias">Sobre o Diário Caxias</span>
+                            <span onClick={() => setTutorialModal(true)} className="cursor-pointer hover:underline" title="Tutorial do site" >Tutorial do site</span>
+                            <span onClick={() => setContributeModal(true)} className="cursor-pointer hover:underline" title="Como contribuir?" >Como contribuir?</span>
+                            <span onClick={() => setTermsModal(true)} className="cursor-pointer hover:underline" title="Termos de uso e privacidade" >Termos de uso e privacidade</span>
+                        </div>
                     </div>
                     <hr className="my-6 border-gray-500 sm:mx-auto lg:my-8" />
                     <div className="sm:flex sm:items-center sm:justify-between">
-                        <span className="text-sm text-gray-200 sm:text-center">© 2025 Pasifcode.</span>
-                        <div className="flex mt-4 lg:justify-center lg:mt-0 text-2x1">
-                            <a href="mailto:hbsantos@gmail.com" className="me-4 text-gray-200 hover:text-white">
-                                Email
-                            </a>
-                            <a href="https://www.linkedin.com/in/henrique-b-santos-1758351a3/" className="me-4 text-gray-200 hover:text-white">
-                                Linkedin
-                            </a>
-                            <a href="https://github.com/Henri-BS" className="me-4 text-gray-200 hover:text-white">
-                                GitHub
-                            </a>
+                        <FooterFR.Copyright href="/" by="Diário Caxias™" year={2025} className="text-white" />
+                        <div className="flex mt-4 lg:justify-center lg:mt-0 text-2x1 space-x-6">
+                            <FooterFR.Icon href="mailto:hbsantos@gmail.com" icon={FaIcons.FaEnvelope} title="Email" className="hover:text-gray-100" />
+                            <FooterFR.Icon href="https://github.com/Henri-BS" icon={FaIcons.FaGithub} title="Github" className="hover:text-gray-100" />
+                            <FooterFR.Icon href="https://www.linkedin.com/in/henrique-b-santos-1758351a3/" icon={FaIcons.FaLinkedin} title="Linkedin" className="hover:text-gray-100" />
                         </div>
                     </div>
                 </div>
-            </footer>
+            </FooterFR>
             <Modal show={aboutModal} size="4xl" onClose={() => setAboutModal(false)}>
                 <Modal.Header>Sobre o Diário Caxias</Modal.Header>
                 <Modal.Body>

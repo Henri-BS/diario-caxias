@@ -78,14 +78,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto saveUserInfo(String username, String userImage, String userBio, String userLocation, Long id) {
-        User userInfo = userRepository.findById(id).orElseThrow();
-        userInfo.setId(userInfo.getId());
-        userInfo.setUsername(username);
-        userInfo.setImage(userImage);
-        userInfo.setUserBio(userBio);
-        userInfo.setUserLocation(userLocation);
+    public UserDto updateUser(UserDto dto) {
+        User update = userRepository.findById(dto.getId()).orElseThrow();
+        update.setId(update.getId());
+        update.setUsername(dto.getUsername());
+        update.setImage(dto.getUserImage());
+        update.setCoverImage(dto.getUserCoverImage());
+        update.setUserBio(dto.getUserBio());
+        update.setUserLocation(dto.getUserLocation());
 
-        return new UserDto(userRepository.save(userInfo));
+        return new UserDto(userRepository.save(update));
     }
 }

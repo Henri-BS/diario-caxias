@@ -22,7 +22,7 @@ export default function Events() {
             .then((response) => {
                 setEventPage(response.data);
             });
-    }, [pageNumber, query]);
+    }, [query, pageNumber]);
 
     return (
         <>

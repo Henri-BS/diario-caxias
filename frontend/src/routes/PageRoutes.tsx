@@ -33,7 +33,7 @@ export default function PageRoutes() {
                         <Route path="/projetos/:projectId" element={<ProjectProfile />} />
                         <Route path="/projetos/adicionar" element={<ProjectAddForm />} />
                         <Route path="/eventos" element={<Events />} />
-                        <Route path="/eventos/:eventTitle" element={<EventProfile />} />
+                        <Route path="/eventos/:eventId" element={<EventProfile />} />
                         <Route path="/eventos/adicionar" element={<EventAddForm />} />
                         <Route path="/categorias" element={<Categories />} />
                         <Route path="/categorias/:categoryName" element={<CategoryProfile />} />

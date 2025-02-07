@@ -58,13 +58,8 @@ public class UserController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<UserDto> saveUserInfo(
-                @RequestParam String username,
-            @RequestParam String userImage,
-            @RequestParam String userBio,
-            @RequestParam String userLocation,
-            @RequestParam Long id) {
-        UserDto userInfo = userService.saveUserInfo(username, userImage, userBio, userLocation, id);
-        return new ResponseEntity<>(userInfo, HttpStatus.OK);
+    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto dto) {
+        UserDto update = userService.updateUser(dto);
+        return new ResponseEntity<>(update, HttpStatus.OK);
     }
 }

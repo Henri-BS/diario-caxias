@@ -6,28 +6,35 @@ import { CategoryPage } from "resources/category";
 import { EventPage } from "resources/event";
 import { PostPage } from "resources/post";
 import { ProjectPage } from "resources/project";
-import { CustomFlowbiteTheme, Flowbite, Carousel } from "flowbite-react";
+import { CustomFlowbiteTheme, Flowbite, Carousel, Banner } from "flowbite-react";
 import { useState, useEffect } from "react";
 import { CategoryMockHomeList, EventMockHomeList, PostMockCarousel, ProjectHomeMockList } from "mock/MockList";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "utils/requests";
+import { FaX } from "react-icons/fa6";
 
 export default function Home() {
     return (
         <>
             <div className=" grid grid-cols-1 lg:grid-cols-3 flex gap-x-8 mt-10">
-                <div className=" flex flex-col block w-full p-6 bg-white border border-gray-200 rounded-lg shadow mb-4">
-                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-center">
-                        Boas vindas ao Diário Caxias
-                    </h5>
+                <Banner>
+                    <div className=" flex flex-col block w-full p-6 bg-white border border-gray-200 rounded-lg shadow mb-4 h-full">
+                        <h5 className="flex flex-row justify-between mb-2 text-2xl font-bold tracking-tight text-gray-900 text-center">
+                            Boas vindas ao Diário Caxias
+                            <Banner.CollapseButton color="gray" className="border-0 bg-transparent text-gray-500 items-center">
+                                <FaX className="h-4 w-4" />
+                            </Banner.CollapseButton>
+                        </h5>
 
-                    <p className="font-normal text-gray-700 text-justify">
-                        Aqui nesta plataforma você poderá encontrar um vasto acervo de projetos e eventos que visam contribuir com o desenvolvimento educacional, profissional e cultural da cidade de Caxias do Maranhão.
-                        O Diário Caxias se compromete em estabelecer um vínculo entre a educação formal e a informal, permitindo que pessoas das mais diversas áreas ou níveis acadêmicos possam participar ativamente das atividades propostas, almejando uma participação multidisciplinar dos Caxienses.
-                        Para saber um pouco mais sobre os recentes projetos ou eventos, clique nas últimas nóticias que aparecem aqui ao lado e faça a sua história em sua cidade.
-                    </p>
-                </div>
+                        <p className="font-normal text-gray-700 text-justify">
+                            Aqui nesta plataforma você poderá encontrar um vasto acervo de projetos e eventos que visam contribuir com o desenvolvimento educacional, profissional e cultural da cidade de Caxias do Maranhão.
+                            O Diário Caxias se compromete em estabelecer um vínculo entre a educação formal e a informal, permitindo que pessoas das mais diversas áreas ou níveis acadêmicos possam participar ativamente das atividades propostas, almejando uma participação multidisciplinar dos Caxienses.
+                            Para saber um pouco mais sobre os recentes projetos ou eventos, clique nas últimas nóticias que aparecem aqui ao lado e faça a sua história em sua cidade.
+                        </p>
+                    </div>
+
+                </Banner>
                 <div className="col-span-2">
                     <PostCarousel />
                 </div>
@@ -65,7 +72,7 @@ export default function Home() {
 
         const [posts, setPosts] = useState<PostPage>({ content: [], page: { number: 0, totalElements: 0 } });
         useEffect(() => {
-            axios.get(`${baseUrl}/posts?size=12`)
+            axios.get(`${baseUrl}/posts?size=8`)
                 .then((response) => {
                     setPosts(response.data);
                 });
@@ -131,7 +138,7 @@ export default function Home() {
     function CategoryHomeList() {
         const [categories, setCategories] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } });
         useEffect(() => {
-            axios.get(`${baseUrl}/categories?&size=9`)
+            axios.get(`${baseUrl}/categories?&size=8`)
                 .then((response) => {
                     setCategories(response.data);
                 });

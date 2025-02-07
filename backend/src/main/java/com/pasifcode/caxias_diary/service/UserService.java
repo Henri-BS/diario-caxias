@@ -17,6 +17,6 @@ public interface UserService {
 
     AccessToken authenticate(String email, String password);
 
-    UserDto saveUserInfo(String username, String userImage, String bio, String location, Long id);
+    UserDto updateUser(UserDto dto);
 
 }
