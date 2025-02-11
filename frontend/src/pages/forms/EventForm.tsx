@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import { useAuth } from "resources/auth";
 import { Event, useEventService } from "resources/event";
 import { ProjectPage } from "resources/project";
-import Login from "./LoginForm";
+import { Login } from "./UserForm";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import axios from "axios";

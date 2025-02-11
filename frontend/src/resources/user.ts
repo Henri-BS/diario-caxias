@@ -1,3 +1,5 @@
+import axios from "axios";
+import { baseUrl } from "utils/requests";
 
 export type User = {
   id?: number;
@@ -43,4 +45,18 @@ export type UserSessionToken = {
   expiration?: number;
 }
 
+class UserService {
+async updateUserInfo(user: User): Promise<void> {
+  const response = await axios(`${baseUrl}/users/update`, {
+    method: "PUT",
+    data: JSON.stringify(user),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return await response.data;
+}
+}
+
+export const useUserService = () => new UserService();
 

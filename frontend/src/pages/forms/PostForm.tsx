@@ -5,7 +5,7 @@ import { Button, Textarea, TextInput } from "flowbite-react";
 import { useFormik } from "formik";
 import { FaNewspaper } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import Login from "./LoginForm";
+import { Login } from "./UserForm";
 import * as Yup from "yup";
 
 export interface PostFormProps {
@@ -109,7 +109,7 @@ export function PostAddForm() {
                                 placeholder="descrição da postagem" />
                             <FieldError error={errors.description} />
                         </div>
-                        <div className="mt-5 grid grid-cols-1">
+                        <div className="mt-2">
                             <label className="block text-sm font-medium leading-6 text-gray-700">Url de Imagem: </label>
                             <TextInput
                                 color="bg-zinc-400"

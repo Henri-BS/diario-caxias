@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "resources/auth";
 import { useProjectService, Project } from "resources/project";
 import * as Yup from "yup";
-import Login from "./LoginForm";
+import { Login } from "./UserForm";
 
 export interface ProjectFormProps {
     title: string;
@@ -67,7 +67,7 @@ export function ProjectAddForm() {
                     <span className="flex gap-2 mt-3 mb-10 text-2xl font-bold tracking-tight text-gray-900">
                         Adicionar Novo Projeto <FaFolderClosed />
                     </span>
-                    <form onSubmit={handleSubmit} className="space-y-2 w-1/2">
+                    <form onSubmit={handleSubmit} className="space-y-2 w-2/3">
                         <div className="grid grid-cols-1">
                             <TextInput type="hidden"
                                 id="userId"
