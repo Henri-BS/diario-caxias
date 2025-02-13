@@ -33,16 +33,22 @@ export const Header = () => {
             <Dropdown label="" dismissOnClick={false}
                 renderTrigger={() => <img src={user?.userImage ?? "https://cdn1.iconfinder.com/data/icons/basic-ui-element-2-2-line/512/Basic_UI_Elements_-_2.1_-_line-11-256.png"} className="h-12 w-12 rounded-full bg-[#ffffffbe] cursor-point border border-gray-100 transition duration-600 hover:border-blue-500" alt={user?.username} />}>
                 <Tooltip content={user?.username}>
-                    <Dropdown.Item icon={FaIcons.FaUser} href={`/perfil/${userId}`} className="text-md font-medium">
-                        Meu Perfil
-                    </Dropdown.Item>
+                    <Link to={`/perfil/${userId}`}>
+                        <Dropdown.Item icon={FaIcons.FaUser} className="text-md font-medium">
+                            Meu Perfil
+                        </Dropdown.Item>
+                    </Link>
                 </Tooltip>
-                    <Dropdown.Item icon={FaIcons.FaSquarePen} href={`/perfil/editar/${userId}`} className="text-md font-medium">
+                <Link to={`/perfil/editar/${userId}`}>
+                    <Dropdown.Item icon={FaIcons.FaSquarePen} className="text-md font-medium">
                         Editar Perfil
                     </Dropdown.Item>
-                <Dropdown.Item icon={FaIcons.FaRightFromBracket} href="/login" className="text-md font-medium" onClick={logout}>
-                    Sair
-                </Dropdown.Item>
+                </Link>
+                <Link to="/login" >
+                    <Dropdown.Item icon={FaIcons.FaRightFromBracket} className="text-md font-medium" onClick={logout}>
+                        Sair
+                    </Dropdown.Item>
+                </Link>
             </Dropdown>
         )
     }
@@ -61,21 +67,26 @@ export const Header = () => {
                 <div className="mx-auto flex justify-between items-center px-2 gap-4">
                     <div className="gap-2 flex items-center ">
                         <div className=" text-2xl cursor-pointer">
-                            <FaIcons.FaBars onClick={showSidebar} />
+                            {isOpen ? <FaIcons.FaBars onClick={showSidebar} /> : <FaIcons.FaX onClick={showSidebar} />}
                         </div>
-                        <Link to={"/"}>
-                            <h1 className="self-center text-lg font-semibold whitespace-nowrap">
+                        <Link to={"/"} className="self-center text-lg font-semibold whitespace-nowrap">
+                         
                                 Diário Caxias
-                            </h1>
                         </Link>
                     </div>
 
                     <div className="flex  gap-2 items-center text-gray-300 ">
                         <Dropdown title="Adicionar" label={<FaIcons.FaPlus />} inline >
                             <Dropdown.Header className="font-semibold text-md">Adicionar</Dropdown.Header>
-                            <Dropdown.Item href={"/projetos/adicionar"} icon={FaIcons.FaFolderClosed}>Projeto </Dropdown.Item>
-                            <Dropdown.Item href={"/eventos/adicionar"} icon={FaIcons.FaCalendarCheck}>Evento </Dropdown.Item>
-                            <Dropdown.Item href={"/postagens/adicionar"} icon={FaIcons.FaNewspaper}>Postagem </Dropdown.Item>
+                            <Link to={"/projetos/adicionar"}>
+                                <Dropdown.Item icon={FaIcons.FaFolderClosed}>Projeto </Dropdown.Item>
+                            </Link>
+                            <Link to={"/eventos/adicionar"}>
+                                <Dropdown.Item icon={FaIcons.FaCalendarCheck}>Evento </Dropdown.Item>
+                            </Link>
+                            <Link to={"/postagens/adicionar"}>
+                                <Dropdown.Item icon={FaIcons.FaNewspaper}>Postagem </Dropdown.Item>
+                            </Link>
                         </Dropdown>
                         {!userSession ?
                             <Link to={"/login"} >
@@ -97,24 +108,36 @@ export const Header = () => {
                             <div className="flex h-full flex-col justify-between py-2">
                                 <Sidebar.Items>
                                     <Sidebar.ItemGroup>
-                                        <Sidebar.Item href={`/`} icon={FaIcons.FaHouse} className="bg-zinc-700 hover:bg-zinc-600 text-white">
-                                            Início
-                                        </Sidebar.Item>
-                                        <Sidebar.Item href={`/postagens`} icon={FaIcons.FaNewspaper} className="bg-zinc-700 hover:bg-zinc-600 text-white">
-                                            Postagens
-                                        </Sidebar.Item>
-                                        <Sidebar.Item href={`/projetos`} icon={FaIcons.FaFolderClosed} className="bg-zinc-700 hover:bg-zinc-600 text-white">
-                                            Projetos
-                                        </Sidebar.Item>
-                                        <Sidebar.Item href={`/eventos`} icon={FaIcons.FaCalendarCheck} className="bg-zinc-700 hover:bg-zinc-600 text-white">
-                                            Eventos
-                                        </Sidebar.Item>
-                                        <Sidebar.Item href={`/categorias`} icon={FaIcons.FaTag} className="bg-zinc-700 hover:bg-zinc-600 text-white">
-                                            Categorias
-                                        </Sidebar.Item>
-                                        <Sidebar.Item href={`/usuarios`} icon={FaIcons.FaUser} className="bg-zinc-700 hover:bg-zinc-600 text-white">
-                                            Usuários
-                                        </Sidebar.Item>
+                                        <Link  onClick={showSidebar} to={`/`}>
+                                            <Sidebar.Item icon={FaIcons.FaHouse} className="bg-zinc-700 hover:bg-zinc-600 text-white mb-2">
+                                                Início
+                                            </Sidebar.Item>
+                                        </Link>
+                                        <Link  onClick={showSidebar} to={`/postagens`}>
+                                            <Sidebar.Item icon={FaIcons.FaNewspaper} className="bg-zinc-700 hover:bg-zinc-600 text-white mb-2">
+                                                Postagens
+                                            </Sidebar.Item>
+                                        </Link>
+                                        <Link  onClick={showSidebar} to={`/projetos`}>
+                                            <Sidebar.Item icon={FaIcons.FaFolderClosed} className="bg-zinc-700 hover:bg-zinc-600 text-white mb-2">
+                                                Projetos
+                                            </Sidebar.Item>
+                                        </Link>
+                                        <Link  onClick={showSidebar} to={`/eventos`}>
+                                            <Sidebar.Item icon={FaIcons.FaCalendarCheck} className="bg-zinc-700 hover:bg-zinc-600 text-white mb-2">
+                                                Eventos
+                                            </Sidebar.Item>
+                                        </Link>
+                                        <Link  onClick={showSidebar} to={`/categorias`}>
+                                            <Sidebar.Item icon={FaIcons.FaTag} className="bg-zinc-700 hover:bg-zinc-600 text-white mb-2">
+                                                Categorias
+                                            </Sidebar.Item>
+                                        </Link>
+                                        <Link  onClick={showSidebar} to={`/usuarios`}>
+                                            <Sidebar.Item icon={FaIcons.FaUser} className="bg-zinc-700 hover:bg-zinc-600 text-white mb-2">
+                                                Usuários
+                                            </Sidebar.Item>
+                                        </Link>
                                     </Sidebar.ItemGroup>
                                 </Sidebar.Items>
                             </div>
@@ -143,7 +166,7 @@ export const Footer = () => {
                     <div className="sm:flex sm:items-center sm:justify-between">
 
                         <Link to="/" className="flex items-center sm:justify-between">
-                        <img src={require("logo.png")} className="h-12 w-12" alt="logo" />
+                            <img src={require("logo.png")} className="h-12 w-12" alt="logo" />
                             <span className="self-center text-3xl font-semibold whitespace-nowrap text-white">Diário Caxias</span>
                         </Link>
 
@@ -184,7 +207,7 @@ export const Footer = () => {
                         </p>
                     </div>
                 </Modal.Body>
-                <Modal.Footer>
+                <Modal.Footer className="justify-end">
                     <Button gradientDuoTone="purpleToBlue" onClick={() => setAboutModal(false)}>
                         Ok
                     </Button>
@@ -226,7 +249,7 @@ export const Footer = () => {
                         </p>
                     </div>
                 </Modal.Body>
-                <Modal.Footer>
+                <Modal.Footer className="justify-end">
                     <Button gradientDuoTone="purpleToBlue" onClick={() => setTutorialModal(false)}>
                         Ok
                     </Button>
@@ -248,7 +271,7 @@ export const Footer = () => {
                         </p>
                     </div>
                 </Modal.Body>
-                <Modal.Footer>
+                <Modal.Footer className="justify-end">
                     <Button gradientDuoTone="purpleToBlue" onClick={() => setContributeModal(false)}>
                         Ok
                     </Button>
@@ -292,7 +315,7 @@ export const Footer = () => {
                         </p>
                     </div>
                 </Modal.Body>
-                <Modal.Footer>
+                <Modal.Footer className="justify-end">
                     <Button gradientDuoTone="purpleToBlue" onClick={() => setTermsModal(false)}>
                         Ok
                     </Button>

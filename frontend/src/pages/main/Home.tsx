@@ -17,8 +17,8 @@ import { FaX } from "react-icons/fa6";
 export default function Home() {
     return (
         <>
-            <div className=" grid grid-cols-1 lg:grid-cols-3 flex gap-x-8 mt-10">
-                <Banner>
+            
+                <Banner className="mt-10">
                     <div className=" flex flex-col block w-full p-6 bg-white border border-gray-200 rounded-lg shadow mb-4 h-full">
                         <h5 className="flex flex-row justify-between mb-2 text-2xl font-bold tracking-tight text-gray-900 text-center">
                             Boas vindas ao Diário Caxias
@@ -26,19 +26,17 @@ export default function Home() {
                                 <FaX className="h-4 w-4" />
                             </Banner.CollapseButton>
                         </h5>
-
                         <p className="font-normal text-gray-700 text-justify">
                             Aqui nesta plataforma você poderá encontrar um vasto acervo de projetos e eventos que visam contribuir com o desenvolvimento educacional, profissional e cultural da cidade de Caxias do Maranhão.
                             O Diário Caxias se compromete em estabelecer um vínculo entre a educação formal e a informal, permitindo que pessoas das mais diversas áreas ou níveis acadêmicos possam participar ativamente das atividades propostas, almejando uma participação multidisciplinar dos Caxienses.
                             Para saber um pouco mais sobre os recentes projetos ou eventos, clique nas últimas nóticias que aparecem aqui ao lado e faça a sua história em sua cidade.
                         </p>
                     </div>
-
                 </Banner>
-                <div className="col-span-2">
+                <div className="col-span-2 px-[40px]">
                     <PostCarousel />
                 </div>
-            </div>
+            
             <ProjectHomeList />
             <CategoryHomeList />
             <EventHomeList />
@@ -92,7 +90,7 @@ export default function Home() {
                             {!posts.content.length ? <PostMockCarousel /> :
                                 <Carousel>
                                     {posts.content.map(post => (
-                                        <div key={post.id} className="flex justify-center items-center">
+                                        <div key={post.id} className="flex justify-center items-center max-w-[900px]">
                                             <CarouselPostCard post={post} />
                                         </div>
                                     ))}

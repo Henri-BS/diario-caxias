@@ -75,12 +75,15 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventDto updateEvent(EventDto dto) {
         Event edit = eventRepository.findById(dto.getId()).orElseThrow();
+        Project project = projectRepository.findByTitle(dto.getProjectTitle());
 
         edit.setId(edit.getId());
         edit.setTitle(dto.getEventTitle());
         edit.setDescription(dto.getEventDescription());
+        edit.setImage(dto.getEventImage());
         edit.setEventDate(dto.getEventDate());
         edit.setEventStatus(dto.getEventStatus());
+        edit.setProject(project);
 
         return new EventDto(eventRepository.save(edit));
     }
@@ -89,6 +92,4 @@ public class EventServiceImpl implements EventService {
     public void deleteEvent(Long id) {
         this.eventRepository.deleteById(id);
     }
-
-
 }

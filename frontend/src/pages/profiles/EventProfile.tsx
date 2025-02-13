@@ -1,7 +1,7 @@
 import axios from "axios";
 import { UserCard } from "components/cards/UserCards";
 import { Pagination } from "components/shared/Pagination";
-import { Accordion } from "flowbite-react";
+import { Accordion, Dropdown, DropdownItem } from "flowbite-react";
 import { EventMockProfile } from "mock/MockProfile";
 import moment from "moment";
 import { useState, useEffect } from "react";
@@ -9,6 +9,7 @@ import * as FaIcons from "react-icons/fa6";
 import * as GoIcons from "react-icons/go";
 import { useParams } from "react-router-dom";
 import { Props } from "resources";
+import { useAuth } from "resources/auth";
 import { Event } from "resources/event";
 import { UserPage } from "resources/user";
 import { baseUrl } from "utils/requests";
@@ -25,11 +26,12 @@ export function EventProfile() {
 
 export function EventDetails({ params: eventId }: Props) {
     const [event, setEvent] = useState<Event>();
-    const [pageNumber, setPageNumber] = useState(0);
     const [userPage, setUserPage] = useState<UserPage>({ content: [], page: { number: 0, totalElements: 0 } });
+    const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
     }
+    const auth = useAuth();
 
     useEffect(() => {
         axios.get(`${baseUrl}/events/${eventId}`)
@@ -56,7 +58,7 @@ export function EventDetails({ params: eventId }: Props) {
                             </h3>
                             <div>
                                 <p className="flex gap-2 items-center text-center text-lg font-semibold text-gray-700">
-                                    <FaIcons.FaFolderClosed /> Projeto: {event?.projectTitle}
+                                    <GoIcons.GoFileDirectory /> Projeto: {event?.projectTitle}
                                 </p>
                                 <p className="flex gap-2 items-center text-center text-lg font-semibold text-gray-700">
                                     <GoIcons.GoCalendar /> Data do evento: {moment(event?.eventDate).format("DD/MM/yyyy")}
@@ -67,13 +69,23 @@ export function EventDetails({ params: eventId }: Props) {
                             </div>
                         </div>
                         <div className="flex flex-col">
-                            <img src={event?.eventImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full" width="1216" height="640" alt={event.eventTitle} />
+                            <img src={event?.eventImage ?? "https://cdn1.iconfinder.com/data/icons/dashboard-ui-vol-1/48/JD-46-512.png"} className="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full" width="1216" height="640" alt={event.eventTitle} />
                             <p className="flex gap-2 mt-2 items-center text-center text-sm font-medium text-gray-700">
                                 enviado em: {event?.createdDate}
                             </p>
                         </div>
-                    </div>
-                    <div className="mt-5 prose prose-slate prose-lg text-slate-800 text-justify">
+                    </div>  
+                    <p className="flex py-6 gap-2 justify-end items-center text-center text-lg font-semibold text-gray-700">
+                                {event.userId == auth.getUserSession()?.id ?
+                                    <Dropdown label="Configurações" inline>
+                                        <Dropdown.Item icon={FaIcons.FaSquarePen} href={`/eventos/editar/${eventId}`} className="text-md font-medium">
+                                            Editar Evento
+                                        </Dropdown.Item>
+                                    </Dropdown>
+                                    : ""
+                                }
+                                </p>
+                    <div className="mt-5 text-xl text-zinc-800 text-justify">
                         <p>{event?.eventDescription} </p>
                     </div>
                     <Accordion collapseAll className="mt-12 ">
