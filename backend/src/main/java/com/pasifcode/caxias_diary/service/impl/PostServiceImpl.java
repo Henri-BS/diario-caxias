@@ -48,4 +48,16 @@ public class PostServiceImpl implements PostService {
 
         return new PostDto(postRepository.saveAndFlush(add));
     }
+
+    @Override
+    public PostDto updatePost(PostDto dto) {
+        Post edit = postRepository.findById(dto.getId()).orElseThrow();
+
+        edit.setId(edit.getId());
+        edit.setTitle(dto.getPostTitle());
+        edit.setSummary(dto.getPostSummary());
+        edit.setDescription(dto.getPostDescription());
+        edit.setImage(dto.getPostImage());
+        return new PostDto(postRepository.save(edit));
+    }
 }

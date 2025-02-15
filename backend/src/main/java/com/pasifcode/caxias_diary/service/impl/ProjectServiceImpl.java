@@ -63,6 +63,7 @@ public class ProjectServiceImpl implements ProjectService {
         edit.setId(edit.getId());
         edit.setTitle(dto.getProjectTitle());
         edit.setDescription(dto.getProjectDescription());
+        edit.setImage(dto.getProjectImage());
         return new ProjectDto(projectRepository.save(edit));
     }
 

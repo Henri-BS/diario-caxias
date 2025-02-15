@@ -9,7 +9,7 @@ import { useNotification, FieldError } from "components/shared/Notification";
 import * as Yup from "yup";
 import axios from "axios";
 import { baseUrl } from "utils/requests";
-import { FaUser } from "react-icons/fa6";
+import { FaUser, FaX } from "react-icons/fa6";
 import { Props } from "resources";
 
 interface UserFormProps {
@@ -58,7 +58,6 @@ export function Login() {
     const notification = useNotification();
     const navigate = useNavigate();
 
-
     const { values, handleChange, handleSubmit, errors, resetForm } = useFormik<UserFormProps>({
         initialValues: userFormSchema,
         validationSchema: userValidationSchema,
@@ -91,19 +90,17 @@ export function Login() {
     }
     return (
         <>
-            <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-                <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                    <h2 className="mt-10 text-center text-4xl font-bold leading-9 whitespace-nowrap tracking-tight text-gray-900">
-                        {newUserState ? "Cadastre-se" : "Faça login na sua conta"}
-                    </h2>
+            <div className="flex flex-col items-center justify-center mt-10 py-[100px]">
+                <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-2/3">
+                    <span className="flex flex-row items-center gap-2">{newUserState ? "Cadastre-se" : "Faça login na sua conta"}</span>
+                    <FaX onClick={() => navigate(-1)} className="hover:shadow-xl cursor-pointer rounded-full  p-1 border hover:bg-gray-300  text-2xl" />
                 </div>
 
-                <div className="flex flex-col items-center my-6">
                     <form onSubmit={handleSubmit} className="space-y-2 w-2/3" >
                         {newUserState ?
                             <div>
                                 <Label className="block text-sm font-medium leading-6 text-gray-900" value="Nome de Usuário:" />
-                                <TextInput className="w-full"
+                                <TextInput 
                                     color="bg-zinc-400"
                                     id="username"
                                     value={values.username}
@@ -113,7 +110,7 @@ export function Login() {
                         }
                         <div>
                             <Label className="block text-sm font-medium leading-6 text-gray-900" value="Email:" />
-                            <TextInput className="w-full"
+                            <TextInput 
                                 color="bg-zinc-400"
                                 id="email"
                                 value={values.email}
@@ -123,7 +120,7 @@ export function Login() {
 
                         <div>
                             <Label className="block text-sm font-medium leading-6 text-gray-900" value="Senha:" />
-                            <TextInput className="w-full"
+                            <TextInput 
                                 color="bg-zinc-400"
                                 type="password"
                                 id="password"
@@ -135,7 +132,7 @@ export function Login() {
                         {newUserState ?
                             <div>
                                 <Label className="block text-sm font-medium leading-6 text-gray-900" value="Confirmar Senha:" />
-                                <TextInput className="w-full"
+                                <TextInput 
                                     color="bg-zinc-400"
                                     type="password"
                                     id="passwordMatch"
@@ -169,7 +166,6 @@ export function Login() {
                         </div>
                     </form>
                 </div>
-            </div>
         </>
     );
 }
@@ -187,6 +183,7 @@ export function UserEditForm({ params: userId }: Props) {
     const notification = useNotification();
     const auth = useAuth();
     userId = auth.getUserSession()?.id;
+    const navigate = useNavigate();
 
     const [user, setUser] = useState<User>();
     useEffect(() => {
@@ -223,6 +220,7 @@ export function UserEditForm({ params: userId }: Props) {
             axios.put(`${baseUrl}/users/update`, userValues)
                 .then((response) => {
                     console.log(response.data)
+                    navigate(`/usuarios/${userId}`);
                 });
             notification.notify("Salvo com sucesso!", "success");
             resetForm();
@@ -235,10 +233,11 @@ export function UserEditForm({ params: userId }: Props) {
 
     return (
         <>
-            <div className="flex flex-col items-center justify-center my-5">
-                <span className="flex items-center gap-2 mt-3 mb-10 text-2xl font-bold tracking-tight text-gray-900">
-                    Editar Usuário ({user?.username}) <FaUser />
-                </span>
+            <div className="flex flex-col items-center justify-center mt-10">
+                <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-2/3">
+                    <span className="flex flex-row items-center gap-2"><FaUser /> Editar Usuário ({user?.username})</span>
+                    <FaX onClick={() => navigate(-1)} className="hover:shadow-xl cursor-pointer rounded-full  p-1 border hover:bg-gray-300  text-2xl" />
+                </div>
                 <form onSubmit={onSubmit} className="space-y-2 w-2/3 ">
                     <div>
                         <TextInput
@@ -255,19 +254,18 @@ export function UserEditForm({ params: userId }: Props) {
                             id="username"
                             onChange={handleChange}
                             value={values.username}
-                            defaultValue={user?.username}
                         />
 
                     </div>
                     <div>
                         <Label className="block text-sm font-medium leading-6 text-gray-700" value="Bio: " />
                         <Textarea
-                        className="min-h-[120px]"
+                            className="min-h-[120px]"
                             color="bg-zinc-400"
                             id="userBio"
                             onChange={handleChange}
                             value={values.userBio}
-                            />
+                        />
                     </div>
                     <div>
                         <Label className="block text-sm font-medium leading-6 text-gray-700" value="Url da Imagem de Perfil: " />
@@ -276,7 +274,7 @@ export function UserEditForm({ params: userId }: Props) {
                             id="userImage"
                             onChange={handleChange}
                             value={values.userImage}
-                            />
+                        />
                     </div>
                     <div>
                         <Label className="block text-sm font-medium leading-6 text-gray-700" value="Url da Imagem de Capa:" />
@@ -285,7 +283,7 @@ export function UserEditForm({ params: userId }: Props) {
                             id="userCoverImage"
                             onChange={handleChange}
                             value={values.userCoverImage}
-                            />
+                        />
                     </div>
                     <div className="mt-2">
                         <Label className="block text-sm font-medium leading-6 text-gray-700" value="Localização:" />
@@ -294,7 +292,7 @@ export function UserEditForm({ params: userId }: Props) {
                             id="userLocation"
                             onChange={handleChange}
                             value={values.userLocation}
-                            />
+                        />
                     </div>
                     <div className="mt-5 flex items-center justify-end gap-x-4">
                         <Button type="submit" gradientDuoTone="purpleToBlue" >Salvar</Button>

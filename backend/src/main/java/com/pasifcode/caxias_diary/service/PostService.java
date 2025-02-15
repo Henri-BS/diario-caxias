@@ -12,4 +12,5 @@ public interface PostService {
 
     PostDto savePost(PostDto dto);
 
+    PostDto updatePost(PostDto dto);
 }

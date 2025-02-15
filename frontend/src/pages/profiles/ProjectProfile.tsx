@@ -7,14 +7,16 @@ import { CategoryPage } from "resources/category";
 import { EventPage } from "resources/event";
 import { PostPage } from "resources/post";
 import { Project } from "resources/project";
-import { Accordion } from "flowbite-react";
+import { Accordion, Dropdown } from "flowbite-react";
 
 import { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa6";
 import { Props } from "resources";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "utils/requests";
+import { useAuth } from "resources/auth";
+import { ProjectEditForm } from "pages/forms/ProjectForm";
 
 export function ProjectProfile() {
     const params = useParams();
@@ -26,6 +28,8 @@ export function ProjectProfile() {
 }
 
 export function ProjectDetails({ params: projectId }: Props) {
+    const auth = useAuth();
+    const [edit, setEdit] = useState<boolean>(false);
     const [project, setProject] = useState<Project>();
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
@@ -34,6 +38,7 @@ export function ProjectDetails({ params: projectId }: Props) {
     const [eventPage, setEventPage] = useState<EventPage>({ content: [], page: { number: 0, totalElements: 0 } });
     const [categoryPage, setCategoryPage] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } });
     const [postPage, setPostPage] = useState<PostPage>({ content: [], page: { number: 0, totalElements: 0 } });
+
 
     useEffect(() => {
         axios.get(`${baseUrl}/projects/${projectId}`)
@@ -62,6 +67,21 @@ export function ProjectDetails({ params: projectId }: Props) {
         <>
             {!project ? <ProjectMockProfile params={projectId} /> :
                 <div className="mt-10">
+                    <div className="flex py-6 gap-2 justify-between items-center text-center text-lg font-semibold text-gray-700">
+                                            <Link to={"/projetos"}>
+                                                <FaIcons.FaArrowLeft className="hover:shadow-xl cursor-pointer rounded-full p-1 border transition duration-800 hover:bg-gray-200 text-3xl" />
+                                            </Link>
+                                            {project.userId === auth.getUserSession()?.id ?
+                                                <Dropdown label="Configurações" inline>
+                                                    <Dropdown.Item icon={FaIcons.FaSquarePen} onClick={() => setEdit(true)} className="text-md font-medium">
+                                                        Editar Projecto
+                                                    </Dropdown.Item>
+                                                </Dropdown>
+                                                : ""
+                                            }
+                                        </div>
+                                        {edit ? <ProjectEditForm params={projectId} /> :
+                                            <div>
                     <div className="relative flex flex-col sm:flex-row xl:flex-col items-start">
                         <div className="order-1 sm:ml-6 xl:ml-0">
                             <h3 className="mb-1 text-slate-900 font-semibold">
@@ -73,7 +93,7 @@ export function ProjectDetails({ params: projectId }: Props) {
                                 <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaNewspaper /> Postagens relacionados: <b>{postPage.page.totalElements}</b></p>
                             </div>
                         </div>
-                        <img src={project?.projectImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[22rem] sm:mb-0" alt={project.projectTitle} />
+                        <img src={project?.projectImage ? project.projectImage : "https://cdn1.iconfinder.com/data/icons/dashboard-ui-vol-1/48/JD-46-512.png"} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[22rem] sm:mb-0" alt={project.projectTitle} />
                     </div>
                     <p className="mt-5 text-xl text-justify">{project?.projectDescription} </p>
                     <Accordion collapseAll className="mt-12 ">
@@ -131,6 +151,9 @@ export function ProjectDetails({ params: projectId }: Props) {
                         </Accordion.Panel>
                     </Accordion>
                 </div>
+}
+                </div>
+                                
             }
         </>
     );

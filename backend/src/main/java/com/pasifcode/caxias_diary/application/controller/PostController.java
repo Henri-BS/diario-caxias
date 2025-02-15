@@ -1,6 +1,7 @@
 package com.pasifcode.caxias_diary.application.controller;
 
 import com.pasifcode.caxias_diary.domain.dto.PostDto;
+import com.pasifcode.caxias_diary.domain.dto.ProjectDto;
 import com.pasifcode.caxias_diary.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -36,5 +37,9 @@ PostDto add = postService.savePost(dto);
         return new ResponseEntity<>(add, HttpStatus.CREATED);
     }
 
-
+    @PutMapping("/update")
+    public ResponseEntity<PostDto> updatePost(@RequestBody PostDto dto) {
+        PostDto edit = postService.updatePost(dto);
+        return new ResponseEntity<>(edit, HttpStatus.OK);
+    }
 }

@@ -1,6 +1,3 @@
-import axios from "axios";
-import { useAuth } from "./auth";
-import { baseUrl } from "utils/requests";
 
 export type Project = {
   id?: number;
@@ -23,21 +20,4 @@ export type ProjectPage = {
 export type ProjectProps = {
   project: Project;
 };
-
-class ProjectService {
-  auth = useAuth();
-  userSession = this.auth.getUserSession();
-
-  async saveProject(project: Project): Promise<void> {
-     await axios(baseUrl + "/projects/save", {
-      method: "POST",
-      data: JSON.stringify(project),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  }
-}
-
-export const useProjectService = () => new ProjectService();
 

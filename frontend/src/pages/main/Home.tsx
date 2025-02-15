@@ -6,37 +6,38 @@ import { CategoryPage } from "resources/category";
 import { EventPage } from "resources/event";
 import { PostPage } from "resources/post";
 import { ProjectPage } from "resources/project";
-import { CustomFlowbiteTheme, Flowbite, Carousel, Banner } from "flowbite-react";
+import { CustomFlowbiteTheme, Flowbite, Carousel, Accordion } from "flowbite-react";
 import { useState, useEffect } from "react";
 import { CategoryMockHomeList, EventMockHomeList, PostMockCarousel, ProjectHomeMockList } from "mock/MockList";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "utils/requests";
-import { FaX } from "react-icons/fa6";
 
 export default function Home() {
     return (
         <>
-            
-                <Banner className="mt-10">
-                    <div className=" flex flex-col block w-full p-6 bg-white border border-gray-200 rounded-lg shadow mb-4 h-full">
-                        <h5 className="flex flex-row justify-between mb-2 text-2xl font-bold tracking-tight text-gray-900 text-center">
+            <div className="mt-10">
+                <Accordion collapseAll>
+                    <Accordion.Panel>
+                        <Accordion.Title>
+                        <h5 className="flex flex-row justify-between mb-2 text-lg font-semibold tracking-tight text-gray-900 text-center">
                             Boas vindas ao Diário Caxias
-                            <Banner.CollapseButton color="gray" className="border-0 bg-transparent text-gray-500 items-center">
-                                <FaX className="h-4 w-4" />
-                            </Banner.CollapseButton>
                         </h5>
-                        <p className="font-normal text-gray-700 text-justify">
-                            Aqui nesta plataforma você poderá encontrar um vasto acervo de projetos e eventos que visam contribuir com o desenvolvimento educacional, profissional e cultural da cidade de Caxias do Maranhão.
-                            O Diário Caxias se compromete em estabelecer um vínculo entre a educação formal e a informal, permitindo que pessoas das mais diversas áreas ou níveis acadêmicos possam participar ativamente das atividades propostas, almejando uma participação multidisciplinar dos Caxienses.
-                            Para saber um pouco mais sobre os recentes projetos ou eventos, clique nas últimas nóticias que aparecem aqui ao lado e faça a sua história em sua cidade.
-                        </p>
-                    </div>
-                </Banner>
-                <div className="col-span-2 px-[40px]">
-                    <PostCarousel />
-                </div>
-            
+                    </Accordion.Title>
+                        <Accordion.Content>
+                            <p className="font-normal text-gray-700 text-justify">
+                                Aqui nesta plataforma você poderá encontrar um vasto acervo de projetos e eventos que visam contribuir com o desenvolvimento educacional, profissional e cultural da cidade de Caxias do Maranhão.
+                                O Diário Caxias se compromete em estabelecer um vínculo entre a educação formal e a informal, permitindo que pessoas das mais diversas áreas ou níveis acadêmicos possam participar ativamente das atividades propostas, almejando uma participação multidisciplinar dos Caxienses.
+                                Para saber um pouco mais sobre os recentes projetos ou eventos, clique nas últimas nóticias que aparecem aqui ao lado e faça a sua história em sua cidade.
+                            </p>
+                        </Accordion.Content>
+                    </Accordion.Panel>
+                </Accordion>
+            </div>
+            <div className="col-span-2 px-[40px] mt-10">
+                <PostCarousel />
+            </div>
+
             <ProjectHomeList />
             <CategoryHomeList />
             <EventHomeList />
@@ -80,8 +81,8 @@ export default function Home() {
             <>
                 <div className="flex flex-col justify-center items-center">
                     <div className="flex justify-between w-full" >
-                        <h1 className="text-2xl">Últimas Postagens</h1>
-                        <Link to={"/postagens"} className="text-xl text-blue-600 hover:text-blue-400 hover:underline">
+                        <h1 className="text-xl">Últimas Postagens</h1>
+                        <Link to={"/postagens"} className="text-lg text-blue-600 hover:text-blue-400 hover:underline">
                             Ver mais
                         </Link>
                     </div>
@@ -115,8 +116,8 @@ export default function Home() {
         return (
             <>
                 <div className="flex justify-between p-4 mt-12" >
-                    <h1 className="text-3xl">Projetos recentes</h1>
-                    <Link to={"/projetos"} className="text-2xl text-blue-600 hover:text-blue-400 hover:underline">
+                    <h1 className="text-2xl">Projetos recentes</h1>
+                    <Link to={"/projetos"} className="text-lg text-blue-600 hover:text-blue-400 hover:underline">
                         Ver mais
                     </Link>
                 </div>
@@ -145,8 +146,8 @@ export default function Home() {
         return (
             <>
                 <div className="flex justify-between p-4 " >
-                    <h1 className="text-3xl">Categorias</h1>
-                    <Link to={"/categorias"} className="text-2xl text-blue-600 hover:text-blue-400 hover:underline ">
+                    <h1 className="text-2xl">Categorias</h1>
+                    <Link to={"/categorias"} className="text-lg text-blue-600 hover:text-blue-400 hover:underline ">
                         Ver mais
                     </Link>
                 </div>
@@ -175,8 +176,8 @@ export default function Home() {
         return (
             <>
                 <div className="flex justify-between p-4 " >
-                    <h1 className="text-3xl">Eventos recentes</h1>
-                    <Link to={"/eventos"} className="text-2xl text-blue-600 hover:text-blue-400 hover:underline">
+                    <h1 className="text-2xl">Eventos recentes</h1>
+                    <Link to={"/eventos"} className="text-lg text-blue-600 hover:text-blue-400 hover:underline">
                         Ver mais
                     </Link>
                 </div>

@@ -1,6 +1,3 @@
-import axios from "axios";
-import { useAuth } from "./auth";
-import { baseUrl } from "utils/requests";
 
 export type Post = {
   id?: number;
@@ -23,20 +20,3 @@ export type PostPage = {
 export type PostProps = {
   post: Post;
 };
-
-class PostService {
-  auth = useAuth();
-  userSession = this.auth.getUserSession();
-
-  async savePost(post: Post): Promise<void> {
-      await axios(baseUrl + "/posts/save", {
-      method: "POST",
-      data: JSON.stringify(post),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  }
-
-}
-export const usePostService = () => new PostService();

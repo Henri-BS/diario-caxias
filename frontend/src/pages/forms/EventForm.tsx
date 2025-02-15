@@ -35,16 +35,16 @@ export const eventFormSchema: EventFormProps = {
 };
 
 export const eventValidationSchema = Yup.object().shape({
-    title: Yup.string()
+    eventTitle: Yup.string()
         .trim()
         .required("O campo título é obrigatório!")
         .min(3, "O título deve ter no mínimo 3 caracteres!")
         .max(100, "O título deve ter no máximo 100 caracteres!"),
-    description: Yup.string()
+    eventDescription: Yup.string()
         .trim()
         .required("O campo de descrição é obrigatório!"),
-    date: Yup.string().trim().required("O campo de data é obrigatório!"),
-    status: Yup.string().trim().required("O campo de status é obrigatório!"),
+    eventDate: Yup.string().trim().required("O campo de data é obrigatório!"),
+    eventStatus: Yup.string().trim().required("O campo de status é obrigatório!"),
 });
 
 export function EventAddForm() {

@@ -1,5 +1,5 @@
 import { Header, Footer } from "components/shared/Template";
-import { EventAddForm, EventEditProfile } from "pages/forms/EventForm";
+import { EventAddForm } from "pages/forms/EventForm";
 import { Login, UserEditProfile } from "pages/forms/UserForm";
 import { PostAddForm } from "pages/forms/PostForm";
 import { ProjectAddForm } from "pages/forms/ProjectForm";
@@ -35,7 +35,6 @@ export default function PageRoutes() {
                         <Route path="/projetos/adicionar" element={<ProjectAddForm />} />
                         <Route path="/eventos" element={<Events />} />
                         <Route path="/eventos/:eventId" element={<EventProfile />} />
-                        <Route path="/eventos/editar/:eventId" element={<EventEditProfile />} />
                         <Route path="/eventos/adicionar" element={<EventAddForm />} />
                         <Route path="/categorias" element={<Categories />} />
                         <Route path="/categorias/:categoryName" element={<CategoryProfile />} />
