@@ -219,8 +219,8 @@ export function UserEditForm({ params: userId }: Props) {
         try {
             axios.put(`${baseUrl}/users/update`, userValues)
                 .then((response) => {
-                    console.log(response.data)
                     navigate(`/usuarios/${userId}`);
+                    return response.status;
                 });
             notification.notify("Salvo com sucesso!", "success");
             resetForm();

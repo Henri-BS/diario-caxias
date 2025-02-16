@@ -35,7 +35,7 @@ public class JwtHelper {
     }
 
     private Date generateExpirationDate(){
-        var expirationMinutes  = 720;
+        var expirationMinutes  = 120;
         LocalDateTime now = LocalDateTime.now().plusMinutes(expirationMinutes);
         return Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
     }

@@ -69,7 +69,8 @@ export function PostAddForm() {
         try {
             axios.post(`${baseUrl}/posts/save`, post)
                 .then((response) => {
-                    console.log(response.data);
+                    navigate(`/postagens/${post.id}`);
+                    return response.status;
                 });
             notification.notify("Salvo com sucesso!", "success");
             resetForm();
@@ -183,7 +184,8 @@ export function PostEditForm({ params: postId }: Props) {
         try {
             axios.put(`${baseUrl}/posts/update`, postValues)
                 .then((response) => {
-                    console.log(response.data);
+                    navigate(0);
+                    return response.status;
                 });
         } catch (error: any) {
             const message = error?.message;

@@ -51,7 +51,7 @@ export function EventAddForm() {
     const notification = useNotification();
     const auth = useAuth();
     const userId = auth.getUserSession()?.id;
-
+const navigate = useNavigate();
     const query = "";
     const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
@@ -81,7 +81,8 @@ export function EventAddForm() {
         try {
             axios.post(`${baseUrl}/events/save`, event)
             .then((response) => {
-                console.log(response.data);
+                navigate(`/eventos/${event.id}`)
+                return response.status;
             });
             notification.notify("Salvo com sucesso!", "success");
             resetForm();
@@ -253,7 +254,8 @@ export function EventEditForm({ params: eventId }: Props) {
         try {
             axios.put(`${baseUrl}/events/update`, eventValues)
                 .then((response) => {
-                    console.log(response.data);
+                    navigate(0)
+                    return response.status;
                 });
             notification.notify("Salvo com sucesso!", "success");
         } catch (error: any) {

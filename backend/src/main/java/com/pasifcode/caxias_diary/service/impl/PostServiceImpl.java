@@ -60,4 +60,9 @@ public class PostServiceImpl implements PostService {
         edit.setImage(dto.getPostImage());
         return new PostDto(postRepository.save(edit));
     }
+
+    @Override
+    public void deletePost(Long id) {
+        this.postRepository.deleteById(id);
+    }
 }

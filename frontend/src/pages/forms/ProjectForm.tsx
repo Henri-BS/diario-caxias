@@ -56,7 +56,8 @@ const navigate = useNavigate();
         try {
             axios.post(`${baseUrl}/projects/save`, project)
                 .then((response) => {
-                    console.log(response.data);
+                    navigate(`/projetos/${project.id}`)
+                    return response.status;
                 });
             notification.notify("Salvo com sucesso!", "success");
             resetForm();
@@ -152,7 +153,8 @@ export function ProjectEditForm({ params: projectId }: Props) {
         try {
             axios.put(`${baseUrl}/projects/update`, projectValues)
                 .then((response) => {
-                    console.log(response.data);
+                    navigate(0);
+                    return response.status;
                 });
         } catch (error: any) {
             const message = error?.message;

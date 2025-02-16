@@ -3,12 +3,12 @@ import { Pagination } from "components/shared/Pagination";
 import { PostMockProfile } from "mock/MockProfile";
 import { Post } from "resources/post";
 import { ProjectPage } from "resources/project";
-import { Accordion, Dropdown } from "flowbite-react";
+import { Accordion, Button, Dropdown, Modal } from "flowbite-react";
 
 import { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa6";
 import { Props } from "resources";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "utils/requests";
 import { useAuth } from "resources/auth";
@@ -34,6 +34,8 @@ export function PostDetails({ params: postId }: Props) {
     const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
     const auth = useAuth();
     const [edit, setEdit] = useState<boolean>(false);
+    const [deleteModal, setDeleteModal] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`${baseUrl}/posts/${postId}`)
@@ -49,6 +51,14 @@ export function PostDetails({ params: postId }: Props) {
             });
     }, [postId, pageNumber]);
 
+    const deletePost = () => {
+        axios.delete(`${baseUrl}/posts/delete/${postId}`)
+            .then((response) => {
+                navigate("/postagens");
+                return response.status;
+            })
+    }
+
     return (
         <>
             {!post ? <PostMockProfile params={postId} /> :
@@ -60,11 +70,33 @@ export function PostDetails({ params: postId }: Props) {
                         {post.userId === auth.getUserSession()?.id ?
                             <Dropdown label="Configurações" inline>
                                 <Dropdown.Item icon={FaIcons.FaSquarePen} onClick={() => setEdit(true)} className="text-md font-medium">
-                                    Editar Postagem
+                                    Editar
+                                </Dropdown.Item>
+                                <Dropdown.Item icon={FaIcons.FaTrash} onClick={() => setDeleteModal(true)} className="text-md font-medium">
+                                    Deletar
                                 </Dropdown.Item>
                             </Dropdown>
                             : ""
                         }
+                        <Modal show={deleteModal} size="md" onClose={() => setDeleteModal(false)} popup>
+                            <Modal.Header />
+                            <Modal.Body>
+                                <div className="text-center">
+                                    <FaIcons.FaExclamation className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200 border-4 p-2  rounded-full" />
+                                    <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                                        Deseja deletar esta postagem?
+                                    </h3>
+                                    <div className="flex justify-center gap-4">
+                                        <Button color="failure" onClick={() => deletePost()} >
+                                            <span onClick={() => setDeleteModal(false)}>{"Deletar"}</span>
+                                        </Button>
+                                        <Button color="gray" onClick={() => setDeleteModal(false)}>
+                                            Cancelar
+                                        </Button>
+                                    </div>
+                                </div>
+                            </Modal.Body>
+                        </Modal>
                     </div>
                     {edit ? <PostEditForm params={postId} /> :
                         <div>
@@ -79,7 +111,7 @@ export function PostDetails({ params: postId }: Props) {
                                     </div>
                                 </div>
                                 <div className="flex flex-col w-96">
-                                    <img src={post?.postImage ? post?.postImage  : "https://cdn1.iconfinder.com/data/icons/dashboard-ui-vol-1/48/JD-46-512.png"} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[60rem] sm:mb-0" alt={post.postTitle} />
+                                    <img src={post?.postImage ? post?.postImage : "https://cdn1.iconfinder.com/data/icons/dashboard-ui-vol-1/48/JD-46-512.png"} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[60rem] sm:mb-0" alt={post.postTitle} />
                                     <p className="flex gap-2 mt-2 items-center text-center text-sm font-medium text-gray-700">
                                         enviado em: {post?.createdDate}
                                     </p>

@@ -1,14 +1,14 @@
 import axios from "axios";
 import { UserCard } from "components/cards/UserCards";
 import { Pagination } from "components/shared/Pagination";
-import { Accordion, Dropdown } from "flowbite-react";
+import { Accordion, Button, Dropdown, Modal } from "flowbite-react";
 import { EventMockProfile } from "mock/MockProfile";
 import moment from "moment";
 import { EventEditForm } from "pages/forms/EventForm";
 import { useState, useEffect } from "react";
 import * as FaIcons from "react-icons/fa6";
 import * as GoIcons from "react-icons/go";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Props } from "resources";
 import { useAuth } from "resources/auth";
 import { Event } from "resources/event";
@@ -34,6 +34,8 @@ export function EventDetails({ params: eventId }: Props) {
     }
     const auth = useAuth();
     const [edit, setEdit] = useState<boolean>(false);
+    const [deleteModal, setDeleteModal] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`${baseUrl}/events/${eventId}`)
@@ -49,6 +51,14 @@ export function EventDetails({ params: eventId }: Props) {
             })
     }, [eventId, pageNumber]);
 
+    const deleteEvent = () => {
+        axios.delete(`${baseUrl}/events/delete/${eventId}`)
+            .then((response) => {
+                navigate("/eventos");
+                return response.status
+            })
+    }
+
     return (
         <>
             {!event ? <EventMockProfile params={eventId} /> :
@@ -60,11 +70,33 @@ export function EventDetails({ params: eventId }: Props) {
                         {event.userId === auth.getUserSession()?.id ?
                             <Dropdown label="Configurações" inline>
                                 <Dropdown.Item icon={FaIcons.FaSquarePen} onClick={() => setEdit(true)} className="text-md font-medium">
-                                    Editar Evento
+                                    Editar 
+                                </Dropdown.Item>
+                                <Dropdown.Item icon={FaIcons.FaTrash} onClick={() => setDeleteModal(true)} className="text-md font-medium">
+                                    Deletar 
                                 </Dropdown.Item>
                             </Dropdown>
                             : ""
                         }
+                        <Modal show={deleteModal} size="md" onClose={() => setDeleteModal(false)} popup>
+                            <Modal.Header />
+                            <Modal.Body>
+                                <div className="text-center">
+                                    <FaIcons.FaExclamation className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200 border-4 p-2  rounded-full" />
+                                    <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                                        Deseja deletar este evento?
+                                    </h3>
+                                    <div className="flex justify-center gap-4">
+                                        <Button color="failure" onClick={() => deleteEvent()} >
+                                            <span onClick={() => setDeleteModal(false)}>{"Deletar"}</span>
+                                        </Button>
+                                        <Button color="gray" onClick={() => setDeleteModal(false)}>
+                                            Cancelar
+                                        </Button>
+                                    </div>
+                                </div>
+                            </Modal.Body>
+                        </Modal>
                     </div>
                     {edit ? <EventEditForm params={eventId} /> :
                         <div>
