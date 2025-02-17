@@ -2,15 +2,15 @@ import * as FaIcons from "react-icons/fa6";
 import * as GoIcons from "react-icons/go";
 import { categoryMock, eventMock, postMock, projectMock } from "./MockData";
 import moment from "moment";
+import { Props } from "resources";
 
-export function CategoryMockProfile({ params }: any) {
-    const categoryId = params.categoryId;
+export function CategoryMockProfile({ params: categoryName }: Props) {
 
-    const filterById = (id: any) => {
-        return categoryMock.filter(item => item.id.toString() === id);
+    const filterByName = (name: any) => {
+        return categoryMock.filter(item => item.categoryName === name);
     };
 
-    const result = filterById(categoryId);
+    const result = filterByName(categoryName);
 
     return (
         <>
@@ -32,11 +32,10 @@ export function CategoryMockProfile({ params }: any) {
     )
 }
 
-export function EventMockProfile({ params }: any) {
-    const eventId = params.eventId;
+export function EventMockProfile({ params: eventId }: Props) {
 
     const filterById = (id: any) => {
-        return eventMock.filter(item => item.id.toString() === id);
+        return eventMock.filter(item => item.id === id);
     };
 
     const result = filterById(eventId);
@@ -80,11 +79,10 @@ export function EventMockProfile({ params }: any) {
     )
 }
 
-export function PostMockProfile({ params }: any) {
-    const postId = params.postId;
+export function PostMockProfile({ params: postId }: Props) {
 
     const filterById = (id: any) => {
-        return postMock.filter(item => item.id.toString() === id);
+        return postMock.filter(item => item.id === id);
     };
 
     const result = filterById(postId);
@@ -121,11 +119,10 @@ export function PostMockProfile({ params }: any) {
     )
 }
 
-export function ProjectMockProfile({ params }: any) {
-    const projectId = params.projectId;
+export function ProjectMockProfile({ params: projectId }: Props) {
 
     const filterById = (id: any) => {
-        return projectMock.filter(item => item.id.toString() === id);
+        return projectMock.filter(item => item.id === id);
     };
 
     const result = filterById(projectId);
@@ -133,7 +130,7 @@ export function ProjectMockProfile({ params }: any) {
 
     return (
         <>
-            {result.map(project => {
+            {result.map((project) => {
                 return (
                     <div key={project.id}>
                         <div >
