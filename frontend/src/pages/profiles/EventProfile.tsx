@@ -33,6 +33,7 @@ export function EventDetails({ params: eventId }: Props) {
         setPageNumber(newPageNumber);
     }
     const auth = useAuth();
+    const params = useParams();
     const [edit, setEdit] = useState<boolean>(false);
     const [deleteModal, setDeleteModal] = useState(false);
     const navigate = useNavigate();
@@ -61,7 +62,7 @@ export function EventDetails({ params: eventId }: Props) {
 
     return (
         <>
-            {!event ? <EventMockProfile params={eventId} /> :
+            {!event ? <EventMockProfile params={`${params.eventId}`} /> :
                 <div className="mt-10">
                     <div className="flex py-6 gap-2 justify-between items-center text-center text-lg font-semibold text-gray-700">
                         <Link to={"/eventos"}>

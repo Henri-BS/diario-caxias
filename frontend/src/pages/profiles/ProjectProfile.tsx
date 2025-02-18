@@ -32,6 +32,7 @@ export function ProjectDetails({ params: projectId }: Props) {
     const [edit, setEdit] = useState<boolean>(false);
     const [deleteModal, setDeleteModal] = useState(false);
     const navigate = useNavigate();
+    const params = useParams();
     const [project, setProject] = useState<Project>();
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
@@ -75,7 +76,7 @@ export function ProjectDetails({ params: projectId }: Props) {
 
     return (
         <>
-            {!project ? <ProjectMockProfile params={projectId} /> :
+            {!project ? <ProjectMockProfile params={`${params.projectId}`} /> :
                 <div className="mt-10">
                     <div className="flex py-6 gap-2 justify-between items-center text-center text-lg font-semibold text-gray-700">
                         <Link to={"/projetos"}>

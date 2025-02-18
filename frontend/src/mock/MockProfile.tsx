@@ -7,16 +7,16 @@ import { Props } from "resources";
 export function CategoryMockProfile({ params: categoryName }: Props) {
 
     const filterByName = (name: any) => {
-        return categoryMock.filter(item => item.categoryName === name);
+        return categoryMock.filter(item => item.categoryName.toString() === name);
     };
 
     const result = filterByName(categoryName);
 
     return (
         <>
-            {result.map(category => {
+            {result.map((category) => {
                 return (
-                    <div key={category.id}>
+                    <div key={category.id} className="mt-10">
                         <div className="w-full p-6 bg-zinc-100 border border-zinc-300 rounded-lg shadow-md ">
                             <h5 className=" mb-2 text-4xl font-bold tracking-tight text-indigo-500 ">{category?.categoryName}</h5>
                             <p className="font-medium text-lg">{category?.categoryDescription}</p>
@@ -35,7 +35,7 @@ export function CategoryMockProfile({ params: categoryName }: Props) {
 export function EventMockProfile({ params: eventId }: Props) {
 
     const filterById = (id: any) => {
-        return eventMock.filter(item => item.id === id);
+        return eventMock.filter(item => item.id.toString() === id);
     };
 
     const result = filterById(eventId);
@@ -44,7 +44,7 @@ export function EventMockProfile({ params: eventId }: Props) {
         <>
             {result.map(event => {
                 return (
-                    <div key={event.id}>
+                    <div key={event.id} className="mt-10">
                         <div className="relative flex flex-col sm:flex-row xl:flex-col items-start">
                             <div className="order-1 sm:ml-6 xl:ml-0">
                                 <h3 className="mb-1 text-slate-900 font-semibold">
@@ -63,7 +63,7 @@ export function EventMockProfile({ params: eventId }: Props) {
                                 </div>
                             </div>
                             <div className="flex flex-col">
-                                <img src={event?.eventImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full" width="1216" height="640" alt={event.eventTitle}/>
+                                <img src={event?.eventImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full" width="1216" height="640" alt={event.eventTitle} />
                                 <p className="flex gap-2 mt-2 items-center text-center text-sm font-medium text-gray-700">
                                     enviado em: {event?.createdDate}
                                 </p>
@@ -82,7 +82,7 @@ export function EventMockProfile({ params: eventId }: Props) {
 export function PostMockProfile({ params: postId }: Props) {
 
     const filterById = (id: any) => {
-        return postMock.filter(item => item.id === id);
+        return postMock.filter(item => item.id.toString() === id);
     };
 
     const result = filterById(postId);
@@ -91,20 +91,19 @@ export function PostMockProfile({ params: postId }: Props) {
         <>
             {result.map(post => {
                 return (
-                    <div key={post.id}>
-                        <div>
+                    <div key={post.id} className="mt-10">
                             <div className="relative flex flex-col md:flex-row xl:flex-col items-start">
                                 <div className="order-1 sm:ml-6 xl:ml-0">
                                     <h3 className="mb-1 text-slate-900 font-semibold">
                                         <span className="mb-1 text-3xl leading-6 text-indigo-500">{post?.postTitle}</span>
                                     </h3>
                                     <div className="prose prose-slate prose-sm text-slate-600 mt-5">
-                                        <p className="flex flex-row items-center text-gray-800 text-lg gap-2"><FaIcons.FaFolderClosed /> Projetos relacionados: <b>{23}</b></p>
+                                        <p className="flex flex-row items-center text-gray-800 text-lg gap-2"><FaIcons.FaFolderClosed /> Projetos relacionados: <b>{2}</b></p>
                                         <i>{post?.postSummary}</i>
                                     </div>
                                 </div>
                                 <div className="flex flex-col">
-                                    <img src={post?.postImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[60rem] sm:mb-0" alt={post.postTitle}/>
+                                    <img src={post?.postImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[60rem] sm:mb-0" alt={post.postTitle} />
                                     <p className="flex gap-2 mt-2 items-center text-center text-sm font-medium text-gray-700">
                                         enviado em: {post?.createdDate}
                                     </p>
@@ -112,7 +111,6 @@ export function PostMockProfile({ params: postId }: Props) {
                             </div>
                             <p className="mt-5 text-xl text-gray-800 text-justify">{post?.postDescription} </p>
                         </div>
-                    </div>
                 )
             })}
         </>
@@ -122,33 +120,30 @@ export function PostMockProfile({ params: postId }: Props) {
 export function ProjectMockProfile({ params: projectId }: Props) {
 
     const filterById = (id: any) => {
-        return projectMock.filter(item => item.id === id);
+        return projectMock.filter(item => item.id.toString() === id);
     };
 
     const result = filterById(projectId);
-
 
     return (
         <>
             {result.map((project) => {
                 return (
-                    <div key={project.id}>
-                        <div >
-                            <div className="relative flex flex-col sm:flex-row xl:flex-col items-start">
-                                <div className="order-1 sm:ml-6 xl:ml-0">
-                                    <h3 className="mb-1 text-slate-900 font-semibold">
-                                        <span className="mb-1 block text-3xl leading-6 text-indigo-500">{project?.projectTitle}</span>
-                                    </h3>
-                                    <div className="prose prose-slate prose-sm text-slate-600 mt-5">
-                                        <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaTag /> Categorias relacionados: <b>{0}</b></p>
-                                        <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaCalendarCheck /> Eventos relacionados: <b>{0}</b></p>
-                                        <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaNewspaper /> Postagens relacionados: <b>{0}</b></p>
-                                    </div>
+                    <div key={project.id} className="mt-10">
+                        <div className="relative flex flex-col sm:flex-row xl:flex-col items-start">
+                            <div className="order-1 sm:ml-6 xl:ml-0">
+                                <h3 className="mb-1 text-slate-900 font-semibold">
+                                    <span className="mb-1 block text-3xl leading-6 text-indigo-500">{project?.projectTitle}</span>
+                                </h3>
+                                <div className="prose prose-slate prose-sm text-slate-600 mt-5">
+                                    <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaTag /> Categorias relacionados: <b>{0}</b></p>
+                                    <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaCalendarCheck /> Eventos relacionados: <b>{0}</b></p>
+                                    <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaNewspaper /> Postagens relacionados: <b>{0}</b></p>
                                 </div>
-                                <img src={project?.projectImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[22rem] sm:mb-0" alt={project.projectTitle}/>
                             </div>
-                            <p className="mt-5 text-xl text-justify">{project?.projectDescription} </p>
+                            <img src={project?.projectImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[22rem] sm:mb-0" alt={project.projectTitle} />
                         </div>
+                        <p className="mt-5 text-xl text-justify">{project?.projectDescription} </p>
                     </div>
                 )
             })}

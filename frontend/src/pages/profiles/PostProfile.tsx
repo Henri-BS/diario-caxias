@@ -27,15 +27,16 @@ export function PostProfile() {
 
 export function PostDetails({ params: postId }: Props) {
     const [post, setPost] = useState<Post>();
+    const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber)
     }
-    const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
     const auth = useAuth();
+    const navigate = useNavigate();
+    const params = useParams();
     const [edit, setEdit] = useState<boolean>(false);
     const [deleteModal, setDeleteModal] = useState(false);
-    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`${baseUrl}/posts/${postId}`)
@@ -61,7 +62,7 @@ export function PostDetails({ params: postId }: Props) {
 
     return (
         <>
-            {!post ? <PostMockProfile params={postId} /> :
+            {!post ? <PostMockProfile params={`${params.postId}`} /> :
                 <div className="mt-10">
                     <div className="flex py-6 gap-2 justify-between items-center text-center text-lg font-semibold text-gray-700">
                         <Link to={"/postagens"}>

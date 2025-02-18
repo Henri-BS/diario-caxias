@@ -24,6 +24,7 @@ export function CategoryProfile() {
 
 export function CategoryDetails({ params: categoryName }: Props) {
 
+    const params = useParams();
     const [category, setCategory] = useState<Category>();
     useEffect(() => {
         axios.get(`${baseUrl}/categories/by-name/${categoryName}`)
@@ -54,7 +55,7 @@ export function CategoryDetails({ params: categoryName }: Props) {
 
     return (
         <>
-            {!category ? <CategoryMockProfile params={categoryName} /> :
+            {!category ? <CategoryMockProfile params={`${params.categoryName}`} /> :
                 <div className="mt-10">
                     <div className="w-full p-6 bg-zinc-100 border border-zinc-300 rounded-lg shadow-md ">
                         <h5 className=" mb-2 text-4xl font-bold tracking-tight text-indigo-500 ">{category?.categoryName}</h5>
