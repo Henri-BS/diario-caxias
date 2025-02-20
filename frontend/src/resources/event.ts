@@ -9,7 +9,7 @@ export type Event = {
   createdDate?: string;
   projectTitle?: string;
   userId?: number;
-  username?: number;
+  username?: string;
 };
 
 export type EventPage = {

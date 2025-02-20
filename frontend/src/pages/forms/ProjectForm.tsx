@@ -42,7 +42,7 @@ export function ProjectAddForm() {
     const notification = useNotification();
     const auth = useAuth();
     const userId = auth.getUserSession()?.id;
-const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const { values, handleChange, errors, resetForm } = useFormik<ProjectFormProps>({
         initialValues: projectFormSchema,

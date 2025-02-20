@@ -51,7 +51,7 @@ export function EventAddForm() {
     const notification = useNotification();
     const auth = useAuth();
     const userId = auth.getUserSession()?.id;
-const navigate = useNavigate();
+    const navigate = useNavigate();
     const query = "";
     const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
@@ -80,10 +80,10 @@ const navigate = useNavigate();
         }
         try {
             axios.post(`${baseUrl}/events/save`, event)
-            .then((response) => {
-                navigate(`/eventos/${event.id}`)
-                return response.status;
-            });
+                .then((response) => {
+                    navigate(`/eventos/${event.id}`)
+                    return response.status;
+                });
             notification.notify("Salvo com sucesso!", "success");
             resetForm();
         } catch (error: any) {

@@ -5,6 +5,7 @@ export type Project = {
   projectDescription?: string;
   projectImage?: string;
   userId?: number;
+  username?: string;
 };
 
 export type ProjectPage = {

@@ -1,13 +1,12 @@
 import { EventCard } from "components/cards/EventCard";
-import { Pagination } from "components/shared/Pagination";
+import { Pagination, SearchBar } from "components/shared/Pagination";
 import { EventMockList } from "mock/MockList";
 import { EventPage } from "resources/event";
-import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { GoSearch } from "react-icons/go";
 import { removeAccents } from "components/shared/Template";
 import { baseUrl } from "utils/requests";
 import axios from "axios";
+import { FaCalendarCheck } from "react-icons/fa6";
 
 export default function Events() {
     const [query, setQuery] = useState("");
@@ -28,19 +27,12 @@ export default function Events() {
         <>
             {!eventPage.content.length ? <EventMockList /> :
                 <div className="mt-10">
-                    <div className="flex items-center justify-between my-5">
-                        <div className="flex space-x-4 px-4">
-                            <TextInput icon={GoSearch}
-                                className="w-full"
-                                color="bg-zinc-400"
-                                type="text"
-                                id="query"
-                                value={query}
-                                onChange={(e) => setQuery(e.target.value)}
-                                placeholder="buscar"
-                            />
-                        </div>
-                    </div>
+                    <SearchBar
+                        pageIcon={<FaCalendarCheck />}
+                        pageTitle="Eventos"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                    />
                     <div className="flex items-center w-full justify-center">
                         <Pagination pagination={eventPage} onPageChange={handlePageChange} />
                     </div>
@@ -49,10 +41,10 @@ export default function Events() {
                             event.eventTitle?.toUpperCase().includes(query.toLocaleUpperCase()) ||
                             removeAccents(event.eventTitle)?.toUpperCase().includes(query.toLocaleUpperCase())
                         ).map(event => (
-                                <div key={event.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
-                                    <EventCard event={event} />
-                                </div>
-                            ))}
+                            <div key={event.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                                <EventCard event={event} />
+                            </div>
+                        ))}
                     </div>
                 </div>
             }

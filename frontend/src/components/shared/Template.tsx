@@ -70,8 +70,8 @@ export const Header = () => {
                             {isOpen ? <FaIcons.FaBars onClick={showSidebar} /> : <FaIcons.FaX onClick={showSidebar} />}
                         </div>
                         <Link to={"/"} className="self-center text-lg font-semibold whitespace-nowrap">
-                         
-                                Diário Caxias
+
+                            Diário Caxias
                         </Link>
                     </div>
 
@@ -108,32 +108,32 @@ export const Header = () => {
                             <div className="flex h-full flex-col justify-between py-2">
                                 <Sidebar.Items>
                                     <Sidebar.ItemGroup>
-                                        <Link  onClick={showSidebar} to={`/`}>
+                                        <Link onClick={showSidebar} to={`/`}>
                                             <Sidebar.Item icon={FaIcons.FaHouse} className="bg-zinc-700 hover:bg-zinc-600 text-white mb-2">
                                                 Início
                                             </Sidebar.Item>
                                         </Link>
-                                        <Link  onClick={showSidebar} to={`/postagens`}>
+                                        <Link onClick={showSidebar} to={`/postagens`}>
                                             <Sidebar.Item icon={FaIcons.FaNewspaper} className="bg-zinc-700 hover:bg-zinc-600 text-white mb-2">
                                                 Postagens
                                             </Sidebar.Item>
                                         </Link>
-                                        <Link  onClick={showSidebar} to={`/projetos`}>
+                                        <Link onClick={showSidebar} to={`/projetos`}>
                                             <Sidebar.Item icon={FaIcons.FaFolderClosed} className="bg-zinc-700 hover:bg-zinc-600 text-white mb-2">
                                                 Projetos
                                             </Sidebar.Item>
                                         </Link>
-                                        <Link  onClick={showSidebar} to={`/eventos`}>
+                                        <Link onClick={showSidebar} to={`/eventos`}>
                                             <Sidebar.Item icon={FaIcons.FaCalendarCheck} className="bg-zinc-700 hover:bg-zinc-600 text-white mb-2">
                                                 Eventos
                                             </Sidebar.Item>
                                         </Link>
-                                        <Link  onClick={showSidebar} to={`/categorias`}>
+                                        <Link onClick={showSidebar} to={`/categorias`}>
                                             <Sidebar.Item icon={FaIcons.FaTag} className="bg-zinc-700 hover:bg-zinc-600 text-white mb-2">
                                                 Categorias
                                             </Sidebar.Item>
                                         </Link>
-                                        <Link  onClick={showSidebar} to={`/usuarios`}>
+                                        <Link onClick={showSidebar} to={`/usuarios`}>
                                             <Sidebar.Item icon={FaIcons.FaUser} className="bg-zinc-700 hover:bg-zinc-600 text-white mb-2">
                                                 Usuários
                                             </Sidebar.Item>

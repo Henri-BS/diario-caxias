@@ -20,6 +20,7 @@ public class ProjectDto implements Serializable {
     private LocalDateTime createdDate;
     private Long userId;
     private String username;
+    private String userImage;
 
     public ProjectDto() {
     }
@@ -32,8 +33,8 @@ public class ProjectDto implements Serializable {
         createdDate = entity.getCreatedDate();
         userId = entity.getUser().getId();
         username = entity.getUser().getUsername();
+        userImage = entity.getUser().getImage();
     }
-
 
     public Long getId() {
         return id;
@@ -45,6 +46,10 @@ public class ProjectDto implements Serializable {
 
     public String getProjectDescription() {
         return projectDescription;
+    }
+
+    public String getProjectImage() {
+        return projectImage;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -59,8 +64,7 @@ public class ProjectDto implements Serializable {
         return username;
     }
 
-    public String getProjectImage() {
-        return projectImage;
+    public String getUserImage() {
+        return userImage;
     }
-
 }

@@ -1,13 +1,13 @@
-import { PostCard } from "components/cards/PostCard";
-import { Pagination } from "components/shared/Pagination";
-import { PostMockList } from "mock/MockList";
-import { PostPage } from "resources/post";
-import { TextInput } from "flowbite-react";
-import { useEffect, useState } from "react";
-import { GoSearch } from "react-icons/go";
-import { removeAccents } from "components/shared/Template";
 import axios from "axios";
+import { PostCard } from "components/cards/PostCard";
+import { Pagination, SearchBar } from "components/shared/Pagination";
+import { removeAccents } from "components/shared/Template";
+import { PostMockList } from "mock/MockList";
+import { useState, useEffect } from "react";
+import { FaNewspaper } from "react-icons/fa6";
+import { PostPage } from "resources/post";
 import { baseUrl } from "utils/requests";
+
 
 
 export default function Posts() {
@@ -29,19 +29,12 @@ export default function Posts() {
         <>
             {!postPage.content.length ? <PostMockList /> :
                 <div className="mt-10">
-                    <div className="flex items-center justify-between my-5">
-                        <div className="flex space-x-4 px-4">
-                            <TextInput icon={GoSearch}
-                                className="w-full"
-                                color="bg-zinc-400"
-                                type="text"
-                                id="query"
-                                value={query}
-                                onChange={(e) => setQuery(e.target.value)}
-                                placeholder="buscar"
-                            />
-                        </div>
-                    </div>
+                    <SearchBar
+                        pageIcon={<FaNewspaper />}
+                        pageTitle="Postagens"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                    />
                     <div className="flex items-center w-full justify-center">
                         <Pagination pagination={postPage} onPageChange={handlePageChange} />
                     </div>
