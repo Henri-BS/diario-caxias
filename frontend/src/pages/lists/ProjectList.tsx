@@ -6,7 +6,9 @@ import { ProjectMockList } from "mock/MockList";
 import { removeAccents } from "components/shared/Template";
 import axios from "axios";
 import { baseUrl } from "utils/requests";
-import { FaFolderClosed } from "react-icons/fa6";
+import { FaFolderClosed, FaHouse } from "react-icons/fa6";
+import { Breadcrumb } from "flowbite-react";
+import { Link } from "react-router-dom";
 
 export default function Projects() {
     const [query, setQuery] = useState("");
@@ -24,18 +26,30 @@ export default function Projects() {
     }, [query, pageNumber]);
 
     return (
-        <>
+        <div className="mt-10">
+
+            <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
+                <Breadcrumb.Item icon={FaHouse}>
+                    <Link to="/">
+                        Início
+                    </Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                    <Link to="/projetos">
+                        Projetos
+                    </Link>
+                </Breadcrumb.Item>
+            </Breadcrumb>
+
             {!projectPage.content.length ? <ProjectMockList /> :
-                <div className="mt-10">
+                <div>
                     <SearchBar
                         pageIcon={<FaFolderClosed />}
                         pageTitle="Projetos"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                     />
-                    <div className="flex items-center w-full justify-center">
-                        <Pagination pagination={projectPage} onPageChange={handlePageChange} />
-                    </div>
+                    <Pagination pagination={projectPage} onPageChange={handlePageChange} />
                     <div className="grid grid-cols-1 xl:grid-cols-2 gap-y-10 gap-x-6 items-start p-8">
                         {projectPage.content?.filter((project) =>
                             project.projectTitle?.toUpperCase().includes(query.toLocaleUpperCase()) ||
@@ -48,6 +62,6 @@ export default function Projects() {
                     </div>
                 </div>
             }
-        </>
+        </div>
     );
 }

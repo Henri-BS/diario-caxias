@@ -1,12 +1,11 @@
-import { Pagination } from "components/shared/Pagination";
+import { Pagination, SearchBar } from "components/shared/Pagination";
 import { UserCard } from "components/cards/UserCards";
 import { UserPage } from "resources/user";
-import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { removeAccents } from "components/shared/Template";
-import { GoSearch } from "react-icons/go";
 import axios from "axios";
 import { baseUrl } from "utils/requests";
+import { FaUser } from "react-icons/fa6";
 
 export default function Users() {
     const [query, setQuery] = useState("");
@@ -25,22 +24,13 @@ export default function Users() {
 
     return (
         <div className="mt-10">
-            <div className="flex items-center justify-between my-5">
-                <div className="flex space-x-4 px-4">
-                    <TextInput icon={GoSearch}
-                        className="w-full"
-                        color="bg-zinc-400"
-                        type="text"
-                        id="value"
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                        placeholder="buscar"
-                    />
-                </div>
-            </div>
-            <div className="flex items-center w-full justify-center">
-                <Pagination pagination={userPage} onPageChange={handlePageChange} />
-            </div>
+            <SearchBar
+                pageIcon={<FaUser />}
+                pageTitle="Usuários"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+            />
+            <Pagination pagination={userPage} onPageChange={handlePageChange} />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
                 {userPage.content?.filter((user) =>
                     user.username?.toUpperCase().includes(query.toLocaleUpperCase()) ||
@@ -48,10 +38,10 @@ export default function Users() {
                     user.userLocation?.toUpperCase().includes(query.toLocaleUpperCase()) ||
                     removeAccents(user.userLocation)?.toUpperCase().includes(query.toLocaleUpperCase())
                 ).map(user => (
-                        <div key={user.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
-                            <UserCard user={user} />
-                        </div>
-                    ))}
+                    <div key={user.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                        <UserCard user={user} />
+                    </div>
+                ))}
             </div>
         </div>
     );

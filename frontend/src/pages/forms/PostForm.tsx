@@ -1,10 +1,10 @@
 import { FieldError, useNotification } from "components/shared/Notification";
 import { useAuth } from "resources/auth";
 import { Post } from "resources/post";
-import { Button, Label, Textarea, TextInput } from "flowbite-react";
+import { Breadcrumb, Button, Label, Textarea, TextInput } from "flowbite-react";
 import { useFormik } from "formik";
-import { FaNewspaper, FaX } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
+import { FaHouse, FaNewspaper, FaX } from "react-icons/fa6";
+import { Link, useNavigate } from "react-router-dom";
 import { Login } from "./UserForm";
 import * as Yup from "yup";
 import axios from "axios";
@@ -82,64 +82,84 @@ export function PostAddForm() {
     return (
         <>
             {!auth.isSessionValid() ? <Login /> :
-                <div className="flex flex-col items-center justify-center mt-10">
-                    <div className="flex flex-row justify-between items-center text-lg font-semibold tracking-tight text-gray-700 mb-3 w-2/3">
-                        <span className="flex flex-row items-center gap-2"><FaNewspaper /> Adicionar Postagem </span>
-                        <FaX onClick={() => navigate(-1)} className="hover:shadow-xl cursor-pointer rounded-full p-1 border hover:bg-gray-300  text-2xl" />
-                    </div>
-                    <form onSubmit={onSubmit} className="space-y-2 w-2/3">
-                        <div>
-                            <TextInput
-                                type="hidden"
-                                id="userId"
-                                onChange={handleChange}
-                                value={userId}
-                            />
-                        </div>
-                        <div>
-                            <Label className="block text-sm font-medium leading-6 text-gray-700" value="Título: *" />
-                            <TextInput
-                                color="bg-zinc-400"
-                                id="postTitle"
-                                onChange={handleChange}
-                                value={values.postTitle}
-                            />
-                            <FieldError error={errors.postTitle} />
-                        </div>
-                        <div>
-                            <Label className="block text-sm font-medium leading-6 text-gray-700" value="Url de Imagem: " />
-                            <TextInput
-                                color="bg-zinc-400"
-                                id="postImage"
-                                onChange={handleChange}
-                                value={values.postImage}
-                            />
-                        </div>
-                        <div>
-                            <Label className="block text-sm font-medium leading-6 text-gray-700" value="Resumo: *" />
-                            <Textarea
-                                color="bg-zinc-400"
-                                id="postSummary"
-                                onChange={handleChange}
-                                value={values.postSummary}
-                            />
-                            <FieldError error={errors.postSummary} />
-                        </div>
-                        <div>
-                            <Label className="block text-sm font-medium leading-6 text-gray-700" value="Descrição: *" />
-                            <Textarea
-                                color="bg-zinc-400"
-                                id="postDescription"
-                                onChange={handleChange}
-                                value={values.postDescription}
-                            />
-                            <FieldError error={errors.postDescription} />
-                        </div>
+                <div className="mt-10">
+                    <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
+                        <Breadcrumb.Item icon={FaHouse}>
+                            <Link to="/">
+                                Início
+                            </Link>
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item>
+                            <Link to="/postagens">
+                                Postagens
+                            </Link>
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item >
+                            <Link to="/postagens/adicionar">
+                                Adicionar Postagem
+                            </Link>
+                        </Breadcrumb.Item>
+                    </Breadcrumb>
 
-                        <div className="mt-5 flex items-center justify-end gap-x-4">
-                            <Button type="submit" gradientDuoTone="purpleToBlue" >Salvar</Button>
+                    <div className="flex flex-col items-center justify-center">
+                        <div className="flex flex-row justify-between items-center text-lg font-semibold tracking-tight text-gray-700 mb-3 w-2/3">
+                            <span className="flex flex-row items-center gap-2"><FaNewspaper /> Adicionar Postagem </span>
+                            <FaX onClick={() => navigate(-1)} className="hover:shadow-xl cursor-pointer rounded-full p-1 border hover:bg-gray-300  text-2xl" />
                         </div>
-                    </form>
+                        <form onSubmit={onSubmit} className="space-y-2 w-2/3">
+                            <div>
+                                <TextInput
+                                    type="hidden"
+                                    id="userId"
+                                    onChange={handleChange}
+                                    value={userId}
+                                />
+                            </div>
+                            <div>
+                                <Label className="block text-sm font-medium leading-6 text-gray-700" value="Título: *" />
+                                <TextInput
+                                    color="bg-zinc-400"
+                                    id="postTitle"
+                                    onChange={handleChange}
+                                    value={values.postTitle}
+                                />
+                                <FieldError error={errors.postTitle} />
+                            </div>
+                            <div>
+                                <Label className="block text-sm font-medium leading-6 text-gray-700" value="Url de Imagem: " />
+                                <TextInput
+                                    color="bg-zinc-400"
+                                    id="postImage"
+                                    onChange={handleChange}
+                                    value={values.postImage}
+                                />
+                            </div>
+                            <div>
+                                <Label className="block text-sm font-medium leading-6 text-gray-700" value="Resumo: *" />
+                                <Textarea
+                                    color="bg-zinc-400"
+                                    id="postSummary"
+                                    onChange={handleChange}
+                                    value={values.postSummary}
+                                />
+                                <FieldError error={errors.postSummary} />
+                            </div>
+                            <div>
+                                <Label className="block text-sm font-medium leading-6 text-gray-700" value="Descrição: *" />
+                                <Textarea
+                                    color="bg-zinc-400"
+                                    id="postDescription"
+                                    onChange={handleChange}
+                                    value={values.postDescription}
+                                />
+                                <FieldError error={errors.postDescription} />
+                            </div>
+
+                            <div className="mt-5 flex items-center justify-end gap-x-4">
+                                <Button type="submit" gradientDuoTone="purpleToBlue" >Salvar</Button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             }
         </>
@@ -198,7 +218,7 @@ export function PostEditForm({ params: postId }: Props) {
                 <div className="flex flex-col items-center justify-center mt-10">
                     <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-2/3">
                         <span className="flex flex-row items-center gap-2"><FaNewspaper /> Editar Postagem </span>
-                        <FaX onClick={() => navigate(-1)} className="hover:shadow-xl cursor-pointer rounded-full  p-1 border hover:bg-gray-300  text-2xl" />
+                        <FaX onClick={() => navigate(0)} className="hover:shadow-xl cursor-pointer rounded-full  p-1 border hover:bg-gray-300  text-2xl" />
                     </div>
                     <form onSubmit={onSubmit} className="space-y-2 w-2/3">
                         <div>

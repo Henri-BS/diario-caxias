@@ -1,15 +1,15 @@
 
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
-import { Button, Label, Textarea, TextInput } from "flowbite-react";
+import { Breadcrumb, Button, Label, Textarea, TextInput } from "flowbite-react";
 import { useAuth } from "resources/auth";
 import { Credentials, AccessToken, User } from "resources/user";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useNotification, FieldError } from "components/shared/Notification";
 import * as Yup from "yup";
 import axios from "axios";
 import { baseUrl } from "utils/requests";
-import { FaUser, FaX } from "react-icons/fa6";
+import { FaHouse, FaUser, FaX } from "react-icons/fa6";
 import { Props } from "resources";
 
 interface UserFormProps {
@@ -89,8 +89,22 @@ export function Login() {
         }
     }
     return (
-        <>
-            <div className="flex flex-col items-center justify-center mt-10 py-[100px]">
+        <div className="mt-10">
+
+            <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
+                <Breadcrumb.Item icon={FaHouse}>
+                    <Link to="/">
+                        Início
+                    </Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                    <Link to="/login">
+                        Login
+                    </Link>
+                </Breadcrumb.Item>
+            </Breadcrumb>
+
+            <div className="flex flex-col items-center justify-center py-[100px]">
                 <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-2/3">
                     <span className="flex flex-row items-center gap-2">{newUserState ? "Cadastre-se" : "Faça login na sua conta"}</span>
                     <FaX onClick={() => navigate(-1)} className="hover:shadow-xl cursor-pointer rounded-full  p-1 border hover:bg-gray-300  text-2xl" />
@@ -166,7 +180,7 @@ export function Login() {
                     </div>
                 </form>
             </div>
-        </>
+        </div>
     );
 }
 

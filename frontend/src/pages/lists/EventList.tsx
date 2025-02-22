@@ -6,7 +6,9 @@ import { useEffect, useState } from "react";
 import { removeAccents } from "components/shared/Template";
 import { baseUrl } from "utils/requests";
 import axios from "axios";
-import { FaCalendarCheck } from "react-icons/fa6";
+import * as FaIcons from "react-icons/fa6";
+import { Breadcrumb } from "flowbite-react";
+import { Link } from "react-router-dom";
 
 export default function Events() {
     const [query, setQuery] = useState("");
@@ -24,18 +26,30 @@ export default function Events() {
     }, [query, pageNumber]);
 
     return (
-        <>
+        <div className="mt-10">
+            <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
+                <Breadcrumb.Item icon={FaIcons.FaHouse}>
+                    <Link to="/">
+                        Início
+                    </Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                    <Link to="/eventos">
+                        Eventos
+                    </Link>
+                </Breadcrumb.Item>
+            </Breadcrumb>
             {!eventPage.content.length ? <EventMockList /> :
-                <div className="mt-10">
+                <div>
                     <SearchBar
-                        pageIcon={<FaCalendarCheck />}
+                        pageIcon={<FaIcons.FaCalendarCheck />}
                         pageTitle="Eventos"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                     />
-                    <div className="flex items-center w-full justify-center">
-                        <Pagination pagination={eventPage} onPageChange={handlePageChange} />
-                    </div>
+
+                    <Pagination pagination={eventPage} onPageChange={handlePageChange} />
+
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
                         {eventPage.content?.filter((event) =>
                             event.eventTitle?.toUpperCase().includes(query.toLocaleUpperCase()) ||
@@ -46,8 +60,9 @@ export default function Events() {
                             </div>
                         ))}
                     </div>
+
                 </div>
             }
-        </>
+        </div>
     );
 }

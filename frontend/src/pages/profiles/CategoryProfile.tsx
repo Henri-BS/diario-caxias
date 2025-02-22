@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa6";
 import { Props } from "resources";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { ProjectCard } from "components/cards/ProjectCard";
 import { UserCard } from "components/cards/UserCards";
-import { Accordion } from "flowbite-react";
+import { Accordion, Breadcrumb } from "flowbite-react";
 import { CategoryMockProfile } from "mock/MockProfile";
 import { Category } from "resources/category";
 import { ProjectPage } from "resources/project";
@@ -46,7 +46,7 @@ export function CategoryDetails({ params: categoryName }: Props) {
                 setProjectPage(response.data);
             });
 
-            axios.get(`${baseUrl}/user-category?categoryName=${categoryName}&page=${pageNumber}&size=9`)
+        axios.get(`${baseUrl}/user-category?categoryName=${categoryName}&page=${pageNumber}&size=9`)
             .then((response) => {
                 setUserPage(response.data);
             });
@@ -54,9 +54,27 @@ export function CategoryDetails({ params: categoryName }: Props) {
 
 
     return (
-        <>
+        <div className="mt-10">
+            <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
+                <Breadcrumb.Item icon={FaIcons.FaHouse}>
+                    <Link to="/">
+                        Início
+                    </Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                    <Link to="/categorias">
+                        Categorias
+                    </Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item >
+                    <Link to={`/categorias/${categoryName}`}>
+                        {category?.categoryName}
+                    </Link>
+                </Breadcrumb.Item>
+            </Breadcrumb>
+
             {!category ? <CategoryMockProfile params={`${params.categoryName}`} /> :
-                <div className="mt-10">
+                <div>
                     <div className="w-full p-6 bg-zinc-100 border border-zinc-300 rounded-lg shadow-md ">
                         <h5 className=" mb-2 text-4xl font-bold tracking-tight text-indigo-500 ">{category?.categoryName}</h5>
                         <p className="font-medium text-lg">{category?.categoryDescription}</p>
@@ -102,8 +120,9 @@ export function CategoryDetails({ params: categoryName }: Props) {
                             </Accordion.Content>
                         </Accordion.Panel>
                     </Accordion>
+
                 </div>
             }
-        </>
+        </div>
     );
 }

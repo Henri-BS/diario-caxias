@@ -3,7 +3,7 @@ import { Pagination } from "components/shared/Pagination";
 import { PostMockProfile } from "mock/MockProfile";
 import { Post } from "resources/post";
 import { ProjectPage } from "resources/project";
-import { Accordion, Button, Dropdown, Modal } from "flowbite-react";
+import { Accordion, Breadcrumb, Button, Dropdown, Modal } from "flowbite-react";
 
 import { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa6";
@@ -61,44 +61,61 @@ export function PostDetails({ params: postId }: Props) {
     }
 
     return (
-        <>
-            {!post ? <PostMockProfile params={`${params.postId}`} /> :
-                <div className="mt-10">
-                    <div className="flex py-6 gap-2 justify-between items-center text-center text-lg font-semibold text-gray-700">
-                        <Link to={"/postagens"}>
-                            <FaIcons.FaArrowLeft className="hover:shadow-xl cursor-pointer rounded-full p-1 border transition duration-800 hover:bg-gray-200 text-3xl" />
+        <div className="mt-10">
+            <div className="flex flex-col md:flex-row justify-between  text-lg font-semibold text-gray-700">
+
+                <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
+                    <Breadcrumb.Item icon={FaIcons.FaHouse}>
+                        <Link to="/">
+                            Início
                         </Link>
-                        {post.userId === auth.getUserSession()?.id ?
-                            <Dropdown label="Configurações" inline>
-                                <Dropdown.Item icon={FaIcons.FaSquarePen} onClick={() => setEdit(true)} className="text-md font-medium">
-                                    Editar
-                                </Dropdown.Item>
-                                <Dropdown.Item icon={FaIcons.FaTrash} onClick={() => setDeleteModal(true)} className="text-md font-medium">
-                                    Deletar
-                                </Dropdown.Item>
-                            </Dropdown>
-                            : ""
-                        }
-                        <Modal show={deleteModal} size="md" onClose={() => setDeleteModal(false)} popup>
-                            <Modal.Header />
-                            <Modal.Body>
-                                <div className="text-center">
-                                    <FaIcons.FaExclamation className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200 border-4 p-2  rounded-full" />
-                                    <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                        Deseja deletar esta postagem?
-                                    </h3>
-                                    <div className="flex justify-center gap-4">
-                                        <Button color="failure" onClick={() => deletePost()} >
-                                            <span onClick={() => setDeleteModal(false)}>{"Deletar"}</span>
-                                        </Button>
-                                        <Button color="gray" onClick={() => setDeleteModal(false)}>
-                                            Cancelar
-                                        </Button>
-                                    </div>
-                                </div>
-                            </Modal.Body>
-                        </Modal>
-                    </div>
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item>
+                        <Link to="/postagens">
+                            Postagens
+                        </Link>
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item >
+                        <Link to={`/postagens/${postId}`}>
+                            {post?.id}
+                        </Link>
+                    </Breadcrumb.Item>
+                </Breadcrumb>
+
+                {post?.userId === auth.getUserSession()?.id ?
+                    <Dropdown label="Configurações" inline>
+                        <Dropdown.Item icon={FaIcons.FaSquarePen} onClick={() => setEdit(true)} className="text-md font-medium">
+                            Editar
+                        </Dropdown.Item>
+                        <Dropdown.Item icon={FaIcons.FaTrash} onClick={() => setDeleteModal(true)} className="text-md font-medium">
+                            Deletar
+                        </Dropdown.Item>
+                    </Dropdown>
+                    : ""
+                }
+                <Modal show={deleteModal} size="md" onClose={() => setDeleteModal(false)} popup>
+                    <Modal.Header />
+                    <Modal.Body>
+                        <div className="text-center">
+                            <FaIcons.FaExclamation className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200 border-4 p-2  rounded-full" />
+                            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                                Deseja deletar esta postagem?
+                            </h3>
+                            <div className="flex justify-center gap-4">
+                                <Button color="failure" onClick={() => deletePost()} >
+                                    <span onClick={() => setDeleteModal(false)}>{"Deletar"}</span>
+                                </Button>
+                                <Button color="gray" onClick={() => setDeleteModal(false)}>
+                                    Cancelar
+                                </Button>
+                            </div>
+                        </div>
+                    </Modal.Body>
+                </Modal>
+            </div>
+
+            {!post ? <PostMockProfile params={`${params.postId}`} /> :
+                <div>
                     {edit ? <PostEditForm params={postId} /> :
                         <div>
                             <div className="relative flex flex-col md:flex-row xl:flex-col items-start">
@@ -142,6 +159,6 @@ export function PostDetails({ params: postId }: Props) {
                     </Accordion>
                 </div>
             }
-        </>
+        </div>
     );
 }

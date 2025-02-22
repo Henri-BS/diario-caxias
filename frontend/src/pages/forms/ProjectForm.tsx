@@ -1,8 +1,8 @@
 import { useNotification, FieldError } from "components/shared/Notification";
-import { TextInput, Textarea, Button, Label } from "flowbite-react";
+import { TextInput, Textarea, Button, Label, Breadcrumb } from "flowbite-react";
 import { useFormik } from "formik";
-import { FaFolderClosed, FaX } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
+import { FaFolderClosed, FaHouse, FaX } from "react-icons/fa6";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "resources/auth";
 import { Project } from "resources/project";
 import * as Yup from "yup";
@@ -70,52 +70,72 @@ export function ProjectAddForm() {
     return (
         <>
             {!auth.isSessionValid() ? <Login /> :
-                <div className="flex flex-col items-center justify-center mt-10">
-                    <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-2/3">
-                        <span className="flex flex-row items-center gap-2"><FaFolderClosed /> Adicionar Projeto </span>
-                        <FaX onClick={() => navigate(-1)} className="hover:shadow-xl cursor-pointer rounded-full  p-1 border hover:bg-gray-300  text-2xl" />
+                <div className="mt-10">
+                    <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
+                        <Breadcrumb.Item icon={FaHouse}>
+                            <Link to="/">
+                                Início
+                            </Link>
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item>
+                            <Link to="/projetos">
+                                Projetos
+                            </Link>
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item >
+                            <Link to="/projetos/adicionar">
+                                Adicionar Projeto
+                            </Link>
+                        </Breadcrumb.Item>
+                    </Breadcrumb>
+
+                    <div className="flex flex-col items-center justify-center">
+                        <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-2/3">
+                            <span className="flex flex-row items-center gap-2"><FaFolderClosed /> Adicionar Projeto </span>
+                            <FaX onClick={() => navigate(-1)} className="hover:shadow-xl cursor-pointer rounded-full  p-1 border hover:bg-gray-300  text-2xl" />
+                        </div>
+                        <form onSubmit={onSubmit} className="space-y-2 w-2/3">
+                            <div className="grid grid-cols-1">
+                                <TextInput type="hidden"
+                                    id="userId"
+                                    onChange={handleChange}
+                                    value={userId}
+                                />
+                            </div>
+                            <div className="grid grid-cols-1">
+                                <label className="block text-sm font-medium leading-6 text-gray-700">Título: *</label>
+                                <TextInput
+                                    color="bg-zinc-400"
+                                    id="projectTitle"
+                                    onChange={handleChange}
+                                    value={values.projectTitle}
+                                />
+                                <FieldError error={errors.projectTitle} />
+                            </div>
+                            <div className="mt-5 grid grid-cols-1">
+                                <label className='block text-sm font-medium leading-6 text-gray-700'>Descrição: </label>
+                                <Textarea
+                                    color="bg-zinc-400"
+                                    id="projectDescription"
+                                    onChange={handleChange}
+                                    value={values.projectDescription}
+                                />
+                                <FieldError error={errors.projectDescription} />
+                            </div>
+                            <div className="mt-5 grid grid-cols-1">
+                                <label className="block text-sm font-medium leading-6 text-gray-700">Url de Imagem: </label>
+                                <TextInput
+                                    color="bg-zinc-400"
+                                    id="projectImage"
+                                    onChange={handleChange}
+                                    value={values.projectImage}
+                                />
+                            </div>
+                            <div className="mt-5 flex items-center justify-end gap-x-4">
+                                <Button type="submit" gradientDuoTone="purpleToBlue" >Salvar</Button>
+                            </div>
+                        </form>
                     </div>
-                    <form onSubmit={onSubmit} className="space-y-2 w-2/3">
-                        <div className="grid grid-cols-1">
-                            <TextInput type="hidden"
-                                id="userId"
-                                onChange={handleChange}
-                                value={userId}
-                            />
-                        </div>
-                        <div className="grid grid-cols-1">
-                            <label className="block text-sm font-medium leading-6 text-gray-700">Título: *</label>
-                            <TextInput
-                                color="bg-zinc-400"
-                                id="projectTitle"
-                                onChange={handleChange}
-                                value={values.projectTitle}
-                            />
-                            <FieldError error={errors.projectTitle} />
-                        </div>
-                        <div className="mt-5 grid grid-cols-1">
-                            <label className='block text-sm font-medium leading-6 text-gray-700'>Descrição: </label>
-                            <Textarea
-                                color="bg-zinc-400"
-                                id="projectDescription"
-                                onChange={handleChange}
-                                value={values.projectDescription}
-                            />
-                            <FieldError error={errors.projectDescription} />
-                        </div>
-                        <div className="mt-5 grid grid-cols-1">
-                            <label className="block text-sm font-medium leading-6 text-gray-700">Url de Imagem: </label>
-                            <TextInput
-                                color="bg-zinc-400"
-                                id="projectImage"
-                                onChange={handleChange}
-                                value={values.projectImage}
-                            />
-                        </div>
-                        <div className="mt-5 flex items-center justify-end gap-x-4">
-                            <Button type="submit" gradientDuoTone="purpleToBlue" >Salvar</Button>
-                        </div>
-                    </form>
                 </div>
             }
         </>
@@ -162,12 +182,12 @@ export function ProjectEditForm({ params: projectId }: Props) {
         }
     }
     return (
-        <>
+        <div>
             {!auth.isSessionValid() ? <Login /> :
                 <div className="flex flex-col items-center justify-center mt-10">
                     <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-2/3">
                         <span className="flex flex-row items-center gap-2"><FaFolderClosed /> Editar Projeto </span>
-                        <FaX onClick={() => navigate(-1)} className="hover:shadow-xl cursor-pointer rounded-full  p-1 border hover:bg-gray-300  text-2xl" />
+                        <FaX onClick={() => navigate(0)} className="hover:shadow-xl cursor-pointer rounded-full  p-1 border hover:bg-gray-300  text-2xl" />
                     </div>
                     <form onSubmit={onSubmit} className="space-y-2 w-2/3">
                         <div>
@@ -214,6 +234,6 @@ export function ProjectEditForm({ params: projectId }: Props) {
                     </form>
                 </div>
             }
-        </>
+        </div>
     );
 }

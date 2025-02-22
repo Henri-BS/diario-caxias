@@ -250,7 +250,7 @@ export const projectMock = [
     },
     {
         id: 8,
-        projectTitle: 'Hitória da Cidade',
+        projectTitle: 'História da Cidade',
         projectDescription: 'Neste projeto, veja mais sobre quais conteúdos didáticos, eventos e atividades que estão relacionadas a História da Cidade de Caxias',
         projectImage: 'https://wallpaperaccess.com/full/6741861.jpg',
         createdDate: 26/10/2024,

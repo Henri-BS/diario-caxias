@@ -7,7 +7,7 @@ import { CategoryPage } from "resources/category";
 import { EventPage } from "resources/event";
 import { PostPage } from "resources/post";
 import { Project } from "resources/project";
-import { Accordion, Button, Dropdown, Modal } from "flowbite-react";
+import { Accordion, Breadcrumb, Button, Dropdown, Modal } from "flowbite-react";
 
 import { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa6";
@@ -75,44 +75,60 @@ export function ProjectDetails({ params: projectId }: Props) {
     }
 
     return (
-        <>
-            {!project ? <ProjectMockProfile params={`${params.projectId}`} /> :
-                <div className="mt-10">
-                    <div className="flex py-6 gap-2 justify-between items-center text-center text-lg font-semibold text-gray-700">
-                        <Link to={"/projetos"}>
-                            <FaIcons.FaArrowLeft className="hover:shadow-xl cursor-pointer rounded-full p-1 border transition duration-800 hover:bg-gray-200 text-3xl" />
+        <div className="mt-10">
+            <div className="flex flex-col md:flex-row justify-between  text-lg font-semibold text-gray-700">
+
+                <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
+                    <Breadcrumb.Item icon={FaIcons.FaHouse}>
+                        <Link to="/">
+                            Início
                         </Link>
-                        {project.userId === auth.getUserSession()?.id ?
-                            <Dropdown label="Configurações" inline>
-                                <Dropdown.Item icon={FaIcons.FaSquarePen} onClick={() => setEdit(true)} className="text-md font-medium">
-                                    Editar 
-                                </Dropdown.Item>
-                                <Dropdown.Item icon={FaIcons.FaTrash} onClick={() => setDeleteModal(true)} className="text-md font-medium">
-                                    Deletar
-                                </Dropdown.Item>
-                            </Dropdown>
-                            : ""
-                        }
-                        <Modal show={deleteModal} size="md" onClose={() => setDeleteModal(false)} popup>
-                            <Modal.Header />
-                            <Modal.Body>
-                                <div className="text-center">
-                                    <FaIcons.FaExclamation className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200 border-4 p-2  rounded-full" />
-                                    <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                        Deseja deletar esta projeto?
-                                    </h3>
-                                    <div className="flex justify-center gap-4">
-                                        <Button color="failure" onClick={() => deleteProject()} >
-                                            <span onClick={() => setDeleteModal(false)}>{"Deletar"}</span>
-                                        </Button>
-                                        <Button color="gray" onClick={() => setDeleteModal(false)}>
-                                            Cancelar
-                                        </Button>
-                                    </div>
-                                </div>
-                            </Modal.Body>
-                        </Modal>
-                    </div>
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item>
+                        <Link to="/projetos">
+                            Projetos
+                        </Link>
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item >
+                        <Link to={`/projetos/${projectId}`}>
+                            {projectId}
+                        </Link>
+                    </Breadcrumb.Item>
+                </Breadcrumb>
+
+                {project?.userId === auth.getUserSession()?.id ?
+                    <Dropdown label="Configurações" inline>
+                        <Dropdown.Item icon={FaIcons.FaSquarePen} onClick={() => setEdit(true)} className="text-md font-medium">
+                            Editar
+                        </Dropdown.Item>
+                        <Dropdown.Item icon={FaIcons.FaTrash} onClick={() => setDeleteModal(true)} className="text-md font-medium">
+                            Deletar
+                        </Dropdown.Item>
+                    </Dropdown>
+                    : ""
+                }
+                <Modal show={deleteModal} size="md" onClose={() => setDeleteModal(false)} popup>
+                    <Modal.Header />
+                    <Modal.Body>
+                        <div className="text-center">
+                            <FaIcons.FaExclamation className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200 border-4 p-2  rounded-full" />
+                            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                                Deseja deletar este projeto?
+                            </h3>
+                            <div className="flex justify-center gap-4">
+                                <Button color="failure" onClick={() => deleteProject()} >
+                                    <span onClick={() => setDeleteModal(false)}>{"Deletar"}</span>
+                                </Button>
+                                <Button color="gray" onClick={() => setDeleteModal(false)}>
+                                    Cancelar
+                                </Button>
+                            </div>
+                        </div>
+                    </Modal.Body>
+                </Modal>
+            </div>
+            {!project ? <ProjectMockProfile params={`${params.projectId}`} /> :
+                <div>
                     {edit ? <ProjectEditForm params={projectId} /> :
                         <div>
                             <div className="relative flex flex-col sm:flex-row xl:flex-col items-start">
@@ -186,8 +202,7 @@ export function ProjectDetails({ params: projectId }: Props) {
                         </div>
                     }
                 </div>
-
             }
-        </>
+        </div>
     );
 }

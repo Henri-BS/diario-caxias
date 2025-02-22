@@ -1,7 +1,7 @@
 
 import { CategoryCard } from "components/cards/CategoryCard";
 import { EventCard } from "components/cards/EventCard";
-import { PostCard, CarouselPostCard } from "components/cards/PostCard";
+import { PostCard, CarouselPostCard, PostSmCard } from "components/cards/PostCard";
 import { ProjectCard } from "components/cards/ProjectCard";
 import { SearchBar } from "components/shared/Pagination";
 import { removeAccents } from "components/shared/Template";
@@ -141,26 +141,42 @@ export function EventMockList() {
 export function HomeMock() {
     return (
         <>
-            <div className="flex flex-col justify-center items-center mt-4">
+            <div className="items-center p-4 mt-4">
                 <div className="flex justify-between w-full sm:text-lg md:text-xl">
                     <h1>Últimas Postagens</h1>
                     <Link to={"/postagens"} className="text-blue-600 hover:text-blue-400 hover:underline">
                         Ver mais
                     </Link>
                 </div>
-                <div className="h-[520px] w-full">
-                    <Flowbite theme={{ theme: customTheme }}>
-                        <Carousel>
+
+                <div className="grid md:grid-cols-2 items-center">
+                    <div className="h-96 max-w-[600px] w-full">
+                        <Flowbite theme={{ theme: customTheme }}>
+                            <Carousel>
+                                {postMock.map(post => {
+                                    postMock.length = 6
+                                    return (
+                                        <div key={post.id} className="flex justify-center items-center w-full">
+                                            <CarouselPostCard post={post} />
+                                        </div>
+                                    )
+                                })}
+                            </Carousel>
+                        </Flowbite>
+                    </div>
+
+                    <div className="mt-4 p-4">
+                        <ul className="divide-y divide-gray-200">
                             {postMock.map(post => {
-                                postMock.length = 8
+                                postMock.length = 6
                                 return (
-                                    <div key={post.id} className="flex justify-center max-w-[800px]">
-                                        <CarouselPostCard post={post} />
+                                    <div key={post.id}>
+                                        <PostSmCard post={post} />
                                     </div>
                                 )
                             })}
-                        </Carousel>
-                    </Flowbite>
+                        </ul>
+                    </div>
                 </div>
             </div>
 

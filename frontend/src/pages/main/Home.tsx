@@ -1,18 +1,18 @@
 import { CategoryCard } from "components/cards/CategoryCard";
 import { EventCard } from "components/cards/EventCard";
-import { CarouselPostCard } from "components/cards/PostCard";
+import { CarouselPostCard, PostSmCard } from "components/cards/PostCard";
 import { ProjectCard } from "components/cards/ProjectCard";
 import { CategoryPage } from "resources/category";
 import { EventPage } from "resources/event";
 import { PostPage } from "resources/post";
 import { ProjectPage } from "resources/project";
-import { CustomFlowbiteTheme, Flowbite, Carousel, Accordion, Banner } from "flowbite-react";
+import { CustomFlowbiteTheme, Flowbite, Carousel, Accordion, Banner, Breadcrumb } from "flowbite-react";
 import { useState, useEffect } from "react";
 import { HomeMock } from "mock/MockList";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "utils/requests";
-import { FaX } from "react-icons/fa6";
+import { FaHouse, FaX } from "react-icons/fa6";
 
 export const customTheme: CustomFlowbiteTheme = {
     carousel: {
@@ -44,7 +44,7 @@ export default function Home() {
     const [events, setEvents] = useState<EventPage>({ content: [], page: { number: 0, totalElements: 0 } })
 
     useEffect(() => {
-        axios.get(`${baseUrl}/posts?size=8`)
+        axios.get(`${baseUrl}/posts?size=6`)
             .then((response) => {
                 setPosts(response.data);
             });
@@ -65,6 +65,13 @@ export default function Home() {
     return (
         <>
             <div className="mt-10">
+                <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
+                    <Breadcrumb.Item icon={FaHouse}>
+                        <Link to="/">
+                            Início
+                        </Link>
+                    </Breadcrumb.Item>
+                </Breadcrumb>
                 <Accordion collapseAll>
                     <Accordion.Panel>
                         <Accordion.Title>
@@ -99,23 +106,36 @@ export default function Home() {
             </div>
             {!projects.content.length ? <HomeMock /> :
                 <div>
-                    <div className="flex flex-col justify-center items-center px-[40px] mt-10">
+                    <div className="items-center p-4 mt-4">
                         <div className="flex justify-between w-full sm:text-lg md:text-xl">
                             <h1>Últimas Postagens</h1>
                             <Link to={"/postagens"} className="text-blue-600 hover:text-blue-400 hover:underline">
                                 Ver mais
                             </Link>
                         </div>
-                        <div className="h-[520px] w-full ">
-                            <Flowbite theme={{ theme: customTheme }}>
-                                <Carousel>
+
+                        <div className="grid md:grid-cols-2 items-center">
+                            <div className="h-96 max-w-[600px] w-full">
+                                <Flowbite theme={{ theme: customTheme }}>
+                                    <Carousel>
+                                        {posts.content.map(post => (
+                                            <div key={post.id} className="flex justify-center items-center w-full">
+                                                <CarouselPostCard post={post} />
+                                            </div>
+                                        ))}
+                                    </Carousel>
+                                </Flowbite>
+                            </div>
+
+                            <div className="mt-4 p-4">
+                                <ul className="divide-y divide-gray-200">
                                     {posts.content.map(post => (
-                                        <div key={post.id} className="flex justify-center items-center max-w-[800px]">
-                                            <CarouselPostCard post={post} />
+                                        <div key={post.id}>
+                                            <PostSmCard post={post} />
                                         </div>
                                     ))}
-                                </Carousel>
-                            </Flowbite>
+                                </ul>
+                            </div>
                         </div>
                     </div>
 

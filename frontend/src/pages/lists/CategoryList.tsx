@@ -6,7 +6,9 @@ import { useEffect, useState } from "react";
 import { removeAccents } from "components/shared/Template";
 import { baseUrl } from "utils/requests";
 import axios from "axios";
-import { FaTags } from "react-icons/fa6";
+import { FaHouse, FaTags } from "react-icons/fa6";
+import { Breadcrumb } from "flowbite-react";
+import { Link } from "react-router-dom";
 
 export default function Categories() {
 
@@ -25,18 +27,29 @@ export default function Categories() {
     }, [query, pageNumber]);
 
     return (
-        <>
+        <div className="mt-10">
+            <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
+                <Breadcrumb.Item icon={FaHouse}>
+                    <Link to="/">
+                        Início
+                    </Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                    <Link to="/categorias">
+                        Categorias
+                    </Link>
+                </Breadcrumb.Item>
+            </Breadcrumb>
             {!categoryPage.content.length ? <CategoryMockList /> :
-                <div className="mt-10">
+                <div>
                     <SearchBar
                         pageIcon={<FaTags />}
                         pageTitle="Categorias"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                     />
-                    <div className="flex items-center w-full justify-center">
-                        <Pagination pagination={categoryPage} onPageChange={handlePageChange} />
-                    </div>
+                    <Pagination pagination={categoryPage} onPageChange={handlePageChange} />
+
                     <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-y-10 gap-x-6 items-start p-8">
                         {categoryPage.content?.filter((category) =>
                             category.categoryName?.toUpperCase().includes(query.toLocaleUpperCase()) ||
@@ -46,9 +59,10 @@ export default function Categories() {
                                 <CategoryCard category={category} />
                             </div>
                         ))}
+
                     </div>
                 </div>
             }
-        </>
+        </div>
     );
 }
