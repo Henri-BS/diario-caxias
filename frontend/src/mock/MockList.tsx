@@ -166,7 +166,7 @@ export function HomeMock() {
                     </div>
 
                     <div className="mt-4 p-4">
-                        <ul className="divide-y divide-gray-200">
+                        <ul className="divide-y divide-gray-300">
                             {postMock.map(post => {
                                 postMock.length = 6
                                 return (

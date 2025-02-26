@@ -30,7 +30,7 @@ export const customTheme: CustomFlowbiteTheme = {
             wrapper: "absolute bottom-5 left-1/2 flex -translate-x-1/2 space-x-3"
         },
         control: {
-            base: "inline-flex h-8 w-8 items-center justify-center rounded-full group-focus:outline-none group-focus:ring-4 group-focus:ring-white bg-gray-800/50 group-hover:bg-gray-800/60 group-focus:ring-gray-800/70 sm:h-10 sm:w-10",
+            base: "inline-flex h-8 w-8 items-center justify-center rounded-full group-focus:outline-none group-focus:ring-4 group-focus:ring-white bg-gray-800/50 group-hover:bg-gray-800/80 group-focus:ring-gray-800/80 sm:h-10 sm:w-10",
             icon: "h-5 w-5 text-white sm:h-6 sm:w-6"
         },
     }
@@ -75,7 +75,7 @@ export default function Home() {
                 <Accordion collapseAll>
                     <Accordion.Panel>
                         <Accordion.Title>
-                            <h5 className="flex flex-row justify-between mb-2 p-4 sm:text-lg md:text-xl font-semibold tracking-tight text-gray-900 text-center">
+                            <h5 className="flex flex-row justify-between sm:text-lg md:text-xl font-semibold tracking-tight text-gray-900 text-center">
                                 Boas vindas ao Diário Caxias
                             </h5>
                         </Accordion.Title>
@@ -128,7 +128,7 @@ export default function Home() {
                             </div>
 
                             <div className="mt-4 p-4">
-                                <ul className="divide-y divide-gray-200">
+                                <ul className="divide-y divide-gray-300">
                                     {posts.content.map(post => (
                                         <div key={post.id}>
                                             <PostSmCard post={post} />

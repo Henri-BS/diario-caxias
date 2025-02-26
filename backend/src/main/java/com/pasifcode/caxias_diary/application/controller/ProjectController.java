@@ -1,6 +1,8 @@
 package com.pasifcode.caxias_diary.application.controller;
 
+import com.pasifcode.caxias_diary.domain.dto.ItemDetailsDto;
 import com.pasifcode.caxias_diary.domain.dto.ProjectDto;
+import com.pasifcode.caxias_diary.domain.entity.Project;
 import com.pasifcode.caxias_diary.domain.entity.User;
 import com.pasifcode.caxias_diary.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/projects")
@@ -48,11 +52,22 @@ public class ProjectController {
         return new ResponseEntity<>(edit, HttpStatus.OK);
     }
 
-
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProject(@PathVariable Long id) {
         this.projectService.deleteProject(id);
     }
 
+    @PostMapping("/save-item")
+    public ResponseEntity<ItemDetailsDto> saveItem(@RequestBody ItemDetailsDto dto) {
+        ItemDetailsDto add = projectService.saveItem(dto);
+        return new ResponseEntity<>(add, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/items/{project}")
+    public ResponseEntity<List<ItemDetailsDto>> findItems(
+            @PathVariable Project project) {
+        List<ItemDetailsDto> list = projectService.findItems();
+        return ResponseEntity.ok(list);
+    }
 }

@@ -84,10 +84,4 @@ public class Event extends BaseEntity {
     public void setUser(User user) {
         this.user = user;
     }
-
-    public Set<EventUser> getEventUsers() {
-        return eventUsers;
-    }
-
-
 }

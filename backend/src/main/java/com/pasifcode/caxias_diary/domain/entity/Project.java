@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-
 @Entity
 @Table(name = "tb_project")
 public class Project extends BaseEntity {
@@ -16,11 +15,12 @@ public class Project extends BaseEntity {
     @Column(name = "project_id", nullable = false)
     private Long id;
 
-
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "project")
+    private final Set<ItemDetails> itemDetails = new HashSet<>();
 
     @OneToMany(mappedBy = "project")
     private final Set<Event> events = new HashSet<>();
@@ -57,15 +57,4 @@ public class Project extends BaseEntity {
         this.user = user;
     }
 
-    public Set<Event> getEvents() {
-        return events;
-    }
-
-    public Set<ProjectPost> getPosts() {
-        return posts;
-    }
-
-    public Set<ProjectCategory> getProjectCategory() {
-        return projectCategory;
-    }
 }

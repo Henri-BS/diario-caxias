@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa6";
 import { Props } from "resources";
@@ -68,7 +66,7 @@ export function CategoryDetails({ params: categoryName }: Props) {
                 </Breadcrumb.Item>
                 <Breadcrumb.Item >
                     <Link to={`/categorias/${categoryName}`}>
-                        {category?.categoryName}
+                        {categoryName}
                     </Link>
                 </Breadcrumb.Item>
             </Breadcrumb>
@@ -83,6 +81,7 @@ export function CategoryDetails({ params: categoryName }: Props) {
                             <p className="flex flex-row items-center text-lg gap-2"><FaIcons.FaUser /> Usuários relacionados: <b>{userPage.page.totalElements}</b></p>
                         </div>
                     </div>
+
                     <Accordion collapseAll>
                         <Accordion.Panel>
                             <Accordion.Title>

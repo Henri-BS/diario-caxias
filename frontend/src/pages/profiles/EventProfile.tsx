@@ -77,7 +77,7 @@ export function EventDetails({ params: eventId }: Props) {
                     </Breadcrumb.Item>
                     <Breadcrumb.Item >
                         <Link to={`/eventos/${eventId}`}>
-                            {event?.id}
+                            {eventId}
                         </Link>
                     </Breadcrumb.Item>
                 </Breadcrumb>

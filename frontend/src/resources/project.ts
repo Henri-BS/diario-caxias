@@ -1,4 +1,3 @@
-
 export type Project = {
   id?: number;
   projectTitle?: string;
@@ -22,3 +21,10 @@ export type ProjectProps = {
   project: Project;
 };
 
+export type ItemDetails = {
+  id?: number;
+  itemType?: string;
+  itemDescription?: string;
+  projectId?: number;
+  userId?: number;
+};

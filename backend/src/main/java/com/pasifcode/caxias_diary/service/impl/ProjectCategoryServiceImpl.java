@@ -4,7 +4,7 @@ import com.pasifcode.caxias_diary.domain.entity.Project;
 import com.pasifcode.caxias_diary.domain.entity.ProjectCategory;
 import com.pasifcode.caxias_diary.domain.entity.Category;
 import com.pasifcode.caxias_diary.domain.dto.ProjectCategoryDto;
-import com.pasifcode.caxias_diary.domain.repository.ProejectCategoryRepository;
+import com.pasifcode.caxias_diary.domain.repository.ProjectCategoryRepository;
 import com.pasifcode.caxias_diary.domain.repository.CategoryRepository;
 import com.pasifcode.caxias_diary.domain.repository.ProjectRepository;
 import com.pasifcode.caxias_diary.service.ProjectCategoryService;
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProjectCategoryServiceImpl implements ProjectCategoryService {
 
     @Autowired
-    private ProejectCategoryRepository projectCategoryRepository;
+    private ProjectCategoryRepository projectCategoryRepository;
 
     @Autowired
     private CategoryRepository CategoryRepository;

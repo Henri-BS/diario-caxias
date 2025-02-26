@@ -92,25 +92,25 @@ export function PostMockProfile({ params: postId }: Props) {
             {result.map(post => {
                 return (
                     <div key={post.id} className="mt-10">
-                            <div className="relative flex flex-col md:flex-row xl:flex-col items-start">
-                                <div className="order-1 sm:ml-6 xl:ml-0">
-                                    <h3 className="mb-1 text-slate-900 font-semibold">
-                                        <span className="mb-1 text-3xl leading-6 text-indigo-500">{post?.postTitle}</span>
-                                    </h3>
-                                    <div className="prose prose-slate prose-sm text-slate-600 mt-5">
-                                        <p className="flex flex-row items-center text-gray-800 text-lg gap-2"><FaIcons.FaFolderClosed /> Projetos relacionados: <b>{2}</b></p>
-                                        <i>{post?.postSummary}</i>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col">
-                                    <img src={post?.postImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[60rem] sm:mb-0" alt={post.postTitle} />
-                                    <p className="flex gap-2 mt-2 items-center text-center text-sm font-medium text-gray-700">
-                                        enviado em: {post?.createdDate}
-                                    </p>
+                        <div className="relative flex flex-col md:flex-row xl:flex-col items-start">
+                            <div className="order-1 sm:ml-6 xl:ml-0">
+                                <h3 className="mb-1 text-slate-900 font-semibold">
+                                    <span className="mb-1 text-3xl leading-6 text-indigo-500">{post?.postTitle}</span>
+                                </h3>
+                                <div className="prose prose-slate prose-sm text-slate-600 mt-5">
+                                    <p className="flex flex-row items-center text-gray-800 text-lg gap-2"><FaIcons.FaFolderClosed /> Projetos relacionados: <b>{2}</b></p>
+                                    <i>{post?.postSummary}</i>
                                 </div>
                             </div>
-                            <p className="mt-5 text-xl text-gray-800 text-justify">{post?.postDescription} </p>
+                            <div className="flex flex-col">
+                                <img src={post?.postImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[60rem] sm:mb-0" alt={post.postTitle} />
+                                <p className="flex gap-2 mt-2 items-center text-center text-sm font-medium text-gray-700">
+                                    enviado em: {post?.createdDate}
+                                </p>
+                            </div>
                         </div>
+                        <p className="mt-5 text-xl text-gray-800 text-justify">{post?.postDescription} </p>
+                    </div>
                 )
             })}
         </>

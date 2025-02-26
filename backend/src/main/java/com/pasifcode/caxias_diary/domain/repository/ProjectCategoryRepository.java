@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProejectCategoryRepository extends JpaRepository<ProjectCategory, Long> {
+public interface ProjectCategoryRepository extends JpaRepository<ProjectCategory, Long> {
 
     Page<ProjectCategory> findAll(Specification<ProjectCategory> spec, Pageable pageable);
 

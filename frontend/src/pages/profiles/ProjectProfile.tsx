@@ -6,8 +6,8 @@ import { ProjectMockProfile } from "mock/MockProfile";
 import { CategoryPage } from "resources/category";
 import { EventPage } from "resources/event";
 import { PostPage } from "resources/post";
-import { Project } from "resources/project";
-import { Accordion, Breadcrumb, Button, Dropdown, Modal } from "flowbite-react";
+import { ItemDetails, Project } from "resources/project";
+import { Accordion, Breadcrumb, Button, Dropdown, List, Modal } from "flowbite-react";
 
 import { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa6";
@@ -17,6 +17,7 @@ import axios from "axios";
 import { baseUrl } from "utils/requests";
 import { useAuth } from "resources/auth";
 import { ProjectEditForm } from "pages/forms/ProjectForm";
+import Markdown from "react-markdown";
 
 export function ProjectProfile() {
     const params = useParams();
@@ -38,6 +39,7 @@ export function ProjectDetails({ params: projectId }: Props) {
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber)
     }
+    const [items, setItems] = useState<ItemDetails[]>();
     const [eventPage, setEventPage] = useState<EventPage>({ content: [], page: { number: 0, totalElements: 0 } });
     const [categoryPage, setCategoryPage] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } });
     const [postPage, setPostPage] = useState<PostPage>({ content: [], page: { number: 0, totalElements: 0 } });
@@ -63,6 +65,10 @@ export function ProjectDetails({ params: projectId }: Props) {
             .then((response) => {
                 setPostPage(response.data);
             });
+        axios.get(`${baseUrl}/projects/items/${projectId}`)
+            .then((response) => {
+                setItems(response.data);
+            });
     }, [projectId, pageNumber]);
 
 
@@ -74,10 +80,11 @@ export function ProjectDetails({ params: projectId }: Props) {
             })
     }
 
+
+
     return (
         <div className="mt-10">
             <div className="flex flex-col md:flex-row justify-between  text-lg font-semibold text-gray-700">
-
                 <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
                     <Breadcrumb.Item icon={FaIcons.FaHouse}>
                         <Link to="/">
@@ -144,6 +151,33 @@ export function ProjectDetails({ params: projectId }: Props) {
                                 </div>
                                 <img src={project?.projectImage ? project.projectImage : "https://cdn1.iconfinder.com/data/icons/dashboard-ui-vol-1/48/JD-46-512.png"} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[22rem] sm:mb-0" alt={project.projectTitle} />
                             </div>
+
+                            <Accordion className="mt-8">
+                                <Accordion.Panel>
+                                    <Accordion.Title>
+                                        <h2 className="flex flex-row w-80 items-center gap-2 text-xl text-zinc-800 "><FaIcons.FaCircleInfo />Informações Gerais</h2>
+                                    </Accordion.Title>
+                                    <Accordion.Content className="p-2">
+                                        <List unstyled className=" py-4 px-10 justify-center">
+                                            {items?.filter((item) => (
+                                                item.itemType?.includes(item.itemType)
+                                            )).map((item) => {
+                                                return (
+                                                    <>
+                                                        <List.Item className=" text-dark divide-x divide-slate-600">
+                                                            <h2 className="font-semibold text-xl text-slate-700">{item.itemType}</h2>
+                                                            <List unstyled nested>
+                                                                <List.Item className="text-slate-700"><Markdown>{item.itemDescription}</Markdown></List.Item>
+                                                            </List>
+                                                        </List.Item>
+                                                    </>
+                                                )
+                                            })}
+                                        </List>
+                                    </Accordion.Content>
+                                </Accordion.Panel>
+                            </Accordion>
+
                             <p className="mt-5 text-xl text-justify">{project?.projectDescription} </p>
                             <Accordion collapseAll className="mt-12 ">
                                 <Accordion.Panel>
@@ -186,10 +220,8 @@ export function ProjectDetails({ params: projectId }: Props) {
                                         <h2 className="flex flex-row gap-2 mt-5 text-2xl text-zinc-800 "><FaIcons.FaNewspaper />Postagens Relacionados</h2>
                                     </Accordion.Title>
                                     <Accordion.Content className="p-2">
-                                        <div className="flex items-center w-full justify-center mt-12">
-                                            <Pagination pagination={postPage} onPageChange={handlePageChange} />
-                                        </div>
-                                        <div className=" mt-10 grid grid-cols-1 lg:grid-cols-2 gap-y-6 gap-x-8 ">
+                                        <Pagination pagination={postPage} onPageChange={handlePageChange} />
+                                        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-6 gap-x-8">
                                             {postPage.content?.map(post => (
                                                 <div key={post.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start">
                                                     <PostCard post={post} />

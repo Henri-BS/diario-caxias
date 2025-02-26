@@ -77,7 +77,7 @@ export function PostDetails({ params: postId }: Props) {
                     </Breadcrumb.Item>
                     <Breadcrumb.Item >
                         <Link to={`/postagens/${postId}`}>
-                            {post?.id}
+                            {postId}
                         </Link>
                     </Breadcrumb.Item>
                 </Breadcrumb>
@@ -128,7 +128,7 @@ export function PostDetails({ params: postId }: Props) {
                                         <i>{post?.postSummary}</i>
                                     </div>
                                 </div>
-                                <div className="flex flex-col w-96">
+                                <div className="flex flex-col">
                                     <img src={post?.postImage ? post?.postImage : "https://cdn1.iconfinder.com/data/icons/dashboard-ui-vol-1/48/JD-46-512.png"} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[60rem] sm:mb-0" alt={post.postTitle} />
                                     <p className="flex gap-2 mt-2 items-center text-center text-sm font-medium text-gray-700">
                                         enviado em: {post?.createdDate}
