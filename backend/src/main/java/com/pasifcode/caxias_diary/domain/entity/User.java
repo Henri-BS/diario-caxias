@@ -45,6 +45,9 @@ public class User {
     private final Set<Event> events = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
+    private final Set<ItemDetails> itemDetails = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
     private final Set<EventUser> eventUsers = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
@@ -84,7 +87,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
     public String getUserBio() {
         return userBio;

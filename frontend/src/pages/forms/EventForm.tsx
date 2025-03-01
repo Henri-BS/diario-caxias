@@ -149,8 +149,8 @@ export function EventAddForm() {
                                     value={values.projectTitle}
                                 />
                                 <datalist id="projectList">
-                                    {projectPage.content?.filter((post) =>
-                                        post.projectTitle?.toUpperCase().includes(query.toLocaleUpperCase()))
+                                    {projectPage.content?.filter((project) =>
+                                        project.projectTitle?.toUpperCase().includes(query.toLocaleUpperCase()))
                                         .map((project) =>
                                             <>
                                                 <option id="query" key={project.id} value={project.projectTitle}>

@@ -32,8 +32,9 @@ public class PostDto implements Serializable {
         postImage = entity.getImage();
         postDescription = entity.getDescription();
         postSummary = entity.getSummary();
-        userId = entity.getUser().getId();
         createdDate = entity.getCreatedDate();
+
+        userId = entity.getUser().getId();
     }
 
     public Long getId() {

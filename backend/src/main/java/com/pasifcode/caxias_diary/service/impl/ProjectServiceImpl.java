@@ -78,8 +78,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ItemDetailsDto> findItems() {
-        List<ItemDetails> list = itemDetailsRepository.findAll();
+    public List<ItemDetailsDto> findItems(Project project) {
+        List<ItemDetails> list = itemDetailsRepository.findByProject(project);
         return list.stream().map(ItemDetailsDto::new).toList();
     }
 

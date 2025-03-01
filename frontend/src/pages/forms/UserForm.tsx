@@ -90,20 +90,6 @@ export function Login() {
     }
     return (
         <div className="mt-10">
-
-            <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
-                <Breadcrumb.Item icon={FaHouse}>
-                    <Link to="/">
-                        Início
-                    </Link>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>
-                    <Link to="/login">
-                        Login
-                    </Link>
-                </Breadcrumb.Item>
-            </Breadcrumb>
-
             <div className="flex flex-col items-center justify-center py-[100px]">
                 <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-2/3">
                     <span className="flex flex-row items-center gap-2">{newUserState ? "Cadastre-se" : "Faça login na sua conta"}</span>

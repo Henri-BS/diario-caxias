@@ -10,6 +10,7 @@ public class ProjectPostDto implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    private Long postId;
     private String postTitle;
     private String postSummary;
     private String postImage;
@@ -21,12 +22,17 @@ public class ProjectPostDto implements Serializable {
     }
 
     public ProjectPostDto(ProjectPost entity) {
+        postId = entity.getPost().getId();
         postTitle = entity.getPost().getTitle();
         postSummary = entity.getPost().getSummary();
         postImage = entity.getPost().getImage();
         projectTitle = entity.getProject().getTitle();
         projectDescription = entity.getProject().getDescription();
         projectImage = entity.getProject().getImage();
+    }
+
+    public Long getPostId() {
+        return postId;
     }
 
     public String getPostTitle() {

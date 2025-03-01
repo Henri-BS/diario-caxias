@@ -86,7 +86,7 @@ export default function Home() {
                                 Para saber um pouco mais sobre os recentes projetos ou eventos, clique nas últimas nóticias que aparecem aqui ao lado e faça a sua história em sua cidade.
                             </p>
                             {!posts.content.length ?
-                                <Banner className="mb-10">
+                                <Banner className="mb-4">
                                     <div className="flex w-full justify-between border-b border-gray-200 bg-gray-50 p-4">
                                         <div className="flex items-center">
                                             <p className="flex items-center text-sm  font-bold text-red-500 ">

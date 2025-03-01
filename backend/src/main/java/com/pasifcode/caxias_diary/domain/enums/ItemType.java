@@ -26,11 +26,11 @@ public enum ItemType {
     @JsonCreator
     public static ItemType itemType(String type) {
         return switch (type) {
-            case "Objetivos" -> OBJETIVOS;
-            case "Atividades" -> ATIVIDADES;
-            case "Etapas" -> ETAPAS;
-            case "Impacto" -> IMPACTO;
-            case "Desafios" -> DESAFIOS;
+            case "Objetivos"   -> OBJETIVOS;
+            case "Atividades"  -> ATIVIDADES;
+            case "Etapas"      -> ETAPAS;
+            case "Impacto"     -> IMPACTO;
+            case "Desafios"    -> DESAFIOS;
             case "Referências" -> REFERENCIAS;
             case "Adicional", "" -> ADICIONAL;
             default -> null;

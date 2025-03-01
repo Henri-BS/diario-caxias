@@ -67,7 +67,7 @@ public class ProjectController {
     @GetMapping("/items/{project}")
     public ResponseEntity<List<ItemDetailsDto>> findItems(
             @PathVariable Project project) {
-        List<ItemDetailsDto> list = projectService.findItems();
+        List<ItemDetailsDto> list = projectService.findItems(project);
         return ResponseEntity.ok(list);
     }
 }

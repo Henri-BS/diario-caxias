@@ -27,6 +27,11 @@ public abstract class BaseEntity {
     public BaseEntity() {
     }
 
+    public BaseEntity(String title, String image) {
+        this.title = title;
+        this.image = image;
+    }
+
     public BaseEntity(String title, String description, String image, LocalDateTime createdDate) {
         this.title = title;
         this.description = description;
