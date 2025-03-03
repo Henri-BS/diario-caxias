@@ -1,8 +1,5 @@
-import { ProjectCard } from "components/cards/ProjectCard";
-import { Pagination } from "components/shared/Pagination";
 import { PostMockProfile } from "mock/MockProfile";
 import { Post } from "resources/post";
-import { ProjectPage } from "resources/project";
 import { Accordion, Breadcrumb, Button, Dropdown, Modal } from "flowbite-react";
 
 import { useEffect, useState } from "react";
@@ -12,7 +9,9 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "utils/requests";
 import { useAuth } from "resources/auth";
-import { PostEditForm } from "pages/forms/PostForm";
+import { PostEditForm, EventPostAddForm } from "pages/forms/PostForm";
+import { EventSmCard } from "components/cards/EventCard";
+import { Event } from "resources/event";
 
 
 export function PostProfile() {
@@ -27,16 +26,13 @@ export function PostProfile() {
 
 export function PostDetails({ params: postId }: Props) {
     const [post, setPost] = useState<Post>();
-    const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
-    const [pageNumber, setPageNumber] = useState(0);
-    const handlePageChange = (newPageNumber: number) => {
-        setPageNumber(newPageNumber)
-    }
+    const [events, setEvents] = useState<Event[]>();
     const auth = useAuth();
     const navigate = useNavigate();
     const params = useParams();
-    const [edit, setEdit] = useState<boolean>(false);
+    const [edit, setEdit] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
+    const [addProject, setAddProject] = useState(false);
 
     useEffect(() => {
         axios.get(`${baseUrl}/posts/${postId}`)
@@ -46,11 +42,11 @@ export function PostDetails({ params: postId }: Props) {
     }, [postId]);
 
     useEffect(() => {
-        axios.get(`${baseUrl}/project-post?postId=${postId}&page=${pageNumber}&size=8`)
+        axios.get(`${baseUrl}/event-post?postId=${postId}`)
             .then((response) => {
-                setProjectPage(response.data);
+                setEvents(response.data);
             });
-    }, [postId, pageNumber]);
+    }, [postId]);
 
     const deletePost = () => {
         axios.delete(`${baseUrl}/posts/delete/${postId}`)
@@ -85,7 +81,10 @@ export function PostDetails({ params: postId }: Props) {
                 {post?.userId === auth.getUserSession()?.id ?
                     <Dropdown label="Configurações" inline>
                         <Dropdown.Item icon={FaIcons.FaSquarePen} onClick={() => setEdit(true)} className="text-md font-medium">
-                            Editar
+                            Editar Postagem
+                        </Dropdown.Item>
+                        <Dropdown.Item icon={FaIcons.FaFolderClosed} onClick={() => setAddProject(true)} className="text-md font-medium">
+                            Adicionar Projeto
                         </Dropdown.Item>
                         <Dropdown.Item icon={FaIcons.FaTrash} onClick={() => setDeleteModal(true)} className="text-md font-medium">
                             Deletar
@@ -114,6 +113,13 @@ export function PostDetails({ params: postId }: Props) {
                 </Modal>
             </div>
 
+            <Modal show={addProject} size="3xl" onClose={() => setAddProject(false)} popup>
+                <Modal.Header />
+                <Modal.Body>
+                    <EventPostAddForm params={postId} />
+                </Modal.Body>
+            </Modal>
+
             {!post ? <PostMockProfile params={`${params.postId}`} /> :
                 <div>
                     {edit ? <PostEditForm params={postId} /> :
@@ -124,7 +130,7 @@ export function PostDetails({ params: postId }: Props) {
                                         <span className="mb-1 text-3xl leading-6 text-indigo-500">{post?.postTitle}</span>
                                     </h3>
                                     <div className="prose prose-slate prose-sm text-slate-600 mt-5">
-                                        <p className="flex flex-row items-center text-gray-800 text-lg gap-2"><FaIcons.FaFolderClosed /> Projetos relacionados: <b>{projectPage.page.totalElements}</b></p>
+                                        <p className="flex flex-row items-center text-gray-800 text-lg gap-2"><FaIcons.FaCalendarCheck /> Eventos relacionados: <b>{events?.length}</b></p>
                                         <i>{post?.postSummary}</i>
                                     </div>
                                 </div>
@@ -138,20 +144,21 @@ export function PostDetails({ params: postId }: Props) {
                             <p className="mt-5 text-xl text-gray-800 text-justify">{post?.postDescription} </p>
                         </div>
                     }
+
+
                     <Accordion collapseAll className="mt-12 ">
                         <Accordion.Panel>
                             <Accordion.Title>
-                                <h2 className="flex flex-row gap-2 mt-5 text-2xl text-zinc-800 "><FaIcons.FaFolderClosed />Projetos Relacionados</h2>
+                                <h2 className="flex flex-row items-center gap-x-2 text-xl text-zinc-800 "><FaIcons.FaCalendarCheck />Eventos Relacionados</h2>
                             </Accordion.Title>
                             <Accordion.Content className="p-2">
-                                <div className="flex items-center w-full justify-center mt-12">
-                                    <Pagination pagination={projectPage} onPageChange={handlePageChange} />
-                                </div>
-                                <div className=" grid grid-cols-1 gap-y-10 gap-x-6 items-start p-8">
-                                    {projectPage.content?.map(project => (
-                                        <div key={project.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start">
-                                            <ProjectCard project={project} />
-                                        </div>
+                                <div className=" grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-6 items-start p-8">
+                                    {events?.map(event => (
+                                        <>
+                                            <div key={event.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start">
+                                                <EventSmCard event={event} />
+                                            </div>
+                                        </>
                                     ))}
                                 </div>
                             </Accordion.Content>

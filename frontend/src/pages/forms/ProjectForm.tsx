@@ -1,7 +1,7 @@
 import { useNotification, FieldError } from "components/shared/Notification";
 import { TextInput, Textarea, Button, Label, Breadcrumb, Select } from "flowbite-react";
 import { useFormik } from "formik";
-import { FaCircleInfo, FaFolderClosed, FaHouse, FaX } from "react-icons/fa6";
+import { FaCircleInfo, FaFolderClosed, FaHouse, FaTag, FaX } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "resources/auth";
 import { ItemDetails, Project } from "resources/project";
@@ -11,20 +11,7 @@ import axios from "axios";
 import { baseUrl } from "utils/requests";
 import { useEffect, useState } from "react";
 import { Props } from "resources";
-
-export interface ProjectFormProps {
-    projectTitle: string;
-    projectDescription: string;
-    projectImage: string;
-    userId: number;
-}
-
-export const projectFormSchema: ProjectFormProps = {
-    projectTitle: "",
-    projectDescription: "",
-    projectImage: "",
-    userId: 0,
-};
+import { CategoryPage } from "resources/category";
 
 export const projectValidationSchema = Yup.object().shape({
     projectTitle: Yup.string()
@@ -44,8 +31,13 @@ export function ProjectAddForm() {
     const userId = auth.getUserSession()?.id;
     const navigate = useNavigate();
 
-    const { values, handleChange, errors, resetForm } = useFormik<ProjectFormProps>({
-        initialValues: projectFormSchema,
+    const { values, handleChange, errors, resetForm } = useFormik<Project>({
+        initialValues: {
+            projectTitle: "",
+            projectDescription: "",
+            projectImage: "",
+            userId: 0
+        },
         validationSchema: projectValidationSchema,
         onSubmit: onSubmit
     })
@@ -156,8 +148,14 @@ export function ProjectEditForm({ params: projectId }: Props) {
             });
     }, [projectId]);
 
-    const { values, handleChange, errors } = useFormik<ProjectFormProps>({
-        initialValues: projectFormSchema,
+    const { values, handleChange, errors } = useFormik<Project>({
+        initialValues: {
+            id: projectId,
+            projectTitle: project?.projectTitle,
+            projectDescription: project?.projectDescription,
+            projectImage: project?.projectImage,
+            userId: userId
+        },
         validationSchema: projectValidationSchema,
         onSubmit: onSubmit
     })
@@ -232,7 +230,7 @@ export function ProjectEditForm({ params: projectId }: Props) {
                             <Button type="submit" gradientDuoTone="purpleToBlue" >Salvar</Button>
                         </div>
                     </form>
-                </div>    
+                </div>
             }
         </div>
     );
@@ -269,11 +267,11 @@ export function ItemAddForm({ params: projectId }: Props) {
 
 
     async function onSubmit() {
-        const project: ItemDetails = { itemType: values.itemType, itemDescription: values.itemDescription, projectId: projectId, userId: userId }
+        const item: ItemDetails = { itemType: values.itemType, itemDescription: values.itemDescription, projectId: projectId, userId: userId }
         try {
-            axios.post(`${baseUrl}/projects/save-item`, project)
+            axios.post(`${baseUrl}/projects/save-item`, item)
                 .then((response) => {
-                    navigate(`/projetos/${project.id}`)
+                    navigate(`/projetos/${item.projectId}`)
                     return response.status;
                 });
             notification.notify("Salvo com sucesso!", "success");
@@ -334,6 +332,111 @@ export function ItemAddForm({ params: projectId }: Props) {
                             />
                             <FieldError error={errors.itemDescription} />
                         </div>
+                        <div className="mt-5 flex items-center justify-end gap-x-4">
+                            <Button type="submit" gradientDuoTone="purpleToBlue" >Salvar</Button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </>
+    );
+}
+
+export function ProjectCategoryAddForm({ params: projectId }: Props) {
+
+    const notification = useNotification();
+    const auth = useAuth();
+    const userId = auth.getUserSession()?.id;
+    const navigate = useNavigate();
+
+
+    const query = "";
+    const [categoryPage, setCategoryPage] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } });
+
+    useEffect(() => {
+        axios.get(`${baseUrl}/categories?query=${query}&size=20`)
+            .then((response) => {
+                setCategoryPage(response.data);
+            })
+    }, [query]);
+
+    type ProjectCategory = {
+        categoryName?: string;
+        projectId?: number;
+        userId?: number;
+    }
+
+    const { values, handleChange, resetForm } = useFormik<ProjectCategory>({
+        initialValues: {
+            categoryName: "",
+            projectId: 0,
+            userId: 0
+        },
+        validationSchema: itemValidationSchema,
+        onSubmit: onSubmit
+    })
+
+
+    async function onSubmit() {
+        const projectCategory: ProjectCategory = { categoryName: values.categoryName, projectId: projectId, userId: userId }
+
+        try {
+            axios.post(`${baseUrl}/project-category/save`, projectCategory)
+                .then((response) => {
+                    navigate(`/projetos/${projectCategory.projectId}`)
+                    return response.status;
+                });
+            notification.notify("Salvo com sucesso!", "success");
+            resetForm();
+        } catch (error: any) {
+            const message = error?.message;
+            notification.notify(message, "error");
+        }
+    }
+
+    return (
+        <>
+            <div className="mt-10">
+                <div className="flex flex-col items-center justify-center">
+                    <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-2/3">
+                        <span className="flex flex-row items-center gap-2"><FaTag /> Adicionar Categoria </span>
+                    </div>
+                    <form onSubmit={onSubmit} className="space-y-2 w-2/3">
+                        <div>
+                            <TextInput type="hidden"
+                                id="userId"
+                                onChange={handleChange}
+                                value={userId}
+                            />
+                            <TextInput type="hidden"
+                                id="projectId"
+                                onChange={handleChange}
+                                value={projectId}
+                            />
+                        </div>
+                        <div>
+                            <Label className="block text-sm font-medium leading-6 text-gray-700" value="Categoria: *" />
+                            <TextInput
+                                color="bg-zinc-400"
+                                id="categoryName"
+                                list="categoryList"
+                                onChange={handleChange}
+                                value={values.categoryName}
+                            />
+                            <datalist id="categoryList">
+                                {categoryPage.content?.filter((category) =>
+                                    category.categoryName?.toUpperCase().includes(query.toLocaleUpperCase()))
+                                    .map((project) =>
+                                        <>
+                                            <option id="query" key={project.id} value={project.categoryName}>
+                                                {project.categoryName}
+                                            </option>
+                                        </>
+                                    )
+                                }
+                            </datalist>
+                        </div>
+
                         <div className="mt-5 flex items-center justify-end gap-x-4">
                             <Button type="submit" gradientDuoTone="purpleToBlue" >Salvar</Button>
                         </div>

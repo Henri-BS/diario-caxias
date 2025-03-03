@@ -1,4 +1,5 @@
 import axios from "axios";
+import { PostSmCard } from "components/cards/PostCard";
 import { UserCard } from "components/cards/UserCards";
 import { Pagination } from "components/shared/Pagination";
 import { Accordion, Breadcrumb, Button, Dropdown, Modal } from "flowbite-react";
@@ -12,6 +13,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Props } from "resources";
 import { useAuth } from "resources/auth";
 import { Event } from "resources/event";
+import { Post } from "resources/post";
 import { UserPage } from "resources/user";
 import { baseUrl } from "utils/requests";
 
@@ -28,6 +30,8 @@ export function EventProfile() {
 export function EventDetails({ params: eventId }: Props) {
     const [event, setEvent] = useState<Event>();
     const [userPage, setUserPage] = useState<UserPage>({ content: [], page: { number: 0, totalElements: 0 } });
+    const [postPage, setPostPage] = useState<Post[]>();
+
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
@@ -50,6 +54,10 @@ export function EventDetails({ params: eventId }: Props) {
             .then((response) => {
                 setUserPage(response.data);
             })
+        axios.get(`${baseUrl}/event-post?eventId=${eventId}&page=${pageNumber}&size=8`)
+            .then((response) => {
+                setPostPage(response.data);
+            });
     }, [eventId, pageNumber]);
 
     const deleteEvent = () => {
@@ -145,15 +153,23 @@ export function EventDetails({ params: eventId }: Props) {
                             <div className="mt-5 text-xl text-zinc-800 text-justify">
                                 <p>{event?.eventDescription} </p>
                             </div>
+
+                            <h2 className="flex flex-row gap-2 mt-5 text-2xl text-zinc-800 "><FaIcons.FaNewspaper />Postagens Relacionas</h2>
+                            <div className=" grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-6 items-start p-8 divide-y divide-gray-300">
+                                {postPage?.map((post) => (
+                                    <>
+                                        <PostSmCard post={post} />
+                                    </>
+                                ))}
+                            </div>
+
                             <Accordion collapseAll className="mt-12 ">
                                 <Accordion.Panel>
                                     <Accordion.Title>
                                         <h2 className="flex flex-row gap-2 mt-5 text-2xl text-zinc-800 "><FaIcons.FaUser />Usuários Relacionados</h2>
                                     </Accordion.Title>
                                     <Accordion.Content className="p-2">
-                                        <div className="flex items-center w-full justify-center">
-                                            <Pagination pagination={userPage} onPageChange={handlePageChange} />
-                                        </div>
+                                        <Pagination pagination={userPage} onPageChange={handlePageChange} />
                                         <div className="  grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
                                             {userPage.content?.map(user => (
                                                 <div key={user?.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">

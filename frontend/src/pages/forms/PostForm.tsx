@@ -3,7 +3,7 @@ import { useAuth } from "resources/auth";
 import { Post } from "resources/post";
 import { Breadcrumb, Button, Label, Textarea, TextInput } from "flowbite-react";
 import { useFormik } from "formik";
-import { FaHouse, FaNewspaper, FaX } from "react-icons/fa6";
+import { FaCalendarCheck, FaHouse, FaNewspaper, FaX } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { Login } from "./UserForm";
 import * as Yup from "yup";
@@ -11,23 +11,7 @@ import axios from "axios";
 import { baseUrl } from "utils/requests";
 import { Props } from "resources";
 import { useEffect, useState } from "react";
-
-export interface PostFormProps {
-    id?: number,
-    postTitle?: string;
-    postDescription?: string;
-    postSummary?: string;
-    postImage?: string;
-    userId?: number;
-}
-
-export const postFormSchema: PostFormProps = {
-    postTitle: "",
-    postDescription: "",
-    postSummary: "",
-    postImage: "",
-    userId: 0,
-};
+import { EventPage } from "resources/event";
 
 export const postValidationSchema = Yup.object().shape({
     postTitle: Yup.string()
@@ -52,8 +36,14 @@ export function PostAddForm() {
     const userId = auth.getUserSession()?.id;
     const navigate = useNavigate();
 
-    const { values, handleChange, errors, resetForm } = useFormik<PostFormProps>({
-        initialValues: postFormSchema,
+    const { values, handleChange, errors, resetForm } = useFormik<Post>({
+        initialValues: {
+            postTitle: "",
+            postDescription: "",
+            postSummary: "",
+            postImage: "",
+            userId: 0,
+        },
         validationSchema: postValidationSchema,
         onSubmit: onSubmit
     })
@@ -69,7 +59,7 @@ export function PostAddForm() {
         try {
             axios.post(`${baseUrl}/posts/save`, post)
                 .then((response) => {
-                    navigate(`/postagens/${post.id}`);
+                    navigate(`/postagens/${post.postId}`);
                     return response.status;
                 });
             notification.notify("Salvo com sucesso!", "success");
@@ -181,7 +171,7 @@ export function PostEditForm({ params: postId }: Props) {
             });
     }, [postId]);
 
-    const { values, handleChange, errors } = useFormik<PostFormProps>({
+    const { values, handleChange, errors } = useFormik<Post>({
         initialValues: {
             postTitle: post?.postTitle,
             postDescription: post?.postDescription,
@@ -194,7 +184,7 @@ export function PostEditForm({ params: postId }: Props) {
 
     async function onSubmit() {
         const postValues: Post = {
-            id: postId,
+            postId: postId,
             postTitle: values.postTitle ?? post?.postTitle,
             postDescription: values.postDescription ?? post?.postDescription,
             postImage: values.postImage ?? post?.postImage,
@@ -275,6 +265,108 @@ export function PostEditForm({ params: postId }: Props) {
                     </form>
                 </div>
             }
+        </>
+    );
+}
+
+
+export function EventPostAddForm({ params: postId }: Props) {
+
+    const notification = useNotification();
+    const auth = useAuth();
+    const userId = auth.getUserSession()?.id;
+    const navigate = useNavigate();
+
+    const query = "";
+    const [eventPage, setEventPage] = useState<EventPage>({ content: [], page: { number: 0, totalElements: 0 } });
+
+    useEffect(() => {
+        axios.get(`${baseUrl}/events?query=${query}&size=100`)
+            .then((response) => {
+                setEventPage(response.data);
+            })
+    }, [query]);
+
+    type EventPost = {
+        eventTitle?: string;
+        postId?: number;
+        userId?: number;
+    }
+
+    const { values, handleChange, resetForm } = useFormik<EventPost>({
+        initialValues: {
+            eventTitle: "",
+            postId: 0,
+            userId: 0
+        },
+        validationSchema: postValidationSchema,
+        onSubmit: onSubmit
+    })
+
+
+    async function onSubmit() {
+        const eventPost: EventPost = { eventTitle: values.eventTitle, postId: postId, userId: userId }
+
+        try {
+            axios.post(`${baseUrl}/event-post/save`, eventPost)
+                .then((response) => {
+                    navigate(`/postagens/${postId}`)
+                    return response.status;
+                });
+            notification.notify("Salvo com sucesso!", "success");
+            resetForm();
+        } catch (error: any) {
+            const message = error?.message;
+            notification.notify(message, "error");
+        }
+    }
+
+    return (
+        <>
+            <div className="flex flex-col items-center justify-center">
+                <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-2/3">
+                    <span className="flex flex-row items-center gap-2"><FaCalendarCheck /> Adicionar Evento </span>
+                </div>
+                <form onSubmit={onSubmit} className="space-y-2 w-2/3">
+                    <div>
+                        <TextInput type="hidden"
+                            id="userId"
+                            onChange={handleChange}
+                            value={userId}
+                        />
+                        <TextInput type="hidden"
+                            id="postId"
+                            onChange={handleChange}
+                            value={postId}
+                        />
+                    </div>
+                    <div>
+                        <TextInput
+                            color="bg-zinc-400"
+                            id="eventTitle"
+                            list="eventList"
+                            onChange={handleChange}
+                            value={values.eventTitle}
+                        />
+                        <datalist id="eventList">
+                            {eventPage.content?.filter((event) =>
+                                event.eventTitle?.toUpperCase().includes(query.toLocaleUpperCase()))
+                                .map((event) =>
+                                    <>
+                                        <option id="query" key={event.id} value={event.eventTitle}>
+                                            {event.eventTitle}
+                                        </option>
+                                    </>
+                                )
+                            }
+                        </datalist>
+                    </div>
+
+                    <div className="mt-5 flex items-center justify-end gap-x-4">
+                        <Button type="submit" gradientDuoTone="purpleToBlue" >Salvar</Button>
+                    </div>
+                </form>
+            </div>
         </>
     );
 }

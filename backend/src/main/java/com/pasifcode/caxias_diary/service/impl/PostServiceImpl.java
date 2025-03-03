@@ -51,7 +51,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostDto updatePost(PostDto dto) {
-        Post edit = postRepository.findById(dto.getId()).orElseThrow();
+        Post edit = postRepository.findById(dto.getPostId()).orElseThrow();
 
         edit.setId(edit.getId());
         edit.setTitle(dto.getPostTitle());

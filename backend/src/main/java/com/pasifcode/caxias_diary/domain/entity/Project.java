@@ -26,9 +26,6 @@ public class Project extends BaseEntity {
     private final Set<Event> events = new HashSet<>();
 
     @OneToMany(mappedBy = "project")
-    private final Set<ProjectPost> posts = new HashSet<>();
-
-    @OneToMany(mappedBy = "project")
     private final Set<ProjectCategory> projectCategory = new HashSet<>();
 
     public Project() {

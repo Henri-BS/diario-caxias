@@ -32,6 +32,10 @@ public class Event extends BaseEntity {
     private User user;
 
     @OneToMany(mappedBy = "event")
+    private final Set<EventPost> eventPosts = new HashSet<>();
+
+
+    @OneToMany(mappedBy = "event")
     private final Set<EventUser> eventUsers = new HashSet<>();
 
     public Event() {

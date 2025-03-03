@@ -17,6 +17,7 @@ public class ProjectCategoryDto implements Serializable {
     private String projectTitle;
     private String projectDescription;
     private String projectImage;
+    private Long userId;
 
     public ProjectCategoryDto() {
     }
@@ -28,6 +29,7 @@ public class ProjectCategoryDto implements Serializable {
         projectTitle = entity.getProject().getTitle();
         projectDescription = entity.getProject().getDescription();
         projectImage = entity.getProject().getImage();
+        userId = entity.getUser().getId();
     }
 
     public Long getId() {
@@ -54,5 +56,8 @@ public class ProjectCategoryDto implements Serializable {
         return projectImage;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
 }
 

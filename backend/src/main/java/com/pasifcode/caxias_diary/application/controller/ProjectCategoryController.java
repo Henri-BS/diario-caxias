@@ -32,8 +32,8 @@ public class ProjectCategoryController {
     }
 
     @PostMapping("/save")
-    ResponseEntity<ProjectCategoryDto> saveEventCategory(@RequestBody ProjectCategoryDto dto) {
-        ProjectCategoryDto add = projectCategoryService.saveEventCategory(dto);
+    ResponseEntity<ProjectCategoryDto> saveProjectCategory(@RequestBody ProjectCategoryDto dto) {
+        ProjectCategoryDto add = projectCategoryService.saveProjectCategory(dto);
         return new ResponseEntity<>(add, HttpStatus.CREATED);
     }
 }

@@ -20,13 +20,18 @@ public class ProjectCategory {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public ProjectCategory() {
     }
 
-    public ProjectCategory(Long id, Project project, Category category) {
+    public ProjectCategory(Long id, Project project, Category category, User user) {
         this.id = id;
         this.project = project;
         this.category = category;
+        this.user = user;
     }
 
     public Long getId() {
@@ -51,5 +56,13 @@ public class ProjectCategory {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

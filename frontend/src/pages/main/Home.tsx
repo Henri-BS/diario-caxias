@@ -119,7 +119,7 @@ export default function Home() {
                                 <Flowbite theme={{ theme: customTheme }}>
                                     <Carousel>
                                         {posts.content.map(post => (
-                                            <div key={post.id} className="flex justify-center items-center w-full">
+                                            <div key={post.postId} className="flex justify-center items-center w-full">
                                                 <CarouselPostCard post={post} />
                                             </div>
                                         ))}
@@ -128,13 +128,13 @@ export default function Home() {
                             </div>
 
                             <div className="mt-4 p-4">
-                                <ul className="divide-y divide-gray-300">
+                                <div className="divide-y divide-gray-300">
                                     {posts.content.map(post => (
-                                        <div key={post.id}>
+                                        <div key={post.postId}>
                                             <PostSmCard post={post} />
                                         </div>
                                     ))}
-                                </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

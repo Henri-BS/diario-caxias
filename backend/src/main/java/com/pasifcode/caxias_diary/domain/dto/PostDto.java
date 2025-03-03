@@ -14,7 +14,7 @@ public class PostDto implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private Long postId;
     private String postTitle;
     private String postDescription;
     private String postSummary;
@@ -27,7 +27,7 @@ public class PostDto implements Serializable {
     }
 
     public PostDto(Post entity) {
-        id = entity.getId();
+        postId = entity.getId();
         postTitle = entity.getTitle();
         postImage = entity.getImage();
         postDescription = entity.getDescription();
@@ -37,8 +37,8 @@ public class PostDto implements Serializable {
         userId = entity.getUser().getId();
     }
 
-    public Long getId() {
-        return id;
+    public Long getPostId() {
+        return postId;
     }
 
     public String getPostTitle() {

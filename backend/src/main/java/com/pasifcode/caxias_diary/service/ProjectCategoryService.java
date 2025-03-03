@@ -10,6 +10,5 @@ public interface ProjectCategoryService {
 
     ProjectCategoryDto findById(Long id);
 
-    ProjectCategoryDto saveEventCategory(ProjectCategoryDto dto);
-
+    ProjectCategoryDto saveProjectCategory(ProjectCategoryDto dto);
 }

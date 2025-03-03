@@ -42,6 +42,12 @@ public class User {
     private final Set<Project> projects = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
+    private final Set<ProjectCategory> projectCategory = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private final Set<EventPost> eventPost = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
     private final Set<Event> events = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
@@ -108,10 +114,6 @@ public class User {
         return createdDate;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
-    }
-
     public String getImage() {
         return image;
     }
@@ -128,20 +130,6 @@ public class User {
         this.coverImage = coverImage;
     }
 
-    public Set<Project> getProjects() {
-        return projects;
-    }
 
-    public Set<Event> getEvents() {
-        return events;
-    }
-
-    public Set<EventUser> getEventUsers() {
-        return eventUsers;
-    }
-
-    public Set<UserCategory> getUserCategory() {
-        return userCategory;
-    }
 
 }

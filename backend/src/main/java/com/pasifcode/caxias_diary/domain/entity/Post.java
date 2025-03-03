@@ -22,7 +22,7 @@ public class Post extends BaseEntity {
     private User user;
 
     @OneToMany(mappedBy = "post")
-    private final Set<ProjectPost> projectPost = new HashSet<>();
+    private final Set<EventPost> eventPost = new HashSet<>();
 
     public Post() {
     }

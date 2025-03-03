@@ -1,15 +1,15 @@
 
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
-import { Breadcrumb, Button, Label, Textarea, TextInput } from "flowbite-react";
+import { Button, Label, Textarea, TextInput } from "flowbite-react";
 import { useAuth } from "resources/auth";
 import { Credentials, AccessToken, User } from "resources/user";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useNotification, FieldError } from "components/shared/Notification";
 import * as Yup from "yup";
 import axios from "axios";
 import { baseUrl } from "utils/requests";
-import { FaHouse, FaUser, FaX } from "react-icons/fa6";
+import { FaUser, FaX } from "react-icons/fa6";
 import { Props } from "resources";
 
 interface UserFormProps {

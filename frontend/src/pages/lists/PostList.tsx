@@ -57,7 +57,7 @@ export default function Posts() {
                             post.postTitle?.toUpperCase().includes(query.toLocaleUpperCase()) ||
                             removeAccents(post.postTitle)?.toUpperCase().includes(query.toLocaleUpperCase())
                         ).map(post => (
-                            <div key={post.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                            <div key={post.postId} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
                                 <PostCard post={post} />
                             </div>
                         ))}

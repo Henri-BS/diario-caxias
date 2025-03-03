@@ -23,6 +23,7 @@ public class EventDto implements Serializable {
     private Status eventStatus;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime createdDate;
+    private Long projectId;
     private String projectTitle;
     private Long userId;
     private String username;
@@ -38,6 +39,7 @@ public class EventDto implements Serializable {
         eventDate = entity.getEventDate();
         eventStatus = entity.getEventStatus();
         createdDate = entity.getCreatedDate();
+        projectId = entity.getProject().getId();
         projectTitle = entity.getProject().getTitle();
         userId = entity.getUser().getId();
         username = entity.getUser().getUsername();
@@ -63,7 +65,6 @@ public class EventDto implements Serializable {
         return eventDate;
     }
 
-
     public Status getEventStatus() {
         return eventStatus;
     }
@@ -72,6 +73,9 @@ public class EventDto implements Serializable {
         return createdDate;
     }
 
+    public Long getProjectId() {
+        return projectId;
+    }
 
     public String getProjectTitle() {
         return projectTitle;

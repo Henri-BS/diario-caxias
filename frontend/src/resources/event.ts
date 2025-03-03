@@ -1,4 +1,3 @@
-
 export type Event = {
   id?: number;
   eventTitle?: string;
@@ -23,4 +22,3 @@ export type EventPage = {
 export type EventProps = {
   event: Event;
 };
-

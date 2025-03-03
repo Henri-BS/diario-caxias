@@ -3,20 +3,24 @@ package com.pasifcode.caxias_diary.domain.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tb_project_post")
-public class ProjectPost {
+@Table(name = "tb_event_post")
+public class EventPost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "project_post_id", nullable = false)
+    @Column(name = "event_post_id", nullable = false)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "project_id")
-    private Project project;
+    @JoinColumn(name = "event_id")
+    private Event event;
 
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Long getId() {
         return id;
@@ -26,12 +30,12 @@ public class ProjectPost {
         this.id = id;
     }
 
-    public Project getProject() {
-        return project;
+    public Event getEvent() {
+        return event;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     public Post getPost() {
@@ -42,5 +46,11 @@ public class ProjectPost {
         this.post = post;
     }
 
+    public User getUser() {
+        return user;
+    }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

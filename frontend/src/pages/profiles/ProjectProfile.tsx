@@ -1,10 +1,10 @@
 import { CategoryCard } from "components/cards/CategoryCard";
-import { PostCard } from "components/cards/PostCard";
+import { PostSmCard } from "components/cards/PostCard";
 import { Pagination } from "components/shared/Pagination";
 import { ProjectMockProfile } from "mock/MockProfile";
 import { CategoryPage } from "resources/category";
 import { EventPage } from "resources/event";
-import { PostPage } from "resources/post";
+import { Post } from "resources/post";
 import { ItemDetails, Project } from "resources/project";
 import { Accordion, Breadcrumb, Button, Dropdown, List, Modal, Tabs, Timeline } from "flowbite-react";
 
@@ -15,9 +15,10 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "utils/requests";
 import { useAuth } from "resources/auth";
-import { ItemAddForm, ProjectEditForm } from "pages/forms/ProjectForm";
+import { ItemAddForm, ProjectCategoryAddForm, ProjectEditForm } from "pages/forms/ProjectForm";
 import Markdown from "react-markdown";
 import moment from "moment";
+import { EventSmCard } from "components/cards/EventCard";
 
 export function ProjectProfile() {
     const params = useParams();
@@ -31,6 +32,7 @@ export function ProjectProfile() {
         const auth = useAuth();
         const [edit, setEdit] = useState<boolean>(false);
         const [addItem, setAddItem] = useState<boolean>(false);
+        const [addCategory, setAddCategory] = useState<boolean>(false);
         const [deleteModal, setDeleteModal] = useState(false);
         const navigate = useNavigate();
         const params = useParams();
@@ -42,7 +44,7 @@ export function ProjectProfile() {
         const [items, setItems] = useState<ItemDetails[]>();
         const [eventPage, setEventPage] = useState<EventPage>({ content: [], page: { number: 0, totalElements: 0 } });
         const [categoryPage, setCategoryPage] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } });
-        const [postPage, setPostPage] = useState<PostPage>({ content: [], page: { number: 0, totalElements: 0 } });
+        const [posts, setPosts] = useState<Post[]>();
 
 
         useEffect(() => {
@@ -57,13 +59,13 @@ export function ProjectProfile() {
                 .then((response) => {
                     setEventPage(response.data);
                 });
-            axios.get(`${baseUrl}/project-category?projectId=${projectId}&page=${pageNumber}&size=${categoryPage.page.totalElements}`)
+            axios.get(`${baseUrl}/project-category?projectId=${projectId}&page=${pageNumber}&size=100`)
                 .then((response) => {
                     setCategoryPage(response.data);
                 });
-            axios.get(`${baseUrl}/project-post?projectId=${projectId}&page=${pageNumber}&size=9`)
+            axios.get(`${baseUrl}/event-post?projectId=${projectId}&page=${pageNumber}&size=9`)
                 .then((response) => {
-                    setPostPage(response.data);
+                    setPosts(response.data);
                 });
             axios.get(`${baseUrl}/projects/items/${projectId}`)
                 .then((response) => {
@@ -110,6 +112,9 @@ export function ProjectProfile() {
                             <Dropdown.Item icon={FaIcons.FaCircleInfo} onClick={() => setAddItem(true)} className="text-md font-medium">
                                 Adicionar Informação
                             </Dropdown.Item>
+                            <Dropdown.Item icon={FaIcons.FaTag} onClick={() => setAddCategory(true)} className="text-md font-medium">
+                                Adicionar Categoria
+                            </Dropdown.Item>
                             <Dropdown.Item icon={FaIcons.FaTrash} onClick={() => setDeleteModal(true)} className="text-md font-medium">
                                 Deletar Projeto
                             </Dropdown.Item>
@@ -140,9 +145,17 @@ export function ProjectProfile() {
                     <Modal show={addItem} size="3xl" onClose={() => setAddItem(false)} popup>
                         <Modal.Header />
                         <Modal.Body>
-                            <ItemAddForm params={projectId}/>
+                            <ItemAddForm params={projectId} />
                         </Modal.Body>
                     </Modal>
+
+                    <Modal show={addCategory} size="3xl" onClose={() => setAddCategory(false)} popup>
+                        <Modal.Header />
+                        <Modal.Body>
+                            <ProjectCategoryAddForm params={projectId} />
+                        </Modal.Body>
+                    </Modal>
+
                 </div>
                 {!project ? <ProjectMockProfile params={`${params.projectId}`} /> :
                     <div>
@@ -154,7 +167,7 @@ export function ProjectProfile() {
                                         <div className="prose prose-slate prose-sm text-slate-600 mt-5">
                                             <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaTag /> Categorias relacionados: <b>{categoryPage.page.totalElements}</b></p>
                                             <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaCalendarCheck /> Eventos relacionados: <b>{eventPage.page.totalElements}</b></p>
-                                            <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaNewspaper /> Postagens relacionados: <b>{postPage.page.totalElements}</b></p>
+                                            <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaNewspaper /> Postagens relacionados: <b>{posts?.length}</b></p>
                                         </div>
                                     </div>
                                     <img src={project?.projectImage ? project.projectImage : "https://cdn1.iconfinder.com/data/icons/dashboard-ui-vol-1/48/JD-46-512.png"} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[22rem] sm:mb-0" alt={project.projectTitle} />
@@ -203,14 +216,7 @@ export function ProjectProfile() {
                                                             <Timeline.Content>
                                                                 <Timeline.Time>{moment(event.eventDate).format("DD/MM/yyyy")}</Timeline.Time>
                                                                 <Timeline.Body>
-                                                                    <Link to={`/eventos/${event.id}`}>
-                                                                        <div className="flex items-center space-x-4 rtl:space-x-reverse py-1 sm:py-2 hover:bg-zinc-100 transition duration-500 hover:shadow-lg rounded-md">
-                                                                            <img src={event.eventImage} alt="postagem" className="h-24 w-24 rounded-md" />
-                                                                            <div title={event.eventTitle} className="inline-flex font-semibold text-gray-900 h-12 overflow-hidden">
-                                                                                {event.eventTitle}
-                                                                            </div>
-                                                                        </div>
-                                                                    </Link>
+                                                                    <EventSmCard event={event} />
                                                                 </Timeline.Body>
                                                             </Timeline.Content>
                                                         </Timeline.Item >
@@ -229,11 +235,10 @@ export function ProjectProfile() {
                                         </div>
                                     </Tabs.Item>
                                     <Tabs.Item active title="Postagens" icon={FaIcons.FaNewspaper}>
-                                        <Pagination pagination={postPage} onPageChange={handlePageChange} />
-                                        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-6 gap-x-8">
-                                            {postPage.content?.map(post => (
-                                                <Link to={`/postagens/${post.id}`} key={post.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start">
-                                                    <PostCard post={post} />
+                                        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-8 ">
+                                            {posts?.map(post => (
+                                                <Link to={`/postagens/${post.postId}`} key={post.postId} className="relative flex flex-col sm:flex-row xl:flex-col items-start">
+                                                    <PostSmCard post={post} />
                                                 </Link>
                                             ))}
                                         </div>

@@ -24,3 +24,17 @@ export const EventCard = ({ event }: EventProps) => {
         </Link>
     );
 }
+
+export const EventSmCard = ({ event }: EventProps) => {
+    return (
+        <Link to={`/eventos/${event.id}`}>
+            <div className="flex items-center space-x-4 rtl:space-x-reverse py-1 sm:py-2 hover:bg-zinc-100 transition duration-500 hover:shadow-lg rounded-md">
+                <img src={event.eventImage} alt="postagem" className="h-24 w-24 rounded-md" />
+                <div title={event.eventTitle} className="flex flex-col">
+                    <h3 className="inline-flex font-semibold text-gray-900 h-12 overflow-hidden">{event.eventTitle}</h3>
+                    <p className="text-gray-600 h-6 overflow-hidden"> {event.projectTitle}</p>
+                </div>
+            </div>
+        </Link>
+    );
+}
