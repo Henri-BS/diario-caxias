@@ -2,6 +2,7 @@ package com.pasifcode.caxias_diary.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pasifcode.caxias_diary.domain.entity.Post;
 
 import java.io.Serial;
@@ -22,9 +23,13 @@ public class PostDto implements Serializable {
     private LocalDateTime createdDate;
     private String postImage;
     private Long userId;
+    private String username;
+    private String userImage;
+    private String userBio;
 
     public PostDto() {
     }
+
 
     public PostDto(Post entity) {
         postId = entity.getId();
@@ -33,8 +38,10 @@ public class PostDto implements Serializable {
         postDescription = entity.getDescription();
         postSummary = entity.getSummary();
         createdDate = entity.getCreatedDate();
-
         userId = entity.getUser().getId();
+        username = entity.getUser().getUsername();
+        userImage = entity.getUser().getImage();
+        userBio = entity.getUser().getUserBio();
     }
 
     public Long getPostId() {
@@ -53,6 +60,7 @@ public class PostDto implements Serializable {
         return postSummary;
     }
 
+    @JsonProperty
     public LocalDateTime getCreatedDate() {
         return createdDate;
     }
@@ -63,5 +71,19 @@ public class PostDto implements Serializable {
 
     public Long getUserId() {
         return userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    @JsonProperty
+    public String getUserImage() {
+        return userImage;
+    }
+
+    @JsonProperty
+    public String getUserBio() {
+        return userBio;
     }
 }

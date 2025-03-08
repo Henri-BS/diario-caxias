@@ -63,7 +63,7 @@ export function PostMockList() {
             />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-10 items-start p-8">
                 {result.map(post => (
-                    <div key={post.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                    <div key={post.postId} className="relative flex sm:flex-row xl:flex-col items-start ">
                         <PostCard post={post} />
                     </div>
                 ))}
@@ -156,7 +156,7 @@ export function HomeMock() {
                                 {postMock.map(post => {
                                     postMock.length = 6
                                     return (
-                                        <div key={post.id} className="flex justify-center items-center w-full">
+                                        <div key={post.postId} className="flex justify-center items-center w-full">
                                             <CarouselPostCard post={post} />
                                         </div>
                                     )
@@ -170,7 +170,7 @@ export function HomeMock() {
                             {postMock.map(post => {
                                 postMock.length = 6
                                 return (
-                                    <div key={post.id}>
+                                    <div key={post.postId}>
                                         <PostSmCard post={post} />
                                     </div>
                                 )

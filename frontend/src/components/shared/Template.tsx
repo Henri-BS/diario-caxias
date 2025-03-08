@@ -7,7 +7,13 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "utils/requests";
 
-export function removeAccents(str: any) {
+export const CustomParagraph = ({ children }: any) => (
+    <p className="text-gray-800 leading-relaxed mb-4">
+        {children}
+    </p>
+);
+
+export const removeAccents = (str: any) => {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 

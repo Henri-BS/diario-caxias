@@ -1,4 +1,3 @@
-
 export type Post = {
   postId?: number;
   postTitle?: string;
@@ -7,6 +6,9 @@ export type Post = {
   postImage?: string;
   createdDate?: string;
   userId?: number;
+  username?: string;
+  userImage?: string;
+  userBio?: string;
 };
 
 export type PostPage = {

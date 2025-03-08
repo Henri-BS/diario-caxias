@@ -29,7 +29,7 @@ export const CarouselPostCard = ({ post }: PostProps) => {
 export const PostSmCard = ({ post }: PostProps) => {
     return (
         <Link to={`/postagens/${post.postId}`}>
-                <div className="flex items-center space-x-4 rtl:space-x-reverse py-1 sm:py-2 hover:bg-zinc-100 transition duration-700 hover:shadow-lg rounded-md">
+                <div className="flex items-center space-x-4 rtl:space-x-reverse py-1 sm:py-2 hover:bg-zinc-100 transition duration-500 hover:shadow-lg rounded-md">
                     <img src={post.postImage} alt="postagem" className="h-12 min-w-20 rounded-md" />
                     <div title={post.postTitle} className="inline-flex font-semibold text-gray-900 h-12 overflow-hidden">
                         {post.postTitle}

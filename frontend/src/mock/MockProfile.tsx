@@ -18,7 +18,7 @@ export function CategoryMockProfile({ params: categoryName }: Props) {
                 return (
                     <div key={category.id} className="mt-10">
                         <div className="w-full p-6 bg-zinc-100 border border-zinc-300 rounded-lg shadow-md ">
-                            <h5 className=" mb-2 text-4xl font-bold tracking-tight text-indigo-500 ">{category?.categoryName}</h5>
+                            <h5 className=" mb-2 text-4xl font-bold tracking-tight text-cyan-600 ">{category?.categoryName}</h5>
                             <p className="font-medium text-lg">{category?.categoryDescription}</p>
                             <div className="grid md:grid-cols-2 text-gray-800 mt-5">
                                 <p className="flex flex-row items-center text-lg gap-2"><FaIcons.FaCalendarCheck /> Projetos relacionados: <b>{3}</b></p>
@@ -48,7 +48,7 @@ export function EventMockProfile({ params: eventId }: Props) {
                         <div className="relative flex flex-col sm:flex-row xl:flex-col items-start">
                             <div className="order-1 sm:ml-6 xl:ml-0">
                                 <h3 className="mb-1 text-slate-900 font-semibold">
-                                    <span className="mb-1 block text-2xl leading-6 text-indigo-500">{event?.eventTitle}</span>
+                                    <span className="mb-1 block text-2xl leading-6 text-cyan-600">{event?.eventTitle}</span>
                                 </h3>
                                 <div>
                                     <p className="flex gap-2 items-center text-center text-lg font-semibold text-gray-700">
@@ -82,7 +82,7 @@ export function EventMockProfile({ params: eventId }: Props) {
 export function PostMockProfile({ params: postId }: Props) {
 
     const filterById = (id: any) => {
-        return postMock.filter(item => item.id.toString() === id);
+        return postMock.filter(item => item.postId.toString() === id);
     };
 
     const result = filterById(postId);
@@ -91,11 +91,11 @@ export function PostMockProfile({ params: postId }: Props) {
         <>
             {result.map(post => {
                 return (
-                    <div key={post.id} className="mt-10">
+                    <div key={post.postId} className="mt-10">
                         <div className="relative flex flex-col md:flex-row xl:flex-col items-start">
                             <div className="order-1 sm:ml-6 xl:ml-0">
                                 <h3 className="mb-1 text-slate-900 font-semibold">
-                                    <span className="mb-1 text-3xl leading-6 text-indigo-500">{post?.postTitle}</span>
+                                    <span className="mb-1 text-3xl leading-6 text-cyan-600">{post?.postTitle}</span>
                                 </h3>
                                 <div className="prose prose-slate prose-sm text-slate-600 mt-5">
                                     <p className="flex flex-row items-center text-gray-800 text-lg gap-2"><FaIcons.FaFolderClosed /> Projetos relacionados: <b>{2}</b></p>
@@ -132,16 +132,14 @@ export function ProjectMockProfile({ params: projectId }: Props) {
                     <div key={project.id} className="mt-10">
                         <div className="relative flex flex-col sm:flex-row xl:flex-col items-start">
                             <div className="order-1 sm:ml-6 xl:ml-0">
-                                <h3 className="mb-1 text-slate-900 font-semibold">
-                                    <span className="mb-1 block text-3xl leading-6 text-indigo-500">{project?.projectTitle}</span>
-                                </h3>
-                                <div className="prose prose-slate prose-sm text-slate-600 mt-5">
-                                    <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaTag /> Categorias relacionados: <b>{0}</b></p>
-                                    <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaCalendarCheck /> Eventos relacionados: <b>{0}</b></p>
-                                    <p className="flex flex-row items-center text-gray-700 text-lg gap-2"><FaIcons.FaNewspaper /> Postagens relacionados: <b>{0}</b></p>
+                                <h3 className="mb-1 block text-3xl font-semibold leading-6 text-cyan-600">{project?.projectTitle}</h3>
+                                <div className="prose prose-slate prose-sm text-lg text-slate-700 mt-5">
+                                    <p className="flex flex-row items-center gap-2"><FaIcons.FaTag /> Categorias relacionados: <b>{0}</b></p>
+                                    <p className="flex flex-row items-center gap-2"><FaIcons.FaCalendarCheck /> Eventos relacionados: <b>{0}</b></p>
+                                    <p className="flex flex-row items-center gap-2"><FaIcons.FaNewspaper /> Postagens relacionados: <b>{0}</b></p>
                                 </div>
                             </div>
-                            <img src={project?.projectImage} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[22rem] sm:mb-0" alt={project.projectTitle} />
+                            <img src={project?.projectImage ? project.projectImage :  "https://cdn1.iconfinder.com/data/icons/dashboard-ui-vol-1/48/JD-46-512.png"} className="mb-6 shadow-md rounded-lg bg-slate-50 w-[22rem] sm:mb-0" alt={project.projectTitle} />
                         </div>
                         <p className="mt-5 text-xl text-justify">{project?.projectDescription} </p>
                     </div>

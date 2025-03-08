@@ -10,8 +10,6 @@ import { Link } from "react-router-dom";
 import { PostPage } from "resources/post";
 import { baseUrl } from "utils/requests";
 
-
-
 export default function Posts() {
     const [query, setQuery] = useState("");
     const [pageNumber, setPageNumber] = useState(0);
@@ -21,15 +19,14 @@ export default function Posts() {
     const [postPage, setPostPage] = useState<PostPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        axios.get(`${baseUrl}/posts?query=${query}&page=${pageNumber}&size=12`)
+        axios.get(`${baseUrl}/posts?page=${pageNumber}&size=12`)
             .then((response) => {
                 setPostPage(response.data);
             });
-    }, [pageNumber, query]);
+    }, [pageNumber]);
 
     return (
         <div className="mt-10">
-
             <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
                 <Breadcrumb.Item icon={FaHouse}>
                     <Link to="/">
@@ -57,7 +54,7 @@ export default function Posts() {
                             post.postTitle?.toUpperCase().includes(query.toLocaleUpperCase()) ||
                             removeAccents(post.postTitle)?.toUpperCase().includes(query.toLocaleUpperCase())
                         ).map(post => (
-                            <div key={post.postId} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                            <div key={post.postId} className="relative flex sm:flex-row xl:flex-col items-start ">
                                 <PostCard post={post} />
                             </div>
                         ))}

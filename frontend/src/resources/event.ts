@@ -6,6 +6,7 @@ export type Event = {
   eventDate?: string;
   eventStatus?: string;
   createdDate?: string;
+  projectId?: number;
   projectTitle?: string;
   userId?: number;
   username?: string;

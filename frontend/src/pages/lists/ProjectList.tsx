@@ -19,7 +19,7 @@ export default function Projects() {
     const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        axios.get(`${baseUrl}/projects?query=${query}&page=${pageNumber}&size=12`)
+        axios.get(`${baseUrl}/projects?page=${pageNumber}&size=12`)
             .then((response) => {
                 setProjectPage(response.data);
             });

@@ -2,13 +2,15 @@ import axios from "axios";
 import { PostSmCard } from "components/cards/PostCard";
 import { UserCard } from "components/cards/UserCards";
 import { Pagination } from "components/shared/Pagination";
-import { Accordion, Breadcrumb, Button, Dropdown, Modal } from "flowbite-react";
+import { CustomParagraph } from "components/shared/Template";
+import { Breadcrumb, Button, Dropdown, Modal, Tabs } from "flowbite-react";
 import { EventMockProfile } from "mock/MockProfile";
 import moment from "moment";
 import { EventEditForm } from "pages/forms/EventForm";
 import { useState, useEffect } from "react";
 import * as FaIcons from "react-icons/fa6";
 import * as GoIcons from "react-icons/go";
+import Markdown from "react-markdown";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Props } from "resources";
 import { useAuth } from "resources/auth";
@@ -30,8 +32,7 @@ export function EventProfile() {
 export function EventDetails({ params: eventId }: Props) {
     const [event, setEvent] = useState<Event>();
     const [userPage, setUserPage] = useState<UserPage>({ content: [], page: { number: 0, totalElements: 0 } });
-    const [postPage, setPostPage] = useState<Post[]>();
-
+    const [posts, setPosts] = useState<Post[]>();
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
@@ -56,7 +57,7 @@ export function EventDetails({ params: eventId }: Props) {
             })
         axios.get(`${baseUrl}/event-post?eventId=${eventId}&page=${pageNumber}&size=8`)
             .then((response) => {
-                setPostPage(response.data);
+                setPosts(response.data);
             });
     }, [eventId, pageNumber]);
 
@@ -128,12 +129,12 @@ export function EventDetails({ params: eventId }: Props) {
                             <div className="relative flex flex-col sm:flex-row xl:flex-col items-start">
                                 <div className="order-1 sm:ml-6 xl:ml-0">
                                     <h3 className="mb-1 text-slate-900 font-semibold">
-                                        <span className="mb-1 block text-2xl leading-6 text-indigo-500">{event?.eventTitle}</span>
+                                        <span className="mb-1 block text-2xl leading-6 text-cyan-600">{event?.eventTitle}</span>
                                     </h3>
                                     <div>
-                                        <p className="flex gap-2 items-center text-center text-lg font-semibold text-gray-700">
+                                        <Link to={`/eventos/${event.projectId}`} className="flex gap-2 items-center text-center text-lg font-semibold text-gray-700">
                                             <GoIcons.GoFileDirectory /> Projeto: {event?.projectTitle}
-                                        </p>
+                                        </Link>
                                         <p className="flex gap-2 items-center text-center text-lg font-semibold text-gray-700">
                                             <GoIcons.GoCalendar /> Data do evento: {moment(event?.eventDate).format("DD/MM/yyyy") ?? "Indefinido"}
                                         </p>
@@ -151,35 +152,36 @@ export function EventDetails({ params: eventId }: Props) {
                             </div>
 
                             <div className="mt-5 text-xl text-zinc-800 text-justify">
-                                <p>{event?.eventDescription} </p>
+                                <Markdown components={{
+                                    p: CustomParagraph,
+                                }}>{event?.eventDescription}</Markdown>
                             </div>
+                            <Tabs className="mt-4 text-zinc-500 p-1 rounded-md overflow-scroll" variant="fullWidth">
+                                <Tabs.Item active title="Postagens" icon={FaIcons.FaNewspaper}>
+                                    <div className=" grid grid-cols-1 gap-y-6 gap-x-4 items-start p-8 divide-y divide-gray-300">
+                                        {posts?.map((post) => (
+                                            <>
+                                                <PostSmCard post={post} />
+                                            </>
+                                        ))}
+                                    </div>
 
-                            <h2 className="flex flex-row gap-2 mt-5 text-2xl text-zinc-800 "><FaIcons.FaNewspaper />Postagens Relacionas</h2>
-                            <div className=" grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-6 items-start p-8 divide-y divide-gray-300">
-                                {postPage?.map((post) => (
-                                    <>
-                                        <PostSmCard post={post} />
-                                    </>
-                                ))}
-                            </div>
+                                </Tabs.Item>
 
-                            <Accordion collapseAll className="mt-12 ">
-                                <Accordion.Panel>
-                                    <Accordion.Title>
-                                        <h2 className="flex flex-row gap-2 mt-5 text-2xl text-zinc-800 "><FaIcons.FaUser />Usuários Relacionados</h2>
-                                    </Accordion.Title>
-                                    <Accordion.Content className="p-2">
-                                        <Pagination pagination={userPage} onPageChange={handlePageChange} />
-                                        <div className="  grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
-                                            {userPage.content?.map(user => (
-                                                <div key={user?.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
-                                                    <UserCard user={user} />
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </Accordion.Content>
-                                </Accordion.Panel>
-                            </Accordion>
+                                <Tabs.Item title="Participantes" icon={FaIcons.FaUsersRectangle}>
+                                    <Pagination pagination={userPage} onPageChange={handlePageChange} />
+                                    <div className="  grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
+                                        {userPage.content?.map(user => (
+                                            <div key={user?.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                                                <UserCard user={user} />
+                                            </div>
+                                        ))}
+                                    </div>
+                                </Tabs.Item>
+                                <Tabs.Item title="Programação" icon={FaIcons.FaClipboardList}>
+                                    <p className="mb-1 py-10 text-center block font-semibold text-3xl leading-6 text-slate-600">Em Desenvolvimento</p>
+                                </Tabs.Item>
+                            </Tabs>
                         </div>
                     }
                 </div>

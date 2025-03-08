@@ -74,7 +74,7 @@ export function CategoryDetails({ params: categoryName }: Props) {
             {!category ? <CategoryMockProfile params={`${params.categoryName}`} /> :
                 <div>
                     <div className="w-full p-6 bg-zinc-100 border border-zinc-300 rounded-lg shadow-md ">
-                        <h5 className=" mb-2 text-4xl font-bold tracking-tight text-indigo-500 ">{category?.categoryName}</h5>
+                        <h5 className=" mb-2 text-4xl font-bold tracking-tight text-cyan-600 ">{category?.categoryName}</h5>
                         <p className="font-medium text-lg">{category?.categoryDescription}</p>
                         <div className="grid md:grid-cols-2 text-gray-800 mt-5">
                             <p className="flex flex-row items-center text-lg gap-2"><FaIcons.FaCalendarCheck /> Projetos relacionados: <b>{projectPage.page.totalElements}</b></p>

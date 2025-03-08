@@ -148,7 +148,7 @@ export function ProjectEditForm({ params: projectId }: Props) {
             });
     }, [projectId]);
 
-    const { values, handleChange, errors } = useFormik<Project>({
+    const { values, handleChange } = useFormik<Project>({
         initialValues: {
             id: projectId,
             projectTitle: project?.projectTitle,
@@ -185,7 +185,7 @@ export function ProjectEditForm({ params: projectId }: Props) {
                 <div className="flex flex-col items-center justify-center mt-10">
                     <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-2/3">
                         <span className="flex flex-row items-center gap-2"><FaFolderClosed /> Editar Projeto </span>
-                        <FaX onClick={() => navigate(0)} className="hover:shadow-xl cursor-pointer rounded-full  p-1 border hover:bg-gray-300  text-2xl" />
+                        <FaX onClick={() => navigate(0)} className="hover:shadow-xl cursor-pointer rounded-full  p-1 border hover:bg-gray-300 text-2xl" />
                     </div>
                     <form onSubmit={onSubmit} className="space-y-2 w-2/3">
                         <div>
@@ -203,8 +203,8 @@ export function ProjectEditForm({ params: projectId }: Props) {
                                 id="projectTitle"
                                 onChange={handleChange}
                                 value={values.projectTitle}
+                                defaultValue={project?.projectTitle}
                             />
-                            <FieldError error={errors.projectTitle} />
                         </div>
                         <div>
                             <Label className="block text-sm font-medium leading-6 text-gray-700" value="Url de Imagem: " />
@@ -213,17 +213,19 @@ export function ProjectEditForm({ params: projectId }: Props) {
                                 id="projectImage"
                                 onChange={handleChange}
                                 value={values.projectImage}
+                                defaultValue={project?.projectImage}
                             />
                         </div>
                         <div>
                             <Label className="block text-sm font-medium leading-6 text-gray-700" value="Descrição: *" />
                             <Textarea
+                            className="h-[200px]"
                                 color="bg-zinc-400"
                                 id="projectDescription"
                                 onChange={handleChange}
                                 value={values.projectDescription}
+                                defaultValue={project?.projectDescription}
                             />
-                            <FieldError error={errors.projectDescription} />
                         </div>
 
                         <div className="mt-5 flex items-center justify-end gap-x-4">
@@ -398,10 +400,10 @@ export function ProjectCategoryAddForm({ params: projectId }: Props) {
         <>
             <div className="mt-10">
                 <div className="flex flex-col items-center justify-center">
-                    <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-2/3">
+                    <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-full md:w-2/3">
                         <span className="flex flex-row items-center gap-2"><FaTag /> Adicionar Categoria </span>
                     </div>
-                    <form onSubmit={onSubmit} className="space-y-2 w-2/3">
+                    <form onSubmit={onSubmit} className="space-y-2 w-full md:w-2/3">
                         <div>
                             <TextInput type="hidden"
                                 id="userId"

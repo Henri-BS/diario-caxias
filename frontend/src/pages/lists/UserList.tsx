@@ -16,7 +16,7 @@ export default function Users() {
     const [userPage, setUserPage] = useState<UserPage>({ content: [], page: { number: 0, size: 0, totalPages: 0, totalElements: 0 } });
 
     useEffect(() => {
-        axios.get(`${baseUrl}/users?query=${query}&page=${pageNumber}&size=12`)
+        axios.get(`${baseUrl}/users?page=${pageNumber}&size=12`)
             .then((response) => {
                 setUserPage(response.data);
             });

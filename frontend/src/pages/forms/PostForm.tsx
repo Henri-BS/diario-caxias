@@ -92,11 +92,11 @@ export function PostAddForm() {
                     </Breadcrumb>
 
                     <div className="flex flex-col items-center justify-center">
-                        <div className="flex flex-row justify-between items-center text-lg font-semibold tracking-tight text-gray-700 mb-3 w-2/3">
+                        <div className="flex flex-row justify-between items-center text-lg font-semibold tracking-tight text-gray-700 mb-3 w-full md:w-2/3">
                             <span className="flex flex-row items-center gap-2"><FaNewspaper /> Adicionar Postagem </span>
                             <FaX onClick={() => navigate(-1)} className="hover:shadow-xl cursor-pointer rounded-full p-1 border hover:bg-gray-300  text-2xl" />
                         </div>
-                        <form onSubmit={onSubmit} className="space-y-2 w-2/3">
+                        <form onSubmit={onSubmit} className="space-y-2 w-full md:w-2/3">
                             <div>
                                 <TextInput
                                     type="hidden"
@@ -171,7 +171,7 @@ export function PostEditForm({ params: postId }: Props) {
             });
     }, [postId]);
 
-    const { values, handleChange, errors } = useFormik<Post>({
+    const { values, handleChange } = useFormik<Post>({
         initialValues: {
             postTitle: post?.postTitle,
             postDescription: post?.postDescription,
@@ -206,11 +206,11 @@ export function PostEditForm({ params: postId }: Props) {
         <>
             {!auth.isSessionValid() ? <Login /> :
                 <div className="flex flex-col items-center justify-center mt-10">
-                    <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-2/3">
+                    <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-full md:w-2/3">
                         <span className="flex flex-row items-center gap-2"><FaNewspaper /> Editar Postagem </span>
-                        <FaX onClick={() => navigate(0)} className="hover:shadow-xl cursor-pointer rounded-full  p-1 border hover:bg-gray-300  text-2xl" />
+                        <FaX onClick={() => navigate(0)} className="hover:shadow-xl cursor-pointer rounded-full  p-1 border hover:bg-gray-300 text-2xl" />
                     </div>
-                    <form onSubmit={onSubmit} className="space-y-2 w-2/3">
+                    <form onSubmit={onSubmit} className="space-y-2 w-full md:w-2/3">
                         <div>
                             <TextInput
                                 type="hidden"
@@ -226,8 +226,8 @@ export function PostEditForm({ params: postId }: Props) {
                                 id="postTitle"
                                 onChange={handleChange}
                                 value={values.postTitle}
+                                defaultValue={post?.postTitle}
                             />
-                            <FieldError error={errors.postTitle} />
                         </div>
                         <div>
                             <Label className="block text-sm font-medium leading-6 text-gray-700" value="Url de Imagem: " />
@@ -241,26 +241,28 @@ export function PostEditForm({ params: postId }: Props) {
                         <div>
                             <Label className="block text-sm font-medium leading-6 text-gray-700" value="Resumo: *" />
                             <Textarea
+                            className="h-[160px]"
                                 color="bg-zinc-400"
                                 id="postSummary"
                                 onChange={handleChange}
                                 value={values.postSummary}
+                                defaultValue={post?.postSummary}
                             />
-                            <FieldError error={errors.postSummary} />
                         </div>
                         <div>
                             <Label className="block text-sm font-medium leading-6 text-gray-700" value="Descrição: *" />
                             <Textarea
+                            className="h-[160px]"
                                 color="bg-zinc-400"
                                 id="postDescription"
                                 onChange={handleChange}
                                 value={values.postDescription}
+                                defaultValue={post?.postDescription}
                             />
-                            <FieldError error={errors.postDescription} />
                         </div>
 
                         <div className="mt-5 flex items-center justify-end gap-x-4">
-                            <Button type="submit" gradientDuoTone="purpleToBlue" >Salvar</Button>
+                            <Button type="submit" gradientDuoTone="purpleToBlue">Salvar</Button>
                         </div>
                     </form>
                 </div>
@@ -281,7 +283,7 @@ export function EventPostAddForm({ params: postId }: Props) {
     const [eventPage, setEventPage] = useState<EventPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        axios.get(`${baseUrl}/events?query=${query}&size=100`)
+        axios.get(`${baseUrl}/events?size=40`)
             .then((response) => {
                 setEventPage(response.data);
             })
@@ -324,10 +326,10 @@ export function EventPostAddForm({ params: postId }: Props) {
     return (
         <>
             <div className="flex flex-col items-center justify-center">
-                <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-2/3">
+                <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-full md:w-2/3">
                     <span className="flex flex-row items-center gap-2"><FaCalendarCheck /> Adicionar Evento </span>
                 </div>
-                <form onSubmit={onSubmit} className="space-y-2 w-2/3">
+                <form onSubmit={onSubmit} className="space-y-2 w-full md:w-2/3">
                     <div>
                         <TextInput type="hidden"
                             id="userId"

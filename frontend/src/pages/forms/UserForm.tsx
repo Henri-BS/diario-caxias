@@ -210,11 +210,11 @@ export function UserEditForm({ params: userId }: Props) {
     async function onSubmit() {
         const userValues: User = {
             id: userId,
-            username: values.username,
-            userBio: values.userBio,
-            userImage: values.userImage,
-            userCoverImage: values.userCoverImage,
-            userLocation: values.userLocation
+            username: values.username ?? user?.username,
+            userBio: values.userBio ?? user?.userBio,
+            userImage: values.userImage ?? user?.userImage,
+            userCoverImage: values.userCoverImage ?? user?.userCoverImage,
+            userLocation: values.userLocation ?? user?.userLocation
         }
         try {
             axios.put(`${baseUrl}/users/update`, userValues)
@@ -265,6 +265,7 @@ export function UserEditForm({ params: userId }: Props) {
                             id="userBio"
                             onChange={handleChange}
                             value={values.userBio}
+                            defaultValue={user?.userBio}
                         />
                     </div>
                     <div>
@@ -296,7 +297,6 @@ export function UserEditForm({ params: userId }: Props) {
                     </div>
                     <div className="mt-5 flex items-center justify-end gap-x-4">
                         <Button type="submit" gradientDuoTone="purpleToBlue" >Salvar</Button>
-                        <Button href={`/perfil/${userId}`} type="button" color="failure" >Cancelar</Button>
                     </div>
                 </form>
             </div>

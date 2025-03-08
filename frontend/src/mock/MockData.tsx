@@ -75,7 +75,7 @@ export const categoryMock = [
 
 export const postMock = [
     {
-        id: 1,
+        postId: 1,
         postTitle: 'Seminário sobre Distribuição de Alimentos e Criação de Hortas Comunitárias em Agrobairros',
         postDescription: 'A cidade de Caxias foi palco de dois eventos significativos que destacaram a importância da agricultura urbana e da sustentabilidade: o “Seminário sobre a Distribuição de Alimentos nos Agrobairros” e a “Criação de Hortas Comunitárias no Bairro”. Ambos os eventos foram marcados por uma forte participação comunitária e resultados promissores para o futuro dos Agrobairros. O Seminário reuniu especialistas, gestores públicos e moradores para discutir estratégias eficientes de distribuição de alimentos produzidos nos Agrobairros. As atividades incluíram palestras informativas, painéis de debate e workshops práticos. O evento de atividade prática na criação de hortas comunitárias nos bairros contou com a participação entusiástica de moradores de todas as idades. A iniciativa visou transformar espaços urbanos subutilizados em hortas produtivas, promovendo a integração social e a educação ambiental.',
         postSummary: 'O projeto Agrobairros foi mais uma vez agraciado com dois importantes eventos, um seminário sobre distribuição de alimentos e uma atividade prática envolvendo o plantio de hostas comunitárias nos bairros. A iniciativa enaltece a integração social e a conscientização da colaboração comunitária',
@@ -84,7 +84,7 @@ export const postMock = [
         userId: 1
     },
     {
-        id: 2,
+        postId: 2,
         postTitle: 'Os Riscos da Falta de Reflorestamento e Soluções para a Coleta e Filtragem de Água dos Rios',
         postDescription: 'A palestra destacou a importância do reflorestamento como uma estratégia crucial para combater as mudanças climáticas e preservar a biodiversidade da cidade de Caxias. Especialistas discutiram os impactos negativos do desmatamento, como a perda de habitat para espécies nativas e o aumento das emissões de gases de efeito estufa. O workshop focou em desenvolver tecnologias sustentáveis para a coleta e filtragem de água dos rios de Caxias, em especial o rio Itapecuru, visando melhorar a qualidade da água e garantir o abastecimento em áreas urbanas e rurais. Os resultados obtidos foram a prototipagem, com o desenvolvimento de protótipos de sistemas de coleta e filtragem de água. E também o estabelecimento de parcerias entre universidades e empresas para implementar as soluções desenvolvidas. Esses eventos foram fundamentais para promover a conscientização e a ação em prol da sustentabilidade ambiental, envolvendo diversos setores da sociedade em soluções práticas e inovadoras.',
         postSummary: 'Caxias sediou dois eventos importantes focados em questões ambientais: uma palestra sobre os riscos da falta de reflorestamento e um workshop sobre a criação de soluções para a coleta e filtragem de água dos rios.',
@@ -93,7 +93,7 @@ export const postMock = [
         userId: 2
     },
     {
-        id: 3,
+        postId: 3,
         postTitle: 'Expansão da Arquitetura Sustentável e Acessível e Reurbanização em Bairros Periféricos em Caxias',
         postDescription: 'O evento focado na expansão da arquitetura sustentável e acessível, destacou a importância de criar espaços que sejam ecologicamente responsáveis e inclusivos para todos os usuários. As atividades envolvidas tiveram a participação de especialistas em arquitetura e sustentabilidade apresentaram os princípios da arquitetura sustentável e acessível, incluindo o uso de materiais ecológicos e a implementação de soluções que eliminem barreiras físicas. O evento com videoconferência foi realizada para discutir a reurbanização de bairros periféricos em Caxias, abordando os desafios e as soluções para melhorar a infraestrutura e a qualidade de vida nessas áreas. nas atividades envolvidas foram feitos painéis de Discussão com especialistas em urbanismo e representantes do governo discutiram políticas públicas e estratégias de reurbanização em Caxias.',
         postSummary: 'Os dois eventos frizaram questões de moradia e infraestrutura: uma seminário sobre a expansão da arquitetura sustentável e acessível e uma videoconferência sobre a reurbanização em bairros periféricos em Caxias.',
@@ -102,7 +102,7 @@ export const postMock = [
         userId: 3
     },
     {
-        id: 4,
+        postId: 4,
         postTitle: 'Avanços na Preservação de Bairros Históricos e  a Importância do Desenvolvimento Cultural em Caxias',
         postDescription: 'Recentemente, Caxias sediou um evento focado na produção de relatórios sobre a preservação de seus bairros históricos. Este evento reuniu especialistas e membros da comunidade para discutir e documentar estratégias de conservação. Outro evento significativo foi a palestra sobre a importância do desenvolvimento cultural em Caxias, que destacou como a cultura pode ser um motor de desenvolvimento social e econômico.',
         postSummary: 'Os eventos comtemplaram aspectos da cultura e história de Caxias sobre os avanços na preservação de bairros históricos e a importância do desenvolvimento cultural e uma videoconferência sobre a reurbanização em bairros periféricos em Caxias.',
@@ -111,7 +111,7 @@ export const postMock = [
         userId: 4
     },
     {
-        id: 5,
+        postId: 5,
         postTitle: 'Soluções de acessibilidade para as Energias Renováveis e soluções para automatizar a produção de alimentos nos Agrobairros',
         postDescription: 'O de acessibilidade a energias renováveis reuniu especialistas, engenheiros e membros da comunidade para discutir e desenvolver tecnologias que tornem as energias limpas mais acessíveis a todos. Algumas das atividades envolvidas foram workshops práticos, onde Participantes receberam orientaçõees técnicas sobre a instalação e manutenção de sistemas de energia solar e eólica, além de técnicas para reduzir custos e aumentar a eficiência. E também houveram sessões de planejamento focadas em planos de ação que visam implementar soluções de energia renovável em comunidades de baixa renda. No evento de Agrobairros,  Foram realizadas demonstrações de tecnologias como drones, sensores IoT e sistemas de irrigação automatizados, que ajudam a monitorar e otimizar a produção agrícola e também grupos de trabalho discutiram estratégias para integrar essas tecnologias nas práticas agrícolas diárias. Os resultados obtidos foram Foram elaboradas propostas para políticas públicas que incentivem a adoção de energias renováveis em comunidades carentes e tecnologias que aumentaram a produtividade agrícola e reduziram o desperdício de recursos.',
         postSummary: 'Nesta semana, Caxias sediou dois eventos inovadores focados na criação de soluções de acessibilidade para as energias renováveis e para a automatizar a produção de alimentos nos agrobairros.',
@@ -120,7 +120,7 @@ export const postMock = [
         userId: 9
     },
     {
-        id: 6,
+        postId: 6,
         postTitle: 'História: como economia da cidade de Caxias evoluiu ?',
         postDescription: 'Os especialistas em história econômica apresentaram palestras detalhadas sobre os períodos mais significativos da economia de Caxias, desde a era colonial até os dias atuais. Foram abordados temas como a agricultura, a industrialização e o comércio local. Após as palestras, houve sessões de debates onde os participantes puderam fazer perguntas e discutir as implicações das mudanças econômicas para o futuro da cidade. Foram apresentados estudos de caso de empresas e iniciativas locais que contribuíram para o desenvolvimento econômico de Caxias, destacando estratégias bem-sucedidas e lições aprendidas.  Os participantes tiveram a oportunidade de interagir diretamente com os palestrantes, fazendo perguntas e compartilhando suas próprias experiências e perspectivas sobre a economia local. A videoconferência aumentou a conscientização sobre a importância de entender a história econômica de Caxias para planejar seu futuro de forma mais informada e estratégica. O evento promoveu um maior engajamento da comunidade local, incentivando a participação ativa em discussões sobre desenvolvimento econômico.',
         postSummary: 'A videoconferência explorou a rica história econômica da cidade. Este evento reuniu historiadores, economistas, estudantes e membros da comunidade para discutir e refletir sobre os principais marcos e transformações econômicas que moldaram Caxias.',
@@ -129,7 +129,7 @@ export const postMock = [
         userId: 10
     },
     {
-        id: 7,
+        postId: 7,
         postTitle: 'Sustentabilidade: o uso de material reciclado para uma arquitetura acessível em Caxias',
         postDescription: 'Durante o evento, os participantes se envolveram em workshops onde aprenderam a utilizar materiais reciclados, como madeira reaproveitada, plásticos reciclados e outros resíduos de construção. Técnicas de construção sustentável foram demonstradas, incluindo a criação de estruturas modulares e o uso de materiais locais para reduzir a pegada de carbono. Também houveram grupos de trabalho colaboraram para desenvolver planos de ação que visam implementar essas práticas em projetos futuros na cidade. Foram discutidas estratégias para integrar a sustentabilidade e a acessibilidade em novos empreendimentos e reformas. Entres os participantes haviam universitários de cursos de arquitetura e engenharia, que participaram ativamente, aplicando os conceitos aprendidos em atividades práticas. Os moradores de Caxias, incluindo líderes comunitários e representantes de ONGs, participaram para entender como essas práticas podem ser aplicadas em suas comunidades. Ao fim do evento, foram desenvolvidos protótipos de pequenas estruturas utilizando materiais reciclados, demonstrando a viabilidade e os benefícios dessas técnicas.',
         postSummary: 'O inovador evento focado na utilização de materiais reciclados para promover uma arquitetura sustentável e acessível. Este evento reuniu arquitetos, engenheiros, estudantes e membros da comunidade para explorar e implementar práticas de construção ecológicas e inclusivas.',
@@ -138,7 +138,7 @@ export const postMock = [
         userId: 11
     },
     {
-        id: 8,
+        postId: 8,
         postTitle: 'Meio Ambiente: dados sobre o reflorestamento em áreas queimadas em Caxias',
         postDescription: 'O evento contou com a presença de pesquisadores apresentaram dados atualizados sobre as áreas queimadas, incluindo a extensão dos danos e as espécies de plantas mais afetadas. Utilizando imagens de satélite e mapeamento geoespacial, foram mostrados os avanços no reflorestamento e as áreas que ainda necessitam de intervenção. Especialistas em ecologia e reflorestamento participaram de painéis de discussão, abordando temas como técnicas de reflorestamento, seleção de espécies nativas e estratégias para prevenir futuras queimadas. Foi criado um mapeamento detalhado das áreas queimadas e das regiões que já foram reflorestadas, facilitando o monitoramento contínuo e a avaliação do progresso. Este evento foi fundamental para promover a recuperação ambiental em Caxias, envolvendo diversos setores da sociedade em um esforço colaborativo para restaurar as áreas afetadas por queimadas e garantir um futuro mais sustentável para a região.',
         postSummary: 'Caxias apresentou um evento focado no debate dos dados sobre o reflorestamento em áreas queimadas. Este evento reuniu especialistas em meio ambiente e membros da comunidade para discutir os desafios e progressos no reflorestamento.',
@@ -147,7 +147,7 @@ export const postMock = [
         userId: 12
     },
     {
-        id: 9,
+        postId: 9,
         postTitle: 'Seminário sobre Distribuição de Alimentos e Criação de Hortas Comunitárias em Agrobairros 1',
         postDescription: 'A cidade de Caxias foi palco de dois eventos significativos que destacaram a importância da agricultura urbana e da sustentabilidade: o “Seminário sobre a Distribuição de Alimentos nos Agrobairros” e a “Criação de Hortas Comunitárias no Bairro”. Ambos os eventos foram marcados por uma forte participação comunitária e resultados promissores para o futuro dos Agrobairros. O Seminário reuniu especialistas, gestores públicos e moradores para discutir estratégias eficientes de distribuição de alimentos produzidos nos Agrobairros. As atividades incluíram palestras informativas, painéis de debate e workshops práticos. O evento de atividade prática na criação de hortas comunitárias nos bairros contou com a participação entusiástica de moradores de todas as idades. A iniciativa visou transformar espaços urbanos subutilizados em hortas produtivas, promovendo a integração social e a educação ambiental.',
         postSummary: 'O projeto Agrobairros foi mais uma vez agraciado com dois importantes eventos, um seminário sobre distribuição de alimentos e uma atividade prática envolvendo o plantio de hostas comunitárias nos bairros. A iniciativa enaltece a integração social e a conscientização da colaboração comunitária',
@@ -156,7 +156,7 @@ export const postMock = [
         userId: 1
     },
     {
-        id: 10,
+        postId: 10,
         postTitle: 'Os Riscos da Falta de Reflorestamento e Soluções para a Coleta e Filtragem de Água dos Rios 1',
         postDescription: 'A palestra destacou a importância do reflorestamento como uma estratégia crucial para combater as mudanças climáticas e preservar a biodiversidade da cidade de Caxias. Especialistas discutiram os impactos negativos do desmatamento, como a perda de habitat para espécies nativas e o aumento das emissões de gases de efeito estufa. O workshop focou em desenvolver tecnologias sustentáveis para a coleta e filtragem de água dos rios de Caxias, em especial o rio Itapecuru, visando melhorar a qualidade da água e garantir o abastecimento em áreas urbanas e rurais. Os resultados obtidos foram a prototipagem, com o desenvolvimento de protótipos de sistemas de coleta e filtragem de água. E também o estabelecimento de parcerias entre universidades e empresas para implementar as soluções desenvolvidas. Esses eventos foram fundamentais para promover a conscientização e a ação em prol da sustentabilidade ambiental, envolvendo diversos setores da sociedade em soluções práticas e inovadoras.',
         postSummary: 'Caxias sediou dois eventos importantes focados em questões ambientais: uma palestra sobre os riscos da falta de reflorestamento e um workshop sobre a criação de soluções para a coleta e filtragem de água dos rios.',
@@ -165,7 +165,7 @@ export const postMock = [
         userId: 2
     },
     {
-        id: 11,
+        postId: 11,
         postTitle: 'Expansão da Arquitetura Sustentável e Acessível e Reurbanização em Bairros Periféricos em Caxias 1',
         postDescription: 'O evento focado na expansão da arquitetura sustentável e acessível, destacou a importância de criar espaços que sejam ecologicamente responsáveis e inclusivos para todos os usuários. As atividades envolvidas tiveram a participação de especialistas em arquitetura e sustentabilidade apresentaram os princípios da arquitetura sustentável e acessível, incluindo o uso de materiais ecológicos e a implementação de soluções que eliminem barreiras físicas. O evento com videoconferência foi realizada para discutir a reurbanização de bairros periféricos em Caxias, abordando os desafios e as soluções para melhorar a infraestrutura e a qualidade de vida nessas áreas. nas atividades envolvidas foram feitos painéis de Discussão com especialistas em urbanismo e representantes do governo discutiram políticas públicas e estratégias de reurbanização em Caxias.',
         postSummary: 'Os dois eventos frizaram questões de moradia e infraestrutura: uma seminário sobre a expansão da arquitetura sustentável e acessível e uma videoconferência sobre a reurbanização em bairros periféricos em Caxias.',
@@ -174,7 +174,7 @@ export const postMock = [
         userId: 3
     },
     {
-        id: 12,
+        postId: 12,
         postTitle: 'Avanços na Preservação de Bairros Históricos e  a Importância do Desenvolvimento Cultural em Caxias 1',
         postDescription: 'Recentemente, Caxias sediou um evento focado na produção de relatórios sobre a preservação de seus bairros históricos. Este evento reuniu especialistas e membros da comunidade para discutir e documentar estratégias de conservação. Outro evento significativo foi a palestra sobre a importância do desenvolvimento cultural em Caxias, que destacou como a cultura pode ser um motor de desenvolvimento social e econômico.',
         postSummary: 'Os eventos comtemplaram aspectos da cultura e história de Caxias sobre os avanços na preservação de bairros históricos e a importância do desenvolvimento cultural e uma videoconferência sobre a reurbanização em bairros periféricos em Caxias.',

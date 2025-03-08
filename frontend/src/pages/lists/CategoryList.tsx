@@ -20,7 +20,7 @@ export default function Categories() {
     const [categoryPage, setCategoryPage] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } })
 
     useEffect(() => {
-        axios.get(`${baseUrl}/categories?query=${query}&page=${pageNumber}&size=12`)
+        axios.get(`${baseUrl}/categories?page=${pageNumber}&size=12`)
             .then((response) => {
                 setCategoryPage(response.data);
             });

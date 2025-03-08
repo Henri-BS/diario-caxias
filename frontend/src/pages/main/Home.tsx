@@ -145,7 +145,7 @@ export default function Home() {
                             Ver mais
                         </Link>
                     </div>
-                    <div className="grid grid-cols-1 xl:grid-cols-2 gap-y-10 gap-x-6 items-start p-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-10 gap-x-6 items-start p-8">
                         {projects.content?.map(project => (
                             <div key={project.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
                                 <ProjectCard project={project} />
@@ -155,13 +155,13 @@ export default function Home() {
 
                     <div className="flex justify-between p-4 sm:text-lg md:text-xl" >
                         <h1>Categorias</h1>
-                        <Link to={"/categorias"} className="text-blue-600 hover:text-blue-400 hover:underline ">
+                        <Link to={"/categorias"} className="text-blue-600 hover:text-blue-400 hover:underline">
                             Ver mais
                         </Link>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-y-10 gap-x-6 items-start p-8">
+                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-y-6 gap-x-4 items-start p-8">
                         {categories?.content.map(category => (
-                            <div key={category.id} className="w-100 py-4 ">
+                            <div key={category.id} >
                                 <CategoryCard category={category} />
                             </div>
                         ))}
