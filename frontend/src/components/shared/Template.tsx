@@ -6,12 +6,8 @@ import { User } from "resources/user";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "utils/requests";
-
-export const CustomParagraph = ({ children }: any) => (
-    <p className="text-gray-800 leading-relaxed mb-4">
-        {children}
-    </p>
-);
+import Markdown from "react-markdown";
+import gfm from 'remark-gfm'
 
 export const removeAccents = (str: any) => {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -69,15 +65,16 @@ export const Header = () => {
 
     return (
         <>
-            <header className="border-b border-gray-500 fixed w-full backdrop-blur-sm bg-[#171717ec] text-white py-5 z-40 top-0">
+
+            <header className=" border-b border-gray-500 fixed w-full backdrop-blur-sm bg-[#171717ec] text-white py-5 z-40 top-0">
                 <div className="mx-auto flex justify-between items-center px-2 gap-4">
                     <div className="gap-2 flex items-center ">
                         <div className=" text-2xl cursor-pointer">
                             {isOpen ? <FaIcons.FaBars onClick={showSidebar} /> : <FaIcons.FaX onClick={showSidebar} />}
                         </div>
                         <Link to={"/"} className="self-center text-lg font-semibold whitespace-nowrap">
-
                             Diário Caxias
+                            <div className="h-1 rounded-full bg-gradient-to-r from-green-600 via-red-600 to-blue-600 " />
                         </Link>
                     </div>
 
@@ -172,7 +169,7 @@ export const Footer = () => {
                     <div className="sm:flex sm:items-center sm:justify-between">
 
                         <Link to="/" className="flex items-center sm:justify-between">
-                            <img src={require("logo.png")} className="h-12 w-12" alt="logo" />
+                            <img src={require("assets/img/logo.png")} className="h-12 w-12" alt="logo" />
                             <span className="self-center text-3xl font-semibold whitespace-nowrap text-white">Diário Caxias</span>
                         </Link>
 
@@ -330,3 +327,37 @@ export const Footer = () => {
         </>
     );
 }
+
+export const CustomMarkdown = ({ item }: any) => {
+    const CustomParagraph = ({ children }: any) => (
+        <p className="text-gray-800 leading-relaxed mb-4">
+            {children}
+        </p>
+    );
+
+    const CustomH1 = ({ children }: any) => (
+        <h1 className="text-3xl font-semibold mt-4 mb-2">{children}</h1>
+    );
+
+    const CustomH2 = ({ children }: any) => (
+        <h2 className="text-2xl font-semibold mt-4 mb-2">{children}</h2>
+    );
+
+    const CustomH3 = ({ children }: any) => (
+        <h3 className="text-xl font-semibold mt-4 mb-2">{children}<hr /></h3>
+    );
+
+    return (
+        <Markdown components={{
+            p: CustomParagraph,
+            h1: CustomH1,
+            h2: CustomH2,
+            h3: CustomH3,
+        }}
+            remarkPlugins={[gfm]}
+        >
+            {item}
+        </Markdown>
+    );
+}
+

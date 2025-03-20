@@ -3,8 +3,10 @@ export type Project = {
   projectTitle?: string;
   projectDescription?: string;
   projectImage?: string;
+  projectDetails?: string;
   userId?: number;
   username?: string;
+  userImage?: string;
 };
 
 export type ProjectPage = {
@@ -21,10 +23,13 @@ export type ProjectProps = {
   project: Project;
 };
 
-export type ItemDetails = {
+export type ProjectCategory = {
   id?: number;
-  itemType?: string;
-  itemDescription?: string;
-  projectId?: number;
+  categoryName?: string;
+  projectTitle?: string;
+  projectDescription?: string;
+  projectImage?: string;
+  projectDetails?: string;
   userId?: number;
 };
+

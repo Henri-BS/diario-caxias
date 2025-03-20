@@ -12,10 +12,9 @@ import { useAuth } from "resources/auth";
 import { PostEditForm, EventPostAddForm } from "pages/forms/PostForm";
 import { EventSmCard } from "components/cards/EventCard";
 import { Event } from "resources/event";
-import Markdown from "react-markdown";
 import { PostSmCard } from "components/cards/PostCard";
 import { Pagination } from "components/shared/Pagination";
-import { CustomParagraph } from "components/shared/Template";
+import { CustomMarkdown } from "components/shared/Template";
 
 
 export function PostProfile() {
@@ -45,7 +44,7 @@ export function PostDetails({ params: postId }: Props) {
     }
 
     useEffect(() => {
-        axios.get(`${baseUrl}/posts?page=${pageNumber}&size=6`)
+        axios.get(`${baseUrl}/posts?page=${pageNumber}&size=6&sort=id,DESC`)
             .then((response) => {
                 setPostPage(response.data);
             });
@@ -154,7 +153,7 @@ export function PostDetails({ params: postId }: Props) {
                                             {post?.postSummary}
                                         </Blockquote>
                                         <img
-                                            src={post?.postImage ? post?.postImage : "https://cdn1.iconfinder.com/data/icons/dashboard-ui-vol-1/48/JD-46-512.png"}
+                                            src={post?.postImage ? post?.postImage : require("assets/img/image.png")}
                                             className="shadow-md rounded-lg w-[160rem] " alt={post.postTitle}
                                         />
                                         <p className="flex mt-2 items-center text-center text-sm font-medium text-gray-700">
@@ -162,23 +161,21 @@ export function PostDetails({ params: postId }: Props) {
                                         </p>
                                     </div>
                                     <p className="text-xl text-justify">
-                                        <Markdown components={{
-                                            p: CustomParagraph,
-                                        }}>{post?.postDescription}</Markdown>
+                                        <CustomMarkdown item={post?.postDescription} />
                                     </p>
                                 </div>
 
                                 <div className="flex flex-col col-span-2 p-4 md:border-l border-gray-300">
-                                    <Card className="p-3 md:mb-10">
-                                        <div className="flex items-center justify-start gap-x-4">
+                                    <Card className="p-2 md:mb-10">
+                                        <div className="flex items-center justify-start gap-x-2">
                                             <img
                                                 className="h-16 w-16 rounded-full border-2"
-                                                src={post.userImage}
+                                                src={post.userImage ?? require("assets/img/user_profile.png")}
                                                 alt="usuario"
                                             />
-                                                <p id="profile-popover" className="mb-6 text-base font-semibold leading-none text-gray-900">
-                                                    {post.username}
-                                                </p>
+                                            <p id="profile-popover" className="mb-6 text-base font-semibold leading-none text-gray-900">
+                                                {post.username}
+                                            </p>
                                         </div>
                                         <p className="text-md font-normal max-h-[100px] overflow-hidden">
                                             {post.userBio}
@@ -198,21 +195,22 @@ export function PostDetails({ params: postId }: Props) {
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     }
 
                     <Tabs className="p-1 text-slate-600 rounded-md overflow-x-scroll" variant="fullWidth">
                         <Tabs.Item icon={FaIcons.FaCalendarCheck} title="Eventos Relacionados" >
-                            <div className="grid grid-cols-1  gap-y-6 gap-x-4 items-start p-8">
+                            {!events?.length ? "Nenhum evento relacionado!" :
+                            <div className="grid grid-cols-1 gap-y-6 gap-x-4 items-start p-8">
                                 {events?.map(event => (
                                     <>
-                                        <div key={event.id} >
+                                        <div key={event.eventId} >
                                             <EventSmCard event={event} />
                                         </div>
                                     </>
                                 ))}
                             </div>
+}
                         </Tabs.Item>
                         <Tabs.Item title="Galeria" icon={FaIcons.FaImages} >
                             <p className="mb-1 py-10 text-center block font-semibold text-3xl leading-6 text-slate-600">Em Desenvolvimento</p>

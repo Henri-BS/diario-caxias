@@ -43,7 +43,6 @@ export const eventValidationSchema = Yup.object().shape({
     eventDescription: Yup.string()
         .trim()
         .required("O campo de descrição é obrigatório!"),
-    eventDate: Yup.string().trim().required("O campo de data é obrigatório!"),
     eventStatus: Yup.string().trim().required("O campo de status é obrigatório!"),
 });
 
@@ -81,7 +80,7 @@ export function EventAddForm() {
         try {
             axios.post(`${baseUrl}/events/save`, event)
                 .then((response) => {
-                    navigate(`/eventos/${event.id}`)
+                    navigate(`/eventos/${event.eventId}`)
                     return response.status;
                 });
             notification.notify("Salvo com sucesso!", "success");
@@ -180,7 +179,6 @@ export function EventAddForm() {
                                     onChange={handleChange}
                                     value={values.eventDate}
                                 />
-                                <FieldError error={errors.eventDate} />
                             </div>
                             <div>
                                 <Label className="block text-sm font-medium leading-6 text-gray-700" value="Status do Evento: *" />
@@ -262,7 +260,7 @@ export function EventEditForm({ params: eventId }: Props) {
 
     async function onSubmit() {
         const eventValues: Event = {
-            id: eventId,
+            eventId: eventId,
             eventTitle: values.eventTitle ?? event?.eventTitle,
             eventDescription: values.eventDescription ?? event?.eventDescription,
             eventImage: values.eventImage ?? event?.eventImage,
@@ -335,10 +333,12 @@ export function EventEditForm({ params: eventId }: Props) {
                     <div>
                         <Label className="block text-sm font-medium leading-6 text-gray-700" value="Descrição: *" />
                         <Textarea
+                            className="h-[160px]"
                             color="bg-zinc-400"
                             id="eventDescription"
                             onChange={handleChange}
                             value={values.eventDescription}
+                            defaultValue={event?.eventDescription}
                         />
                         <FieldError error={errors.eventDescription} />
                     </div>
@@ -351,7 +351,6 @@ export function EventEditForm({ params: eventId }: Props) {
                             onChange={handleChange}
                             value={values.eventDate}
                         />
-                        <FieldError error={errors.eventDate} />
                     </div>
                     <div>
                         <Label className="block text-sm font-medium leading-6 text-gray-700" value="Status do Evento: *" />

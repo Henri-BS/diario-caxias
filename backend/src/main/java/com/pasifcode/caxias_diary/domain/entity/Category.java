@@ -24,9 +24,6 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private final Set<ProjectCategory> eventCategories = new HashSet<>();
 
-    @OneToMany(mappedBy = "category")
-    private final Set<UserCategory> userCategories = new HashSet<>();
-
     public Category() {
     }
 

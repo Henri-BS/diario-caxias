@@ -2,7 +2,7 @@ import axios from "axios";
 import { PostSmCard } from "components/cards/PostCard";
 import { UserCard } from "components/cards/UserCards";
 import { Pagination } from "components/shared/Pagination";
-import { CustomParagraph } from "components/shared/Template";
+import { CustomMarkdown } from "components/shared/Template";
 import { Breadcrumb, Button, Dropdown, Modal, Tabs } from "flowbite-react";
 import { EventMockProfile } from "mock/MockProfile";
 import moment from "moment";
@@ -10,7 +10,6 @@ import { EventEditForm } from "pages/forms/EventForm";
 import { useState, useEffect } from "react";
 import * as FaIcons from "react-icons/fa6";
 import * as GoIcons from "react-icons/go";
-import Markdown from "react-markdown";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Props } from "resources";
 import { useAuth } from "resources/auth";
@@ -132,11 +131,11 @@ export function EventDetails({ params: eventId }: Props) {
                                         <span className="mb-1 block text-2xl leading-6 text-cyan-600">{event?.eventTitle}</span>
                                     </h3>
                                     <div>
-                                        <Link to={`/eventos/${event.projectId}`} className="flex gap-2 items-center text-center text-lg font-semibold text-gray-700">
-                                            <GoIcons.GoFileDirectory /> Projeto: {event?.projectTitle}
-                                        </Link>
                                         <p className="flex gap-2 items-center text-center text-lg font-semibold text-gray-700">
-                                            <GoIcons.GoCalendar /> Data do evento: {moment(event?.eventDate).format("DD/MM/yyyy") ?? "Indefinido"}
+                                            <GoIcons.GoFileDirectory /> Projeto: <Link to={`/projetos/${event.projectId}`} className="hover:underline"> {event?.projectTitle}</Link>
+                                        </p>
+                                        <p className="flex gap-2 items-center text-center text-lg font-semibold text-gray-700">
+                                            <GoIcons.GoCalendar /> Data do evento: {event.eventDate ? moment(event?.eventDate).format("DD/MM/yyyy") : "Indefinido"}
                                         </p>
                                         <p className="flex gap-2 items-center text-center text-lg font-semibold text-gray-700">
                                             <GoIcons.GoChecklist /> Status: {event?.eventStatus ?? "Indefinido"}
@@ -144,7 +143,7 @@ export function EventDetails({ params: eventId }: Props) {
                                     </div>
                                 </div>
                                 <div className="flex flex-col">
-                                    <img src={event?.eventImage ?? "https://cdn1.iconfinder.com/data/icons/dashboard-ui-vol-1/48/JD-46-512.png"} className="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full" width="1216" height="640" alt={event.eventTitle} />
+                                    <img src={event?.eventImage ? event.eventImage : require("assets/img/image.png")} className="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full" width="1216" height="640" alt={event.eventTitle} />
                                     <p className="flex gap-2 mt-2 items-center text-center text-sm font-medium text-gray-700">
                                         enviado em: {event?.createdDate}
                                     </p>
@@ -152,9 +151,7 @@ export function EventDetails({ params: eventId }: Props) {
                             </div>
 
                             <div className="mt-5 text-xl text-zinc-800 text-justify">
-                                <Markdown components={{
-                                    p: CustomParagraph,
-                                }}>{event?.eventDescription}</Markdown>
+                                <CustomMarkdown item={event?.eventDescription} />
                             </div>
                             <Tabs className="mt-4 text-zinc-500 p-1 rounded-md overflow-scroll" variant="fullWidth">
                                 <Tabs.Item active title="Postagens" icon={FaIcons.FaNewspaper}>

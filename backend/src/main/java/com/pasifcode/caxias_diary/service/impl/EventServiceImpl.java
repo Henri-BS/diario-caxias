@@ -74,7 +74,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventDto updateEvent(EventDto dto) {
-        Event edit = eventRepository.findById(dto.getId()).orElseThrow();
+        Event edit = eventRepository.findById(dto.getEventId()).orElseThrow();
         Project project = projectRepository.findByTitle(dto.getProjectTitle());
 
         edit.setId(edit.getId());

@@ -19,7 +19,7 @@ export default function Posts() {
     const [postPage, setPostPage] = useState<PostPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        axios.get(`${baseUrl}/posts?page=${pageNumber}&size=12`)
+        axios.get(`${baseUrl}/posts?page=${pageNumber}&size=12&sort=id,DESC`)
             .then((response) => {
                 setPostPage(response.data);
             });

@@ -1,6 +1,7 @@
 package com.pasifcode.caxias_diary.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pasifcode.caxias_diary.domain.entity.Project;
 
 import java.io.Serial;
@@ -15,6 +16,7 @@ public class ProjectDto implements Serializable {
     private Long id;
     private String projectTitle;
     private String projectDescription;
+    private String projectDetails;
     private String projectImage;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime createdDate;
@@ -29,6 +31,7 @@ public class ProjectDto implements Serializable {
         id = entity.getId();
         projectTitle = entity.getTitle();
         projectDescription = entity.getDescription();
+        projectDetails = entity.getDetails();
         projectImage = entity.getImage();
         createdDate = entity.getCreatedDate();
         userId = entity.getUser().getId();
@@ -52,6 +55,11 @@ public class ProjectDto implements Serializable {
         return projectImage;
     }
 
+    public String getProjectDetails() {
+        return projectDetails;
+    }
+
+    @JsonProperty
     public LocalDateTime getCreatedDate() {
         return createdDate;
     }
@@ -64,6 +72,7 @@ public class ProjectDto implements Serializable {
         return username;
     }
 
+    @JsonProperty
     public String getUserImage() {
         return userImage;
     }

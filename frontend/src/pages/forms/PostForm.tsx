@@ -12,6 +12,7 @@ import { baseUrl } from "utils/requests";
 import { Props } from "resources";
 import { useEffect, useState } from "react";
 import { EventPage } from "resources/event";
+import { error } from "console";
 
 export const postValidationSchema = Yup.object().shape({
     postTitle: Yup.string()
@@ -171,7 +172,7 @@ export function PostEditForm({ params: postId }: Props) {
             });
     }, [postId]);
 
-    const { values, handleChange } = useFormik<Post>({
+    const { values, handleChange, errors } = useFormik<Post>({
         initialValues: {
             postTitle: post?.postTitle,
             postDescription: post?.postDescription,
@@ -228,6 +229,7 @@ export function PostEditForm({ params: postId }: Props) {
                                 value={values.postTitle}
                                 defaultValue={post?.postTitle}
                             />
+                            <FieldError error={errors.postTitle} />
                         </div>
                         <div>
                             <Label className="block text-sm font-medium leading-6 text-gray-700" value="Url de Imagem: " />
@@ -241,18 +243,19 @@ export function PostEditForm({ params: postId }: Props) {
                         <div>
                             <Label className="block text-sm font-medium leading-6 text-gray-700" value="Resumo: *" />
                             <Textarea
-                            className="h-[160px]"
+                                className="h-[160px]"
                                 color="bg-zinc-400"
                                 id="postSummary"
                                 onChange={handleChange}
                                 value={values.postSummary}
                                 defaultValue={post?.postSummary}
                             />
+                            <FieldError error={errors.postSummary} />
                         </div>
                         <div>
                             <Label className="block text-sm font-medium leading-6 text-gray-700" value="Descrição: *" />
                             <Textarea
-                            className="h-[160px]"
+                                className="h-[160px]"
                                 color="bg-zinc-400"
                                 id="postDescription"
                                 onChange={handleChange}
@@ -355,7 +358,7 @@ export function EventPostAddForm({ params: postId }: Props) {
                                 event.eventTitle?.toUpperCase().includes(query.toLocaleUpperCase()))
                                 .map((event) =>
                                     <>
-                                        <option id="query" key={event.id} value={event.eventTitle}>
+                                        <option id="query" key={event.eventId} value={event.eventTitle}>
                                             {event.eventTitle}
                                         </option>
                                     </>

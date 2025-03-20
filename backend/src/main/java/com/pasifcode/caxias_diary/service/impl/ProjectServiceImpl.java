@@ -1,8 +1,6 @@
 package com.pasifcode.caxias_diary.service.impl;
 
-import com.pasifcode.caxias_diary.domain.dto.ItemDetailsDto;
 import com.pasifcode.caxias_diary.domain.dto.ProjectDto;
-import com.pasifcode.caxias_diary.domain.entity.ItemDetails;
 import com.pasifcode.caxias_diary.domain.entity.Project;
 import com.pasifcode.caxias_diary.domain.entity.User;
 import com.pasifcode.caxias_diary.domain.repository.*;
@@ -13,17 +11,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @Transactional
 public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private ProjectRepository projectRepository;
-
-    @Autowired
-    private ItemDetailsRepository itemDetailsRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -69,32 +62,12 @@ public class ProjectServiceImpl implements ProjectService {
         edit.setTitle(dto.getProjectTitle());
         edit.setDescription(dto.getProjectDescription());
         edit.setImage(dto.getProjectImage());
+        edit.setDetails(dto.getProjectDetails());
         return new ProjectDto(projectRepository.save(edit));
     }
 
     @Override
     public void deleteProject(Long id) {
         this.projectRepository.deleteById(id);
-    }
-
-    @Override
-    public List<ItemDetailsDto> findItems(Project project) {
-        List<ItemDetails> list = itemDetailsRepository.findByProject(project);
-        return list.stream().map(ItemDetailsDto::new).toList();
-    }
-
-    @Override
-    public ItemDetailsDto saveItem(ItemDetailsDto dto) {
-        Project project = projectRepository.findById(dto.getProjectId()).orElseThrow();
-        User user = userRepository.findById(dto.getUserId()).orElseThrow();
-
-        ItemDetails add = new ItemDetails();
-        add.setId(dto.getId());
-        add.setType(dto.getItemType());
-        add.setDescription(dto.getItemDescription());
-        add.setProject(project);
-        add.setUser(user);
-
-        return new ItemDetailsDto(itemDetailsRepository.saveAndFlush(add));
     }
 }

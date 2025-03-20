@@ -1,10 +1,10 @@
 import { useNotification, FieldError } from "components/shared/Notification";
-import { TextInput, Textarea, Button, Label, Breadcrumb, Select } from "flowbite-react";
+import { TextInput, Textarea, Button, Label, Breadcrumb } from "flowbite-react";
 import { useFormik } from "formik";
-import { FaCircleInfo, FaFolderClosed, FaHouse, FaTag, FaX } from "react-icons/fa6";
+import { FaFolderClosed, FaHouse, FaTag, FaX } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "resources/auth";
-import { ItemDetails, Project } from "resources/project";
+import { Project } from "resources/project";
 import * as Yup from "yup";
 import { Login } from "./UserForm";
 import axios from "axios";
@@ -219,7 +219,7 @@ export function ProjectEditForm({ params: projectId }: Props) {
                         <div>
                             <Label className="block text-sm font-medium leading-6 text-gray-700" value="Descrição: *" />
                             <Textarea
-                            className="h-[200px]"
+                                className="h-[200px]"
                                 color="bg-zinc-400"
                                 id="projectDescription"
                                 onChange={handleChange}
@@ -238,111 +238,12 @@ export function ProjectEditForm({ params: projectId }: Props) {
     );
 }
 
-const itemValidationSchema = Yup.object().shape({
-    itemType: Yup.string()
+const projectCategoryValidationSchema = Yup.object().shape({
+    categoryName: Yup.string()
         .trim()
-        .required("O tipo é obrigatório!"),
-    itemDescription: Yup.string()
-        .trim()
-        .required("O campo de descrição é obrigatório!")
-        .min(3, "O título deve ter no mínimo 3 caracteres!"),
-
+        .required("Selecionae uma categoria para adicionar!"),
 });
 
-export function ItemAddForm({ params: projectId }: Props) {
-
-    const notification = useNotification();
-    const auth = useAuth();
-    const userId = auth.getUserSession()?.id;
-    const navigate = useNavigate();
-
-    const { values, handleChange, errors, resetForm } = useFormik<ItemDetails>({
-        initialValues: {
-            itemType: "",
-            itemDescription: "",
-            projectId: 0,
-            userId: 0
-        },
-        validationSchema: itemValidationSchema,
-        onSubmit: onSubmit
-    })
-
-
-    async function onSubmit() {
-        const item: ItemDetails = { itemType: values.itemType, itemDescription: values.itemDescription, projectId: projectId, userId: userId }
-        try {
-            axios.post(`${baseUrl}/projects/save-item`, item)
-                .then((response) => {
-                    navigate(`/projetos/${item.projectId}`)
-                    return response.status;
-                });
-            notification.notify("Salvo com sucesso!", "success");
-            resetForm();
-        } catch (error: any) {
-            const message = error?.message;
-            notification.notify(message, "error");
-        }
-    }
-
-    return (
-        <>
-            <div className="mt-10">
-                <div className="flex flex-col items-center justify-center">
-                    <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-2/3">
-                        <span className="flex flex-row items-center gap-2"><FaCircleInfo /> Adicionar Item </span>
-                    </div>
-                    <form onSubmit={onSubmit} className="space-y-2 w-2/3">
-                        <div>
-                            <TextInput type="hidden"
-                                id="userId"
-                                onChange={handleChange}
-                                value={userId}
-                            />
-                            <TextInput type="hidden"
-                                id="projectId"
-                                onChange={handleChange}
-                                value={userId}
-                            />
-                        </div>
-                        <div>
-                            <Label className="block text-sm font-medium leading-6 text-gray-700" value="Tipo: *" />
-                            <Select
-                                color="bg-zinc-400"
-                                id="itemType"
-                                onChange={handleChange}
-                                value={values.itemType}
-                            >
-                                <option></option>
-                                <option>Objetivos</option>
-                                <option>Atividades</option>
-                                <option>Etapas</option>
-                                <option>Impacto</option>
-                                <option>Desafios</option>
-                                <option>Referências</option>
-                                <option>Adicional</option>
-                            </Select>
-                            <FieldError error={errors.itemType} />
-                        </div>
-                        <div>
-                            <Label className="block text-sm font-medium leading-6 text-gray-700" value="Descrição: *" />
-                            <Textarea
-                                className="h-[200px]"
-                                color="bg-zinc-400"
-                                id="itemDescription"
-                                onChange={handleChange}
-                                value={values.itemDescription}
-                            />
-                            <FieldError error={errors.itemDescription} />
-                        </div>
-                        <div className="mt-5 flex items-center justify-end gap-x-4">
-                            <Button type="submit" gradientDuoTone="purpleToBlue" >Salvar</Button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </>
-    );
-}
 
 export function ProjectCategoryAddForm({ params: projectId }: Props) {
 
@@ -356,11 +257,11 @@ export function ProjectCategoryAddForm({ params: projectId }: Props) {
     const [categoryPage, setCategoryPage] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
     useEffect(() => {
-        axios.get(`${baseUrl}/categories?query=${query}&size=20`)
+        axios.get(`${baseUrl}/categories?size=100`)
             .then((response) => {
                 setCategoryPage(response.data);
             })
-    }, [query]);
+    }, []);
 
     type ProjectCategory = {
         categoryName?: string;
@@ -368,13 +269,13 @@ export function ProjectCategoryAddForm({ params: projectId }: Props) {
         userId?: number;
     }
 
-    const { values, handleChange, resetForm } = useFormik<ProjectCategory>({
+    const { values, handleChange, errors, resetForm } = useFormik<ProjectCategory>({
         initialValues: {
             categoryName: "",
             projectId: 0,
             userId: 0
         },
-        validationSchema: itemValidationSchema,
+        validationSchema: projectCategoryValidationSchema,
         onSubmit: onSubmit
     })
 
@@ -385,7 +286,6 @@ export function ProjectCategoryAddForm({ params: projectId }: Props) {
         try {
             axios.post(`${baseUrl}/project-category/save`, projectCategory)
                 .then((response) => {
-                    navigate(`/projetos/${projectCategory.projectId}`)
                     return response.status;
                 });
             notification.notify("Salvo com sucesso!", "success");
@@ -398,8 +298,8 @@ export function ProjectCategoryAddForm({ params: projectId }: Props) {
 
     return (
         <>
-            <div className="mt-10">
-                <div className="flex flex-col items-center justify-center">
+            {!auth.isSessionValid() ? <Login /> :
+                <div className="flex flex-col items-center justify-center mt-10">
                     <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-full md:w-2/3">
                         <span className="flex flex-row items-center gap-2"><FaTag /> Adicionar Categoria </span>
                     </div>
@@ -428,15 +328,16 @@ export function ProjectCategoryAddForm({ params: projectId }: Props) {
                             <datalist id="categoryList">
                                 {categoryPage.content?.filter((category) =>
                                     category.categoryName?.toUpperCase().includes(query.toLocaleUpperCase()))
-                                    .map((project) =>
+                                    .map((category) =>
                                         <>
-                                            <option id="query" key={project.id} value={project.categoryName}>
-                                                {project.categoryName}
+                                            <option id="query" key={category.id} value={category.categoryName}>
+                                                {category.categoryName}
                                             </option>
                                         </>
                                     )
                                 }
                             </datalist>
+                            <FieldError error={errors.categoryName}/>
                         </div>
 
                         <div className="mt-5 flex items-center justify-end gap-x-4">
@@ -444,7 +345,7 @@ export function ProjectCategoryAddForm({ params: projectId }: Props) {
                         </div>
                     </form>
                 </div>
-            </div>
+            }
         </>
     );
 }

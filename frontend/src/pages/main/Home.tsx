@@ -44,15 +44,15 @@ export default function Home() {
     const [events, setEvents] = useState<EventPage>({ content: [], page: { number: 0, totalElements: 0 } })
 
     useEffect(() => {
-        axios.get(`${baseUrl}/posts?size=6`)
+        axios.get(`${baseUrl}/posts?size=6&sort=id,DESC`)
             .then((response) => {
                 setPosts(response.data);
             });
-        axios.get(`${baseUrl}/projects?size=8`)
+        axios.get(`${baseUrl}/projects?size=8&sort=id`)
             .then((response) => {
                 setProjects(response.data);
             })
-        axios.get(`${baseUrl}/categories?size=8`)
+        axios.get(`${baseUrl}/categories?size=12`)
             .then((response) => {
                 setCategories(response.data);
             });
@@ -159,7 +159,7 @@ export default function Home() {
                             Ver mais
                         </Link>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-y-6 gap-x-4 items-start p-8">
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-y-6 gap-x-4 items-start p-8">
                         {categories?.content.map(category => (
                             <div key={category.id} >
                                 <CategoryCard category={category} />
@@ -175,7 +175,7 @@ export default function Home() {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
                         {events.content?.map(event => (
-                            <div key={event.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                            <div key={event.eventId} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
                                 <EventCard event={event} />
                             </div>
                         ))}

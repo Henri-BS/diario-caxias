@@ -15,12 +15,12 @@ public class Project extends BaseEntity {
     @Column(name = "project_id", nullable = false)
     private Long id;
 
+    @Column(columnDefinition = "TEXT")
+    private String details;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    @OneToMany(mappedBy = "project")
-    private final Set<ItemDetails> itemDetails = new HashSet<>();
 
     @OneToMany(mappedBy = "project")
     private final Set<Event> events = new HashSet<>();
@@ -32,9 +32,10 @@ public class Project extends BaseEntity {
         super();
     }
 
-    public Project(Long id, String title, String description, String image, LocalDateTime createdDate, User user) {
+    public Project(Long id, String details, String title, String description, String image, LocalDateTime createdDate, User user) {
         super(title, description, image, createdDate);
         this.id = id;
+        this.details = details;
         this.user = user;
     }
 
@@ -46,6 +47,14 @@ public class Project extends BaseEntity {
         this.id = id;
     }
 
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
     public User getUser() {
         return user;
     }
@@ -53,5 +62,4 @@ public class Project extends BaseEntity {
     public void setUser(User user) {
         this.user = user;
     }
-
 }

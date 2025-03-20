@@ -15,7 +15,7 @@ public class EventDto implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private Long eventId;
     private String eventTitle;
     private String eventDescription;
     private String eventImage;
@@ -32,7 +32,7 @@ public class EventDto implements Serializable {
     }
 
     public EventDto(Event entity) {
-        id = entity.getId();
+        eventId = entity.getId();
         eventTitle = entity.getTitle();
         eventDescription = entity.getDescription();
         eventImage = entity.getImage();
@@ -45,8 +45,8 @@ public class EventDto implements Serializable {
         username = entity.getUser().getUsername();
     }
 
-    public Long getId() {
-        return id;
+    public Long getEventId() {
+        return eventId;
     }
 
     public String getEventTitle() {

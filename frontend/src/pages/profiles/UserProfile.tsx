@@ -14,8 +14,7 @@ import { Props } from "resources";
 import { Link, useParams } from "react-router-dom";
 import { baseUrl } from "utils/requests";
 import axios from "axios";
-import Markdown from "react-markdown";
-import { CustomParagraph } from "components/shared/Template";
+import { CustomMarkdown } from "components/shared/Template";
 
 export function UserPersonalProfile() {
     const params = useParams();
@@ -82,20 +81,16 @@ export function UserPersonalDetails({ params: userId }: Props) {
             <div className="flex flex-wrap items-center  justify-center">
                 <div className="container lg:w-full bg-white shadow-xl transform duration-200 easy-in-out">
                     <div className=" h-40 overflow-hidden" >
-                        <img className="w-full rounded-t-lg" src={user?.userCoverImage ?? "https://www.pixelstalk.net/wp-content/uploads/2016/05/Black-background-lines-scratches-1920x1080.jpg"} alt={user?.username} />
+                        <img className="w-full rounded-t-lg" src={user?.userCoverImage ?? require("assets/img/user_cover.png")} alt={user?.username} />
                     </div>
                     <div className="flex justify-center px-5 -mt-12">
-                        <img className="h-32 w-32 bg-white p-2 rounded-full" src={user?.userImage ?? "https://cdn1.iconfinder.com/data/icons/basic-ui-element-2-2-line/512/Basic_UI_Elements_-_2.1_-_line-11-256.png"} alt={user?.username} />
+                        <img className="h-32 w-32 bg-white p-2 rounded-full" src={user?.userImage ?? require("assets/img/user_profile.png")} alt={user?.username} />
                     </div>
                     <div className="text-gray-600 text-center px-14">
                         <h2 className="text-gray-800 text-3xl font-bold">{user?.username}</h2>
                         <p className="mt-2 text-md font-semibold"> {user?.userLocation} </p>
                         <p className="mt-2 text-lg text-justify">
-                            <Markdown components={{
-                                p: CustomParagraph,
-                            }}>
-                                {user?.userBio}
-                            </Markdown>
+                            <CustomMarkdown item={user?.userBio} />
                         </p>
                     </div>
                     <hr className="mt-6" />
