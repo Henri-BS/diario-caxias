@@ -62,7 +62,7 @@ export function ProjectAddForm() {
     return (
         <>
             {!auth.isSessionValid() ? <Login /> :
-                <div className="mt-10">
+                <div>
                     <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
                         <Breadcrumb.Item icon={FaHouse}>
                             <Link to="/">
@@ -153,6 +153,7 @@ export function ProjectEditForm({ params: projectId }: Props) {
             id: projectId,
             projectTitle: project?.projectTitle,
             projectDescription: project?.projectDescription,
+            projectDetails: project?.projectDetails,
             projectImage: project?.projectImage,
             userId: userId
         },
@@ -165,6 +166,7 @@ export function ProjectEditForm({ params: projectId }: Props) {
             id: projectId,
             projectTitle: values.projectTitle ?? project?.projectTitle,
             projectDescription: values.projectDescription ?? project?.projectDescription,
+            projectDetails: values.projectDetails ?? project?.projectDetails,
             projectImage: values.projectImage ?? project?.projectImage,
             userId: userId
         }
@@ -182,7 +184,7 @@ export function ProjectEditForm({ params: projectId }: Props) {
     return (
         <div>
             {!auth.isSessionValid() ? <Login /> :
-                <div className="flex flex-col items-center justify-center mt-10">
+                <div className="flex flex-col items-center justify-center">
                     <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-2/3">
                         <span className="flex flex-row items-center gap-2"><FaFolderClosed /> Editar Projeto </span>
                         <FaX onClick={() => navigate(0)} className="hover:shadow-xl cursor-pointer rounded-full  p-1 border hover:bg-gray-300 text-2xl" />
@@ -227,6 +229,17 @@ export function ProjectEditForm({ params: projectId }: Props) {
                                 defaultValue={project?.projectDescription}
                             />
                         </div>
+                        <div>
+                            <Label className="block text-sm font-medium leading-6 text-gray-700" value="Informação Geral: *" />
+                            <Textarea
+                                className="h-[200px]"
+                                color="bg-zinc-400"
+                                id="projectDetails"
+                                onChange={handleChange}
+                                value={values.projectDetails}
+                                defaultValue={project?.projectDetails}
+                            />
+                        </div>
 
                         <div className="mt-5 flex items-center justify-end gap-x-4">
                             <Button type="submit" gradientDuoTone="purpleToBlue" >Salvar</Button>
@@ -250,8 +263,6 @@ export function ProjectCategoryAddForm({ params: projectId }: Props) {
     const notification = useNotification();
     const auth = useAuth();
     const userId = auth.getUserSession()?.id;
-    const navigate = useNavigate();
-
 
     const query = "";
     const [categoryPage, setCategoryPage] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } });
@@ -299,7 +310,7 @@ export function ProjectCategoryAddForm({ params: projectId }: Props) {
     return (
         <>
             {!auth.isSessionValid() ? <Login /> :
-                <div className="flex flex-col items-center justify-center mt-10">
+                <div className="flex flex-col items-center justify-center">
                     <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-full md:w-2/3">
                         <span className="flex flex-row items-center gap-2"><FaTag /> Adicionar Categoria </span>
                     </div>

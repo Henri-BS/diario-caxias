@@ -1,6 +1,8 @@
 package com.pasifcode.caxias_diary.service.impl;
 
+import com.pasifcode.caxias_diary.application.exception.DuplicateTuplesException;
 import com.pasifcode.caxias_diary.domain.dto.EventUserDto;
+import com.pasifcode.caxias_diary.domain.dto.ProjectCategoryDto;
 import com.pasifcode.caxias_diary.domain.entity.*;
 import com.pasifcode.caxias_diary.domain.repository.EventRepository;
 import com.pasifcode.caxias_diary.domain.repository.EventUserRepository;
@@ -12,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -55,8 +59,16 @@ public class EventUserServiceImpl implements EventUserService {
         Event event = eventRepository.findById(dto.getEventId()).orElseThrow();
 
         EventUser add = new EventUser();
-                add.setUser(user);
-                add.setEvent(event);
+        add.setUser(user);
+        add.setEvent(event);
+        for (EventUser p : eventUserRepository.findByEventAndUser(event, user)) {
+            if (Objects.equals(event.getId(), p.getEvent().getId()) &&
+                    Objects.equals(user.getId(), p.getUser().getId())) {
+                throw new DuplicateTuplesException("Esta relacão já existe!");
+            } else {
+                eventUserRepository.saveAndFlush(add);
+            }
+        }
         return new EventUserDto(eventUserRepository.saveAndFlush(add));
     }
 

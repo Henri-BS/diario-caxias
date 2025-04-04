@@ -1,4 +1,4 @@
-import { Header, Footer } from "components/shared/Template";
+import { Header, Footer, Loading } from "components/shared/Template";
 import { EventAddForm } from "pages/forms/EventForm";
 import { Login, UserEditProfile } from "pages/forms/UserForm";
 import { PostAddForm } from "pages/forms/PostForm";
@@ -17,13 +17,19 @@ import { UserPersonalProfile } from "pages/profiles/UserProfile";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-export default function PageRoutes() {
+interface TemplateProps {
+    loading?: boolean;
+}
+
+
+export default function PageRoutes({loading=false}: TemplateProps) {
 
     return (
         <>
             <BrowserRouter>
                 <Header />
-                <div className={`mt-10 p-6`} >
+                <div className={`${loading ? 'animate-pulse' : ''} mx-auto p-4 `} >
+                    {loading ? <Loading/> :
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/login" element={<Login />} />
@@ -42,6 +48,7 @@ export default function PageRoutes() {
                         <Route path="/postagens/:postId" element={<PostProfile />} />
                         <Route path="/postagens/adicionar" element={<PostAddForm />} />
                     </Routes>
+}
                 </div>
                 <Footer />
                 <ToastContainer position="top-right"

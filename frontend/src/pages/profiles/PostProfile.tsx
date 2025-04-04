@@ -1,4 +1,3 @@
-import { PostMockProfile } from "mock/MockProfile";
 import { Post, PostPage } from "resources/post";
 import { Blockquote, Breadcrumb, Button, Card, Dropdown, Modal, Tabs } from "flowbite-react";
 
@@ -32,7 +31,6 @@ export function PostDetails({ params: postId }: Props) {
     const [events, setEvents] = useState<Event[]>();
     const auth = useAuth();
     const navigate = useNavigate();
-    const params = useParams();
     const [edit, setEdit] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
     const [addEvent, setAddEvent] = useState(false);
@@ -74,10 +72,9 @@ export function PostDetails({ params: postId }: Props) {
 
 
     return (
-        <div className="mt-10">
-            <div className="flex flex-col md:flex-row justify-between  text-lg font-semibold text-gray-700">
-
-                <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
+        <div>
+            <div className="flex flex-col md:flex-row justify-between md:items-center py-4 text-lg font-semibold text-gray-700">
+                <Breadcrumb aria-label="breadcrumb" className="py-2 md:py-0">
                     <Breadcrumb.Item icon={FaIcons.FaHouse}>
                         <Link to="/">
                             Início
@@ -137,70 +134,69 @@ export function PostDetails({ params: postId }: Props) {
                 </Modal.Body>
             </Modal>
 
-            {!post ? <PostMockProfile params={`${params.postId}`} /> :
-                <div>
-                    {edit ? <PostEditForm params={postId} /> :
-                        <div>
-                            <h3 className="mb-4 text-2xl md:text-3xl leading-6 text-cyan-600 font-semibold">
-                                {post?.postTitle}
-                            </h3>
+            <div>
+                {edit ? <PostEditForm params={postId} /> :
+                    <div>
+                        <h3 className="mb-4 text-2xl md:text-3xl leading-6 text-cyan-600 font-semibold">
+                            {post?.postTitle}
+                        </h3>
 
-                            <div className="grid grid-cols-1 md:grid-cols-5 mt-5">
-                                <div className="col-span-3 text-xl text-gray-800 text-justify py-2 md:pr-10">
-                                    <div className="relative flex flex-col items-start">
+                        <div className="grid grid-cols-1 md:grid-cols-5 mt-5">
+                            <div className="col-span-3 text-xl text-gray-800 text-justify py-2 md:pr-10">
+                                <div className="relative flex flex-col items-start">
 
-                                        <Blockquote className="mb-4 text-slate-600 text-xl">
-                                            {post?.postSummary}
-                                        </Blockquote>
-                                        <img
-                                            src={post?.postImage ? post?.postImage : require("assets/img/image.png")}
-                                            className="shadow-md rounded-lg w-[160rem] " alt={post.postTitle}
-                                        />
-                                        <p className="flex mt-2 items-center text-center text-sm font-medium text-gray-700">
-                                            enviado em: {post?.createdDate}
-                                        </p>
-                                    </div>
-                                    <p className="text-xl text-justify">
-                                        <CustomMarkdown item={post?.postDescription} />
+                                    <Blockquote className="mb-4 text-slate-600 text-xl">
+                                        {post?.postSummary}
+                                    </Blockquote>
+                                    <img
+                                        src={post?.postImage ? post?.postImage : require("assets/img/image.png")}
+                                        className="shadow-md rounded-lg w-[160rem] " alt={post?.postTitle}
+                                    />
+                                    <p className="flex mt-2 items-center text-center text-sm font-medium text-gray-700">
+                                        enviado em: {post?.createdDate}
                                     </p>
                                 </div>
+                                <p className="text-xl text-justify">
+                                    <CustomMarkdown item={post?.postDescription} />
+                                </p>
+                            </div>
 
-                                <div className="flex flex-col col-span-2 p-4 md:border-l border-gray-300">
-                                    <Card className="p-2 md:mb-10">
-                                        <div className="flex items-center justify-start gap-x-2">
-                                            <img
-                                                className="h-16 w-16 rounded-full border-2"
-                                                src={post.userImage ?? require("assets/img/user_profile.png")}
-                                                alt="usuario"
-                                            />
-                                            <p id="profile-popover" className="mb-6 text-base font-semibold leading-none text-gray-900">
-                                                {post.username}
-                                            </p>
-                                        </div>
-                                        <p className="text-md font-normal max-h-[100px] overflow-hidden">
-                                            {post.userBio}
+                            <div className="flex flex-col col-span-2 p-4 md:border-l border-gray-300">
+                                <Card className="p-2 md:mb-10">
+                                    <div className="flex items-center justify-start gap-x-2">
+                                        <img
+                                            className="h-16 w-16 rounded-full border-2"
+                                            src={post?.userImage ?? require("assets/img/user_profile.png")}
+                                            alt="usuario"
+                                        />
+                                        <p id="profile-popover" className="mb-6 text-base font-semibold leading-none text-gray-900">
+                                            {post?.username}
                                         </p>
-                                    </Card>
-                                    <div>
-                                        <h2 className="font-semibold text-xl text-slate-800">Outras Postagens</h2>
-                                        <Pagination pagination={postPage} onPageChange={handlePageChange} />
-                                        <div className="divide-y divide-gray-300 my-4">
-                                            {postPage?.content.map(post => (
-                                                <div key={post.postId}>
-                                                    <PostSmCard post={post} />
-                                                </div>
-                                            ))}
+                                    </div>
+                                    <p className="text-md font-normal max-h-[100px] overflow-hidden">
+                                        {post?.userBio}
+                                    </p>
+                                </Card>
+                                <div>
+                                    <h2 className="font-semibold text-xl text-slate-800">Outras Postagens</h2>
+                                    <Pagination pagination={postPage} onPageChange={handlePageChange} />
+                                    <div className="divide-y divide-gray-300 my-4">
+                                        {postPage?.content.map(post => (
+                                            <div key={post.postId}>
+                                                <PostSmCard post={post} />
+                                            </div>
+                                        ))}
 
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    }
+                    </div>
+                }
 
-                    <Tabs className="p-1 text-slate-600 rounded-md overflow-x-scroll" variant="fullWidth">
-                        <Tabs.Item icon={FaIcons.FaCalendarCheck} title="Eventos Relacionados" >
-                            {!events?.length ? "Nenhum evento relacionado!" :
+                <Tabs className="p-1 text-slate-600 rounded-md overflow-x-scroll" variant="fullWidth">
+                    <Tabs.Item icon={FaIcons.FaCalendarCheck} title="Eventos Relacionados" >
+                        {!events?.length ? "Nenhum evento relacionado!" :
                             <div className="grid grid-cols-1 gap-y-6 gap-x-4 items-start p-8">
                                 {events?.map(event => (
                                     <>
@@ -210,14 +206,13 @@ export function PostDetails({ params: postId }: Props) {
                                     </>
                                 ))}
                             </div>
-}
-                        </Tabs.Item>
-                        <Tabs.Item title="Galeria" icon={FaIcons.FaImages} >
-                            <p className="mb-1 py-10 text-center block font-semibold text-3xl leading-6 text-slate-600">Em Desenvolvimento</p>
-                        </Tabs.Item>
-                    </Tabs>
-                </div >
-            }
+                        }
+                    </Tabs.Item>
+                    <Tabs.Item title="Galeria" icon={FaIcons.FaImages} >
+                        <p className="mb-1 py-10 text-center block font-semibold text-3xl leading-6 text-slate-600">Em Desenvolvimento</p>
+                    </Tabs.Item>
+                </Tabs>
+            </div>
         </div >
     );
 }

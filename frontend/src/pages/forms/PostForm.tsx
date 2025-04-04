@@ -12,7 +12,6 @@ import { baseUrl } from "utils/requests";
 import { Props } from "resources";
 import { useEffect, useState } from "react";
 import { EventPage } from "resources/event";
-import { error } from "console";
 
 export const postValidationSchema = Yup.object().shape({
     postTitle: Yup.string()
@@ -73,7 +72,7 @@ export function PostAddForm() {
     return (
         <>
             {!auth.isSessionValid() ? <Login /> :
-                <div className="mt-10">
+                <div>
                     <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
                         <Breadcrumb.Item icon={FaHouse}>
                             <Link to="/">
@@ -206,7 +205,7 @@ export function PostEditForm({ params: postId }: Props) {
     return (
         <>
             {!auth.isSessionValid() ? <Login /> :
-                <div className="flex flex-col items-center justify-center mt-10">
+                <div className="flex flex-col items-center justify-center">
                     <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-full md:w-2/3">
                         <span className="flex flex-row items-center gap-2"><FaNewspaper /> Editar Postagem </span>
                         <FaX onClick={() => navigate(0)} className="hover:shadow-xl cursor-pointer rounded-full  p-1 border hover:bg-gray-300 text-2xl" />

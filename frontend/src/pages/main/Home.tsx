@@ -6,13 +6,12 @@ import { CategoryPage } from "resources/category";
 import { EventPage } from "resources/event";
 import { PostPage } from "resources/post";
 import { ProjectPage } from "resources/project";
-import { CustomFlowbiteTheme, Flowbite, Carousel, Accordion, Banner, Breadcrumb } from "flowbite-react";
+import { CustomFlowbiteTheme, Flowbite, Carousel, Accordion, Breadcrumb } from "flowbite-react";
 import { useState, useEffect } from "react";
-import { HomeMock } from "mock/MockList";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "utils/requests";
-import { FaHouse, FaX } from "react-icons/fa6";
+import { FaHouse } from "react-icons/fa6";
 
 export const customTheme: CustomFlowbiteTheme = {
     carousel: {
@@ -64,7 +63,7 @@ export default function Home() {
 
     return (
         <>
-            <div className="mt-10">
+            <div>
                 <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
                     <Breadcrumb.Item icon={FaHouse}>
                         <Link to="/">
@@ -75,113 +74,97 @@ export default function Home() {
                 <Accordion collapseAll>
                     <Accordion.Panel>
                         <Accordion.Title>
-                            <h5 className="flex flex-row justify-between sm:text-lg md:text-xl font-semibold tracking-tight text-gray-900 text-center">
+                            <h5 className="flex flex-row justify-between sm:text-lg md:text-xl font-semibold tracking-tight text-gray-600 text-center">
                                 Boas vindas ao Diário Caxias
                             </h5>
                         </Accordion.Title>
                         <Accordion.Content>
-                            <p className="font-normal text-gray-700 text-justify">
+                            <p className="font-normal text-gray-700">
                                 Aqui nesta plataforma você poderá encontrar um vasto acervo de projetos e eventos que visam contribuir com o desenvolvimento educacional, profissional e cultural da cidade de Caxias do Maranhão.
                                 O Diário Caxias se compromete em estabelecer um vínculo entre a educação formal e a informal, permitindo que pessoas das mais diversas áreas ou níveis acadêmicos possam participar ativamente das atividades propostas, almejando uma participação multidisciplinar dos Caxienses.
                                 Para saber um pouco mais sobre os recentes projetos ou eventos, clique nas últimas nóticias que aparecem aqui ao lado e faça a sua história em sua cidade.
                             </p>
-                            {!posts.content.length ?
-                                <Banner className="mb-4">
-                                    <div className="flex w-full justify-between border-b border-gray-200 bg-gray-50 p-4">
-                                        <div className="flex items-center">
-                                            <p className="flex items-center text-sm  font-bold text-red-500 ">
-                                                Esta é uma demonstração com funcionalidades limitadas, possibilitando apenas a visualização de dados estáticos.
-                                            </p>
-                                        </div>
-                                        <Banner.CollapseButton color="gray" className="border-0 bg-transparent text-gray-500 dark:text-gray-400">
-                                            <FaX className="h-4 w-4" />
-                                        </Banner.CollapseButton>
-                                    </div>
-                                </Banner>
-                                : ""
-                            }
                         </Accordion.Content>
                     </Accordion.Panel>
                 </Accordion>
             </div>
-            {!projects.content.length ? <HomeMock /> :
-                <div>
-                    <div className="items-center p-4 mt-4">
-                        <div className="flex justify-between w-full sm:text-lg md:text-xl">
-                            <h1>Últimas Postagens</h1>
-                            <Link to={"/postagens"} className="text-blue-600 hover:text-blue-400 hover:underline">
-                                Ver mais
-                            </Link>
-                        </div>
 
-                        <div className="grid md:grid-cols-2 items-center">
-                            <div className="h-96 max-w-[600px] w-full">
-                                <Flowbite theme={{ theme: customTheme }}>
-                                    <Carousel>
-                                        {posts.content.map(post => (
-                                            <div key={post.postId} className="flex justify-center items-center w-full">
-                                                <CarouselPostCard post={post} />
-                                            </div>
-                                        ))}
-                                    </Carousel>
-                                </Flowbite>
-                            </div>
+            <div>
+                <div className="items-center p-4 mt-4">
+                    <div className="flex justify-between w-full sm:text-lg md:text-xl">
+                        <h1>Últimas Postagens</h1>
+                        <Link to={"/postagens"} className="text-blue-600 hover:text-blue-400 hover:underline">
+                            Ver mais
+                        </Link>
+                    </div>
 
-                            <div className="mt-4 p-4">
-                                <div className="divide-y divide-gray-300">
+                    <div className="grid md:grid-cols-2 items-center">
+                        <div className="h-96 max-w-[600px] w-full">
+                            <Flowbite theme={{ theme: customTheme }}>
+                                <Carousel>
                                     {posts.content.map(post => (
-                                        <div key={post.postId}>
-                                            <PostSmCard post={post} />
+                                        <div key={post.postId} className="flex justify-center items-center w-full">
+                                            <CarouselPostCard post={post} />
                                         </div>
                                     ))}
-                                </div>
+                                </Carousel>
+                            </Flowbite>
+                        </div>
+
+                        <div className="mt-4 p-4">
+                            <div className="divide-y divide-gray-300">
+                                {posts.content.map(post => (
+                                    <div key={post.postId}>
+                                        <PostSmCard post={post} />
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
-
-                    <div className="flex justify-between p-4 sm:text-lg md:text-xl">
-                        <h1>Projetos recentes</h1>
-                        <Link to={"/projetos"} className="text-blue-600 hover:text-blue-400 hover:underline">
-                            Ver mais
-                        </Link>
-                    </div>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-10 gap-x-6 items-start p-8">
-                        {projects.content?.map(project => (
-                            <div key={project.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
-                                <ProjectCard project={project} />
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="flex justify-between p-4 sm:text-lg md:text-xl" >
-                        <h1>Categorias</h1>
-                        <Link to={"/categorias"} className="text-blue-600 hover:text-blue-400 hover:underline">
-                            Ver mais
-                        </Link>
-                    </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-y-6 gap-x-4 items-start p-8">
-                        {categories?.content.map(category => (
-                            <div key={category.id} >
-                                <CategoryCard category={category} />
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="flex justify-between p-4 sm:text-lg md:text-xl">
-                        <h1>Eventos recentes</h1>
-                        <Link to={"/eventos"} className="text-blue-600 hover:text-blue-400 hover:underline">
-                            Ver mais
-                        </Link>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
-                        {events.content?.map(event => (
-                            <div key={event.eventId} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
-                                <EventCard event={event} />
-                            </div>
-                        ))}
-                    </div>
                 </div>
-            }
+
+                <div className="flex justify-between p-4 sm:text-lg md:text-xl">
+                    <h1>Projetos recentes</h1>
+                    <Link to={"/projetos"} className="text-blue-600 hover:text-blue-400 hover:underline">
+                        Ver mais
+                    </Link>
+                </div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-10 gap-x-6 items-start p-8">
+                    {projects.content?.map(project => (
+                        <div key={project.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                            <ProjectCard project={project} />
+                        </div>
+                    ))}
+                </div>
+
+                <div className="flex justify-between p-4 sm:text-lg md:text-xl" >
+                    <h1>Categorias</h1>
+                    <Link to={"/categorias"} className="text-blue-600 hover:text-blue-400 hover:underline">
+                        Ver mais
+                    </Link>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-y-6 gap-x-4 items-start p-8">
+                    {categories?.content.map(category => (
+                        <div key={category.id} >
+                            <CategoryCard category={category} />
+                        </div>
+                    ))}
+                </div>
+
+                <div className="flex justify-between p-4 sm:text-lg md:text-xl">
+                    <h1>Eventos recentes</h1>
+                    <Link to={"/eventos"} className="text-blue-600 hover:text-blue-400 hover:underline">
+                        Ver mais
+                    </Link>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
+                    {events.content?.map(event => (
+                        <div key={event.eventId} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                            <EventCard event={event} />
+                        </div>
+                    ))}
+                </div>
+            </div>
         </>
     );
 }

@@ -3,7 +3,6 @@ import { PostCard } from "components/cards/PostCard";
 import { Pagination, SearchBar } from "components/shared/Pagination";
 import { removeAccents } from "components/shared/Template";
 import { Breadcrumb } from "flowbite-react";
-import { PostMockList } from "mock/MockList";
 import { useState, useEffect } from "react";
 import { FaHouse, FaNewspaper } from "react-icons/fa6";
 import { Link } from "react-router-dom";
@@ -26,7 +25,7 @@ export default function Posts() {
     }, [pageNumber]);
 
     return (
-        <div className="mt-10">
+        <div>
             <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
                 <Breadcrumb.Item icon={FaHouse}>
                     <Link to="/">
@@ -40,7 +39,6 @@ export default function Posts() {
                 </Breadcrumb.Item>
             </Breadcrumb>
 
-            {!postPage.content.length ? <PostMockList /> :
                 <div>
                     <SearchBar
                         pageIcon={<FaNewspaper />}
@@ -60,7 +58,6 @@ export default function Posts() {
                         ))}
                     </div>
                 </div>
-            }
         </div>
     );
 }

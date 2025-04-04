@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import * as FaIcons from "react-icons/fa6";
-import { Button, Dropdown, Modal, Sidebar, Tooltip, Footer as FooterFR } from "flowbite-react";
+import { Button, Dropdown, Modal, Sidebar, Tooltip, Footer as FooterFR, Spinner, List } from "flowbite-react";
 import { useAuth } from "resources/auth";
 import { User } from "resources/user";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,6 +11,15 @@ import gfm from 'remark-gfm'
 
 export const removeAccents = (str: any) => {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+export const Loading = () => {
+    return (
+        <div role="status" className="text-center my-[10rem]">
+            <Spinner aria-label="Default status example" size="xl"/>
+            <span className="sr-only">Loading...</span>
+        </div>
+    );
 }
 
 export const Header = () => {
@@ -103,7 +112,7 @@ export const Header = () => {
                     </div>
                 </div>
             </header>
-
+            <div className="mt-[5rem]" />
             <div>
                 <div className={isOpen ? "fixed z-40 top-0 left-full transition duration-600" : "flex flex-col justify-top fixed z-40  bg-zinc-800 w-80 h-screen top-20 left-0 transition duration-600"}>
                     <div className="w-full p-6" >
@@ -347,12 +356,19 @@ export const CustomMarkdown = ({ item }: any) => {
         <h3 className="text-xl font-semibold mt-4 mb-2">{children}<hr /></h3>
     );
 
+    const CustomList = ({ children }: any) => (
+        <List className="text-gray-700">
+            <List.Item>{children}</List.Item>
+        </List>
+    );
+
     return (
         <Markdown components={{
             p: CustomParagraph,
             h1: CustomH1,
             h2: CustomH2,
             h3: CustomH3,
+            li: CustomList
         }}
             remarkPlugins={[gfm]}
         >

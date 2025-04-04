@@ -89,7 +89,6 @@ export function Login() {
         }
     }
     return (
-        <div className="mt-10">
             <div className="flex flex-col items-center justify-center py-[100px]">
                 <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-2/3">
                     <span className="flex flex-row items-center gap-2">{newUserState ? "Cadastre-se" : "Faça login na sua conta"}</span>
@@ -166,7 +165,6 @@ export function Login() {
                     </div>
                 </form>
             </div>
-        </div>
     );
 }
 
@@ -233,7 +231,7 @@ export function UserEditForm({ params: userId }: Props) {
 
     return (
         <>
-            <div className="flex flex-col items-center justify-center mt-10">
+            <div className="flex flex-col items-center justify-center">
                 <div className="flex flex-row justify-between items-center text-xl font-semibold tracking-tight text-gray-700 mb-3 w-2/3">
                     <span className="flex flex-row items-center gap-2"><FaUser /> Editar Usuário ({user?.username})</span>
                     <FaX onClick={() => navigate(-1)} className="hover:shadow-xl cursor-pointer rounded-full  p-1 border hover:bg-gray-300  text-2xl" />

@@ -23,7 +23,7 @@ export default function Users() {
     }, [pageNumber, query]);
 
     return (
-        <div className="mt-10">
+        <div>
             <SearchBar
                 pageIcon={<FaUser />}
                 pageTitle="Usuários"

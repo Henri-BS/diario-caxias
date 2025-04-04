@@ -1,8 +1,8 @@
 
-INSERT INTO tb_user (username, image, email, password, created_date) VALUES ('James Azevedo',     'https://cdn1.iconfinder.com/data/icons/diversity-avatars-volume-01-v2/64/hipster-man-white-512.png',                'jack@gmail.com',        '12345678', now());
+INSERT INTO tb_user (username, image, email, password, created_date) VALUES ('James Azevedo',    'https://cdn1.iconfinder.com/data/icons/diversity-avatars-volume-01-v2/64/hipster-man-white-512.png',                'jack@gmail.com',        '12345678', now());
 INSERT INTO tb_user (username, image, email, password, created_date) VALUES ('Ryan Azevedo',     'https://cdn2.iconfinder.com/data/icons/diversity-avatars-volume-09/64/avatar-boler-suit-african-512.png',           'ryan@gmail.com',        '12345678', now());
 INSERT INTO tb_user (username, image, email, password, created_date) VALUES ('Francis Rocha',    'https://cdn2.iconfinder.com/data/icons/diversity-v2-0-volume-01/64/accountant-asian-female-512.png',                'francis@gmail.com',     '12345678', now());
-INSERT INTO tb_user (username, image, email, password, created_date) VALUES ('Anna Rocha',       'https://cdn2.iconfinder.com/data/icons/diversity-v2-0-volume-01/64/artist-asian-female-512.png',                    'anna@gmail.com',        '12345678', now());
+INSERT INTO tb_user (username, image, email, password, created_date) VALUES ('Anna Rocha',   'https://cdn2.iconfinder.com/data/icons/diversity-v2-0-volume-01/64/artist-asian-female-512.png',                    'anna@gmail.com',        '12345678', now());
 INSERT INTO tb_user (username, image, email, password, created_date) VALUES ('Leonardo Silva',   'https://cdn0.iconfinder.com/data/icons/diversity-avatars-vol-4/64/hipster-man-caucasian-beard-512.png',             'leonardo@gmail.com',    '12345678', now());
 INSERT INTO tb_user (username, image, email, password, created_date) VALUES ('Raquel Silva',     'https://cdn0.iconfinder.com/data/icons/diversity-avatars-vol-4/64/woman-round-glasses-hair-bun-512.png',            'raquel@gmail.com',      '12345678', now());
 INSERT INTO tb_user (username, image, email, password, created_date) VALUES ('Lyanne Almeida',   'https://cdn2.iconfinder.com/data/icons/health-care-and-first-responders/64/ems-black-female-coronavirus-512.png',   'lyanne@gmail.com',      '12345678', now());
@@ -137,34 +137,32 @@ INSERT INTO tb_post (user_id, created_date, image, title, summary, description) 
 INSERT INTO tb_post (user_id, created_date, image, title, summary, description) VALUES (12, now(),'https://amazoniareal.com.br/wp-content/uploads/2016/12/SLIDE-QUEIMADAS-PARA-DESMATAMENTO-AMAZONIA_FOTO-RODRIGO-BALEIA-GREENPEACE-1024x683.jpg',  'Meio Ambiente: dados sobre o reflorestamento em áreas queimadas em Caxias 2',       'Caxias apresentou um evento focado no debate dos dados sobre o reflorestamento em áreas queimadas. Este evento reuniu especialistas em meio ambiente e membros da comunidade para discutir os desafios e progressos no reflorestamento.', 'O evento contou com a presença de pesquisadores apresentaram dados atualizados sobre as áreas queimadas, incluindo a extensão dos danos e as espécies de plantas mais afetadas. Utilizando imagens de satélite e mapeamento geoespacial, foram mostrados os avanços no reflorestamento e as áreas que ainda necessitam de intervenção. Especialistas em ecologia e reflorestamento participaram de painéis de discussão, abordando temas como técnicas de reflorestamento, seleção de espécies nativas e estratégias para prevenir futuras queimadas. Foi criado um mapeamento detalhado das áreas queimadas e das regiões que já foram reflorestadas, facilitando o monitoramento contínuo e a avaliação do progresso. Este evento foi fundamental para promover a recuperação ambiental em Caxias, envolvendo diversos setores da sociedade em um esforço colaborativo para restaurar as áreas afetadas por queimadas e garantir um futuro mais sustentável para a região.')
 
 
-INSERT INTO tb_item_details (id, type, description, project_id, user_id) VALUES (1, 'OBJETIVOS', 'Educação e Conscientização: Fornecer educação prática sobre agricultura urbana, hortas comunitárias e sustentabilidade para jovens e adultos.', 1, 30);
-INSERT INTO tb_item_details (id, type, description, project_id, user_id) VALUES (2, 'OBJETIVOS', 'Sustentabilidade Ambiental: Reduzir a pegada de carbono associada ao transporte de alimentos e promover práticas agrícolas ecológicas que preservem os recursos naturais.', 1, 30);
-INSERT INTO tb_item_details (id, type, description, project_id, user_id) VALUES (3, 'OBJETIVOS', 'Segurança Alimentar: Aumentar a produção local de alimentos frescos e saudáveis, reduzindo a dependência de produtos de outras regiões e fortalecendo a segurança alimentar.', 1, 30);
-INSERT INTO tb_item_details (id, type, description, project_id, user_id) VALUES (4, 'ETAPAS', 'Identificação de Áreas Potenciais: Mapear e selecionar áreas urbanas apropriadas para a implementação de agrobairros, como terrenos baldios, parques subutilizados e espaços comunitários.', 1, 30);
-INSERT INTO tb_item_details (id, type, description, project_id, user_id) VALUES (5, 'ETAPAS', 'Parcerias e Financiamento: Estabelecer colaborações com instituições educacionais, ONGs, empresas locais e órgãos governamentais para obter recursos financeiros e técnicos.', 1, 30);
-INSERT INTO tb_item_details (id, type, description, project_id, user_id) VALUES (6, 'ETAPAS', 'Planejamento e Projeto: Desenvolver planos detalhados para cada agrobairro, incluindo layout das áreas de cultivo, sistemas de irrigação, infraestruturas de compostagem e espaços de convivência.', 1, 30);
-INSERT INTO tb_item_details (id, type, description, project_id, user_id) VALUES (7, 'IMPACTO', 'Social: Fortalecimento da coesão social e criação de um senso de comunidade através da colaboração em projetos agrícolas.', 1, 30);
-INSERT INTO tb_item_details (id, type, description, project_id, user_id) VALUES (8, 'IMPACTO', 'Econômico: Geração de renda e novas oportunidades de emprego para os moradores envolvidos na agricultura urbana.', 1, 30);
-INSERT INTO tb_item_details (id, type, description, project_id, user_id) VALUES (9, 'IMPACTO', 'Educacional: Aumento do conhecimento sobre sustentabilidade e técnicas agrícolas entre os cidadãos, preparando-os para enfrentar os desafios ambientais do futuro.', 1, 30);
-
-INSERT INTO tb_event_user (event_id, user_id) VALUES (1, 1);
-INSERT INTO tb_event_user (event_id, user_id) VALUES (1, 2);
-INSERT INTO tb_event_user (event_id, user_id) VALUES (1, 3);
-INSERT INTO tb_event_user (event_id, user_id) VALUES (1, 4);
-INSERT INTO tb_event_user (event_id, user_id) VALUES (1, 5);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (1,  4);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (1,  5);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (1,  6);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (1,  7);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (1, 12);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (1, 13);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (1, 14);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (1, 15);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (2, 4);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (2, 5);
 INSERT INTO tb_event_user (event_id, user_id) VALUES (2, 6);
-INSERT INTO tb_event_user (event_id, user_id) VALUES (2, 7);
-INSERT INTO tb_event_user (event_id, user_id) VALUES (2, 8);
-INSERT INTO tb_event_user (event_id, user_id) VALUES (2, 9);
-INSERT INTO tb_event_user (event_id, user_id) VALUES (3, 1);
-INSERT INTO tb_event_user (event_id, user_id) VALUES (3, 3);
-INSERT INTO tb_event_user (event_id, user_id) VALUES (4, 6);
-INSERT INTO tb_event_user (event_id, user_id) VALUES (4, 8);
-INSERT INTO tb_event_user (event_id, user_id) VALUES (5, 14);
-INSERT INTO tb_event_user (event_id, user_id) VALUES (5, 15);
-INSERT INTO tb_event_user (event_id, user_id) VALUES (6, 16);
-INSERT INTO tb_event_user (event_id, user_id) VALUES (6, 17);
-INSERT INTO tb_event_user (event_id, user_id) VALUES (7, 18);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (22, 16);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (22, 17);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (22, 18);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (22, 19);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (22, 20);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (29, 22);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (29, 23);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (29, 24);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (30, 23);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (30, 24);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (30, 25);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (31, 25);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (31, 26);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (31, 27);
+INSERT INTO tb_event_user (event_id, user_id) VALUES (32, 27);
 
 INSERT INTO tb_project_category (project_id, category_id) VALUES (1, 1);
 INSERT INTO tb_project_category (project_id, category_id) VALUES (1, 2);

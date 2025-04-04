@@ -1,6 +1,5 @@
 import { CategoryCard } from "components/cards/CategoryCard";
 import { Pagination, SearchBar } from "components/shared/Pagination";
-import { CategoryMockList } from "mock/MockList";
 import { CategoryPage } from "resources/category";
 import { useEffect, useState } from "react";
 import { removeAccents } from "components/shared/Template";
@@ -27,7 +26,7 @@ export default function Categories() {
     }, [query, pageNumber]);
 
     return (
-        <div className="mt-10">
+        <div>
             <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
                 <Breadcrumb.Item icon={FaHouse}>
                     <Link to="/">
@@ -40,29 +39,27 @@ export default function Categories() {
                     </Link>
                 </Breadcrumb.Item>
             </Breadcrumb>
-            {!categoryPage.content.length ? <CategoryMockList /> :
-                <div>
-                    <SearchBar
-                        pageIcon={<FaTags />}
-                        pageTitle="Categorias"
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                    />
-                    <Pagination pagination={categoryPage} onPageChange={handlePageChange} />
+            <div>
+                <SearchBar
+                    pageIcon={<FaTags />}
+                    pageTitle="Categorias"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                />
+                <Pagination pagination={categoryPage} onPageChange={handlePageChange} />
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-y-10 gap-x-6 items-start p-8">
-                        {categoryPage.content?.filter((category) =>
-                            category.categoryName?.toUpperCase().includes(query.toLocaleUpperCase()) ||
-                            removeAccents(category.categoryName)?.toUpperCase().includes(query.toLocaleUpperCase())
-                        ).map(category => (
-                            <div key={category?.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
-                                <CategoryCard category={category} />
-                            </div>
-                        ))}
+                <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-y-10 gap-x-6 items-start p-8">
+                    {categoryPage.content?.filter((category) =>
+                        category.categoryName?.toUpperCase().includes(query.toLocaleUpperCase()) ||
+                        removeAccents(category.categoryName)?.toUpperCase().includes(query.toLocaleUpperCase())
+                    ).map(category => (
+                        <div key={category?.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                            <CategoryCard category={category} />
+                        </div>
+                    ))}
 
-                    </div>
                 </div>
-            }
+            </div>
         </div>
     );
 }

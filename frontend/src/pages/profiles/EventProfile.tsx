@@ -4,7 +4,6 @@ import { UserCard } from "components/cards/UserCards";
 import { Pagination } from "components/shared/Pagination";
 import { CustomMarkdown } from "components/shared/Template";
 import { Breadcrumb, Button, Dropdown, Modal, Tabs } from "flowbite-react";
-import { EventMockProfile } from "mock/MockProfile";
 import moment from "moment";
 import { EventEditForm } from "pages/forms/EventForm";
 import { useState, useEffect } from "react";
@@ -37,7 +36,6 @@ export function EventDetails({ params: eventId }: Props) {
         setPageNumber(newPageNumber);
     }
     const auth = useAuth();
-    const params = useParams();
     const [edit, setEdit] = useState<boolean>(false);
     const [deleteModal, setDeleteModal] = useState(false);
     const navigate = useNavigate();
@@ -69,10 +67,9 @@ export function EventDetails({ params: eventId }: Props) {
     }
 
     return (
-        <div className="mt-10">
-            <div className="flex flex-col md:flex-row justify-between py-4 text-lg font-semibold text-gray-700">
-
-                <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
+        <div>
+            <div className="flex flex-col md:flex-row justify-between md:items-center py-4 text-lg font-semibold text-gray-700">
+                <Breadcrumb aria-label="breadcrumb" className="py-2 md:py-0">
                     <Breadcrumb.Item icon={FaIcons.FaHouse}>
                         <Link to="/">
                             Início
@@ -121,68 +118,67 @@ export function EventDetails({ params: eventId }: Props) {
                     </Modal.Body>
                 </Modal>
             </div>
-            {!event ? <EventMockProfile params={`${params.eventId}`} /> :
-                <div>
-                    {edit ? <EventEditForm params={eventId} /> :
-                        <div>
-                            <div className="relative flex flex-col sm:flex-row xl:flex-col items-start">
-                                <div className="order-1 sm:ml-6 xl:ml-0">
-                                    <h3 className="mb-1 text-slate-900 font-semibold">
-                                        <span className="mb-1 block text-2xl leading-6 text-cyan-600">{event?.eventTitle}</span>
-                                    </h3>
-                                    <div>
-                                        <p className="flex gap-2 items-center text-center text-lg font-semibold text-gray-700">
-                                            <GoIcons.GoFileDirectory /> Projeto: <Link to={`/projetos/${event.projectId}`} className="hover:underline"> {event?.projectTitle}</Link>
-                                        </p>
-                                        <p className="flex gap-2 items-center text-center text-lg font-semibold text-gray-700">
-                                            <GoIcons.GoCalendar /> Data do evento: {event.eventDate ? moment(event?.eventDate).format("DD/MM/yyyy") : "Indefinido"}
-                                        </p>
-                                        <p className="flex gap-2 items-center text-center text-lg font-semibold text-gray-700">
-                                            <GoIcons.GoChecklist /> Status: {event?.eventStatus ?? "Indefinido"}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col">
-                                    <img src={event?.eventImage ? event.eventImage : require("assets/img/image.png")} className="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full" width="1216" height="640" alt={event.eventTitle} />
-                                    <p className="flex gap-2 mt-2 items-center text-center text-sm font-medium text-gray-700">
-                                        enviado em: {event?.createdDate}
+
+            <div>
+                {edit ? <EventEditForm params={eventId} /> :
+                    <div>
+                        <div className="relative flex flex-col sm:flex-row xl:flex-col items-start">
+                            <div className="order-1 sm:ml-6 xl:ml-0">
+                                <h3 className="mb-1 text-slate-900 font-semibold">
+                                    <span className="mb-1 block text-2xl leading-6 text-cyan-600">{event?.eventTitle}</span>
+                                </h3>
+                                <div>
+                                    <p className="flex gap-2 items-center text-center text-lg font-semibold text-gray-700">
+                                        <GoIcons.GoFileDirectory /> Projeto: <Link to={`/projetos/${event?.projectId}`} className="hover:underline"> {event?.projectTitle}</Link>
+                                    </p>
+                                    <p className="flex gap-2 items-center text-center text-lg font-semibold text-gray-700">
+                                        <GoIcons.GoCalendar /> Data do evento: {event?.eventDate ? moment(event?.eventDate).format("DD/MM/yyyy") : "Indefinido"}
+                                    </p>
+                                    <p className="flex gap-2 items-center text-center text-lg font-semibold text-gray-700">
+                                        <GoIcons.GoChecklist /> Status: {event?.eventStatus ?? "Indefinido"}
                                     </p>
                                 </div>
                             </div>
-
-                            <div className="mt-5 text-xl text-zinc-800 text-justify">
-                                <CustomMarkdown item={event?.eventDescription} />
+                            <div className="flex flex-col">
+                                <img src={event?.eventImage ? event.eventImage : require("assets/img/image.png")} className="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full" width="1216" height="640" alt={event?.eventTitle} />
+                                <p className="flex gap-2 mt-2 items-center text-center text-sm font-medium text-gray-700">
+                                    enviado em: {event?.createdDate}
+                                </p>
                             </div>
-                            <Tabs className="mt-4 text-zinc-500 p-1 rounded-md overflow-scroll" variant="fullWidth">
-                                <Tabs.Item active title="Postagens" icon={FaIcons.FaNewspaper}>
-                                    <div className=" grid grid-cols-1 gap-y-6 gap-x-4 items-start p-8 divide-y divide-gray-300">
-                                        {posts?.map((post) => (
-                                            <>
-                                                <PostSmCard post={post} />
-                                            </>
-                                        ))}
-                                    </div>
-
-                                </Tabs.Item>
-
-                                <Tabs.Item title="Participantes" icon={FaIcons.FaUsersRectangle}>
-                                    <Pagination pagination={userPage} onPageChange={handlePageChange} />
-                                    <div className="  grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
-                                        {userPage.content?.map(user => (
-                                            <div key={user?.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
-                                                <UserCard user={user} />
-                                            </div>
-                                        ))}
-                                    </div>
-                                </Tabs.Item>
-                                <Tabs.Item title="Programação" icon={FaIcons.FaClipboardList}>
-                                    <p className="mb-1 py-10 text-center block font-semibold text-3xl leading-6 text-slate-600">Em Desenvolvimento</p>
-                                </Tabs.Item>
-                            </Tabs>
                         </div>
-                    }
-                </div>
-            }
+
+                        <div className="mt-5 text-xl text-zinc-800 text-justify">
+                            <CustomMarkdown item={event?.eventDescription} />
+                        </div>
+                        <Tabs className="mt-4 text-zinc-500 p-1 rounded-md overflow-scroll" variant="fullWidth">
+                            <Tabs.Item active title="Postagens" icon={FaIcons.FaNewspaper}>
+                                <div className=" grid grid-cols-1 gap-y-6 gap-x-4 items-start p-8 divide-y divide-gray-300">
+                                    {posts?.map((post) => (
+                                        <>
+                                            <PostSmCard post={post} />
+                                        </>
+                                    ))}
+                                </div>
+
+                            </Tabs.Item>
+
+                            <Tabs.Item title="Participantes" icon={FaIcons.FaUsersRectangle}>
+                                <Pagination pagination={userPage} onPageChange={handlePageChange} />
+                                <div className="  grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
+                                    {userPage.content?.map(user => (
+                                        <div key={user?.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                                            <UserCard user={user} />
+                                        </div>
+                                    ))}
+                                </div>
+                            </Tabs.Item>
+                            <Tabs.Item title="Programação" icon={FaIcons.FaClipboardList}>
+                                <p className="mb-1 py-10 text-center block font-semibold text-3xl leading-6 text-slate-600">Em Desenvolvimento</p>
+                            </Tabs.Item>
+                        </Tabs>
+                    </div>
+                }
+            </div>
         </div>
     );
 }

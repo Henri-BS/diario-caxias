@@ -1,5 +1,6 @@
 package com.pasifcode.caxias_diary.application.controller;
 
+import com.pasifcode.caxias_diary.application.exception.DuplicateTuplesException;
 import com.pasifcode.caxias_diary.domain.dto.EventUserDto;
 import com.pasifcode.caxias_diary.service.EventUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/event-user")
@@ -33,9 +36,14 @@ public class EventUserController {
 
 
     @PostMapping("/save")
-    ResponseEntity<EventUserDto> saveEventUser(@RequestBody EventUserDto dto) {
-        EventUserDto add = eventUserService.saveEventUser(dto);
-        return new ResponseEntity<>(add, HttpStatus.CREATED);
+    ResponseEntity<Map<String, String>> saveEventUser(@RequestBody EventUserDto dto) {
+        try {
+            eventUserService.saveEventUser(dto);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }catch (DuplicateTuplesException e){
+            Map<String, String> jsonResult = Map.of("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(jsonResult);
+        }
     }
 
     @DeleteMapping("/delete/{id}")

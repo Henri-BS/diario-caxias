@@ -2,7 +2,6 @@ import { ProjectCard } from "components/cards/ProjectCard";
 import { Pagination, SearchBar } from "components/shared/Pagination";
 import { ProjectPage } from "resources/project";
 import { useEffect, useState } from "react";
-import { ProjectMockList } from "mock/MockList";
 import { removeAccents } from "components/shared/Template";
 import axios from "axios";
 import { baseUrl } from "utils/requests";
@@ -26,8 +25,7 @@ export default function Projects() {
     }, [query, pageNumber]);
 
     return (
-        <div className="mt-10">
-
+        <div>
             <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
                 <Breadcrumb.Item icon={FaHouse}>
                     <Link to="/">
@@ -41,7 +39,6 @@ export default function Projects() {
                 </Breadcrumb.Item>
             </Breadcrumb>
 
-            {!projectPage.content.length ? <ProjectMockList /> :
                 <div>
                     <SearchBar
                         pageIcon={<FaFolderClosed />}
@@ -61,7 +58,6 @@ export default function Projects() {
                         ))}
                     </div>
                 </div>
-            }
         </div>
     );
 }
