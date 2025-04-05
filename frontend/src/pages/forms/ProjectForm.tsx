@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { FaFolderClosed, FaHouse, FaTag, FaX } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "resources/auth";
-import { Project } from "resources/project";
+import { Project, ProjectCategory } from "resources/project";
 import * as Yup from "yup";
 import { Login } from "./UserForm";
 import axios from "axios";
@@ -273,12 +273,6 @@ export function ProjectCategoryAddForm({ params: projectId }: Props) {
                 setCategoryPage(response.data);
             })
     }, []);
-
-    type ProjectCategory = {
-        categoryName?: string;
-        projectId?: number;
-        userId?: number;
-    }
 
     const { values, handleChange, errors, resetForm } = useFormik<ProjectCategory>({
         initialValues: {

@@ -51,8 +51,7 @@ const userValidationSchema = Yup.object().shape({
 });
 
 export function Login() {
-    const [newUserState, setNewUserState] = useState<boolean>(false);
-
+    const [newUserState, setNewUserState] = useState(false);
 
     const auth = useAuth();
     const notification = useNotification();

@@ -21,7 +21,6 @@ interface TemplateProps {
     loading?: boolean;
 }
 
-
 export default function PageRoutes({loading=false}: TemplateProps) {
 
     return (

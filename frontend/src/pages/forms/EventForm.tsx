@@ -4,7 +4,7 @@ import { FaCalendarCheck, FaHouse, FaX } from "react-icons/fa6";
 import { useNotification, FieldError } from "components/shared/Notification";
 import { useFormik } from "formik";
 import { useAuth } from "resources/auth";
-import { Event } from "resources/event";
+import { Event, EventUser } from "resources/event";
 import { ProjectPage } from "resources/project";
 import { Login } from "./UserForm";
 import * as Yup from "yup";
@@ -218,7 +218,6 @@ export function EventAddForm() {
     );
 }
 
-
 export function EventEditForm({ params: eventId }: Props) {
     const notification = useNotification();
     const auth = useAuth();
@@ -384,6 +383,63 @@ export function EventEditForm({ params: eventId }: Props) {
                     </div>
                 </form>
             </div>
+        </>
+    );
+}
+
+export function EventUserAddForm({ params: eventId }: Props) {
+
+    const notification = useNotification();
+    const auth = useAuth();
+    const userId = auth.getUserSession()?.id;
+
+    const { handleChange, resetForm } = useFormik<EventUser>({
+        initialValues: {
+            eventId: eventId,
+            userId: userId
+        },
+        validationSchema: {},
+        onSubmit: onSubmit
+    })
+
+
+    async function onSubmit() {
+        const eventUser: EventUser = { eventId: eventId, userId: userId }
+
+        try {
+            axios.post(`${baseUrl}/event-user/save`, eventUser)
+                .then((response) => {
+                    return response.data;
+                });
+            notification.notify("Salvo com sucesso!", "success");
+            resetForm();
+        } catch (error: any) {
+            const message = error?.message;
+            notification.notify(message, "error");
+        }
+    }
+
+    return (
+        <>
+            {!auth.isSessionValid() ? <Login /> :
+                <div className="flex flex-col items-center justify-center">
+                    <form onSubmit={onSubmit}>
+                        <div>
+                            <TextInput type="hidden"
+                                id="userId"
+                                onChange={handleChange}
+                                value={userId}
+                            />
+                            <TextInput type="hidden"
+                                id="eventId"
+                                onChange={handleChange}
+                                value={eventId}
+                            />
+                        </div>
+                        <Button type="submit" gradientDuoTone="purpleToBlue" >Sim</Button>
+                    </form>
+                </div>
+            }
         </>
     );
 }

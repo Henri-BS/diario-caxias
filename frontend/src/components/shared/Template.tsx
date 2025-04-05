@@ -166,10 +166,10 @@ export const Header = () => {
 
 export const Footer = () => {
 
-    const [aboutModal, setAboutModal] = useState<boolean>(false);
-    const [tutorialModal, setTutorialModal] = useState<boolean>(false);
-    const [contributeModal, setContributeModal] = useState<boolean>(false);
-    const [termsModal, setTermsModal] = useState<boolean>(false);
+    const [aboutModal, setAboutModal] = useState(false);
+    const [tutorialModal, setTutorialModal] = useState(false);
+    const [contributeModal, setContributeModal] = useState(false);
+    const [termsModal, setTermsModal] = useState(false);
 
     return (
         <>

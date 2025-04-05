@@ -23,3 +23,15 @@ export type EventPage = {
 export type EventProps = {
   event: Event;
 };
+
+export type EventUser = {
+  id?: number;
+  eventId?: number;
+  eventTitle?: string;
+  eventImage?: string;
+  projectId?: number;
+  projectTitle?: string;
+  userId?: number;
+  username?: string; 
+  userImage?: string;
+}

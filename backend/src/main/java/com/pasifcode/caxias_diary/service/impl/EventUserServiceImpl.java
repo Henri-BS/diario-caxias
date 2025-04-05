@@ -2,19 +2,17 @@ package com.pasifcode.caxias_diary.service.impl;
 
 import com.pasifcode.caxias_diary.application.exception.DuplicateTuplesException;
 import com.pasifcode.caxias_diary.domain.dto.EventUserDto;
-import com.pasifcode.caxias_diary.domain.dto.ProjectCategoryDto;
 import com.pasifcode.caxias_diary.domain.entity.*;
 import com.pasifcode.caxias_diary.domain.repository.EventRepository;
 import com.pasifcode.caxias_diary.domain.repository.EventUserRepository;
 import com.pasifcode.caxias_diary.domain.repository.UserRepository;
 import com.pasifcode.caxias_diary.service.EventUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -31,7 +29,7 @@ public class EventUserServiceImpl implements EventUserService {
     private EventRepository eventRepository;
 
     @Override
-    public Page<EventUserDto> search(Long userId, Long eventId, Pageable pageable) {
+    public List<EventUserDto> search(Long userId, Long eventId) {
         Specification<EventUser> spec = Specification.where(null);
 
         if (userId != null) {
@@ -42,7 +40,7 @@ public class EventUserServiceImpl implements EventUserService {
             spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("event").get("id"), eventId));
         }
 
-        return eventUserRepository.findAll(spec, pageable).map(EventUserDto::new);
+        return eventUserRepository.findAll(spec).stream().map(EventUserDto::new).toList();
     }
 
 
@@ -61,9 +59,9 @@ public class EventUserServiceImpl implements EventUserService {
         EventUser add = new EventUser();
         add.setUser(user);
         add.setEvent(event);
-        for (EventUser p : eventUserRepository.findByEventAndUser(event, user)) {
-            if (Objects.equals(event.getId(), p.getEvent().getId()) &&
-                    Objects.equals(user.getId(), p.getUser().getId())) {
+        for (EventUser e : eventUserRepository.findByEventAndUser(event, user)) {
+            if (Objects.equals(event.getId(), e.getEvent().getId()) &&
+                    Objects.equals(user.getId(), e.getUser().getId())) {
                 throw new DuplicateTuplesException("Esta relacão já existe!");
             } else {
                 eventUserRepository.saveAndFlush(add);

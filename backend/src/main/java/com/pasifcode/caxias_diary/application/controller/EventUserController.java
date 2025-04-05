@@ -4,12 +4,11 @@ import com.pasifcode.caxias_diary.application.exception.DuplicateTuplesException
 import com.pasifcode.caxias_diary.domain.dto.EventUserDto;
 import com.pasifcode.caxias_diary.service.EventUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -20,11 +19,10 @@ public class EventUserController {
     private EventUserService eventUserService;
 
     @GetMapping
-    ResponseEntity<Page<EventUserDto>> search(
+    ResponseEntity<List<EventUserDto>> search(
             @RequestParam(required = false) Long userId,
-            @RequestParam(required = false) Long eventId,
-            Pageable pageable) {
-        Page<EventUserDto> find = eventUserService.search(userId, eventId, pageable);
+            @RequestParam(required = false) Long eventId) {
+        List<EventUserDto> find = eventUserService.search(userId, eventId);
         return ResponseEntity.ok(find);
     }
 
