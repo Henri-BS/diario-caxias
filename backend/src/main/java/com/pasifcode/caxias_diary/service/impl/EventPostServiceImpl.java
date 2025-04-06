@@ -1,5 +1,6 @@
 package com.pasifcode.caxias_diary.service.impl;
 
+import com.pasifcode.caxias_diary.application.exception.DuplicateTuplesException;
 import com.pasifcode.caxias_diary.domain.dto.EventPostDto;
 import com.pasifcode.caxias_diary.domain.entity.*;
 import com.pasifcode.caxias_diary.domain.repository.*;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class EventPostServiceImpl implements EventPostService {
@@ -48,7 +50,7 @@ public class EventPostServiceImpl implements EventPostService {
     }
 
     @Override
-    public EventPostDto saveEventPost(EventPostDto dto) {
+    public void saveEventPost(EventPostDto dto) {
         Post post = postRepository.findById(dto.getPostId()).orElseThrow();
         Event event = eventRepository.findByTitle(dto.getEventTitle());
         User user = userRepository.findById(dto.getUserId()).orElseThrow();
@@ -57,6 +59,20 @@ public class EventPostServiceImpl implements EventPostService {
         add.setPost(post);
         add.setEvent(event);
         add.setUser(user);
-        return new EventPostDto(eventPostRepository.saveAndFlush(add));
+        for(EventPost e : eventPostRepository.findByEventAndPost(event, post)){
+            if (Objects.equals(event.getId(), e.getEvent().getId()) &&
+            Objects.equals(post.getId(), e.getPost().getId())){
+                throw new DuplicateTuplesException("Este evento já está relacionado a esta postagem!");
+            } else {
+                new EventPostDto(eventPostRepository.saveAndFlush(add));
+                return;
+            }
+        }
+        new EventPostDto(add);
+    }
+
+    @Override
+    public void deleteEventPost(Long id){
+        this.eventPostRepository.deleteById(id);
     }
 }

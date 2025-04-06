@@ -178,3 +178,62 @@ INSERT INTO tb_project_category (project_id, category_id) VALUES (4, 4);
 INSERT INTO tb_project_category (project_id, category_id) VALUES (4, 5);
 INSERT INTO tb_project_category (project_id, category_id) VALUES (4, 13);
 INSERT INTO tb_project_category (project_id, category_id) VALUES (5, 14);
+
+        UPDATE tb_user
+        SET image = 'https://cdn0.iconfinder.com/data/icons/diversity-v2-0-volume-08/64/asian-beatnik-glasses-goatee-manbun-512.png'
+WHERE username = 'James Azevedo';
+UPDATE tb_user
+        SET image = 'https://cdn2.iconfinder.com/data/icons/diversity-avatars-volume-09/64/avatar-boler-suit-african-512.png'
+WHERE username = 'Ryan Azevedo';
+UPDATE tb_user
+        SET image = 'https://cdn2.iconfinder.com/data/icons/diversity-v2-0-volume-01/64/accountant-asian-female-512.png'
+WHERE username = 'Francis Rocha';
+        UPDATE tb_user
+        SET image = 'https://cdn2.iconfinder.com/data/icons/diversity-v2-0-volume-01/64/artist-asian-female-512.png'
+WHERE username = 'Anna Rocha';
+        UPDATE tb_user
+        SET image = 'https://cdn0.iconfinder.com/data/icons/diversity-avatars-vol-4/64/hipster-man-caucasian-beard-512.png'
+WHERE username = 'Leonardo Silva';
+        UPDATE tb_user
+        SET image = 'https://cdn0.iconfinder.com/data/icons/diversity-avatars-vol-4/64/woman-round-glasses-hair-bun-512.png'
+WHERE username = 'Raquel Silva';
+        UPDATE tb_user
+        SET image = 'https://cdn2.iconfinder.com/data/icons/health-care-and-first-responders/64/ems-black-female-coronavirus-512.png'
+WHERE username = 'Lyanne Almeida';
+        UPDATE tb_user
+        SET image = 'https://cdn0.iconfinder.com/data/icons/diversity-v2-0-volume-08/64/asian-beatnik-glasses-goatee-manbun-512.png'
+WHERE username = 'Ellioth Almeida';
+        UPDATE tb_user
+        SET image = 'https://cdn0.iconfinder.com/data/icons/diversity-avatars-vol-4/64/farmer-man-caucasian-overalls-512.png'
+WHERE username = 'Apollo Santos';
+        UPDATE tb_user
+        SET image = 'https://cdn2.iconfinder.com/data/icons/health-care-and-first-responders/64/doctor-asian-male-coronavirus-512.png'
+WHERE username = 'Gutierry Santos';
+
+        UPDATE tb_user
+        SET image = 'https://cdn2.iconfinder.com/data/icons/health-care-and-first-responders/64/ems-black-female-coronavirus-512.png'
+WHERE username = 'Elizabeth Valle';
+        UPDATE tb_user
+        SET image = 'https://cdn2.iconfinder.com/data/icons/diversity-v2-0-volume-01/64/accountant-asian-female-512.png'
+WHERE username = 'Isabelle Mendes';
+        UPDATE tb_user
+        SET image = 'https://cdn2.iconfinder.com/data/icons/diversity-avatars-volume-09/64/avatar-boler-suit-african-512.png'
+WHERE username = 'Albert Almeida';
+        UPDATE tb_user
+        SET image = 'https://cdn0.iconfinder.com/data/icons/diversity-avatars-vol-4/64/farmer-man-caucasian-overalls-512.png'
+WHERE username = 'Joseph Almeida';
+        UPDATE tb_user
+        SET image = 'https://cdn0.iconfinder.com/data/icons/diversity-avatars-vol-4/64/hipster-man-caucasian-beard-512.png'
+WHERE username = 'Igniz Javier';
+        UPDATE tb_user
+        SET image = 'https://cdn0.iconfinder.com/data/icons/diversity-v2-0-volume-08/64/asian-beatnik-glasses-goatee-manbun-512.png'
+WHERE username = 'Billy Castro';
+        UPDATE tb_user
+        SET image = 'https://cdn1.iconfinder.com/data/icons/diversity-avatars-volume-01-v2/64/hipster-man-white-512.png'
+WHERE username = 'Luccas Matos';
+        UPDATE tb_user
+        SET image = 'https://cdn2.iconfinder.com/data/icons/diversity-v2-0-volume-01/64/artist-asian-female-512.png'
+WHERE username = 'Ângela Pinho';
+        UPDATE tb_user
+        SET image = 'https://cdn2.iconfinder.com/data/icons/health-care-and-first-responders/64/doctor-asian-male-coronavirus-512.png'
+WHERE username = 'Sebastião Castro';

@@ -17,38 +17,38 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping
-    ResponseEntity<Page<CategoryDto>> search(@RequestParam(defaultValue = "") String query, Pageable pageable) {
+    public ResponseEntity<Page<CategoryDto>> search(@RequestParam(defaultValue = "") String query, Pageable pageable) {
         Page<CategoryDto> list = categoryService.search(pageable);
         return ResponseEntity.ok(list);
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<CategoryDto> findCategoryById(@PathVariable Long id) {
+    public ResponseEntity<CategoryDto> findCategoryById(@PathVariable Long id) {
         CategoryDto find = categoryService.findCategoryById(id);
         return ResponseEntity.ok(find);
     }
 
     @GetMapping("/by-name/{name}")
-    ResponseEntity<CategoryDto> findCategoryByName(@PathVariable String name) {
+    public ResponseEntity<CategoryDto> findCategoryByName(@PathVariable String name) {
         CategoryDto find = categoryService.findCategoryByName(name);
         return ResponseEntity.ok(find);
     }
 
     @PostMapping("/save")
-    ResponseEntity<CategoryDto> saveCategory(@RequestBody CategoryDto dto) {
+    public ResponseEntity<CategoryDto> saveCategory(@RequestBody CategoryDto dto) {
         CategoryDto add = categoryService.saveCategory(dto);
         return new ResponseEntity<>(add, HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    ResponseEntity<CategoryDto> updateCategory(@RequestBody CategoryDto dto) {
+    public ResponseEntity<CategoryDto> updateCategory(@RequestBody CategoryDto dto) {
         CategoryDto edit = categoryService.updateCategory(dto);
         return new ResponseEntity<>(edit, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteCategory(@PathVariable Long id) {
+    public void deleteCategory(@PathVariable Long id) {
         this.categoryService.deleteCategory(id);
     }
 }

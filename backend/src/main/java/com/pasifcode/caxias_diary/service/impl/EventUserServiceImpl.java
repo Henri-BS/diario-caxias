@@ -52,7 +52,7 @@ public class EventUserServiceImpl implements EventUserService {
     }
 
     @Override
-    public EventUserDto saveEventUser(EventUserDto dto) {
+    public void saveEventUser(EventUserDto dto) {
         User user = userRepository.findById(dto.getUserId()).orElseThrow();
         Event event = eventRepository.findById(dto.getEventId()).orElseThrow();
 
@@ -62,12 +62,12 @@ public class EventUserServiceImpl implements EventUserService {
         for (EventUser e : eventUserRepository.findByEventAndUser(event, user)) {
             if (Objects.equals(event.getId(), e.getEvent().getId()) &&
                     Objects.equals(user.getId(), e.getUser().getId())) {
-                throw new DuplicateTuplesException("Esta relacão já existe!");
+                throw new DuplicateTuplesException("Este usuário já está relacionado a este evento!");
             } else {
                 eventUserRepository.saveAndFlush(add);
             }
         }
-        return new EventUserDto(eventUserRepository.saveAndFlush(add));
+        new EventUserDto(add);
     }
 
     @Override

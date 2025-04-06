@@ -1,6 +1,6 @@
 import { CategoryCard } from "components/cards/CategoryCard";
 import { EventCard } from "components/cards/EventCard";
-import { CarouselPostCard, PostSmCard } from "components/cards/PostCard";
+import { PostCard, PostSmCard } from "components/cards/PostCard";
 import { ProjectCard } from "components/cards/ProjectCard";
 import { CategoryPage } from "resources/category";
 import { EventPage } from "resources/event";
@@ -99,19 +99,19 @@ export default function Home() {
                     </div>
 
                     <div className="grid md:grid-cols-2 items-center">
-                        <div className="h-96 max-w-[600px] w-full">
+                        <div className="h-80 md:h-96 max-w-[600px] w-full">
                             <Flowbite theme={{ theme: customTheme }}>
                                 <Carousel>
                                     {posts.content.map(post => (
                                         <div key={post.postId} className="flex justify-center items-center w-full">
-                                            <CarouselPostCard post={post} />
+                                            <PostCard post={post} />
                                         </div>
                                     ))}
                                 </Carousel>
                             </Flowbite>
                         </div>
 
-                        <div className="mt-4 p-4">
+                        <div className="mt-4">
                             <div className="divide-y divide-gray-300">
                                 {posts.content.map(post => (
                                     <div key={post.postId}>
@@ -129,9 +129,9 @@ export default function Home() {
                         Ver mais
                     </Link>
                 </div>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-10 gap-x-6 items-start p-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
                     {projects.content?.map(project => (
-                        <div key={project.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                        <div key={project.id} className="flex justify-center ">
                             <ProjectCard project={project} />
                         </div>
                     ))}
@@ -143,7 +143,7 @@ export default function Home() {
                         Ver mais
                     </Link>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-y-6 gap-x-4 items-start p-8">
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-y-6 gap-x-4 items-start">
                     {categories?.content.map(category => (
                         <div key={category.id} >
                             <CategoryCard category={category} />
@@ -157,9 +157,9 @@ export default function Home() {
                         Ver mais
                     </Link>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-6 gap-x-4 items-start">
                     {events.content?.map(event => (
-                        <div key={event.eventId} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                        <div key={event.eventId} className="flex justify-center">
                             <EventCard event={event} />
                         </div>
                     ))}

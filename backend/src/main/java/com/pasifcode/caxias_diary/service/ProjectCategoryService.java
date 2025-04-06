@@ -10,7 +10,7 @@ public interface ProjectCategoryService {
 
     ProjectCategoryDto findById(Long id);
 
-    ProjectCategoryDto saveProjectCategory(ProjectCategoryDto dto);
+    void saveProjectCategory(ProjectCategoryDto dto);
 
     void deleteProjectCategory(Long id);
 }

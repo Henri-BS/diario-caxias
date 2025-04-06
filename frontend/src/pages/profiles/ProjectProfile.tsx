@@ -192,7 +192,7 @@ export function ProjectProfile() {
                             <Tabs className="p-1 text-slate-600 rounded-md overflow-x-scroll" variant="fullWidth">
                                 <Tabs.Item active title="Eventos" icon={FaIcons.FaCalendarCheck}>
                                     <Pagination pagination={eventPage} onPageChange={handlePageChange} />
-                                    <Timeline className="mt-5 mx-6">
+                                    <Timeline className="mt-5 ml-2">
                                         {eventPage.content?.map(event => {
                                             return (
                                                 <>

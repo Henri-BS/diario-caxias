@@ -13,7 +13,7 @@ public interface UserService {
 
     User findByEmail(String email);
 
-    UserDto saveUser(UserDto dto);
+    void saveUser(UserDto dto);
 
     AccessToken authenticate(String email, String password);
 

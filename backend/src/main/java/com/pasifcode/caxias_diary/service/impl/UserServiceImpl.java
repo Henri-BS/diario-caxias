@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto saveUser(UserDto dto) {
+    public void saveUser(UserDto dto) {
 
         User add = new User();
         add.setEmail(dto.getEmail());
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
         if (getEmail != null) {
             throw new DuplicateTuplesException("Usuário já existe!");
         }
-        return new UserDto(userRepository.save(add));
+        new UserDto(userRepository.save(add));
     }
 
     @Override

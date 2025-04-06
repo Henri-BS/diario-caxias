@@ -32,7 +32,7 @@ public class PostController {
 
     @PostMapping("/save")
     public ResponseEntity<PostDto> savePost(@RequestBody PostDto dto) {
-PostDto add = postService.savePost(dto);
+        PostDto add = postService.savePost(dto);
         return new ResponseEntity<>(add, HttpStatus.CREATED);
     }
 
@@ -44,7 +44,7 @@ PostDto add = postService.savePost(dto);
 
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deletePost(@PathVariable Long id) {
+    public void deletePost(@PathVariable Long id) {
         this.postService.deletePost(id);
     }
 }

@@ -14,7 +14,6 @@ import { Props } from "resources";
 import { useAuth } from "resources/auth";
 import { Event, EventUser } from "resources/event";
 import { Post } from "resources/post";
-import { UserPage } from "resources/user";
 import { baseUrl } from "utils/requests";
 
 
@@ -27,8 +26,8 @@ export function EventProfile() {
 
     function EventDetails({ params: eventId }: Props) {
         const [event, setEvent] = useState<Event>();
-        const [userPage, setUserPage] = useState<EventUser[]>();
         const [posts, setPosts] = useState<Post[]>();
+        const [users, setUsers] = useState<EventUser[]>();
         const auth = useAuth();
         const [addUser, setAddUser] = useState(false);
         const [edit, setEdit] = useState(false);
@@ -39,14 +38,14 @@ export function EventProfile() {
             axios.get(`${baseUrl}/events/${eventId}`)
                 .then((response) => {
                     setEvent(response.data);
-                })
+                });
         }, [eventId]);
 
         useEffect(() => {
             axios.get(`${baseUrl}/event-user?eventId=${eventId}`)
                 .then((response) => {
-                    setUserPage(response.data);
-                })
+                    setUsers(response.data);
+                });
             axios.get(`${baseUrl}/event-post?eventId=${eventId}`)
                 .then((response) => {
                     setPosts(response.data);
@@ -159,16 +158,17 @@ export function EventProfile() {
                                 <Tabs.Item title="Participantes" icon={FaIcons.FaUsersRectangle}>
 
                                     <Button onClick={() => setAddUser(true)} className="text-md font-medium flex space-x-2 items-center" color="gray" gradientDuoTone="purpleToBlue">
-                                        <FaIcons.FaUser className="mr-2 h-5 w-5"/> Participar
+                                        <FaIcons.FaUser className="mr-2 h-5 w-5" /> Participar
                                     </Button>
 
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
-                                        {userPage?.map(user => (
+                                        {users?.map((user) => (
                                             <div key={user?.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
                                                 <UserCard user={user} />
                                             </div>
                                         ))}
                                     </div>
+                                    
                                     <Modal show={addUser} size="3xl" onClose={() => setAddUser(false)} popup>
                                         <Modal.Header />
                                         <Modal.Body>

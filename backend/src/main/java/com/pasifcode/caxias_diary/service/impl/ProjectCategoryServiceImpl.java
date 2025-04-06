@@ -58,7 +58,7 @@ public class ProjectCategoryServiceImpl implements ProjectCategoryService {
     }
 
     @Override
-    public ProjectCategoryDto saveProjectCategory(ProjectCategoryDto dto) {
+    public void saveProjectCategory(ProjectCategoryDto dto) {
         Category category = categoryRepository.findByName(dto.getCategoryName());
         Project project = projectRepository.findById(dto.getProjectId()).orElseThrow();
         User user = userRepository.findById(dto.getUserId()).orElseThrow();
@@ -76,13 +76,13 @@ public class ProjectCategoryServiceImpl implements ProjectCategoryService {
         for (ProjectCategory p : projectCategoryRepository.findAll()) {
             if (Objects.equals(project.getId(), p.getProject().getId()) &&
                     Objects.equals(category.getId(), p.getCategory().getId())) {
-                throw new DuplicateTuplesException("Esta relacão já existe!");
+                throw new DuplicateTuplesException("Esta categoria já está relacionado a este projeto!");
             } else {
                 projectCategoryRepository.saveAndFlush(add);
             }
         }
 
-        return new ProjectCategoryDto(add);
+        new ProjectCategoryDto(add);
     }
 
     @Override

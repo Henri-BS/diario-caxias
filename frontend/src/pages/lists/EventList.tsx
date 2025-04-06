@@ -49,14 +49,14 @@ export default function Events() {
 
                 <Pagination pagination={eventPage} onPageChange={handlePageChange} />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-6 gap-x-4 items-start p-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-6 gap-x-4 items-start mt-5">
                     {eventPage.content?.filter((event) =>
                         event.eventTitle?.toUpperCase().includes(query.toLocaleUpperCase()) ||
                         removeAccents(event.eventTitle)?.toUpperCase().includes(query.toLocaleUpperCase()) ||
                         event.projectTitle?.toUpperCase().includes(query.toLocaleUpperCase()) ||
                         removeAccents(event.projectTitle)?.toUpperCase().includes(query.toLocaleUpperCase())
                     ).map(event => (
-                        <div key={event.eventId} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                        <div key={event.eventId} >
                             <EventCard event={event} />
                         </div>
                     ))}

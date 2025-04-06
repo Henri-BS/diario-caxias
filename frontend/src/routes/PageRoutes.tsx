@@ -27,7 +27,7 @@ export default function PageRoutes({loading=false}: TemplateProps) {
         <>
             <BrowserRouter>
                 <Header />
-                <div className={`${loading ? 'animate-pulse' : ''} mx-auto p-4 `} >
+                <div className={`${loading ? 'animate-pulse' : ''} p-4 `} >
                     {loading ? <Loading/> :
                     <Routes>
                         <Route path="/" element={<Home />} />

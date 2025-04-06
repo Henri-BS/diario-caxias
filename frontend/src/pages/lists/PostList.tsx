@@ -47,12 +47,12 @@ export default function Posts() {
                         onChange={(e) => setQuery(e.target.value)}
                     />
                     <Pagination pagination={postPage} onPageChange={handlePageChange} />
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-10 items-start p-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-6 gap-x-4 items-start mt-5">
                         {postPage?.content.filter((post) =>
                             post.postTitle?.toUpperCase().includes(query.toLocaleUpperCase()) ||
                             removeAccents(post.postTitle)?.toUpperCase().includes(query.toLocaleUpperCase())
                         ).map(post => (
-                            <div key={post.postId} className="relative flex sm:flex-row xl:flex-col items-start ">
+                            <div key={post.postId} className="relative flex sm:flex-row xl:flex-col items-start">
                                 <PostCard post={post} />
                             </div>
                         ))}

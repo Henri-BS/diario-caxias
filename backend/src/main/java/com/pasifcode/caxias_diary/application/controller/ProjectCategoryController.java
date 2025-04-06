@@ -46,6 +46,6 @@ public class ProjectCategoryController {
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProjectCategory(@PathVariable Long id) {
-        projectCategoryService.deleteProjectCategory(id);
+        this.projectCategoryService.deleteProjectCategory(id);
     }
 }

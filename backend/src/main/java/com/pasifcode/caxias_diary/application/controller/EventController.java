@@ -18,7 +18,7 @@ public class EventController {
     private EventService eventService;
 
     @GetMapping
-    ResponseEntity<Page<EventDto>> findEvents(
+    public ResponseEntity<Page<EventDto>> findEvents(
             @RequestParam(defaultValue = "") String title,
             Pageable pageable) {
         Page<EventDto> list = eventService.findAll(pageable);
@@ -26,7 +26,7 @@ public class EventController {
     }
 
     @GetMapping("/by-project/{project}")
-    ResponseEntity<Page<EventDto>> findByProject(
+    public ResponseEntity<Page<EventDto>> findByProject(
             @PathVariable Project project,
             @RequestParam(defaultValue = "") String title,
             Pageable pageable) {
@@ -35,33 +35,33 @@ public class EventController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<EventDto> findEventById(@PathVariable Long id) {
+    public ResponseEntity<EventDto> findEventById(@PathVariable Long id) {
         EventDto find = eventService.findEventById(id);
         return ResponseEntity.ok(find);
     }
 
     @GetMapping("/by-title/{title}")
-    ResponseEntity<EventDto> findEventByTitle(@PathVariable String title) {
+    public ResponseEntity<EventDto> findEventByTitle(@PathVariable String title) {
         EventDto find = eventService.findEventByTitle(title);
         return ResponseEntity.ok(find);
     }
 
 
     @PostMapping("/save")
-    ResponseEntity<EventDto> saveEvent(@RequestBody EventDto dto) {
+    public ResponseEntity<EventDto> saveEvent(@RequestBody EventDto dto) {
         EventDto add = eventService.saveEvent(dto);
         return new ResponseEntity<>(add, HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    ResponseEntity<EventDto> updateEvent(@RequestBody EventDto dto) {
+    public ResponseEntity<EventDto> updateEvent(@RequestBody EventDto dto) {
         EventDto edit = eventService.updateEvent(dto);
         return new ResponseEntity<>(edit, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteEvent(@PathVariable Long id) {
+    public void deleteEvent(@PathVariable Long id) {
         this.eventService.deleteEvent(id);
     }
 }

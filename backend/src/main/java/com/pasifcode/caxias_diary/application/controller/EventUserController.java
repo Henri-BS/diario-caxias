@@ -18,7 +18,7 @@ public class EventUserController {
     @Autowired
     private EventUserService eventUserService;
 
-    @GetMapping
+    public @GetMapping
     ResponseEntity<List<EventUserDto>> search(
             @RequestParam(required = false) Long userId,
             @RequestParam(required = false) Long eventId) {
@@ -27,14 +27,14 @@ public class EventUserController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<EventUserDto> findEventUserById(@PathVariable Long id) {
+    public ResponseEntity<EventUserDto> findEventUserById(@PathVariable Long id) {
         EventUserDto find = eventUserService.findById(id);
         return ResponseEntity.ok(find);
     }
 
 
     @PostMapping("/save")
-    ResponseEntity<Map<String, String>> saveEventUser(@RequestBody EventUserDto dto) {
+    public ResponseEntity<Map<String, String>> saveEventUser(@RequestBody EventUserDto dto) {
         try {
             eventUserService.saveEventUser(dto);
             return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -46,7 +46,7 @@ public class EventUserController {
 
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteEventUser(@PathVariable Long id) {
+    public void deleteEventUser(@PathVariable Long id) {
         this.eventUserService.deleteEventUser(id);
     }
 }
