@@ -13,7 +13,6 @@ public class EventPostDto implements Serializable {
     private Long   id;
     private Long   postId;
     private String postTitle;
-    private String postSummary;
     private String postImage;
     private Long   eventId;
     private String eventTitle;
@@ -29,7 +28,6 @@ public class EventPostDto implements Serializable {
         id = entity.getId();
         postId = entity.getPost().getId();
         postTitle = entity.getPost().getTitle();
-        postSummary = entity.getPost().getSummary();
         postImage = entity.getPost().getImage();
         eventId = entity.getEvent().getId();
         eventTitle = entity.getEvent().getTitle();
@@ -49,10 +47,6 @@ public class EventPostDto implements Serializable {
 
     public String getPostTitle() {
         return postTitle;
-    }
-
-    public String getPostSummary() {
-        return postSummary;
     }
 
     public String getPostImage() {

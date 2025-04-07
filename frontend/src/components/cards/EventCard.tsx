@@ -38,7 +38,7 @@ export const EventSmCard = ({ event }: EventProps) => {
                 <img src={event.eventImage ? event.eventImage : require("assets/img/image.png")} alt="postagem" className="h-16 w-16 md:h-24 md:w-24 rounded-md" />
                 <div className="flex flex-col">
                     <h3 title={event.eventTitle} className="inline-flex font-semibold text-gray-700 h-12 overflow-hidden">{event.eventTitle}</h3>
-                    <p className=" text-gray-600 max-h-12 overflow-hidden">
+                    <p className="text-gray-600 max-h-12 overflow-hidden">
                         Projeto: <Link to={`/projetos/${event.projectId}`} className="hover:underline"> {event?.projectTitle}</Link>
                     </p>
                 </div>

@@ -34,4 +34,17 @@ export type EventUser = {
   userId?: number;
   username?: string; 
   userImage?: string;
+ 
+}
+
+export type EventPost = {
+  id?: number;
+  eventId?: number;
+  eventTitle?: string;
+  eventImage?: string;
+  projectId?: number;
+  projectTitle?: string;
+  userId?: number;
+  postId?: number;
+  postTitle?: string;
 }

@@ -10,7 +10,7 @@ import { baseUrl } from "utils/requests";
 import { useAuth } from "resources/auth";
 import { PostEditForm, EventPostAddForm } from "pages/forms/PostForm";
 import { EventSmCard } from "components/cards/EventCard";
-import { Event } from "resources/event";
+import { Event, EventPost } from "resources/event";
 import { PostSmCard } from "components/cards/PostCard";
 import { Pagination } from "components/shared/Pagination";
 import { CustomMarkdown } from "components/shared/Template";
@@ -28,7 +28,7 @@ export function PostProfile() {
 
 export function PostDetails({ params: postId }: Props) {
     const [post, setPost] = useState<Post>();
-    const [events, setEvents] = useState<Event[]>();
+    const [events, setEvents] = useState<EventPost[]>();
     const auth = useAuth();
     const navigate = useNavigate();
     const [edit, setEdit] = useState(false);
@@ -70,6 +70,12 @@ export function PostDetails({ params: postId }: Props) {
             })
     }
 
+    const deleteEventPost = (id: any) => {
+        axios.delete(`${baseUrl}/event-post/delete/${id}`)
+            .then((response) => {
+                return response.status;
+            })
+    }
 
     return (
         <div>
@@ -186,7 +192,6 @@ export function PostDetails({ params: postId }: Props) {
                                                 <PostSmCard post={post} />
                                             </div>
                                         ))}
-
                                     </div>
                                 </div>
                             </div>
@@ -199,14 +204,30 @@ export function PostDetails({ params: postId }: Props) {
                         {!events?.length ? "Nenhum evento relacionado!" :
                             <div className="grid grid-cols-1 gap-y-6 gap-x-4 items-start p-8">
                                 {events?.map(event => (
-                                    <>
-                                        <div key={event.eventId} >
-                                            <EventSmCard event={event} />
-                                        </div>
-                                    </>
+                                    <div key={event.eventId} className="flex items-center py-1 sm:py-2 hover:bg-slate-200 transition duration-500 hover:shadow-lg rounded-md">
+                                        <Link to={`/eventos/${event.eventId}`} className="w-full text-center flex items-center space-x-4 rtl:space-x-reverse">
+                                            <img src={event.eventImage ? event.eventImage : require("assets/img/image.png")} alt="postagem" className="h-16 w-16 md:h-24 md:w-24 rounded-md" />
+                                            <div className="flex flex-col">
+                                                <h3 title={event.eventTitle} className="inline-flex font-semibold text-gray-700 h-12 overflow-hidden">
+                                                    {event.eventTitle}
+                                                </h3>
+                                                <p className="flex gap-x-1 text-gray-600 max-h-12 overflow-hidden">
+                                                    Projeto: <Link to={`/projetos/${event.projectId}`} className="hover:underline"> {event?.projectTitle}</Link>
+                                                </p>
+                                            </div>
+
+                                        </Link>
+                                        {event?.userId === auth.getUserSession()?.id ?
+                                            <div title="Deletar" className="border-l-2 border-zinc-300 px-2">
+                                                <FaIcons.FaTrash className="cursor-pointer text-xl" onClick={() => deleteEventPost(event.id)} />
+                                            </div>
+                                            : ""
+                                        }
+                                    </div>
                                 ))}
                             </div>
                         }
+
                     </Tabs.Item>
                     <Tabs.Item title="Galeria" icon={FaIcons.FaImages} >
                         <p className="mb-1 py-10 text-center block font-semibold text-3xl leading-6 text-slate-600">Em Desenvolvimento</p>

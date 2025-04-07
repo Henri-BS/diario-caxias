@@ -7,7 +7,7 @@ import java.util.List;
 public interface EventPostService {
     List<EventPostDto> search(Long eventId, Long projectId, Long postId);
 
-    void saveEventPost(EventPostDto dto);
+    EventPostDto saveEventPost(EventPostDto dto);
 
     void deleteEventPost(Long id);
 }

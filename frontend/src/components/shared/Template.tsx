@@ -3,7 +3,7 @@ import * as FaIcons from "react-icons/fa6";
 import { Button, Dropdown, Modal, Sidebar, Tooltip, Footer as FooterFR, Spinner, List } from "flowbite-react";
 import { useAuth } from "resources/auth";
 import { User } from "resources/user";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "utils/requests";
 import Markdown from "react-markdown";
@@ -26,7 +26,6 @@ export const Header = () => {
 
     const auth = useAuth();
     const userSession = auth.getUserSession();
-    const navigate = useNavigate();
     const userId = userSession?.id;
 
     function FindUser() {
@@ -66,7 +65,6 @@ export const Header = () => {
 
     function logout() {
         auth.invalidateSession();
-        navigate(0);
     }
 
     const [isOpen, setIsOpen] = useState(true);
