@@ -1,10 +1,6 @@
-import { CategoryCard } from "components/cards/CategoryCard";
 import { ProjectCard } from "components/cards/ProjectCard";
-import { Pagination } from "components/shared/Pagination";
 import { CustomMarkdown } from "components/shared/Template";
-import { useAuth } from "resources/auth";
-import { CategoryPage } from "resources/category";
-import { Project, ProjectPage } from "resources/project";
+import { Project } from "resources/project";
 import { User } from "resources/user";
 import { Props } from "resources";
 import { baseUrl } from "utils/requests";
