@@ -21,9 +21,7 @@ import { useNotification } from "components/shared/Notification";
 export function ProjectProfile() {
     const params = useParams();
     return (
-        <>
-            <ProjectDetails params={`${params.projectId}`} />
-        </>
+        <ProjectDetails params={`${params.projectId}`} />
     );
 
     function ProjectDetails({ params: projectId }: Props) {
@@ -172,7 +170,7 @@ export function ProjectProfile() {
                                     </Accordion.Title>
                                     <Accordion.Content className="p-2">
                                         <p className="mt-5 text-md text-slate-700 md:px-10">
-                                            <CustomMarkdown item={project?.projectDetails} />
+                                            <CustomMarkdown item={project?.projectDetails ? project.projectDetails : "Nenhuma informação foi encontrada!"} />
                                         </p>
                                     </Accordion.Content>
                                 </Accordion.Panel>
@@ -182,7 +180,7 @@ export function ProjectProfile() {
                                     </Accordion.Title>
                                     <Accordion.Content>
                                         <p className="mt-5 text-xl text-slate-700 md:px-10">
-                                            <CustomMarkdown item={project?.projectDescription} />
+                                            <CustomMarkdown item={project?.projectDescription ? project.projectDescription : "Nenhuma descrição foi encontrada!"} />
                                         </p>
                                     </Accordion.Content>
                                 </Accordion.Panel>
@@ -191,50 +189,58 @@ export function ProjectProfile() {
 
                             <Tabs className="p-1 text-slate-600 rounded-md overflow-x-scroll" variant="fullWidth">
                                 <Tabs.Item active title="Eventos" icon={FaIcons.FaCalendarCheck}>
-                                    <Pagination pagination={eventPage} onPageChange={handlePageChange} />
-                                    <Timeline className="mt-5 ml-2">
-                                        {eventPage.content?.map(event => {
-                                            return (
-                                                <>
-                                                    <Timeline.Item>
-                                                        <Timeline.Point icon={FaIcons.FaCalendarWeek} />
-                                                        <Timeline.Content>
-                                                            <Timeline.Time>{event.eventDate ? moment(event.eventDate).format("DD/MM/yyyy") : "Indefinido"}</Timeline.Time>
-                                                            <Timeline.Body>
-                                                                <EventSmCard event={event} />
-                                                            </Timeline.Body>
-                                                        </Timeline.Content>
-                                                    </Timeline.Item >
-                                                </>
-                                            )
-                                        })}
-                                    </Timeline>
+                                    {eventPage.content.length === null ? "Nenhum evento encontrado!" :
+                                        <div>
+                                            <Pagination pagination={eventPage} onPageChange={handlePageChange} />
+                                            <Timeline className="mt-5 ml-2">
+                                                {eventPage.content?.map(event => {
+                                                    return (
+                                                        <>
+                                                            <Timeline.Item>
+                                                                <Timeline.Point icon={FaIcons.FaCalendarWeek} />
+                                                                <Timeline.Content>
+                                                                    <Timeline.Time>{event.eventDate ? moment(event.eventDate).format("DD/MM/yyyy") : "Indefinido"}</Timeline.Time>
+                                                                    <Timeline.Body>
+                                                                        <EventSmCard event={event} />
+                                                                    </Timeline.Body>
+                                                                </Timeline.Content>
+                                                            </Timeline.Item >
+                                                        </>
+                                                    )
+                                                })}
+                                            </Timeline>
+                                        </div>
+                                    }
                                 </Tabs.Item>
 
                                 <Tabs.Item title="Categorias" icon={FaIcons.FaTag}>
-                                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-y-10 gap-x-4 items-start p-4">
-                                        {categories?.map(category => (
-                                            <div key={category.id} className="flex flex-row items-center py-4 bg-zinc-100 border border-zinc-400 rounded-lg shadow-md transition duration-700 hover:shadow-xl hover:scale-105">
-                                                <Link to={`/categorias/${category.categoryName}`} className="w-full text-center">
-                                                    <h5 title={category.categoryName} className="h-8 text-lg font-semibold tracking-tight text-gray-900 overflow-hidden">{category.categoryName}</h5>
-                                                </Link>
-                                                {project?.userId === auth.getUserSession()?.id ?
-                                                    <div title="Deletar" className="border-l-2 border-zinc-300 px-2">
-                                                        <FaIcons.FaTrash className="cursor-pointer" onClick={() => deleteProjectCategory(category.id)} />
-                                                    </div>
-                                                    : ""
-                                                }
-                                            </div>
-                                        ))}
-                                    </div>
+                                    {categories?.length === null ? "Nenhuma categoria encontrada!" :
+                                        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-y-10 gap-x-4 items-start p-4">
+                                            {categories?.map(category => (
+                                                <div key={category.id} className="flex flex-row items-center py-4 bg-zinc-100 border border-zinc-400 rounded-lg shadow-md transition duration-700 hover:shadow-xl hover:scale-105">
+                                                    <Link to={`/categorias/${category.categoryName}`} className="w-full text-center">
+                                                        <h5 title={category.categoryName} className="h-8 text-lg font-semibold tracking-tight text-gray-900 overflow-hidden">{category.categoryName}</h5>
+                                                    </Link>
+                                                    {project?.userId === auth.getUserSession()?.id ?
+                                                        <div title="Deletar" className="border-l-2 border-zinc-300 px-2">
+                                                            <FaIcons.FaTrash className="cursor-pointer" onClick={() => deleteProjectCategory(category.id)} />
+                                                        </div>
+                                                        : ""
+                                                    }
+                                                </div>
+                                            ))}
+                                        </div>
+                                    }
                                 </Tabs.Item>
 
                                 <Tabs.Item active title="Postagens" icon={FaIcons.FaNewspaper}>
-                                    <div className="mt-10 grid grid-cols-1 divide-y gap-x-8 ">
-                                        {postsByProject?.map(post => (
-                                            <PostSmCard post={post} />
-                                        ))}
-                                    </div>
+                                    {postsByProject?.length === null ? "Nenhuma postagem encontrada!" :
+                                        <div className="mt-10 grid grid-cols-1 divide-y gap-x-8 ">
+                                            {postsByProject?.map(post => (
+                                                <PostSmCard post={post} />
+                                            ))}
+                                        </div>
+                                    }
                                 </Tabs.Item>
 
                                 <Tabs.Item active title="Galeria" icon={FaIcons.FaImage}>

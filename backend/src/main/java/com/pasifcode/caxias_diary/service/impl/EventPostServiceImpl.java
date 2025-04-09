@@ -50,7 +50,7 @@ public class EventPostServiceImpl implements EventPostService {
     }
 
     @Override
-    public EventPostDto saveEventPost(EventPostDto dto) {
+    public void saveEventPost(EventPostDto dto) {
         Post post = postRepository.findById(dto.getPostId()).orElseThrow();
         Event event = eventRepository.findByTitle(dto.getEventTitle());
         User user = userRepository.findById(dto.getUserId()).orElseThrow();
@@ -59,7 +59,7 @@ public class EventPostServiceImpl implements EventPostService {
         add.setPost(post);
         add.setEvent(event);
         add.setUser(user);
-        for(EventPost e : eventPostRepository.findByEventAndPost(event, post)){
+        for(EventPost e : eventPostRepository.findAll()){
             if (Objects.equals(event.getId(), e.getEvent().getId()) &&
             Objects.equals(post.getId(), e.getPost().getId())){
                 throw new DuplicateTuplesException("Este evento já está relacionado a esta postagem!");
@@ -67,7 +67,7 @@ public class EventPostServiceImpl implements EventPostService {
                 eventPostRepository.saveAndFlush(add);
             }
         }
-        return new EventPostDto(add);
+        new EventPostDto(add);
     }
 
     @Override

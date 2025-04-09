@@ -55,7 +55,7 @@ export default function Home() {
             .then((response) => {
                 setCategories(response.data);
             });
-        axios.get(`${baseUrl}/events?size=9`)
+        axios.get(`${baseUrl}/events?size=9&sort=eventDate,DESC`)
             .then((response) => {
                 setEvents(response.data);
             })
@@ -111,20 +111,19 @@ export default function Home() {
                             </Flowbite>
                         </div>
 
-                        <div className="mt-4">
-                            <div className="divide-y divide-gray-300">
+                            <div className="mt-4 md:mt-0 divide-y divide-gray-300 md:overflow-y-scroll md:h-80 ">
                                 {posts.content.map(post => (
                                     <div key={post.postId}>
                                         <PostSmCard post={post} />
                                     </div>
                                 ))}
-                            </div>
+
                         </div>
                     </div>
                 </div>
 
                 <div className="flex justify-between p-4 sm:text-lg md:text-xl">
-                    <h1>Projetos recentes</h1>
+                    <h1>Projetos</h1>
                     <Link to={"/projetos"} className="text-blue-600 hover:text-blue-400 hover:underline">
                         Ver mais
                     </Link>

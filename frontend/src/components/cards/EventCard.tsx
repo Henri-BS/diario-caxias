@@ -5,25 +5,25 @@ import { Link } from "react-router-dom";
 
 export const EventCard = ({ event }: EventProps) => {
     return (
-        <Link to={`/eventos/${event.eventId}`}
-            className="flex flex-row items-center bg-zinc-100 border border-zinc-300 p-2 rounded-xl shadow-md transition duration-700 hover:shadow-xl hover:scale-105">
-            <img className="object-cover rounded-t-xl h-24 md:w-40 md:h-40" src={event.eventImage ? event.eventImage : require("assets/img/image.png")} alt={event.eventTitle} />
-            <div>
-                <h5 title={event.eventTitle} className="h-12 max-w-[400px] md:h-14 text-md md:text-lg font-semibold tracking-tight text-gray-900 overflow-hidden">
-                    {event.eventTitle}
-                </h5>
-                <div className="h-6 overflow-hidden">
-                    <Link title={`Projeto: ${event.projectTitle}`} to={`/projetos/${event.projectId}`} className="text-md text-gray-500 overflow-hidden hover:underline">
-                        {event.projectTitle}
-                    </Link>
-
-                </div>
-                <div className="mt-4 flex flex-col md:flex-row md:mt-10 justify-between text-sm font-medium text-gray-700">
-                    <p title="Data do Evento" className="flex gap-2 items-center text-center">
-                        <GoIcons.GoCalendar /> {moment(event.eventDate).format("DD/MM/yyyy")}
+        <Link to={`/eventos/${event.eventId}`} className="flex flex-row items-center bg-zinc-100 border border-zinc-300 p-2 rounded-lg shadow-md transition duration-700 hover:shadow-xl hover:scale-105">
+            <img className="object-cover rounded-lg h-24 md:w-36 md:h-36" src={event.eventImage ? event.eventImage : require("assets/img/image.png")} alt={event.eventTitle} />
+            <div className="flex flex-col justify-between pl-2">
+                <div>
+                    <h5 title={event.eventTitle} className="h-12 max-w-[400px] md:h-14 text-md md:text-lg font-semibold tracking-tight text-gray-900 overflow-hidden">
+                        {event.eventTitle}
+                    </h5>
+                    <p className="text-md text-gray-500 hover:underline max-h-6 overflow-hidden">
+                        <Link title={`Projeto: ${event.projectTitle}`} to={`/projetos/${event.projectId}`} >
+                            {event.projectTitle}
+                        </Link>
                     </p>
-                    <p title="Status do Evento" className="flex gap-2 items-center text-center">
-                        <GoIcons.GoChecklist /> {event.eventStatus}
+                </div>
+                <div className="md:mt-6 flex flex-col md:flex-row justify-between text-sm font-medium text-gray-700">
+                    <p title="Data do evento" className="flex gap-x-1 items-center text-center">
+                        <GoIcons.GoCalendar /> {event.eventDate ? moment(event.eventDate).format("DD/MM/yyyy") : "Indefinido"}
+                    </p>
+                    <p title="Status do evento" className="flex gap-x-1 items-center text-center">
+                        <GoIcons.GoChecklist /> {event.eventStatus ? event.eventStatus : "Indefinido"}
                     </p>
                 </div>
             </div>

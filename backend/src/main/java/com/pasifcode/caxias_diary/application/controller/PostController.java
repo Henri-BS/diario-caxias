@@ -1,6 +1,7 @@
 package com.pasifcode.caxias_diary.application.controller;
 
 import com.pasifcode.caxias_diary.domain.dto.PostDto;
+import com.pasifcode.caxias_diary.domain.entity.User;
 import com.pasifcode.caxias_diary.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/posts")
@@ -17,10 +20,14 @@ public class PostController {
     private PostService postService;
 
     @GetMapping
-    public ResponseEntity<Page<PostDto>> findPosts(
-            @RequestParam(defaultValue = "") String title,
-            Pageable pageable) {
+    public ResponseEntity<Page<PostDto>> findPosts(Pageable pageable) {
         Page<PostDto> list = postService.findAll(pageable);
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/by-user/{user}")
+    public ResponseEntity<List<PostDto>> findPostsByUser(@PathVariable User user) {
+        List<PostDto> list = postService.findByUser(user);
         return ResponseEntity.ok(list);
     }
 

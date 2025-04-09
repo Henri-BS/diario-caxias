@@ -4,36 +4,36 @@ import { Pagination } from "components/shared/Pagination";
 import { CustomMarkdown } from "components/shared/Template";
 import { useAuth } from "resources/auth";
 import { CategoryPage } from "resources/category";
-import { ProjectPage } from "resources/project";
+import { Project, ProjectPage } from "resources/project";
 import { User } from "resources/user";
 import { Props } from "resources";
 import { baseUrl } from "utils/requests";
 
-import { Accordion, Breadcrumb } from "flowbite-react";
+import { Accordion, Breadcrumb, Tabs } from "flowbite-react";
 
 import { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa6";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import { Event, EventUser } from "resources/event";
+import { EventSmCard } from "components/cards/EventCard";
+import { PostSmCard } from "components/cards/PostCard";
+import { Post } from "resources/post";
 
-export function UserPersonalProfile() {
+export function UserProfile() {
     const params = useParams();
 
     return (
-        <UserPersonalDetails params={`${params.userId}`} />
+        <UserDetails params={`${params.userId}`} />
     );
 
-    function UserPersonalDetails({ params: userId }: Props) {
+    function UserDetails({ params: userId }: Props) {
 
-        const auth = useAuth();
-        userId = auth.getUserSession()?.id;
         const [user, setUser] = useState<User>();
-        const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
-        const [categoryPage, setCategoryPage] = useState<CategoryPage>({ content: [], page: { number: 0, totalElements: 0 } });
-        const [pageNumber, setPageNumber] = useState(0);
-        const handlePageChange = (newPageNumber: number) => {
-            setPageNumber(newPageNumber)
-        }
+        const [projects, setProjects] = useState<Project[]>();
+        const [eventsCreated, setEventsCreated] = useState<Event[]>();
+        const [events, setEvents] = useState<EventUser[]>();
+        const [posts, setPosts] = useState<Post[]>();
 
         useEffect(() => {
             axios.get(`${baseUrl}/users/${userId}`)
@@ -43,16 +43,27 @@ export function UserPersonalProfile() {
         }, [userId]);
 
         useEffect(() => {
-            axios.get(`${baseUrl}/projects/by-user/${userId}?page=${pageNumber}&size=10`)
+            axios.get(`${baseUrl}/projects/by-user/${userId}`)
                 .then((response) => {
-                    setProjectPage(response.data);
+                    setProjects(response.data);
                 });
 
-            axios.get(`${baseUrl}/user-category?userId=${userId}&page=${pageNumber}&size=9`)
+            axios.get(`${baseUrl}/events/by-user/${userId}`)
                 .then((response) => {
-                    setCategoryPage(response.data);
+                    setEventsCreated(response.data);
                 });
-        }, [userId, pageNumber]);
+
+            axios.get(`${baseUrl}/posts/by-user/${userId}`)
+                .then((response) => {
+                    setPosts(response.data);
+                });
+
+            axios.get(`${baseUrl}/event-user?userId=${userId}`)
+                .then((response) => {
+                    setEvents(response.data);
+                });
+
+        }, [userId]);
 
 
         return (
@@ -75,65 +86,84 @@ export function UserPersonalProfile() {
                     </Breadcrumb.Item>
                 </Breadcrumb>
 
-                <div className="flex flex-wrap items-center  justify-center">
-                    <div className="container lg:w-full bg-white shadow-xl transform duration-200 easy-in-out">
-                        <div className=" h-40 overflow-hidden" >
-                            <img className="w-full rounded-t-lg" src={user?.userCoverImage ?? require("assets/img/user_cover.png")} alt={user?.username} />
+                <div>
+                    <div className="flex flex-wrap items-center justify-center my-4">
+                        <div className="lg:w-full bg-white transform duration-200 easy-in-out">
+                            <div className=" h-40 overflow-hidden" >
+                                <img className="w-full rounded-t-lg" src={user?.userCoverImage ?? require("assets/img/user_cover.png")} alt={user?.username} />
+                            </div>
+                            <div className="flex justify-center px-5 -mt-12">
+                                <img className="h-32 w-32 bg-white p-2 rounded-full" src={user?.userImage ?? require("assets/img/user_profile.png")} alt={user?.username} />
+                            </div>
+                            <div className="text-gray-600 text-center px-14">
+                                <h2 className="text-gray-800 text-3xl font-bold">{user?.username}</h2>
+                                <p className="mt-2 text-md font-semibold"> {user?.userLocation} </p>
+                            </div>
                         </div>
-                        <div className="flex justify-center px-5 -mt-12">
-                            <img className="h-32 w-32 bg-white p-2 rounded-full" src={user?.userImage ?? require("assets/img/user_profile.png")} alt={user?.username} />
-                        </div>
-                        <div className="text-gray-600 text-center px-14">
-                            <h2 className="text-gray-800 text-3xl font-bold">{user?.username}</h2>
-                            <p className="mt-2 text-md font-semibold"> {user?.userLocation} </p>
-                            <p className="mt-2 text-lg text-justify">
-                                <CustomMarkdown item={user?.userBio} />
-                            </p>
-                        </div>
-                        <hr className="mt-6" />
                     </div>
-                </div>
-                <Accordion collapseAll className="mt-12 ">
-                    <Accordion.Panel>
-                        <Accordion.Title>
-                            <h2 className="flex flex-row gap-2 mt-5 text-2xl text-zinc-800 "><FaIcons.FaTag />Categorias Relacionadas</h2>
-                        </Accordion.Title>
-                        <Accordion.Content className="p-2">
+                    <Accordion collapseAll className="my-6 ">
+                        <Accordion.Panel>
+                            <Accordion.Title>
+                                <h2 className="flex flex-row items-center gap-2 text-xl text-slate-800 "><FaIcons.FaPencil />Bio</h2>
+                            </Accordion.Title>
+                            <Accordion.Content className="p-2">
 
-                            <div className="flex items-center w-full justify-center">
-                                <Pagination pagination={categoryPage} onPageChange={handlePageChange} />
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
-                                {categoryPage.content?.map(category => (
-                                    <div key={category.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
-                                        <CategoryCard category={category} />
-                                    </div>
-                                ))}
-                            </div>
+                                <p className="mt-2 text-md md:text-lg ">
+                                    <CustomMarkdown item={user?.userBio} />
+                                </p>
+                            </Accordion.Content>
+                        </Accordion.Panel>
+                    </Accordion>
 
-                        </Accordion.Content>
-                    </Accordion.Panel>
-
-                    <Accordion.Panel>
-                        <Accordion.Title>
-                            <h2 className="flex flex-row gap-2 mt-5 text-2xl text-zinc-800 "><FaIcons.FaFolderClosed />Projetos Relacionados</h2>
-                        </Accordion.Title>
-                        <Accordion.Content className="p-2">
-                            <div className="flex items-center w-full justify-center mt-12">
-                                <Pagination pagination={projectPage} onPageChange={handlePageChange} />
-                            </div>
-                            <div className="  grid grid-cols-1 xl:grid-cols-2 gap-y-10 gap-x-6 items-start p-8">
-                                {projectPage.content?.map(project => (
-                                    <div key={project.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                    <Tabs className="p-1 text-slate-600 rounded-md overflow-x-scroll" variant="fullWidth">
+                        <Tabs.Item icon={FaIcons.FaFolderClosed} title="Projetos Relacionados" >
+                            <h2 className="mt-5 text-2xl text-zinc-800 ">Projetos Criados:</h2>
+                            <div className="grid grid-cols-1 gap-y-10 gap-x-6 items-start p-8 divide-y divide-gray-300">
+                                {projects?.map(project => (
+                                    <div key={project.id}>
                                         <ProjectCard project={project} />
                                     </div>
                                 ))}
                             </div>
-                        </Accordion.Content>
-                    </Accordion.Panel>
-                </Accordion>
+                        </Tabs.Item>
+                        <Tabs.Item icon={FaIcons.FaCalendarCheck} title="Eventos Relacionados" >
+                            <h2 className="mt-5 text-2xl text-zinc-800 ">Eventos Criados:</h2>
+                            {eventsCreated?.length === null ? "Nenhum evento criado encontrado!" :
+                                <div className="grid grid-cols-1 items-start p-8 divide-y divide-gray-300">
+                                    {eventsCreated?.map(event =>
+                                        <div key={event.eventId}>
+                                            <EventSmCard event={event} />
+                                        </div>
+                                    )}
+                                </div>
+                            }
+
+                            <h2 className="mt-5 text-2xl text-zinc-800 ">Eventos que Participo: </h2>
+                            {events?.length === null ? "Nenhum evento que participo encontrado!" :
+                                <div className="grid grid-cols-1 items-start p-8 divide-y divide-gray-300">
+                                    {events?.map(event => (
+                                        <div key={event.eventId} >
+                                            <EventSmCard event={event} />
+                                        </div>
+                                    ))}
+                                </div>
+                            }
+                        </Tabs.Item>
+                        <Tabs.Item icon={FaIcons.FaNewspaper} title="Postagens Relacionadas">
+                            <h2 className="mt-5 text-2xl text-zinc-800 ">Postagens Criadas: </h2>
+                            {posts?.length === null ? "Nenhuma postagem criada encontrada!" :
+                                <div className="grid grid-cols-1 gap-x-2 w-full items-start p-8 divide-y divide-gray-300">
+                                    {posts?.map(post => (
+                                        <div key={post.postId}>
+                                            <PostSmCard post={post} />
+                                        </div>
+                                    ))}
+                                </div>
+                            }
+                        </Tabs.Item>
+                    </Tabs>
+                </div>
             </div>
         );
     }
 }
-

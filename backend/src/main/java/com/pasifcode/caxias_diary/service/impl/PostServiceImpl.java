@@ -12,6 +12,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
+
 @Service
 @Transactional
 public class PostServiceImpl implements PostService {
@@ -22,13 +25,20 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private UserRepository userRepository;
 
+
     @Override
-    @Transactional(readOnly=true)
-    public Page<PostDto> findAll(Pageable pageable){
-         Page<Post> list = postRepository.findAll(pageable);
-         return list.map(PostDto::new);
+    @Transactional(readOnly = true)
+    public Page<PostDto> findAll(Pageable pageable) {
+        Page<Post> list = postRepository.findAll(pageable);
+        return list.map(PostDto::new);
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public List<PostDto> findByUser(User user) {
+        List<Post> list = postRepository.findByUser(user);
+        return list.stream().map(PostDto::new).toList();
+    }
     @Override
     public PostDto findById(Long id) {
         Post find = postRepository.findById(id).orElseThrow();

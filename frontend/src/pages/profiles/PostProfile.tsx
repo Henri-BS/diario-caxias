@@ -73,6 +73,7 @@ export function PostDetails({ params: postId }: Props) {
     const deleteEventPost = (id: any) => {
         axios.delete(`${baseUrl}/event-post/delete/${id}`)
             .then((response) => {
+                navigate(0);
                 return response.status;
             })
     }

@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class EventServiceImpl implements EventService {
@@ -39,6 +41,12 @@ public class EventServiceImpl implements EventService {
     public Page<EventDto> findByProject(Project project, Pageable pageable) {
         Page<Event> list = eventRepository.findByProject(project, pageable);
         return list.map(EventDto::new);
+    }
+
+    @Override
+    public List<EventDto> findByUser(User user) {
+        List<Event> list = eventRepository.findByUser(user);
+        return list.stream().map(EventDto::new).toList();
     }
 
     @Override

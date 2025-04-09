@@ -8,7 +8,7 @@ export const ProjectCard = ({ project }: ProjectProps) => {
             <img className="object-cover h-full w-28 md:h-40 md:w-40 rounded-s-xl" src={project.projectImage ? project.projectImage : require("assets/img/image.png")} alt={project.projectTitle} />
             <div className="flex flex-col justify-between p-4 leading-normal mt-2">
                 <h3 title={project.projectTitle} className=" h-6 text-md md:text-lg text-gray-900 font-semibold overflow-hidden">{project.projectTitle}</h3>
-                <p className="h-[40px] md:h-[60px] mb-3 text-sm font-normal text-gray-700 overflow-hidden"><Markdown>{project.projectDescription}</Markdown></p>
+                <p className="h-[40px] md:h-[60px] mb-3 text-sm font-normal text-gray-700 truncate text-ellipsis text-wrap"><Markdown>{project.projectDescription}</Markdown></p>
             </div>
         </Link>
     );

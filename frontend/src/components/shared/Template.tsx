@@ -43,7 +43,7 @@ export const Header = () => {
             <Dropdown label="" dismissOnClick={false}
                 renderTrigger={() => <img src={user?.userImage ?? "https://cdn1.iconfinder.com/data/icons/basic-ui-element-2-2-line/512/Basic_UI_Elements_-_2.1_-_line-11-256.png"} className="h-12 w-12 rounded-full bg-[#ffffffbe] cursor-point border border-gray-100 transition duration-600 hover:border-blue-500" alt={user?.username} />}>
                 <Tooltip content={user?.username}>
-                    <Link to={`/perfil/${userId}`}>
+                    <Link to={`/usuarios/${userId}`}>
                         <Dropdown.Item icon={FaIcons.FaUser} className="text-md font-medium">
                             Meu Perfil
                         </Dropdown.Item>

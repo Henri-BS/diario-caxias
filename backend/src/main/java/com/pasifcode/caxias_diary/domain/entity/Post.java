@@ -57,5 +57,4 @@ public class Post extends BaseEntity {
     public void setUser(User user) {
         this.user = user;
     }
-
 }

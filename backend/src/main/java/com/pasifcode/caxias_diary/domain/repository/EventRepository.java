@@ -2,6 +2,7 @@ package com.pasifcode.caxias_diary.domain.repository;
 
 import com.pasifcode.caxias_diary.domain.entity.Event;
 import com.pasifcode.caxias_diary.domain.entity.Project;
+import com.pasifcode.caxias_diary.domain.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,4 +17,5 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     Event findByTitle(String title);
 
+    List<Event> findByUser(User user);
 }

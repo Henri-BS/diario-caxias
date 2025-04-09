@@ -11,7 +11,7 @@ import axios from "axios";
 import { baseUrl } from "utils/requests";
 import { Props } from "resources";
 import { useEffect, useState } from "react";
-import { EventPage } from "resources/event";
+import { EventPage, EventPost } from "resources/event";
 
 export const postValidationSchema = Yup.object().shape({
     postTitle: Yup.string()
@@ -291,11 +291,6 @@ export function EventPostAddForm({ params: postId }: Props) {
             })
     }, [query]);
 
-    type EventPost = {
-        eventTitle?: string;
-        postId?: number;
-        userId?: number;
-    }
 
     const { values, handleChange, resetForm } = useFormik<EventPost>({
         initialValues: {

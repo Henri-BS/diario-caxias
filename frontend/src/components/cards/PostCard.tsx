@@ -4,10 +4,10 @@ import { PostProps } from "resources/post";
 
 export const PostCard = ({ post }: PostProps) => {
     return (
-        <Link to={`/postagens/${post.postId}`} className="w-full bg-zinc-800 rounded-xl hover:bg-zinc-100 shadow-md transition duration-700 hover:shadow-xl ">
-            <div className="lg:w-full bg-zinc-100 rounded-xl hover:shadow-lg">
+        <Link to={`/postagens/${post.postId}`} className="w-full bg-zinc-800 rounded-lg hover:bg-zinc-100 shadow-md transition duration-700 hover:shadow-xl ">
+            <div className="lg:w-full bg-zinc-100 rounded-lg">
                 <img className="object-cover w-full rounded-xl h-60 md:h-80" src={post.postImage ? post.postImage : require("assets/img/image.png")} alt={"postagem"} />
-                <h5 title={post.postTitle} className=" h-[78px] rounded-b-xl w-full absolute bottom-0 p-4 text-lg font-semibold bg-zinc-800/80 tracking-tight text-white overflow-hidden text-ellipsis">{post.postTitle}</h5>
+                <h5 title={post.postTitle} className="h-[78px] rounded-b-xl w-full absolute bottom-0 p-4 text-lg font-semibold bg-zinc-800/80 tracking-tight text-white overflow-hidden text-ellipsis">{post.postTitle}</h5>
             </div>
         </Link>
     );

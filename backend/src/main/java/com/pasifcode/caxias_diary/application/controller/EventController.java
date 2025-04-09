@@ -2,6 +2,7 @@ package com.pasifcode.caxias_diary.application.controller;
 
 import com.pasifcode.caxias_diary.domain.entity.Project;
 import com.pasifcode.caxias_diary.domain.dto.EventDto;
+import com.pasifcode.caxias_diary.domain.entity.User;
 import com.pasifcode.caxias_diary.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/events")
@@ -18,9 +21,7 @@ public class EventController {
     private EventService eventService;
 
     @GetMapping
-    public ResponseEntity<Page<EventDto>> findEvents(
-            @RequestParam(defaultValue = "") String title,
-            Pageable pageable) {
+    public ResponseEntity<Page<EventDto>> findEvents(Pageable pageable) {
         Page<EventDto> list = eventService.findAll(pageable);
         return ResponseEntity.ok(list);
     }
@@ -28,9 +29,15 @@ public class EventController {
     @GetMapping("/by-project/{project}")
     public ResponseEntity<Page<EventDto>> findByProject(
             @PathVariable Project project,
-            @RequestParam(defaultValue = "") String title,
             Pageable pageable) {
         Page<EventDto> list = eventService.findByProject(project, pageable);
+        return ResponseEntity.ok(list);
+    }
+
+
+    @GetMapping("/by-user/{user}")
+    public ResponseEntity<List<EventDto>> findPostsByUser(@PathVariable User user) {
+        List<EventDto> list = eventService.findByUser(user);
         return ResponseEntity.ok(list);
     }
 

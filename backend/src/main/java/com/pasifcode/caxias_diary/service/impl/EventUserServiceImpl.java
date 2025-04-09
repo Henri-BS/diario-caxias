@@ -59,7 +59,7 @@ public class EventUserServiceImpl implements EventUserService {
         EventUser add = new EventUser();
         add.setUser(user);
         add.setEvent(event);
-        for (EventUser e : eventUserRepository.findByEventAndUser(event, user)) {
+        for (EventUser e : eventUserRepository.findAll()) {
             if (Objects.equals(event.getId(), e.getEvent().getId()) &&
                     Objects.equals(user.getId(), e.getUser().getId())) {
                 throw new DuplicateTuplesException("Este usuário já está relacionado a este evento!");
