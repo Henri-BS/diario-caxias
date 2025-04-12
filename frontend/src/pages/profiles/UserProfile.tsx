@@ -112,7 +112,7 @@ export function UserProfile() {
                     </Accordion>
 
                     <Tabs className="p-1 text-slate-600 rounded-md overflow-x-scroll" variant="fullWidth">
-                        <Tabs.Item icon={FaIcons.FaFolderClosed} title="Projetos Relacionados" >
+                        <Tabs.Item icon={FaIcons.FaFolderClosed} title="Projetos" >
                             <h2 className="mt-5 text-2xl text-zinc-800 ">Projetos Criados:</h2>
                             <div className="grid grid-cols-1 gap-y-10 gap-x-6 items-start p-8 divide-y divide-gray-300">
                                 {projects?.map(project => (
@@ -122,10 +122,10 @@ export function UserProfile() {
                                 ))}
                             </div>
                         </Tabs.Item>
-                        <Tabs.Item icon={FaIcons.FaCalendarCheck} title="Eventos Relacionados" >
+                        <Tabs.Item icon={FaIcons.FaCalendarCheck} title="Eventos" >
                             <h2 className="mt-5 text-2xl text-zinc-800 ">Eventos Criados:</h2>
                             {eventsCreated?.length === null ? "Nenhum evento criado encontrado!" :
-                                <div className="grid grid-cols-1 items-start p-8 divide-y divide-gray-300">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start gap-4">
                                     {eventsCreated?.map(event =>
                                         <div key={event.eventId}>
                                             <EventSmCard event={event} />
@@ -136,7 +136,7 @@ export function UserProfile() {
 
                             <h2 className="mt-5 text-2xl text-zinc-800 ">Eventos que Participo: </h2>
                             {events?.length === null ? "Nenhum evento que participo encontrado!" :
-                                <div className="grid grid-cols-1 items-start p-8 divide-y divide-gray-300">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start gap-4">
                                     {events?.map(event => (
                                         <div key={event.eventId} >
                                             <EventSmCard event={event} />
@@ -145,10 +145,10 @@ export function UserProfile() {
                                 </div>
                             }
                         </Tabs.Item>
-                        <Tabs.Item icon={FaIcons.FaNewspaper} title="Postagens Relacionadas">
+                        <Tabs.Item icon={FaIcons.FaNewspaper} title="Postagens">
                             <h2 className="mt-5 text-2xl text-zinc-800 ">Postagens Criadas: </h2>
                             {posts?.length === null ? "Nenhuma postagem criada encontrada!" :
-                                <div className="grid grid-cols-1 gap-x-2 w-full items-start p-8 divide-y divide-gray-300">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start gap-4">
                                     {posts?.map(post => (
                                         <div key={post.postId}>
                                             <PostSmCard post={post} />

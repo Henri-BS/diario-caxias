@@ -34,19 +34,15 @@ export function PostDetails({ params: postId }: Props) {
     const [edit, setEdit] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
     const [addEvent, setAddEvent] = useState(false);
-    const [pageNumber, setPageNumber] = useState(0);
     const [postPage, setPostPage] = useState<PostPage>({ content: [], page: { number: 0, totalElements: 0 } });
 
-    const handlePageChange = (newPageNumber: number) => {
-        setPageNumber(newPageNumber);
-    }
 
     useEffect(() => {
-        axios.get(`${baseUrl}/posts?page=${pageNumber}&size=6&sort=id,DESC`)
+        axios.get(`${baseUrl}/posts?size=6&sort=id,DESC`)
             .then((response) => {
                 setPostPage(response.data);
             });
-    }, [pageNumber]);
+    }, []);
 
     useEffect(() => {
         axios.get(`${baseUrl}/posts/${postId}`)
@@ -80,8 +76,8 @@ export function PostDetails({ params: postId }: Props) {
 
     return (
         <div>
-            <div className="flex flex-col md:flex-row justify-between md:items-center py-4 text-lg font-semibold text-gray-700">
-                <Breadcrumb aria-label="breadcrumb" className="py-2 md:py-0">
+            <div className="flex flex-col md:flex-row justify-between md:items-center text-lg font-semibold text-gray-700">
+                <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
                     <Breadcrumb.Item icon={FaIcons.FaHouse}>
                         <Link to="/">
                             Início
@@ -186,7 +182,6 @@ export function PostDetails({ params: postId }: Props) {
                                 </Card>
                                 <div>
                                     <h2 className="font-semibold text-xl text-slate-800">Outras Postagens</h2>
-                                    <Pagination pagination={postPage} onPageChange={handlePageChange} />
                                     <div className="divide-y divide-gray-300 my-4">
                                         {postPage?.content.map(post => (
                                             <div key={post.postId}>
@@ -203,12 +198,12 @@ export function PostDetails({ params: postId }: Props) {
                 <Tabs className="p-1 text-slate-600 rounded-md overflow-x-scroll" variant="fullWidth">
                     <Tabs.Item icon={FaIcons.FaCalendarCheck} title="Eventos Relacionados" >
                         {!events?.length ? "Nenhum evento relacionado!" :
-                            <div className="grid grid-cols-1 gap-y-6 gap-x-4 items-start p-8">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start gap-4">
                                 {events?.map(event => (
-                                    <div key={event.eventId} className="flex items-center py-1 sm:py-2 hover:bg-slate-200 transition duration-500 hover:shadow-lg rounded-md">
-                                        <Link to={`/eventos/${event.eventId}`} className="w-full text-center flex items-center space-x-4 rtl:space-x-reverse">
+                                    <div key={event.eventId} className="flex items-center p-2 hover:bg-slate-200 transition duration-500 hover:shadow-lg rounded-md">
+                                        <Link to={`/eventos/${event.eventId}`} className="w-full flex items-center">
                                             <img src={event.eventImage ? event.eventImage : require("assets/img/image.png")} alt="postagem" className="h-16 w-16 md:h-24 md:w-24 rounded-md" />
-                                            <div className="flex flex-col">
+                                            <div className="flex flex-col pl-2">
                                                 <h3 title={event.eventTitle} className="inline-flex font-semibold text-gray-700 h-12 overflow-hidden">
                                                     {event.eventTitle}
                                                 </h3>
@@ -216,7 +211,6 @@ export function PostDetails({ params: postId }: Props) {
                                                     Projeto: <Link to={`/projetos/${event.projectId}`} className="hover:underline"> {event?.projectTitle}</Link>
                                                 </p>
                                             </div>
-
                                         </Link>
                                         {event?.userId === auth.getUserSession()?.id ?
                                             <div title="Deletar" className="border-l-2 border-zinc-300 px-2">
@@ -229,6 +223,9 @@ export function PostDetails({ params: postId }: Props) {
                             </div>
                         }
 
+                    </Tabs.Item>
+                    <Tabs.Item title="Comentários" icon={FaIcons.FaMessage} >
+                        <p className="mb-1 py-10 text-center block font-semibold text-3xl leading-6 text-slate-600">Em Desenvolvimento</p>
                     </Tabs.Item>
                     <Tabs.Item title="Galeria" icon={FaIcons.FaImages} >
                         <p className="mb-1 py-10 text-center block font-semibold text-3xl leading-6 text-slate-600">Em Desenvolvimento</p>

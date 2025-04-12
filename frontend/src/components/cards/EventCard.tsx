@@ -34,7 +34,7 @@ export const EventCard = ({ event }: EventProps) => {
 export const EventSmCard = ({ event }: EventProps) => {
     return (
         <Link to={`/eventos/${event.eventId}`}>
-            <div className="flex items-center space-x-4 rtl:space-x-reverse  py-1 sm:py-2 hover:bg-slate-200 transition duration-500 hover:shadow-lg rounded-md">
+            <div className="flex items-center space-x-4 rtl:space-x-reverse p-2 hover:bg-slate-200 transition duration-500 hover:shadow-lg rounded-md">
                 <img src={event.eventImage ? event.eventImage : require("assets/img/image.png")} alt="postagem" className="h-16 w-16 md:h-24 md:w-24 rounded-md" />
                 <div className="flex flex-col">
                     <h3 title={event.eventTitle} className="inline-flex font-semibold text-gray-700 h-12 overflow-hidden">{event.eventTitle}</h3>

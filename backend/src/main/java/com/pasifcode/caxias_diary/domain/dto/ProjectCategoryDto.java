@@ -1,6 +1,7 @@
 package com.pasifcode.caxias_diary.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pasifcode.caxias_diary.domain.entity.ProjectCategory;
 
 import java.io.Serial;
@@ -44,14 +45,17 @@ public class ProjectCategoryDto implements Serializable {
         return projectId;
     }
 
+    @JsonProperty
     public String getProjectTitle() {
         return projectTitle;
     }
 
+    @JsonProperty
     public String getProjectDescription() {
         return projectDescription;
     }
 
+    @JsonProperty
     public String getProjectImage() {
         return projectImage;
     }

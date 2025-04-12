@@ -30,7 +30,6 @@ public class PostDto implements Serializable {
     public PostDto() {
     }
 
-
     public PostDto(Post entity) {
         postId = entity.getId();
         postTitle = entity.getTitle();

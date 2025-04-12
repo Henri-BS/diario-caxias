@@ -5,8 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { ProjectCard } from "components/cards/ProjectCard";
 import { Breadcrumb } from "flowbite-react";
 import { Category } from "resources/category";
-import { ProjectPage } from "resources/project";
-import { Pagination } from "components/shared/Pagination";
+import { Project } from "resources/project";
 import axios from "axios";
 import { baseUrl } from "utils/requests";
 
@@ -27,19 +26,15 @@ export function CategoryDetails({ params: categoryName }: Props) {
             });
     }, [categoryName]);
 
-    const [pageNumber, setPageNumber] = useState(0);
-    const handlePageChange = (newPageNumber: number) => {
-        setPageNumber(newPageNumber);
-    }
 
-    const [projectPage, setProjectPage] = useState<ProjectPage>({ content: [], page: { number: 0, totalElements: 0 } });
+    const [projects, setProjects] = useState<Project[]>();
     useEffect(() => {
-        axios.get(`${baseUrl}/project-category?categoryName=${categoryName}&page=${pageNumber}&size=9`)
+        axios.get(`${baseUrl}/project-category?categoryName=${categoryName}`)
             .then((response) => {
-                setProjectPage(response.data);
+                setProjects(response.data);
             });
 
-    }, [categoryName, pageNumber]);
+    }, [categoryName]);
 
 
     return (
@@ -67,14 +62,13 @@ export function CategoryDetails({ params: categoryName }: Props) {
                     <h5 className=" mb-2 text-4xl font-bold tracking-tight text-cyan-600 ">{category?.categoryName}</h5>
                     <p className="font-medium text-lg">{category?.categoryDescription}</p>
                     <div className="grid md:grid-cols-2 text-gray-800 mt-5">
-                        <p className="flex flex-row items-center text-lg gap-2"><FaIcons.FaCalendarCheck /> Projetos relacionados: <b>{projectPage.page.totalElements}</b></p>
+                        <p className="flex flex-row items-center text-lg gap-2"><FaIcons.FaCalendarCheck /> Projetos relacionados: <b>{projects?.length}</b></p>
                     </div>
                 </div>
 
                 <h2 className="flex flex-row gap-2 mt-5 text-2xl text-zinc-800 "><FaIcons.FaFolderClosed />Projetos Relacionados</h2>
-                <Pagination pagination={projectPage} onPageChange={handlePageChange} />
                 <div className="grid grid-cols-1 gap-y-10 gap-x-6 items-start p-8">
-                    {projectPage.content?.map(project => (
+                    {projects?.map(project => (
                         <div key={project?.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
                             <ProjectCard project={project} />
                         </div>

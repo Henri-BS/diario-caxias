@@ -28,7 +28,6 @@ public class EventPostServiceImpl implements EventPostService {
     @Autowired
     private UserRepository userRepository;
 
-
     @Override
     @Transactional(readOnly = true)
     public List<EventPostDto> search(Long eventId, Long projectId, Long postId) {

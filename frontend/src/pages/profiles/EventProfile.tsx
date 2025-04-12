@@ -6,6 +6,7 @@ import { CustomMarkdown } from "components/shared/Template";
 import { Breadcrumb, Button, Dropdown, Modal, Tabs } from "flowbite-react";
 import moment from "moment";
 import { EventEditForm, EventUserAddForm } from "pages/forms/EventForm";
+import { Login } from "pages/forms/UserForm";
 import { useState, useEffect } from "react";
 import * as FaIcons from "react-icons/fa6";
 import * as GoIcons from "react-icons/go";
@@ -25,14 +26,14 @@ export function EventProfile() {
     );
 
     function EventDetails({ params: eventId }: Props) {
+        const auth = useAuth();
+        const navigate = useNavigate();
         const [event, setEvent] = useState<Event>();
         const [posts, setPosts] = useState<Post[]>();
         const [users, setUsers] = useState<EventUser[]>();
-        const auth = useAuth();
         const [addUser, setAddUser] = useState(false);
         const [edit, setEdit] = useState(false);
         const [deleteModal, setDeleteModal] = useState(false);
-        const navigate = useNavigate();
 
         useEffect(() => {
             axios.get(`${baseUrl}/events/${eventId}`)
@@ -62,8 +63,8 @@ export function EventProfile() {
 
         return (
             <div>
-                <div className="flex flex-col md:flex-row justify-between md:items-center py-4 text-lg font-semibold text-gray-700">
-                    <Breadcrumb aria-label="breadcrumb" className="py-2 md:py-0">
+                <div className="flex flex-col md:flex-row justify-between md:items-center text-lg font-semibold text-gray-700">
+                    <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
                         <Breadcrumb.Item icon={FaIcons.FaHouse}>
                             <Link to="/">
                                 Início
@@ -145,8 +146,48 @@ export function EventProfile() {
                                 <CustomMarkdown item={event?.eventDescription} />
                             </div>
                             <Tabs className="mt-4 text-zinc-500 p-1 rounded-md overflow-scroll" variant="fullWidth">
-                                <Tabs.Item active title="Postagens" icon={FaIcons.FaNewspaper}>
-                                    <div className=" grid grid-cols-1 gap-y-6 gap-x-4 items-start p-8 divide-y divide-gray-300">
+
+                                <Tabs.Item title="Participantes" icon={FaIcons.FaUsersRectangle}>
+
+                                    <Button onClick={() => setAddUser(true)} className="text-md font-medium flex space-x-2 items-center" color="gray" gradientDuoTone="purpleToBlue">
+                                        <FaIcons.FaUser className="mr-2 h-5 w-5" /> Participar
+                                    </Button>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start gap-4 mt-5">
+                                        {users?.map((user) => (
+                                            <div key={user?.userId} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                                                <UserCard user={{
+                                                    id: user.userId,
+                                                    username: user.username,
+                                                    userImage: user.userImage,
+                                                }} />
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <Modal show={addUser} size="3xl" onClose={() => setAddUser(false)} popup>
+                                        <Modal.Header />
+                                        <Modal.Body>
+                                            {!auth.isSessionValid() ? <Login /> :
+                                                <div className="text-center">
+                                                    <FaIcons.FaUserGroup className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200 border-4 p-2  rounded-full" />
+                                                    <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                                                        Deseja participar deste evento?
+                                                    </h3>
+                                                    <div className="flex justify-center items-center gap-x-4">
+                                                        <EventUserAddForm params={eventId} />
+                                                        <Button color="gray" onClick={() => setAddUser(false)}>
+                                                            Cancelar
+                                                        </Button>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </Modal.Body>
+                                    </Modal>
+                                </Tabs.Item>
+
+                                <Tabs.Item title="Postagens" icon={FaIcons.FaNewspaper}>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start gap-4">
                                         {posts?.map((post) => (
                                             <>
                                                 <PostSmCard post={post} />
@@ -155,37 +196,8 @@ export function EventProfile() {
                                     </div>
                                 </Tabs.Item>
 
-                                <Tabs.Item title="Participantes" icon={FaIcons.FaUsersRectangle}>
-
-                                    <Button onClick={() => setAddUser(true)} className="text-md font-medium flex space-x-2 items-center" color="gray" gradientDuoTone="purpleToBlue">
-                                        <FaIcons.FaUser className="mr-2 h-5 w-5" /> Participar
-                                    </Button>
-
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
-                                        {users?.map((user) => (
-                                            <div key={user?.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
-                                                <UserCard user={user} />
-                                            </div>
-                                        ))}
-                                    </div>
-                                    
-                                    <Modal show={addUser} size="3xl" onClose={() => setAddUser(false)} popup>
-                                        <Modal.Header />
-                                        <Modal.Body>
-                                            <div className="text-center">
-                                                <FaIcons.FaUserGroup className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200 border-4 p-2  rounded-full" />
-                                                <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                                    Deseja participar deste evento?
-                                                </h3>
-                                                <div className="flex justify-center items-center gap-x-4">
-                                                    <EventUserAddForm params={eventId} />
-                                                    <Button color="gray" onClick={() => setDeleteModal(false)}>
-                                                        Cancelar
-                                                    </Button>
-                                                </div>
-                                            </div>
-                                        </Modal.Body>
-                                    </Modal>
+                                <Tabs.Item title="Galeria" icon={FaIcons.FaImage}>
+                                    <p className="mb-1 py-10 text-center block font-semibold text-3xl leading-6 text-slate-600">Em Desenvolvimento</p>
                                 </Tabs.Item>
 
                                 <Tabs.Item title="Programação" icon={FaIcons.FaClipboardList}>

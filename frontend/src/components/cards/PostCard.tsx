@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { PostProps } from "resources/post";
 
@@ -16,7 +15,7 @@ export const PostCard = ({ post }: PostProps) => {
 export const PostSmCard = ({ post }: PostProps) => {
     return (
         <Link to={`/postagens/${post.postId}`}>
-                <div className="flex items-center space-x-4 rtl:space-x-reverse py-1 sm:py-2 hover:bg-slate-200 transition duration-500 hover:shadow-lg rounded-md">
+                <div className="flex items-center space-x-4 rtl:space-x-reverse p-2 hover:bg-slate-200 transition duration-500 hover:shadow-lg rounded-md">
                     <img src={post.postImage ? post.postImage : require("assets/img/image.png")} alt="postagem" className="h-16 w-20 rounded-md" />
                     <div title={post.postTitle} className="inline-flex font-semibold text-gray-900 h-12 overflow-hidden">
                         {post.postTitle}

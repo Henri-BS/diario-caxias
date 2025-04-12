@@ -421,7 +421,6 @@ export function EventUserAddForm({ params: eventId }: Props) {
 
     return (
         <>
-            {!auth.isSessionValid() ? <Login /> :
                 <div className="flex flex-col items-center justify-center">
                     <form onSubmit={onSubmit}>
                         <div>
@@ -439,7 +438,6 @@ export function EventUserAddForm({ params: eventId }: Props) {
                         <Button type="submit" gradientDuoTone="purpleToBlue" >Sim</Button>
                     </form>
                 </div>
-            }
         </>
     );
 }

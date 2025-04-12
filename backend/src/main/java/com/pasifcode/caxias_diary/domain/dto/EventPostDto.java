@@ -1,5 +1,6 @@
 package com.pasifcode.caxias_diary.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pasifcode.caxias_diary.domain.entity.EventPost;
 
 import java.io.Serial;
@@ -20,6 +21,7 @@ public class EventPostDto implements Serializable {
     private Long   projectId;
     private String projectTitle;
     private Long   userId;
+
 
     public EventPostDto() {
     }
@@ -45,14 +47,17 @@ public class EventPostDto implements Serializable {
         return postId;
     }
 
+    @JsonProperty
     public String getPostTitle() {
         return postTitle;
     }
 
+    @JsonProperty
     public String getPostImage() {
         return postImage;
     }
 
+    @JsonProperty
     public Long getEventId() {
         return eventId;
     }
@@ -61,14 +66,17 @@ public class EventPostDto implements Serializable {
         return eventTitle;
     }
 
+    @JsonProperty
     public String getEventImage() {
         return eventImage;
     }
 
+    @JsonProperty
     public Long getProjectId() {
         return projectId;
     }
 
+    @JsonProperty
     public String getProjectTitle() {
         return projectTitle;
     }

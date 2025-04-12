@@ -86,8 +86,8 @@ export function ProjectProfile() {
 
         return (
             <div>
-                <div className="flex flex-col md:flex-row justify-between md:items-center py-4 text-lg font-semibold text-gray-700">
-                    <Breadcrumb aria-label="breadcrumb" className="py-2 md:py-0">
+                <div className="flex flex-col md:flex-row justify-between md:items-center text-lg font-semibold text-gray-700">
+                    <Breadcrumb aria-label="breadcrumb" className="mb-3 py-2">
                         <Breadcrumb.Item icon={FaIcons.FaHouse}>
                             <Link to="/">
                                 Início
@@ -235,7 +235,7 @@ export function ProjectProfile() {
 
                                 <Tabs.Item active title="Postagens" icon={FaIcons.FaNewspaper}>
                                     {postsByProject?.length === null ? "Nenhuma postagem encontrada!" :
-                                        <div className="mt-10 grid grid-cols-1 divide-y gap-x-8 ">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start gap-4">
                                             {postsByProject?.map(post => (
                                                 <PostSmCard post={post} />
                                             ))}

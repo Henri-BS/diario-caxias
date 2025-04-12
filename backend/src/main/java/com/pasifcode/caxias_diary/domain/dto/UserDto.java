@@ -2,6 +2,7 @@ package com.pasifcode.caxias_diary.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pasifcode.caxias_diary.domain.entity.User;
 
 import java.io.Serial;
@@ -72,6 +73,7 @@ public class UserDto implements Serializable {
         return userLocation;
     }
 
+    @JsonProperty
     public LocalDateTime getCreatedDate() {
         return createdDate;
     }

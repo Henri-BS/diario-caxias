@@ -1,11 +1,11 @@
 package com.pasifcode.caxias_diary.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pasifcode.caxias_diary.domain.entity.EventUser;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDate;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EventUserDto implements Serializable {
@@ -18,10 +18,9 @@ public class EventUserDto implements Serializable {
     private String userImage;
     private Long eventId;
     private String eventTitle;
-    private LocalDate eventDate;
-    private String eventStatus;
     private String eventImage;
-    private String eventProjectTitle;
+    private Long projectId;
+    private String projectTitle;
 
     public EventUserDto(EventUser entity) {
         id = entity.getId();
@@ -30,10 +29,9 @@ public class EventUserDto implements Serializable {
         userImage = entity.getUser().getImage();
         eventId = entity.getEvent().getId();
         eventTitle = entity.getEvent().getTitle();
-        eventDate = entity.getEvent().getEventDate();
-        eventStatus = entity.getEvent().getEventStatus().getDescription();
         eventImage = entity.getEvent().getImage();
-        eventProjectTitle = entity.getEvent().getProject().getTitle();
+        projectId = entity.getEvent().getProject().getId();
+        projectTitle = entity.getEvent().getProject().getTitle();
     }
 
     public EventUserDto() {
@@ -51,6 +49,7 @@ public class EventUserDto implements Serializable {
         return username;
     }
 
+    @JsonProperty
     public String getUserImage() {
         return userImage;
     }
@@ -59,24 +58,24 @@ public class EventUserDto implements Serializable {
         return eventId;
     }
 
+    @JsonProperty
     public String getEventTitle() {
         return eventTitle;
     }
 
-    public LocalDate getEventDate() {
-        return eventDate;
-    }
-
-    public String getEventStatus() {
-        return eventStatus;
-    }
-
+    @JsonProperty
     public String getEventImage() {
         return eventImage;
     }
 
-    public String getEventProjectTitle() {
-        return eventProjectTitle;
+    @JsonProperty
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    @JsonProperty
+    public String getProjectTitle() {
+        return projectTitle;
     }
 }
 
