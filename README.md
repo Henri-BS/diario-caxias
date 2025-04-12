@@ -33,7 +33,7 @@ A autenticação de usuário é um processo fundamental garantir a segurança do
 - **Cadastro**: Para poser publicar novos conteúdos na plataforma, é necessário fazer um cadastro de um novo usuário e estar logado. 
 Para cadastrar o usuário é necessário inserir o nome de usuário, email, senha e a confirmação da senha. 
 
-![Cadastro](/register.jpeg)
+![Cadastro](/images/register.jpeg)
 
 - **Login:** Para logar o usuário registrado será necessário o email e a senha
 
